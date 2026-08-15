@@ -92,12 +92,17 @@ php examples/models.php
 ## Generated, not written
 
 `src/` is projected from one document at one commit, which `.spec-lock` names by
-sha256. Regenerate against a checkout of `hanzoai/openapi`:
+sha256. Regenerate it with the driver in `hanzoai/openapi` — `OPENAPI` is a
+checkout of that repo, `SPEC` the document (needs java and uv):
 
 ```bash
-OPENAPI=../openapi ./scripts/generate.sh          # rewrite src/
-OPENAPI=../openapi ./scripts/generate.sh --check  # fail if src/ drifted
+OPENAPI=/path/to/openapi SPEC=/path/to/cloud/openapi.yaml ./scripts/generate.sh
+OPENAPI=/path/to/openapi SPEC=/path/to/cloud/openapi.yaml ./scripts/generate.sh --check
 ```
+
+Without `SPEC` the driver fetches the ref `.spec-lock` names and refuses bytes
+that hash to anything else, which needs a credential for the forge; CI's client
+lane passes both by value.
 
 An edit to `src/` is undone by the next release, so it belongs in the `php` row
 of `hanzoai/openapi`'s `sdks.yaml` instead — that is where this client's
