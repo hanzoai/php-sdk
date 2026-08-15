@@ -1,8 +1,9 @@
 # hanzoai/hanzoai
 
-The PHP client for the Hanzo API: the whole `/v1` surface — 2479 operations over
-1814 paths — as 192 API classes and 2461 models, generated from the OpenAPI
-document `hanzoai/cloud` emits from its own routers.
+The PHP client for the Hanzo API: every operation the document declares — 2479
+over 1814 paths, `/v1` and the 48 routes outside it — as 192 API classes and
+2461 models, generated from the OpenAPI document `hanzoai/cloud` emits from its
+own routers.
 
 ## Install
 
@@ -11,7 +12,7 @@ the repository instead:
 
 ```json
 {
-    "repositories": [{ "type": "vcs", "url": "https://github.com/hanzo-php/sdk" }],
+    "repositories": [{ "type": "vcs", "url": "https://github.com/hanzoai/php-sdk" }],
     "require": { "hanzoai/hanzoai": "dev-main" }
 }
 ```
@@ -19,7 +20,7 @@ the repository instead:
 Or build it in place:
 
 ```bash
-git clone https://github.com/hanzo-php/sdk.git hanzo-php-sdk
+git clone https://github.com/hanzoai/php-sdk.git hanzo-php-sdk
 cd hanzo-php-sdk
 composer install
 ```
@@ -41,11 +42,13 @@ $config = (new Configuration())
 
 $keys = (new KeysApi(null, $config))->getKeys();
 
-printf("%d keys on this account\n", count($keys->getKeys()));
+printf("%d keys on this account\n", count($keys->getKeys() ?? []));
 ```
 
-Every API class takes `(?ClientInterface $client, ?Configuration $config)`, so
-passing `null` for the first gives you a default Guzzle client.
+Every API class takes `(?ClientInterface $client, ?Configuration $config,
+?HeaderSelector $selector, int $hostIndex)`, all four defaulted, so passing
+`null` for the first gives you a default Guzzle client. `ClientInterface` is
+`GuzzleHttp\ClientInterface`.
 
 ## Auth
 
@@ -66,7 +69,8 @@ Four operations carry `security: []` and answer without a credential:
 
 ## Untyped responses
 
-834 of the 2501 operation methods return `void` — the routes the document states
+There are 2502 operation methods for 2479 operations: 23 of them carry two tags,
+so they land in two classes. 834 return `void` — the routes the document states
 the address of and not the shape. Their `<operation>Request()` builder is public,
 so the PSR-7 request the client would have sent is one call away and the body is
 yours to read:

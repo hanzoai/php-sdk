@@ -12,8 +12,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/hanzo-php/sdk/issues",
-        "source": "https://github.com/hanzo-php/sdk"
+        "issues": "https://github.com/hanzoai/php-sdk/issues",
+        "source": "https://github.com/hanzoai/php-sdk"
     },
     "require": {
         "php": "^8.1",
