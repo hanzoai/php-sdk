@@ -1,0 +1,39 @@
+# Hanzo CI — the ONE way this repo is gated, read by hanzoai/ci.
+#
+# No `images:` and no `deploy:`: this is a client library. A consumer installs it
+# from Packagist at a tag, so what CI owes is a gate, not an artifact.
+
+test:
+  - name: build
+    # `php -l` is the compiler this language has: it parses every file and
+    # refuses a redeclaration, which is exactly how the four name collisions in
+    # the document announce themselves. `--strict-psr` is the other half — it
+    # fails when a class does not sit in the file PSR-4 says it does, which no
+    # parse can see and which would only surface as "class not found" in a
+    # consumer's application.
+    run: |
+      set -e
+      composer install --no-interaction --no-progress
+      composer validate --strict --no-check-lock
+      find src examples -name '*.php' -print0 | xargs -0 -n1 -P4 php -l > /dev/null
+      composer dump-autoload --optimize --strict-psr
+
+  - name: examples
+    # The one flow that needs no credential, run for real against the API. It
+    # proves the whole path a consumer takes — autoload, Configuration, the
+    # request the client builds, a 200 back — which linting cannot.
+    run: php examples/models.php
+
+# THE CLIENT LANE — this repo is a PROJECTION of one API document at one version.
+#
+# hanzoai/cloud's release sends `repository_dispatch: spec-update` carrying
+# (version, sha, spec_sha256); hanzoai/ci fetches openapi.yaml AT THAT SHA,
+# REFUSES if the bytes hash to anything else, runs `generate:`, writes
+# `.spec-lock` beside the code, and — only after `test:` above has passed over
+# exactly those bytes — commits.
+#
+# NO version: — Packagist reads a release from a git TAG, so this client has no
+# version field for the lane to bump. Its projection still lands and is still
+# gated; the tag waits for a human.
+client:
+  generate: ./scripts/generate.sh

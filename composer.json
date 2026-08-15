@@ -1,0 +1,31 @@
+{
+    "name": "hanzoai/hanzoai",
+    "description": "The official PHP library for the Hanzo API",
+    "keywords": ["hanzo", "ai", "cloud", "api", "sdk"],
+    "homepage": "https://hanzo.ai",
+    "license": ["Apache-2.0", "MIT"],
+    "authors": [
+        {
+            "name": "Hanzo",
+            "email": "dev@hanzo.ai",
+            "homepage": "https://hanzo.ai"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/hanzo-php/sdk/issues",
+        "source": "https://github.com/hanzo-php/sdk"
+    },
+    "require": {
+        "php": "^8.1",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^7.3",
+        "guzzlehttp/psr7": "^1.7 || ^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hanzo\\Cloud\\": "src/"
+        }
+    }
+}
