@@ -20,8 +20,8 @@ the repository instead:
 Or build it in place:
 
 ```bash
-git clone https://github.com/hanzoai/php-sdk.git hanzo-php-sdk
-cd hanzo-php-sdk
+git clone https://github.com/hanzoai/php-sdk.git
+cd php-sdk
 composer install
 ```
 
