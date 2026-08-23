@@ -1,7 +1,7 @@
 # hanzoai/hanzoai
 
 The PHP client for the Hanzo API: every operation the document declares,
-generated from the OpenAPI document `hanzoai/cloud` emits from its own routers.
+generated from the API's own OpenAPI document.
 
 ## Install
 
@@ -51,26 +51,25 @@ Every API class takes `(?ClientInterface $client, ?Configuration $config,
 ## Auth
 
 The document declares one security scheme — `bearer` — and applies it to every
-operation that does not opt out, so the credential goes in exactly one place:
+operation that does not opt out, so the credential goes in one place:
 
 ```php
 $config->setAccessToken($token);
 ```
 
 Every API class but `DefaultApi` reads that field and writes
-`Authorization: Bearer <token>` itself. The token is an IAM access token or an API key — `pk-`
-publishable, `sk-` secret. The one class that never sends it is `CommandsApi`,
-whose single operation is open.
+`Authorization: Bearer <token>`. The token is an IAM access token or an API key —
+`pk-` publishable, `sk-` secret. The one class that never sends it is
+`CommandsApi`, whose single operation is open.
 
-Four operations carry `security: []` and answer without a credential:
-`get_models`, `get_models_providers`, `get_commands`, `get_openapi.json`.
+Four operations answer without a credential: `get_models`,
+`get_models_providers`, `get_commands`, `get_openapi.json`.
 
 ## Untyped responses
 
-A few operations carry two tags,
-so they land in two classes. 834 return `void` — the routes the document states
-the address of and not the shape. Their `<operation>Request()` builder is public,
-so the PSR-7 request the client would have sent is one call away and the body is
+Some operations state the address of a route and not the shape of its reply, so
+their method returns `void`. Their `<operation>Request()` builder is public, so
+the PSR-7 request the client would have sent is one call away and the body is
 yours to read:
 
 ```php
@@ -106,9 +105,9 @@ Without `SPEC` the driver fetches the ref `.spec-lock` names and refuses bytes
 that hash to anything else, which needs a credential for the forge; CI's client
 lane passes both by value.
 
-An edit to `src/` is undone by the next release, so it belongs in the `php` row
-of `hanzoai/openapi`'s `sdks.yaml` instead — that is where this client's
-namespace, layout and four name corrections are declared.
+To change a name in the output, change the `php` row of `hanzoai/openapi`'s
+`sdks.yaml` — that is where this client's namespace, layout and name corrections
+are declared.
 
 ## License
 
