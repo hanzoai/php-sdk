@@ -1,7 +1,6 @@
 # hanzoai/hanzoai
 
-The PHP client for the Hanzo API: every operation the document declares — 2479
-over 1814 paths, `/v1` and the 48 routes outside it — as 192 API classes and
+The PHP client for the Hanzo API: every operation the document declares — <!--counts-->2,259 operations over 1,620 paths, grouped into 117 services<!--/counts--> — `/v1` and the 48 routes outside it — as 192 API classes and
 2461 models, generated from the OpenAPI document `hanzoai/cloud` emits from its
 own routers.
 
@@ -69,7 +68,7 @@ Four operations carry `security: []` and answer without a credential:
 
 ## Untyped responses
 
-There are 2502 operation methods for 2479 operations: 23 of them carry two tags,
+There are 2502 operation methods for <!--counts-->2,259 operations over 1,620 paths, grouped into 117 services<!--/counts-->: 23 of them carry two tags,
 so they land in two classes. 834 return `void` — the routes the document states
 the address of and not the shape. Their `<operation>Request()` builder is public,
 so the PSR-7 request the client would have sent is one call away and the body is
