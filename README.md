@@ -1,8 +1,7 @@
 # hanzoai/hanzoai
 
-The PHP client for the Hanzo API: every operation the document declares — <!--counts-->2,259 operations over 1,620 paths, grouped into 117 services<!--/counts--> — `/v1` and the 48 routes outside it — as 192 API classes and
-2461 models, generated from the OpenAPI document `hanzoai/cloud` emits from its
-own routers.
+The PHP client for the Hanzo API: every operation the document declares,
+generated from the OpenAPI document `hanzoai/cloud` emits from its own routers.
 
 ## Install
 
@@ -58,8 +57,8 @@ operation that does not opt out, so the credential goes in exactly one place:
 $config->setAccessToken($token);
 ```
 
-191 of the 192 API classes read that field and write `Authorization: Bearer
-<token>` themselves. The token is an IAM access token or an API key — `pk-`
+Every API class but `DefaultApi` reads that field and writes
+`Authorization: Bearer <token>` itself. The token is an IAM access token or an API key — `pk-`
 publishable, `sk-` secret. The one class that never sends it is `CommandsApi`,
 whose single operation is open.
 
@@ -68,7 +67,7 @@ Four operations carry `security: []` and answer without a credential:
 
 ## Untyped responses
 
-There are 2502 operation methods for <!--counts-->2,259 operations over 1,620 paths, grouped into 117 services<!--/counts-->: 23 of them carry two tags,
+A few operations carry two tags,
 so they land in two classes. 834 return `void` — the routes the document states
 the address of and not the shape. Their `<operation>Request()` builder is public,
 so the PSR-7 request the client would have sent is one call away and the body is
