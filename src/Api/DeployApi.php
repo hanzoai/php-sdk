@@ -2251,29 +2251,30 @@ class DeployApi
     /**
      * Operation getDeployHealth
      *
-     * Whether this control plane can actually reach the cluster it deploys to
+     * Health reports whether this deployment can observe the delivery plane.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\DeployHealth|\Hanzo\Cloud\Model\DeployHealth
      */
     public function getDeployHealth(string $contentType = self::contentTypes['getDeployHealth'][0])
     {
-        $this->getDeployHealthWithHttpInfo($contentType);
+        list($response) = $this->getDeployHealthWithHttpInfo($contentType);
+        return $response;
     }
 
     /**
      * Operation getDeployHealthWithHttpInfo
      *
-     * Whether this control plane can actually reach the cluster it deploys to
+     * Health reports whether this deployment can observe the delivery plane.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeployHealth|\Hanzo\Cloud\Model\DeployHealth, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDeployHealthWithHttpInfo(string $contentType = self::contentTypes['getDeployHealth'][0])
     {
@@ -2302,9 +2303,59 @@ class DeployApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\DeployHealth',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\DeployHealth',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\DeployHealth',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\DeployHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\DeployHealth',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -2315,7 +2366,7 @@ class DeployApi
     /**
      * Operation getDeployHealthAsync
      *
-     * Whether this control plane can actually reach the cluster it deploys to
+     * Health reports whether this deployment can observe the delivery plane.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployHealth'] to see the possible values for this operation
      *
@@ -2335,7 +2386,7 @@ class DeployApi
     /**
      * Operation getDeployHealthAsyncWithHttpInfo
      *
-     * Whether this control plane can actually reach the cluster it deploys to
+     * Health reports whether this deployment can observe the delivery plane.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDeployHealth'] to see the possible values for this operation
      *
@@ -2344,14 +2395,27 @@ class DeployApi
      */
     public function getDeployHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getDeployHealth'][0])
     {
-        $returnType = '';
+        $returnType = '\Hanzo\Cloud\Model\DeployHealth';
         $request = $this->getDeployHealthRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -2394,7 +2458,7 @@ class DeployApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );

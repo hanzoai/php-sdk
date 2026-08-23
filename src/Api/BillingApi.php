@@ -823,9 +823,9 @@ class BillingApi
     /**
      * Operation deleteBillingAlertsById
      *
-     * Remove one spend cap
+     * Removes one of the caller&#39;s spend caps and answers 204.
      *
-     * @param  string $id id (required)
+     * @param  string $id ID is the cap to remove, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingAlertsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -840,9 +840,9 @@ class BillingApi
     /**
      * Operation deleteBillingAlertsByIdWithHttpInfo
      *
-     * Remove one spend cap
+     * Removes one of the caller&#39;s spend caps and answers 204.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the cap to remove, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingAlertsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -889,9 +889,9 @@ class BillingApi
     /**
      * Operation deleteBillingAlertsByIdAsync
      *
-     * Remove one spend cap
+     * Removes one of the caller&#39;s spend caps and answers 204.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the cap to remove, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingAlertsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -910,9 +910,9 @@ class BillingApi
     /**
      * Operation deleteBillingAlertsByIdAsyncWithHttpInfo
      *
-     * Remove one spend cap
+     * Removes one of the caller&#39;s spend caps and answers 204.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the cap to remove, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingAlertsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -949,7 +949,7 @@ class BillingApi
     /**
      * Create request for operation 'deleteBillingAlertsById'
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the cap to remove, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingAlertsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1045,31 +1045,32 @@ class BillingApi
     /**
      * Operation deleteBillingMethodsById
      *
-     * Remove one saved card or account
+     * Removes one card or account the caller has saved.
      *
-     * @param  string $id id (required)
+     * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingMethodsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\Detachment
      */
     public function deleteBillingMethodsById($id, string $contentType = self::contentTypes['deleteBillingMethodsById'][0])
     {
-        $this->deleteBillingMethodsByIdWithHttpInfo($id, $contentType);
+        list($response) = $this->deleteBillingMethodsByIdWithHttpInfo($id, $contentType);
+        return $response;
     }
 
     /**
      * Operation deleteBillingMethodsByIdWithHttpInfo
      *
-     * Remove one saved card or account
+     * Removes one card or account the caller has saved.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingMethodsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Detachment, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteBillingMethodsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteBillingMethodsById'][0])
     {
@@ -1098,9 +1099,45 @@ class BillingApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Detachment',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Detachment',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Detachment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1111,9 +1148,9 @@ class BillingApi
     /**
      * Operation deleteBillingMethodsByIdAsync
      *
-     * Remove one saved card or account
+     * Removes one card or account the caller has saved.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingMethodsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1132,9 +1169,9 @@ class BillingApi
     /**
      * Operation deleteBillingMethodsByIdAsyncWithHttpInfo
      *
-     * Remove one saved card or account
+     * Removes one card or account the caller has saved.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingMethodsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1142,14 +1179,27 @@ class BillingApi
      */
     public function deleteBillingMethodsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteBillingMethodsById'][0])
     {
-        $returnType = '';
+        $returnType = '\Hanzo\Cloud\Model\Detachment';
         $request = $this->deleteBillingMethodsByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -1171,7 +1221,7 @@ class BillingApi
     /**
      * Create request for operation 'deleteBillingMethodsById'
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingMethodsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1208,7 +1258,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
@@ -1267,31 +1317,32 @@ class BillingApi
     /**
      * Operation deleteBillingPortalMethodsById
      *
-     * Remove one saved card or account
+     * DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
      *
-     * @param  string $id id (required)
+     * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingPortalMethodsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\Detachment
      */
     public function deleteBillingPortalMethodsById($id, string $contentType = self::contentTypes['deleteBillingPortalMethodsById'][0])
     {
-        $this->deleteBillingPortalMethodsByIdWithHttpInfo($id, $contentType);
+        list($response) = $this->deleteBillingPortalMethodsByIdWithHttpInfo($id, $contentType);
+        return $response;
     }
 
     /**
      * Operation deleteBillingPortalMethodsByIdWithHttpInfo
      *
-     * Remove one saved card or account
+     * DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingPortalMethodsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Detachment, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteBillingPortalMethodsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteBillingPortalMethodsById'][0])
     {
@@ -1320,9 +1371,45 @@ class BillingApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Detachment',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Detachment',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Detachment',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1333,9 +1420,9 @@ class BillingApi
     /**
      * Operation deleteBillingPortalMethodsByIdAsync
      *
-     * Remove one saved card or account
+     * DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingPortalMethodsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1354,9 +1441,9 @@ class BillingApi
     /**
      * Operation deleteBillingPortalMethodsByIdAsyncWithHttpInfo
      *
-     * Remove one saved card or account
+     * DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingPortalMethodsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1364,14 +1451,27 @@ class BillingApi
      */
     public function deleteBillingPortalMethodsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteBillingPortalMethodsById'][0])
     {
-        $returnType = '';
+        $returnType = '\Hanzo\Cloud\Model\Detachment';
         $request = $this->deleteBillingPortalMethodsByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -1393,7 +1493,7 @@ class BillingApi
     /**
      * Create request for operation 'deleteBillingPortalMethodsById'
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the saved method to detach, from the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBillingPortalMethodsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1430,7 +1530,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
@@ -9721,29 +9821,30 @@ class BillingApi
     /**
      * Operation postBillingRechargeRunAll
      *
-     * Recharge every org that has fallen below its threshold
+     * Sweeps every org&#39;s auto-recharge and answers what it did.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingRechargeRunAll'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\Recharge
      */
     public function postBillingRechargeRunAll(string $contentType = self::contentTypes['postBillingRechargeRunAll'][0])
     {
-        $this->postBillingRechargeRunAllWithHttpInfo($contentType);
+        list($response) = $this->postBillingRechargeRunAllWithHttpInfo($contentType);
+        return $response;
     }
 
     /**
      * Operation postBillingRechargeRunAllWithHttpInfo
      *
-     * Recharge every org that has fallen below its threshold
+     * Sweeps every org&#39;s auto-recharge and answers what it did.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingRechargeRunAll'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Recharge, HTTP status code, HTTP response headers (array of strings)
      */
     public function postBillingRechargeRunAllWithHttpInfo(string $contentType = self::contentTypes['postBillingRechargeRunAll'][0])
     {
@@ -9772,9 +9873,45 @@ class BillingApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Recharge',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Recharge',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Recharge',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -9785,7 +9922,7 @@ class BillingApi
     /**
      * Operation postBillingRechargeRunAllAsync
      *
-     * Recharge every org that has fallen below its threshold
+     * Sweeps every org&#39;s auto-recharge and answers what it did.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingRechargeRunAll'] to see the possible values for this operation
      *
@@ -9805,7 +9942,7 @@ class BillingApi
     /**
      * Operation postBillingRechargeRunAllAsyncWithHttpInfo
      *
-     * Recharge every org that has fallen below its threshold
+     * Sweeps every org&#39;s auto-recharge and answers what it did.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingRechargeRunAll'] to see the possible values for this operation
      *
@@ -9814,14 +9951,27 @@ class BillingApi
      */
     public function postBillingRechargeRunAllAsyncWithHttpInfo(string $contentType = self::contentTypes['postBillingRechargeRunAll'][0])
     {
-        $returnType = '';
+        $returnType = '\Hanzo\Cloud\Model\Recharge';
         $request = $this->postBillingRechargeRunAllRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -9864,7 +10014,7 @@ class BillingApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
@@ -10125,33 +10275,38 @@ class BillingApi
     /**
      * Operation postBillingTopup
      *
-     * Add funds with a card already on file
+     * Charges a card the caller already saved and credits the balance.
      *
+     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in topup_in (required)
+     * @param  string|null $x_idempotency_key x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\Charged
      */
-    public function postBillingTopup(string $contentType = self::contentTypes['postBillingTopup'][0])
+    public function postBillingTopup($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
     {
-        $this->postBillingTopupWithHttpInfo($contentType);
+        list($response) = $this->postBillingTopupWithHttpInfo($topup_in, $x_idempotency_key, $contentType);
+        return $response;
     }
 
     /**
      * Operation postBillingTopupWithHttpInfo
      *
-     * Add funds with a card already on file
+     * Charges a card the caller already saved and credits the balance.
      *
+     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Charged, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBillingTopupWithHttpInfo(string $contentType = self::contentTypes['postBillingTopup'][0])
+    public function postBillingTopupWithHttpInfo($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
     {
-        $request = $this->postBillingTopupRequest($contentType);
+        $request = $this->postBillingTopupRequest($topup_in, $x_idempotency_key, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10176,9 +10331,45 @@ class BillingApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Charged',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Charged',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Charged',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -10189,16 +10380,18 @@ class BillingApi
     /**
      * Operation postBillingTopupAsync
      *
-     * Add funds with a card already on file
+     * Charges a card the caller already saved and credits the balance.
      *
+     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingTopupAsync(string $contentType = self::contentTypes['postBillingTopup'][0])
+    public function postBillingTopupAsync($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
     {
-        return $this->postBillingTopupAsyncWithHttpInfo($contentType)
+        return $this->postBillingTopupAsyncWithHttpInfo($topup_in, $x_idempotency_key, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -10209,23 +10402,38 @@ class BillingApi
     /**
      * Operation postBillingTopupAsyncWithHttpInfo
      *
-     * Add funds with a card already on file
+     * Charges a card the caller already saved and credits the balance.
      *
+     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingTopupAsyncWithHttpInfo(string $contentType = self::contentTypes['postBillingTopup'][0])
+    public function postBillingTopupAsyncWithHttpInfo($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
     {
-        $returnType = '';
-        $request = $this->postBillingTopupRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\Charged';
+        $request = $this->postBillingTopupRequest($topup_in, $x_idempotency_key, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -10247,13 +10455,23 @@ class BillingApi
     /**
      * Create request for operation 'postBillingTopup'
      *
+     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopup'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBillingTopupRequest(string $contentType = self::contentTypes['postBillingTopup'][0])
+    public function postBillingTopupRequest($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopup'][0])
     {
+
+        // verify the required parameter 'topup_in' is set
+        if ($topup_in === null || (is_array($topup_in) && count($topup_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $topup_in when calling postBillingTopup'
+            );
+        }
+
 
 
         $resourcePath = '/v1/billing/topup';
@@ -10264,17 +10482,28 @@ class BillingApi
         $multipart = false;
 
 
+        // header params
+        if ($x_idempotency_key !== null) {
+            $headerParams['X-Idempotency-Key'] = ObjectSerializer::toHeaderValue($x_idempotency_key);
+        }
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($topup_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($topup_in));
+            } else {
+                $httpBody = $topup_in;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -10327,33 +10556,38 @@ class BillingApi
     /**
      * Operation postBillingTopupToken
      *
-     * Add funds with a single-use card token
+     * Charges a single-use card token and credits the caller&#39;s balance.
      *
+     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in topup_in (required)
+     * @param  string|null $x_idempotency_key x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupToken'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\Charged
      */
-    public function postBillingTopupToken(string $contentType = self::contentTypes['postBillingTopupToken'][0])
+    public function postBillingTopupToken($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
     {
-        $this->postBillingTopupTokenWithHttpInfo($contentType);
+        list($response) = $this->postBillingTopupTokenWithHttpInfo($topup_in, $x_idempotency_key, $contentType);
+        return $response;
     }
 
     /**
      * Operation postBillingTopupTokenWithHttpInfo
      *
-     * Add funds with a single-use card token
+     * Charges a single-use card token and credits the caller&#39;s balance.
      *
+     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupToken'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Charged, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postBillingTopupTokenWithHttpInfo(string $contentType = self::contentTypes['postBillingTopupToken'][0])
+    public function postBillingTopupTokenWithHttpInfo($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
     {
-        $request = $this->postBillingTopupTokenRequest($contentType);
+        $request = $this->postBillingTopupTokenRequest($topup_in, $x_idempotency_key, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10378,9 +10612,45 @@ class BillingApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Charged',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Charged',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Charged',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -10391,16 +10661,18 @@ class BillingApi
     /**
      * Operation postBillingTopupTokenAsync
      *
-     * Add funds with a single-use card token
+     * Charges a single-use card token and credits the caller&#39;s balance.
      *
+     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingTopupTokenAsync(string $contentType = self::contentTypes['postBillingTopupToken'][0])
+    public function postBillingTopupTokenAsync($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
     {
-        return $this->postBillingTopupTokenAsyncWithHttpInfo($contentType)
+        return $this->postBillingTopupTokenAsyncWithHttpInfo($topup_in, $x_idempotency_key, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -10411,23 +10683,38 @@ class BillingApi
     /**
      * Operation postBillingTopupTokenAsyncWithHttpInfo
      *
-     * Add funds with a single-use card token
+     * Charges a single-use card token and credits the caller&#39;s balance.
      *
+     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postBillingTopupTokenAsyncWithHttpInfo(string $contentType = self::contentTypes['postBillingTopupToken'][0])
+    public function postBillingTopupTokenAsyncWithHttpInfo($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
     {
-        $returnType = '';
-        $request = $this->postBillingTopupTokenRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\Charged';
+        $request = $this->postBillingTopupTokenRequest($topup_in, $x_idempotency_key, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -10449,13 +10736,23 @@ class BillingApi
     /**
      * Create request for operation 'postBillingTopupToken'
      *
+     * @param  \Hanzo\Cloud\Model\TopupIn $topup_in (required)
+     * @param  string|null $x_idempotency_key (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postBillingTopupToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postBillingTopupTokenRequest(string $contentType = self::contentTypes['postBillingTopupToken'][0])
+    public function postBillingTopupTokenRequest($topup_in, $x_idempotency_key = null, string $contentType = self::contentTypes['postBillingTopupToken'][0])
     {
+
+        // verify the required parameter 'topup_in' is set
+        if ($topup_in === null || (is_array($topup_in) && count($topup_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $topup_in when calling postBillingTopupToken'
+            );
+        }
+
 
 
         $resourcePath = '/v1/billing/topup/token';
@@ -10466,17 +10763,28 @@ class BillingApi
         $multipart = false;
 
 
+        // header params
+        if ($x_idempotency_key !== null) {
+            $headerParams['X-Idempotency-Key'] = ObjectSerializer::toHeaderValue($x_idempotency_key);
+        }
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($topup_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($topup_in));
+            } else {
+                $httpBody = $topup_in;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {

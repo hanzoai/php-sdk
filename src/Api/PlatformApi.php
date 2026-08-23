@@ -740,33 +740,36 @@ class PlatformApi
     /**
      * Operation getPlatformApps
      *
-     * What this organization has declared, and what CD did with it
+     * Answers what this organisation has declared, joined with what the delivery plane has done about it.
      *
+     * @param  string|null $org Org names the organisation whose declarations to read, defaulting to the caller&#39;s own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformApps'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\DeclaredResp
      */
-    public function getPlatformApps(string $contentType = self::contentTypes['getPlatformApps'][0])
+    public function getPlatformApps($org = null, string $contentType = self::contentTypes['getPlatformApps'][0])
     {
-        $this->getPlatformAppsWithHttpInfo($contentType);
+        list($response) = $this->getPlatformAppsWithHttpInfo($org, $contentType);
+        return $response;
     }
 
     /**
      * Operation getPlatformAppsWithHttpInfo
      *
-     * What this organization has declared, and what CD did with it
+     * Answers what this organisation has declared, joined with what the delivery plane has done about it.
      *
+     * @param  string|null $org Org names the organisation whose declarations to read, defaulting to the caller&#39;s own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformApps'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DeclaredResp, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPlatformAppsWithHttpInfo(string $contentType = self::contentTypes['getPlatformApps'][0])
+    public function getPlatformAppsWithHttpInfo($org = null, string $contentType = self::contentTypes['getPlatformApps'][0])
     {
-        $request = $this->getPlatformAppsRequest($contentType);
+        $request = $this->getPlatformAppsRequest($org, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -791,9 +794,45 @@ class PlatformApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\DeclaredResp',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\DeclaredResp',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\DeclaredResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -804,16 +843,17 @@ class PlatformApi
     /**
      * Operation getPlatformAppsAsync
      *
-     * What this organization has declared, and what CD did with it
+     * Answers what this organisation has declared, joined with what the delivery plane has done about it.
      *
+     * @param  string|null $org Org names the organisation whose declarations to read, defaulting to the caller&#39;s own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformApps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPlatformAppsAsync(string $contentType = self::contentTypes['getPlatformApps'][0])
+    public function getPlatformAppsAsync($org = null, string $contentType = self::contentTypes['getPlatformApps'][0])
     {
-        return $this->getPlatformAppsAsyncWithHttpInfo($contentType)
+        return $this->getPlatformAppsAsyncWithHttpInfo($org, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -824,23 +864,37 @@ class PlatformApi
     /**
      * Operation getPlatformAppsAsyncWithHttpInfo
      *
-     * What this organization has declared, and what CD did with it
+     * Answers what this organisation has declared, joined with what the delivery plane has done about it.
      *
+     * @param  string|null $org Org names the organisation whose declarations to read, defaulting to the caller&#39;s own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformApps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPlatformAppsAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlatformApps'][0])
+    public function getPlatformAppsAsyncWithHttpInfo($org = null, string $contentType = self::contentTypes['getPlatformApps'][0])
     {
-        $returnType = '';
-        $request = $this->getPlatformAppsRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\DeclaredResp';
+        $request = $this->getPlatformAppsRequest($org, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -862,13 +916,15 @@ class PlatformApi
     /**
      * Create request for operation 'getPlatformApps'
      *
+     * @param  string|null $org Org names the organisation whose declarations to read, defaulting to the caller&#39;s own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformApps'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getPlatformAppsRequest(string $contentType = self::contentTypes['getPlatformApps'][0])
+    public function getPlatformAppsRequest($org = null, string $contentType = self::contentTypes['getPlatformApps'][0])
     {
+
 
 
         $resourcePath = '/v1/platform/apps';
@@ -878,12 +934,21 @@ class PlatformApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $org,
+            'org', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
@@ -942,35 +1007,38 @@ class PlatformApi
     /**
      * Operation getPlatformAppsByApp
      *
-     * One declaration
+     * Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
      *
-     * @param  string $app app (required)
+     * @param  string $app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. (required)
+     * @param  string|null $org Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformAppsByApp'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\Declaration
      */
-    public function getPlatformAppsByApp($app, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
+    public function getPlatformAppsByApp($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
     {
-        $this->getPlatformAppsByAppWithHttpInfo($app, $contentType);
+        list($response) = $this->getPlatformAppsByAppWithHttpInfo($app, $org, $contentType);
+        return $response;
     }
 
     /**
      * Operation getPlatformAppsByAppWithHttpInfo
      *
-     * One declaration
+     * Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
      *
-     * @param  string $app (required)
+     * @param  string $app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. (required)
+     * @param  string|null $org Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformAppsByApp'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Declaration, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPlatformAppsByAppWithHttpInfo($app, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
+    public function getPlatformAppsByAppWithHttpInfo($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
     {
-        $request = $this->getPlatformAppsByAppRequest($app, $contentType);
+        $request = $this->getPlatformAppsByAppRequest($app, $org, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -995,9 +1063,45 @@ class PlatformApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Declaration',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Declaration',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Declaration',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1008,17 +1112,18 @@ class PlatformApi
     /**
      * Operation getPlatformAppsByAppAsync
      *
-     * One declaration
+     * Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
      *
-     * @param  string $app (required)
+     * @param  string $app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. (required)
+     * @param  string|null $org Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformAppsByApp'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPlatformAppsByAppAsync($app, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
+    public function getPlatformAppsByAppAsync($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
     {
-        return $this->getPlatformAppsByAppAsyncWithHttpInfo($app, $contentType)
+        return $this->getPlatformAppsByAppAsyncWithHttpInfo($app, $org, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1029,24 +1134,38 @@ class PlatformApi
     /**
      * Operation getPlatformAppsByAppAsyncWithHttpInfo
      *
-     * One declaration
+     * Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
      *
-     * @param  string $app (required)
+     * @param  string $app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. (required)
+     * @param  string|null $org Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformAppsByApp'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPlatformAppsByAppAsyncWithHttpInfo($app, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
+    public function getPlatformAppsByAppAsyncWithHttpInfo($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
     {
-        $returnType = '';
-        $request = $this->getPlatformAppsByAppRequest($app, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\Declaration';
+        $request = $this->getPlatformAppsByAppRequest($app, $org, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -1068,13 +1187,14 @@ class PlatformApi
     /**
      * Create request for operation 'getPlatformAppsByApp'
      *
-     * @param  string $app (required)
+     * @param  string $app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. (required)
+     * @param  string|null $org Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformAppsByApp'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getPlatformAppsByAppRequest($app, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
+    public function getPlatformAppsByAppRequest($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByApp'][0])
     {
 
         // verify the required parameter 'app' is set
@@ -1085,6 +1205,7 @@ class PlatformApi
         }
 
 
+
         $resourcePath = '/v1/platform/apps/{app}';
         $formParams = [];
         $queryParams = [];
@@ -1092,6 +1213,15 @@ class PlatformApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $org,
+            'org', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
         // path params
@@ -1105,7 +1235,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
@@ -1164,35 +1294,38 @@ class PlatformApi
     /**
      * Operation getPlatformAppsByAppCd
      *
-     * One app&#39;s reconciliation
+     * Answers ONE app&#39;s reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
      *
-     * @param  string $app app (required)
+     * @param  string $app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. (required)
+     * @param  string|null $org Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformAppsByAppCd'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\CDApp
      */
-    public function getPlatformAppsByAppCd($app, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
+    public function getPlatformAppsByAppCd($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
     {
-        $this->getPlatformAppsByAppCdWithHttpInfo($app, $contentType);
+        list($response) = $this->getPlatformAppsByAppCdWithHttpInfo($app, $org, $contentType);
+        return $response;
     }
 
     /**
      * Operation getPlatformAppsByAppCdWithHttpInfo
      *
-     * One app&#39;s reconciliation
+     * Answers ONE app&#39;s reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
      *
-     * @param  string $app (required)
+     * @param  string $app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. (required)
+     * @param  string|null $org Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformAppsByAppCd'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CDApp, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getPlatformAppsByAppCdWithHttpInfo($app, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
+    public function getPlatformAppsByAppCdWithHttpInfo($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
     {
-        $request = $this->getPlatformAppsByAppCdRequest($app, $contentType);
+        $request = $this->getPlatformAppsByAppCdRequest($app, $org, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1217,9 +1350,45 @@ class PlatformApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\CDApp',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\CDApp',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\CDApp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1230,17 +1399,18 @@ class PlatformApi
     /**
      * Operation getPlatformAppsByAppCdAsync
      *
-     * One app&#39;s reconciliation
+     * Answers ONE app&#39;s reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
      *
-     * @param  string $app (required)
+     * @param  string $app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. (required)
+     * @param  string|null $org Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformAppsByAppCd'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPlatformAppsByAppCdAsync($app, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
+    public function getPlatformAppsByAppCdAsync($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
     {
-        return $this->getPlatformAppsByAppCdAsyncWithHttpInfo($app, $contentType)
+        return $this->getPlatformAppsByAppCdAsyncWithHttpInfo($app, $org, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1251,24 +1421,38 @@ class PlatformApi
     /**
      * Operation getPlatformAppsByAppCdAsyncWithHttpInfo
      *
-     * One app&#39;s reconciliation
+     * Answers ONE app&#39;s reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
      *
-     * @param  string $app (required)
+     * @param  string $app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. (required)
+     * @param  string|null $org Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformAppsByAppCd'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getPlatformAppsByAppCdAsyncWithHttpInfo($app, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
+    public function getPlatformAppsByAppCdAsyncWithHttpInfo($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
     {
-        $returnType = '';
-        $request = $this->getPlatformAppsByAppCdRequest($app, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\CDApp';
+        $request = $this->getPlatformAppsByAppCdRequest($app, $org, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -1290,13 +1474,14 @@ class PlatformApi
     /**
      * Create request for operation 'getPlatformAppsByAppCd'
      *
-     * @param  string $app (required)
+     * @param  string $app App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent. (required)
+     * @param  string|null $org Org names the organisation the declaration lives in, defaulting to the caller&#39;s own and subject to the same SuperAdmin rule as the listing. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformAppsByAppCd'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getPlatformAppsByAppCdRequest($app, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
+    public function getPlatformAppsByAppCdRequest($app, $org = null, string $contentType = self::contentTypes['getPlatformAppsByAppCd'][0])
     {
 
         // verify the required parameter 'app' is set
@@ -1307,6 +1492,7 @@ class PlatformApi
         }
 
 
+
         $resourcePath = '/v1/platform/apps/{app}/cd';
         $formParams = [];
         $queryParams = [];
@@ -1314,6 +1500,15 @@ class PlatformApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $org,
+            'org', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
 
 
         // path params
@@ -1327,7 +1522,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
@@ -1638,29 +1833,30 @@ class PlatformApi
     /**
      * Operation getPlatformCd
      *
-     * The delivery plane
+     * Answers every Application the delivery plane holds.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformCd'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\CdResp
      */
     public function getPlatformCd(string $contentType = self::contentTypes['getPlatformCd'][0])
     {
-        $this->getPlatformCdWithHttpInfo($contentType);
+        list($response) = $this->getPlatformCdWithHttpInfo($contentType);
+        return $response;
     }
 
     /**
      * Operation getPlatformCdWithHttpInfo
      *
-     * The delivery plane
+     * Answers every Application the delivery plane holds.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformCd'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\CdResp, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPlatformCdWithHttpInfo(string $contentType = self::contentTypes['getPlatformCd'][0])
     {
@@ -1689,9 +1885,45 @@ class PlatformApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\CdResp',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\CdResp',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\CdResp',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1702,7 +1934,7 @@ class PlatformApi
     /**
      * Operation getPlatformCdAsync
      *
-     * The delivery plane
+     * Answers every Application the delivery plane holds.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformCd'] to see the possible values for this operation
      *
@@ -1722,7 +1954,7 @@ class PlatformApi
     /**
      * Operation getPlatformCdAsyncWithHttpInfo
      *
-     * The delivery plane
+     * Answers every Application the delivery plane holds.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getPlatformCd'] to see the possible values for this operation
      *
@@ -1731,14 +1963,27 @@ class PlatformApi
      */
     public function getPlatformCdAsyncWithHttpInfo(string $contentType = self::contentTypes['getPlatformCd'][0])
     {
-        $returnType = '';
+        $returnType = '\Hanzo\Cloud\Model\CdResp';
         $request = $this->getPlatformCdRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -1781,7 +2026,7 @@ class PlatformApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );

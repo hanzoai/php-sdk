@@ -7521,35 +7521,38 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdEvents
      *
-     * Append one turn to a session&#39;s ordered log.
+     * Records one turn of a session&#39;s transcript and answers 201 with it.
      *
-     * @param  string $id id (required)
+     * @param  string $id ID is the session to append to, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\EventIn $event_in event_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdEvents'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\EventView
      */
-    public function postAgentsSessionsByIdEvents($id, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
+    public function postAgentsSessionsByIdEvents($id, $event_in, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
     {
-        $this->postAgentsSessionsByIdEventsWithHttpInfo($id, $contentType);
+        list($response) = $this->postAgentsSessionsByIdEventsWithHttpInfo($id, $event_in, $contentType);
+        return $response;
     }
 
     /**
      * Operation postAgentsSessionsByIdEventsWithHttpInfo
      *
-     * Append one turn to a session&#39;s ordered log.
+     * Records one turn of a session&#39;s transcript and answers 201 with it.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to append to, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\EventIn $event_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdEvents'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\EventView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsSessionsByIdEventsWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
+    public function postAgentsSessionsByIdEventsWithHttpInfo($id, $event_in, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
     {
-        $request = $this->postAgentsSessionsByIdEventsRequest($id, $contentType);
+        $request = $this->postAgentsSessionsByIdEventsRequest($id, $event_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7574,9 +7577,45 @@ class AgentsApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\EventView',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\EventView',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\EventView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -7587,17 +7626,18 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdEventsAsync
      *
-     * Append one turn to a session&#39;s ordered log.
+     * Records one turn of a session&#39;s transcript and answers 201 with it.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to append to, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\EventIn $event_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdEventsAsync($id, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
+    public function postAgentsSessionsByIdEventsAsync($id, $event_in, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
     {
-        return $this->postAgentsSessionsByIdEventsAsyncWithHttpInfo($id, $contentType)
+        return $this->postAgentsSessionsByIdEventsAsyncWithHttpInfo($id, $event_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7608,24 +7648,38 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdEventsAsyncWithHttpInfo
      *
-     * Append one turn to a session&#39;s ordered log.
+     * Records one turn of a session&#39;s transcript and answers 201 with it.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to append to, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\EventIn $event_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdEventsAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
+    public function postAgentsSessionsByIdEventsAsyncWithHttpInfo($id, $event_in, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
     {
-        $returnType = '';
-        $request = $this->postAgentsSessionsByIdEventsRequest($id, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\EventView';
+        $request = $this->postAgentsSessionsByIdEventsRequest($id, $event_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -7647,19 +7701,27 @@ class AgentsApi
     /**
      * Create request for operation 'postAgentsSessionsByIdEvents'
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to append to, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\EventIn $event_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsSessionsByIdEventsRequest($id, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
+    public function postAgentsSessionsByIdEventsRequest($id, $event_in, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $id when calling postAgentsSessionsByIdEvents'
+            );
+        }
+
+        // verify the required parameter 'event_in' is set
+        if ($event_in === null || (is_array($event_in) && count($event_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $event_in when calling postAgentsSessionsByIdEvents'
             );
         }
 
@@ -7684,13 +7746,20 @@ class AgentsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($event_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($event_in));
+            } else {
+                $httpBody = $event_in;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -7743,35 +7812,38 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdMessage
      *
-     * Send text into a running session.
+     * Sends a steering message to a running session — the door a human or another agent interrupts through.
      *
-     * @param  string $id id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdMessage'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\ControlResult
      */
-    public function postAgentsSessionsByIdMessage($id, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
+    public function postAgentsSessionsByIdMessage($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
     {
-        $this->postAgentsSessionsByIdMessageWithHttpInfo($id, $contentType);
+        list($response) = $this->postAgentsSessionsByIdMessageWithHttpInfo($id, $control_in, $contentType);
+        return $response;
     }
 
     /**
      * Operation postAgentsSessionsByIdMessageWithHttpInfo
      *
-     * Send text into a running session.
+     * Sends a steering message to a running session — the door a human or another agent interrupts through.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdMessage'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ControlResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsSessionsByIdMessageWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
+    public function postAgentsSessionsByIdMessageWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
     {
-        $request = $this->postAgentsSessionsByIdMessageRequest($id, $contentType);
+        $request = $this->postAgentsSessionsByIdMessageRequest($id, $control_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7796,9 +7868,45 @@ class AgentsApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ControlResult',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ControlResult',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ControlResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -7809,17 +7917,18 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdMessageAsync
      *
-     * Send text into a running session.
+     * Sends a steering message to a running session — the door a human or another agent interrupts through.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdMessage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdMessageAsync($id, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
+    public function postAgentsSessionsByIdMessageAsync($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
     {
-        return $this->postAgentsSessionsByIdMessageAsyncWithHttpInfo($id, $contentType)
+        return $this->postAgentsSessionsByIdMessageAsyncWithHttpInfo($id, $control_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7830,24 +7939,38 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdMessageAsyncWithHttpInfo
      *
-     * Send text into a running session.
+     * Sends a steering message to a running session — the door a human or another agent interrupts through.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdMessage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdMessageAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
+    public function postAgentsSessionsByIdMessageAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
     {
-        $returnType = '';
-        $request = $this->postAgentsSessionsByIdMessageRequest($id, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ControlResult';
+        $request = $this->postAgentsSessionsByIdMessageRequest($id, $control_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -7869,19 +7992,27 @@ class AgentsApi
     /**
      * Create request for operation 'postAgentsSessionsByIdMessage'
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdMessage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsSessionsByIdMessageRequest($id, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
+    public function postAgentsSessionsByIdMessageRequest($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $id when calling postAgentsSessionsByIdMessage'
+            );
+        }
+
+        // verify the required parameter 'control_in' is set
+        if ($control_in === null || (is_array($control_in) && count($control_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $control_in when calling postAgentsSessionsByIdMessage'
             );
         }
 
@@ -7906,13 +8037,20 @@ class AgentsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($control_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($control_in));
+            } else {
+                $httpBody = $control_in;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -7965,35 +8103,38 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdPause
      *
-     * Ask a running session to pause.
+     * Asks a running session to pause.
      *
-     * @param  string $id id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdPause'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\ControlResult
      */
-    public function postAgentsSessionsByIdPause($id, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
+    public function postAgentsSessionsByIdPause($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
     {
-        $this->postAgentsSessionsByIdPauseWithHttpInfo($id, $contentType);
+        list($response) = $this->postAgentsSessionsByIdPauseWithHttpInfo($id, $control_in, $contentType);
+        return $response;
     }
 
     /**
      * Operation postAgentsSessionsByIdPauseWithHttpInfo
      *
-     * Ask a running session to pause.
+     * Asks a running session to pause.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdPause'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ControlResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsSessionsByIdPauseWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
+    public function postAgentsSessionsByIdPauseWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
     {
-        $request = $this->postAgentsSessionsByIdPauseRequest($id, $contentType);
+        $request = $this->postAgentsSessionsByIdPauseRequest($id, $control_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8018,9 +8159,45 @@ class AgentsApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ControlResult',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ControlResult',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ControlResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -8031,17 +8208,18 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdPauseAsync
      *
-     * Ask a running session to pause.
+     * Asks a running session to pause.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdPause'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdPauseAsync($id, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
+    public function postAgentsSessionsByIdPauseAsync($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
     {
-        return $this->postAgentsSessionsByIdPauseAsyncWithHttpInfo($id, $contentType)
+        return $this->postAgentsSessionsByIdPauseAsyncWithHttpInfo($id, $control_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8052,24 +8230,38 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdPauseAsyncWithHttpInfo
      *
-     * Ask a running session to pause.
+     * Asks a running session to pause.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdPause'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdPauseAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
+    public function postAgentsSessionsByIdPauseAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
     {
-        $returnType = '';
-        $request = $this->postAgentsSessionsByIdPauseRequest($id, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ControlResult';
+        $request = $this->postAgentsSessionsByIdPauseRequest($id, $control_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -8091,19 +8283,27 @@ class AgentsApi
     /**
      * Create request for operation 'postAgentsSessionsByIdPause'
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdPause'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsSessionsByIdPauseRequest($id, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
+    public function postAgentsSessionsByIdPauseRequest($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $id when calling postAgentsSessionsByIdPause'
+            );
+        }
+
+        // verify the required parameter 'control_in' is set
+        if ($control_in === null || (is_array($control_in) && count($control_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $control_in when calling postAgentsSessionsByIdPause'
             );
         }
 
@@ -8128,13 +8328,20 @@ class AgentsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($control_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($control_in));
+            } else {
+                $httpBody = $control_in;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -8187,35 +8394,38 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdResume
      *
-     * Ask a paused session to carry on.
+     * Asks a paused session to continue, on the same terms as a pause.
      *
-     * @param  string $id id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdResume'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\ControlResult
      */
-    public function postAgentsSessionsByIdResume($id, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
+    public function postAgentsSessionsByIdResume($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
     {
-        $this->postAgentsSessionsByIdResumeWithHttpInfo($id, $contentType);
+        list($response) = $this->postAgentsSessionsByIdResumeWithHttpInfo($id, $control_in, $contentType);
+        return $response;
     }
 
     /**
      * Operation postAgentsSessionsByIdResumeWithHttpInfo
      *
-     * Ask a paused session to carry on.
+     * Asks a paused session to continue, on the same terms as a pause.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdResume'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ControlResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsSessionsByIdResumeWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
+    public function postAgentsSessionsByIdResumeWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
     {
-        $request = $this->postAgentsSessionsByIdResumeRequest($id, $contentType);
+        $request = $this->postAgentsSessionsByIdResumeRequest($id, $control_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8240,9 +8450,45 @@ class AgentsApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ControlResult',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ControlResult',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ControlResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -8253,17 +8499,18 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdResumeAsync
      *
-     * Ask a paused session to carry on.
+     * Asks a paused session to continue, on the same terms as a pause.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdResume'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdResumeAsync($id, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
+    public function postAgentsSessionsByIdResumeAsync($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
     {
-        return $this->postAgentsSessionsByIdResumeAsyncWithHttpInfo($id, $contentType)
+        return $this->postAgentsSessionsByIdResumeAsyncWithHttpInfo($id, $control_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8274,24 +8521,38 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdResumeAsyncWithHttpInfo
      *
-     * Ask a paused session to carry on.
+     * Asks a paused session to continue, on the same terms as a pause.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdResume'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdResumeAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
+    public function postAgentsSessionsByIdResumeAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
     {
-        $returnType = '';
-        $request = $this->postAgentsSessionsByIdResumeRequest($id, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ControlResult';
+        $request = $this->postAgentsSessionsByIdResumeRequest($id, $control_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -8313,19 +8574,27 @@ class AgentsApi
     /**
      * Create request for operation 'postAgentsSessionsByIdResume'
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdResume'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsSessionsByIdResumeRequest($id, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
+    public function postAgentsSessionsByIdResumeRequest($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $id when calling postAgentsSessionsByIdResume'
+            );
+        }
+
+        // verify the required parameter 'control_in' is set
+        if ($control_in === null || (is_array($control_in) && count($control_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $control_in when calling postAgentsSessionsByIdResume'
             );
         }
 
@@ -8350,13 +8619,20 @@ class AgentsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($control_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($control_in));
+            } else {
+                $httpBody = $control_in;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -8409,35 +8685,38 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdStop
      *
-     * Ask a session to stop for good.
+     * Ends a running session.
      *
-     * @param  string $id id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdStop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\ControlResult
      */
-    public function postAgentsSessionsByIdStop($id, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
+    public function postAgentsSessionsByIdStop($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
     {
-        $this->postAgentsSessionsByIdStopWithHttpInfo($id, $contentType);
+        list($response) = $this->postAgentsSessionsByIdStopWithHttpInfo($id, $control_in, $contentType);
+        return $response;
     }
 
     /**
      * Operation postAgentsSessionsByIdStopWithHttpInfo
      *
-     * Ask a session to stop for good.
+     * Ends a running session.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdStop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ControlResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsSessionsByIdStopWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
+    public function postAgentsSessionsByIdStopWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
     {
-        $request = $this->postAgentsSessionsByIdStopRequest($id, $contentType);
+        $request = $this->postAgentsSessionsByIdStopRequest($id, $control_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8462,9 +8741,45 @@ class AgentsApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ControlResult',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ControlResult',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ControlResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -8475,17 +8790,18 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdStopAsync
      *
-     * Ask a session to stop for good.
+     * Ends a running session.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdStopAsync($id, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
+    public function postAgentsSessionsByIdStopAsync($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
     {
-        return $this->postAgentsSessionsByIdStopAsyncWithHttpInfo($id, $contentType)
+        return $this->postAgentsSessionsByIdStopAsyncWithHttpInfo($id, $control_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8496,24 +8812,38 @@ class AgentsApi
     /**
      * Operation postAgentsSessionsByIdStopAsyncWithHttpInfo
      *
-     * Ask a session to stop for good.
+     * Ends a running session.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdStopAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
+    public function postAgentsSessionsByIdStopAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
     {
-        $returnType = '';
-        $request = $this->postAgentsSessionsByIdStopRequest($id, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ControlResult';
+        $request = $this->postAgentsSessionsByIdStopRequest($id, $control_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -8535,19 +8865,27 @@ class AgentsApi
     /**
      * Create request for operation 'postAgentsSessionsByIdStop'
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the session to steer, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsSessionsByIdStopRequest($id, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
+    public function postAgentsSessionsByIdStopRequest($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
                 'Missing the required parameter $id when calling postAgentsSessionsByIdStop'
+            );
+        }
+
+        // verify the required parameter 'control_in' is set
+        if ($control_in === null || (is_array($control_in) && count($control_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $control_in when calling postAgentsSessionsByIdStop'
             );
         }
 
@@ -8572,13 +8910,20 @@ class AgentsApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (count($formParams) > 0) {
+        if (isset($control_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($control_in));
+            } else {
+                $httpBody = $control_in;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {

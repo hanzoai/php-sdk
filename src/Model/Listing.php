@@ -49,7 +49,7 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Listing';
+    protected static $openAPIModelName = 'listing';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,17 +57,8 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'category' => 'string',
-        'created_at' => 'int',
-        'currency' => 'string',
-        'description' => 'string',
-        'id' => 'string',
-        'price' => 'mixed',
-        'public' => 'bool',
-        'publisher_org' => 'string',
-        'recipient' => 'string',
-        'title' => 'string',
-        'tool' => 'string'
+        'last_modified' => 'string',
+        'name' => 'string'
     ];
 
     /**
@@ -78,17 +69,8 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'category' => null,
-        'created_at' => null,
-        'currency' => null,
-        'description' => null,
-        'id' => null,
-        'price' => null,
-        'public' => null,
-        'publisher_org' => null,
-        'recipient' => null,
-        'title' => null,
-        'tool' => null
+        'last_modified' => null,
+        'name' => null
     ];
 
     /**
@@ -97,17 +79,8 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'category' => false,
-        'created_at' => false,
-        'currency' => false,
-        'description' => false,
-        'id' => false,
-        'price' => true,
-        'public' => false,
-        'publisher_org' => false,
-        'recipient' => false,
-        'title' => false,
-        'tool' => false
+        'last_modified' => false,
+        'name' => false
     ];
 
     /**
@@ -196,17 +169,8 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'category' => 'category',
-        'created_at' => 'createdAt',
-        'currency' => 'currency',
-        'description' => 'description',
-        'id' => 'id',
-        'price' => 'price',
-        'public' => 'public',
-        'publisher_org' => 'publisherOrg',
-        'recipient' => 'recipient',
-        'title' => 'title',
-        'tool' => 'tool'
+        'last_modified' => 'lastModified',
+        'name' => 'name'
     ];
 
     /**
@@ -215,17 +179,8 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'category' => 'setCategory',
-        'created_at' => 'setCreatedAt',
-        'currency' => 'setCurrency',
-        'description' => 'setDescription',
-        'id' => 'setId',
-        'price' => 'setPrice',
-        'public' => 'setPublic',
-        'publisher_org' => 'setPublisherOrg',
-        'recipient' => 'setRecipient',
-        'title' => 'setTitle',
-        'tool' => 'setTool'
+        'last_modified' => 'setLastModified',
+        'name' => 'setName'
     ];
 
     /**
@@ -234,17 +189,8 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'category' => 'getCategory',
-        'created_at' => 'getCreatedAt',
-        'currency' => 'getCurrency',
-        'description' => 'getDescription',
-        'id' => 'getId',
-        'price' => 'getPrice',
-        'public' => 'getPublic',
-        'publisher_org' => 'getPublisherOrg',
-        'recipient' => 'getRecipient',
-        'title' => 'getTitle',
-        'tool' => 'getTool'
+        'last_modified' => 'getLastModified',
+        'name' => 'getName'
     ];
 
     /**
@@ -304,17 +250,8 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('category', $data ?? [], null);
-        $this->setIfExists('created_at', $data ?? [], null);
-        $this->setIfExists('currency', $data ?? [], null);
-        $this->setIfExists('description', $data ?? [], null);
-        $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('price', $data ?? [], null);
-        $this->setIfExists('public', $data ?? [], null);
-        $this->setIfExists('publisher_org', $data ?? [], null);
-        $this->setIfExists('recipient', $data ?? [], null);
-        $this->setIfExists('title', $data ?? [], null);
-        $this->setIfExists('tool', $data ?? [], null);
+        $this->setIfExists('last_modified', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
     }
 
     /**
@@ -360,305 +297,55 @@ class Listing implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets category
+     * Gets last_modified
      *
      * @return string|null
      */
-    public function getCategory()
+    public function getLastModified()
     {
-        return $this->container['category'];
+        return $this->container['last_modified'];
     }
 
     /**
-     * Sets category
+     * Sets last_modified
      *
-     * @param string|null $category Category groups the listing in the shop window. Free text — no vocabulary, nothing validates it — and unlike Description it is silently cut to 4096 bytes rather than refused. Empty means ungrouped.
+     * @param string|null $last_modified last_modified
      *
      * @return self
      */
-    public function setCategory($category)
+    public function setLastModified($last_modified)
     {
-        if (is_null($category)) {
-            throw new \InvalidArgumentException('non-nullable category cannot be null');
+        if (is_null($last_modified)) {
+            throw new \InvalidArgumentException('non-nullable last_modified cannot be null');
         }
-        $this->container['category'] = $category;
+        $this->container['last_modified'] = $last_modified;
 
         return $this;
     }
 
     /**
-     * Gets created_at
-     *
-     * @return int|null
-     */
-    public function getCreatedAt()
-    {
-        return $this->container['created_at'];
-    }
-
-    /**
-     * Sets created_at
-     *
-     * @param int|null $created_at CreatedAt is when the listing was published, in Unix SECONDS, minted at insert. Every listing read orders by it descending, so it is the shop's ordering key as well as its age.
-     *
-     * @return self
-     */
-    public function setCreatedAt($created_at)
-    {
-        if (is_null($created_at)) {
-            throw new \InvalidArgumentException('non-nullable created_at cannot be null');
-        }
-        $this->container['created_at'] = $created_at;
-
-        return $this;
-    }
-
-    /**
-     * Gets currency
+     * Gets name
      *
      * @return string|null
      */
-    public function getCurrency()
+    public function getName()
     {
-        return $this->container['currency'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets currency
+     * Sets name
      *
-     * @param string|null $currency Currency is the ISO 4217 code Price is quoted in; Create defaults it to \"USD\" when the publisher names none. It is a LABEL that travels to the shop window: publish parses Price with money.ParseUSD and the x402 terms carry no currency, so another code here changes what is displayed, not what is charged.
+     * @param string|null $name name
      *
      * @return self
      */
-    public function setCurrency($currency)
+    public function setName($name)
     {
-        if (is_null($currency)) {
-            throw new \InvalidArgumentException('non-nullable currency cannot be null');
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
-        $this->container['currency'] = $currency;
-
-        return $this;
-    }
-
-    /**
-     * Gets description
-     *
-     * @return string|null
-     */
-    public function getDescription()
-    {
-        return $this->container['description'];
-    }
-
-    /**
-     * Sets description
-     *
-     * @param string|null $description Description is the long copy. Publish REFUSES one past 4096 bytes rather than truncating it, so what is stored is what was sent; empty is allowed.
-     *
-     * @return self
-     */
-    public function setDescription($description)
-    {
-        if (is_null($description)) {
-            throw new \InvalidArgumentException('non-nullable description cannot be null');
-        }
-        $this->container['description'] = $description;
-
-        return $this;
-    }
-
-    /**
-     * Gets id
-     *
-     * @return string|null
-     */
-    public function getId()
-    {
-        return $this->container['id'];
-    }
-
-    /**
-     * Sets id
-     *
-     * @param string|null $id ID is the listing's id, minted here as \"lst_\" + 16 hex characters. A publisher cannot choose it: Create overwrites whatever arrives. It is unique within PublisherOrg (the primary key is the pair), and it is the path segment DELETE /v1/marketplace/listings/:id takes.
-     *
-     * @return self
-     */
-    public function setId($id)
-    {
-        if (is_null($id)) {
-            throw new \InvalidArgumentException('non-nullable id cannot be null');
-        }
-        $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets price
-     *
-     * @return mixed|null
-     */
-    public function getPrice()
-    {
-        return $this->container['price'];
-    }
-
-    /**
-     * Sets price
-     *
-     * @param mixed|null $price price
-     *
-     * @return self
-     */
-    public function setPrice($price)
-    {
-        if (is_null($price)) {
-            array_push($this->openAPINullablesSetToNull, 'price');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('price', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['price'] = $price;
-
-        return $this;
-    }
-
-    /**
-     * Gets public
-     *
-     * @return bool|null
-     */
-    public function getPublic()
-    {
-        return $this->container['public'];
-    }
-
-    /**
-     * Sets public
-     *
-     * @param bool|null $public Public is whether other orgs can discover the listing. It also decides ENFORCEMENT: only public rows reach the price table, so a private listing with a price charges nobody. False leaves the row visible to its publisher alone.
-     *
-     * @return self
-     */
-    public function setPublic($public)
-    {
-        if (is_null($public)) {
-            throw new \InvalidArgumentException('non-nullable public cannot be null');
-        }
-        $this->container['public'] = $public;
-
-        return $this;
-    }
-
-    /**
-     * Gets publisher_org
-     *
-     * @return string|null
-     */
-    public function getPublisherOrg()
-    {
-        return $this->container['publisher_org'];
-    }
-
-    /**
-     * Sets publisher_org
-     *
-     * @param string|null $publisher_org PublisherOrg is the org that published the listing, taken from the validated principal and never off the wire. It is also the PAYEE org — Recipient is resolved inside it — and the isolation key: a publisher reads and deletes only rows carrying its own org.
-     *
-     * @return self
-     */
-    public function setPublisherOrg($publisher_org)
-    {
-        if (is_null($publisher_org)) {
-            throw new \InvalidArgumentException('non-nullable publisher_org cannot be null');
-        }
-        $this->container['publisher_org'] = $publisher_org;
-
-        return $this;
-    }
-
-    /**
-     * Gets recipient
-     *
-     * @return string|null
-     */
-    public function getRecipient()
-    {
-        return $this->container['recipient'];
-    }
-
-    /**
-     * Sets recipient
-     *
-     * @param string|null $recipient seller payout WALLET ID, in PublisherOrg.
-     *
-     * @return self
-     */
-    public function setRecipient($recipient)
-    {
-        if (is_null($recipient)) {
-            throw new \InvalidArgumentException('non-nullable recipient cannot be null');
-        }
-        $this->container['recipient'] = $recipient;
-
-        return $this;
-    }
-
-    /**
-     * Gets title
-     *
-     * @return string|null
-     */
-    public function getTitle()
-    {
-        return $this->container['title'];
-    }
-
-    /**
-     * Sets title
-     *
-     * @param string|null $title Title is the shop-window name, required and refused past 200 bytes. It is what discovery paints over the tool's registry name.
-     *
-     * @return self
-     */
-    public function setTitle($title)
-    {
-        if (is_null($title)) {
-            throw new \InvalidArgumentException('non-nullable title cannot be null');
-        }
-        $this->container['title'] = $title;
-
-        return $this;
-    }
-
-    /**
-     * Gets tool
-     *
-     * @return string|null
-     */
-    public function getTool()
-    {
-        return $this->container['tool'];
-    }
-
-    /**
-     * Sets tool
-     *
-     * @param string|null $tool Tool is the registry name of the offered capability, in the flat fleet-wide tool namespace. It resolved in the publisher's own scope at publish time, so no listing advertises a capability that did not exist; it is also the key the price table looks a dispatch up by.
-     *
-     * @return self
-     */
-    public function setTool($tool)
-    {
-        if (is_null($tool)) {
-            throw new \InvalidArgumentException('non-nullable tool cannot be null');
-        }
-        $this->container['tool'] = $tool;
+        $this->container['name'] = $name;
 
         return $this;
     }

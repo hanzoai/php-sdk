@@ -3482,31 +3482,32 @@ class GuideApi
     /**
      * Operation postGuideStepsByIdDone
      *
-     * Mark a step of your org&#39;s journey finished
+     * Marks one step of the caller org&#39;s journey complete and returns the refreshed journey.
      *
-     * @param  string $id id (required)
+     * @param  string $id ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideStepsByIdDone'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\OverviewView
      */
     public function postGuideStepsByIdDone($id, string $contentType = self::contentTypes['postGuideStepsByIdDone'][0])
     {
-        $this->postGuideStepsByIdDoneWithHttpInfo($id, $contentType);
+        list($response) = $this->postGuideStepsByIdDoneWithHttpInfo($id, $contentType);
+        return $response;
     }
 
     /**
      * Operation postGuideStepsByIdDoneWithHttpInfo
      *
-     * Mark a step of your org&#39;s journey finished
+     * Marks one step of the caller org&#39;s journey complete and returns the refreshed journey.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideStepsByIdDone'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\OverviewView, HTTP status code, HTTP response headers (array of strings)
      */
     public function postGuideStepsByIdDoneWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdDone'][0])
     {
@@ -3535,9 +3536,45 @@ class GuideApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\OverviewView',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\OverviewView',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\OverviewView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -3548,9 +3585,9 @@ class GuideApi
     /**
      * Operation postGuideStepsByIdDoneAsync
      *
-     * Mark a step of your org&#39;s journey finished
+     * Marks one step of the caller org&#39;s journey complete and returns the refreshed journey.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideStepsByIdDone'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -3569,9 +3606,9 @@ class GuideApi
     /**
      * Operation postGuideStepsByIdDoneAsyncWithHttpInfo
      *
-     * Mark a step of your org&#39;s journey finished
+     * Marks one step of the caller org&#39;s journey complete and returns the refreshed journey.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideStepsByIdDone'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -3579,14 +3616,27 @@ class GuideApi
      */
     public function postGuideStepsByIdDoneAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdDone'][0])
     {
-        $returnType = '';
+        $returnType = '\Hanzo\Cloud\Model\OverviewView';
         $request = $this->postGuideStepsByIdDoneRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -3608,7 +3658,7 @@ class GuideApi
     /**
      * Create request for operation 'postGuideStepsByIdDone'
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideStepsByIdDone'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -3645,7 +3695,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
@@ -4248,31 +4298,32 @@ class GuideApi
     /**
      * Operation postGuideStepsByIdStart
      *
-     * Mark a step of your org&#39;s journey started
+     * Marks one step of the caller org&#39;s journey in progress and returns the refreshed journey.
      *
-     * @param  string $id id (required)
+     * @param  string $id ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideStepsByIdStart'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\OverviewView
      */
     public function postGuideStepsByIdStart($id, string $contentType = self::contentTypes['postGuideStepsByIdStart'][0])
     {
-        $this->postGuideStepsByIdStartWithHttpInfo($id, $contentType);
+        list($response) = $this->postGuideStepsByIdStartWithHttpInfo($id, $contentType);
+        return $response;
     }
 
     /**
      * Operation postGuideStepsByIdStartWithHttpInfo
      *
-     * Mark a step of your org&#39;s journey started
+     * Marks one step of the caller org&#39;s journey in progress and returns the refreshed journey.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideStepsByIdStart'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\OverviewView, HTTP status code, HTTP response headers (array of strings)
      */
     public function postGuideStepsByIdStartWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdStart'][0])
     {
@@ -4301,9 +4352,45 @@ class GuideApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\OverviewView',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\OverviewView',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\OverviewView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -4314,9 +4401,9 @@ class GuideApi
     /**
      * Operation postGuideStepsByIdStartAsync
      *
-     * Mark a step of your org&#39;s journey started
+     * Marks one step of the caller org&#39;s journey in progress and returns the refreshed journey.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideStepsByIdStart'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -4335,9 +4422,9 @@ class GuideApi
     /**
      * Operation postGuideStepsByIdStartAsyncWithHttpInfo
      *
-     * Mark a step of your org&#39;s journey started
+     * Marks one step of the caller org&#39;s journey in progress and returns the refreshed journey.
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideStepsByIdStart'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -4345,14 +4432,27 @@ class GuideApi
      */
     public function postGuideStepsByIdStartAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postGuideStepsByIdStart'][0])
     {
-        $returnType = '';
+        $returnType = '\Hanzo\Cloud\Model\OverviewView';
         $request = $this->postGuideStepsByIdStartRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -4374,7 +4474,7 @@ class GuideApi
     /**
      * Create request for operation 'postGuideStepsByIdStart'
      *
-     * @param  string $id (required)
+     * @param  string $id ID is the step&#39;s id, as it appears in the journey (e.g. \&quot;gsuite\&quot;). (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGuideStepsByIdStart'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -4411,7 +4511,7 @@ class GuideApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );

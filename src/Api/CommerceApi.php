@@ -95,7 +95,7 @@ class CommerceApi
         'deleteCommerceProductByProductid' => [
             'application/json',
         ],
-        'deleteCommerceRatesEntriesBySlug' => [
+        'deleteCommerceRatesEntriesByProductByMeter' => [
             'application/json',
         ],
         'deleteCommerceReturnByReturnid' => [
@@ -569,7 +569,7 @@ class CommerceApi
         'putCommerceProductByProductid' => [
             'application/json',
         ],
-        'putCommerceRatesEntriesBySlug' => [
+        'putCommerceRatesEntriesByProductByMeter' => [
             'application/json',
         ],
         'putCommerceReturnByReturnid' => [
@@ -2220,37 +2220,39 @@ class CommerceApi
     }
 
     /**
-     * Operation deleteCommerceRatesEntriesBySlug
+     * Operation deleteCommerceRatesEntriesByProductByMeter
      *
      * Remove a rate outright
      *
-     * @param  string $slug slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesBySlug'] to see the possible values for this operation
+     * @param  string $product product (required)
+     * @param  string $meter meter (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function deleteCommerceRatesEntriesBySlug($slug, string $contentType = self::contentTypes['deleteCommerceRatesEntriesBySlug'][0])
+    public function deleteCommerceRatesEntriesByProductByMeter($product, $meter, string $contentType = self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'][0])
     {
-        $this->deleteCommerceRatesEntriesBySlugWithHttpInfo($slug, $contentType);
+        $this->deleteCommerceRatesEntriesByProductByMeterWithHttpInfo($product, $meter, $contentType);
     }
 
     /**
-     * Operation deleteCommerceRatesEntriesBySlugWithHttpInfo
+     * Operation deleteCommerceRatesEntriesByProductByMeterWithHttpInfo
      *
      * Remove a rate outright
      *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesBySlug'] to see the possible values for this operation
+     * @param  string $product (required)
+     * @param  string $meter (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteCommerceRatesEntriesBySlugWithHttpInfo($slug, string $contentType = self::contentTypes['deleteCommerceRatesEntriesBySlug'][0])
+    public function deleteCommerceRatesEntriesByProductByMeterWithHttpInfo($product, $meter, string $contentType = self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'][0])
     {
-        $request = $this->deleteCommerceRatesEntriesBySlugRequest($slug, $contentType);
+        $request = $this->deleteCommerceRatesEntriesByProductByMeterRequest($product, $meter, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2286,19 +2288,20 @@ class CommerceApi
     }
 
     /**
-     * Operation deleteCommerceRatesEntriesBySlugAsync
+     * Operation deleteCommerceRatesEntriesByProductByMeterAsync
      *
      * Remove a rate outright
      *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesBySlug'] to see the possible values for this operation
+     * @param  string $product (required)
+     * @param  string $meter (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteCommerceRatesEntriesBySlugAsync($slug, string $contentType = self::contentTypes['deleteCommerceRatesEntriesBySlug'][0])
+    public function deleteCommerceRatesEntriesByProductByMeterAsync($product, $meter, string $contentType = self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'][0])
     {
-        return $this->deleteCommerceRatesEntriesBySlugAsyncWithHttpInfo($slug, $contentType)
+        return $this->deleteCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo($product, $meter, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2307,20 +2310,21 @@ class CommerceApi
     }
 
     /**
-     * Operation deleteCommerceRatesEntriesBySlugAsyncWithHttpInfo
+     * Operation deleteCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo
      *
      * Remove a rate outright
      *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesBySlug'] to see the possible values for this operation
+     * @param  string $product (required)
+     * @param  string $meter (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteCommerceRatesEntriesBySlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['deleteCommerceRatesEntriesBySlug'][0])
+    public function deleteCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo($product, $meter, string $contentType = self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'][0])
     {
         $returnType = '';
-        $request = $this->deleteCommerceRatesEntriesBySlugRequest($slug, $contentType);
+        $request = $this->deleteCommerceRatesEntriesByProductByMeterRequest($product, $meter, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2346,26 +2350,34 @@ class CommerceApi
     }
 
     /**
-     * Create request for operation 'deleteCommerceRatesEntriesBySlug'
+     * Create request for operation 'deleteCommerceRatesEntriesByProductByMeter'
      *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesBySlug'] to see the possible values for this operation
+     * @param  string $product (required)
+     * @param  string $meter (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteCommerceRatesEntriesBySlugRequest($slug, string $contentType = self::contentTypes['deleteCommerceRatesEntriesBySlug'][0])
+    public function deleteCommerceRatesEntriesByProductByMeterRequest($product, $meter, string $contentType = self::contentTypes['deleteCommerceRatesEntriesByProductByMeter'][0])
     {
 
-        // verify the required parameter 'slug' is set
-        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
+        // verify the required parameter 'product' is set
+        if ($product === null || (is_array($product) && count($product) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling deleteCommerceRatesEntriesBySlug'
+                'Missing the required parameter $product when calling deleteCommerceRatesEntriesByProductByMeter'
+            );
+        }
+
+        // verify the required parameter 'meter' is set
+        if ($meter === null || (is_array($meter) && count($meter) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $meter when calling deleteCommerceRatesEntriesByProductByMeter'
             );
         }
 
 
-        $resourcePath = '/v1/commerce/rates/entries/{slug}';
+        $resourcePath = '/v1/commerce/rates/entries/{product}/{meter}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2375,10 +2387,18 @@ class CommerceApi
 
 
         // path params
-        if ($slug !== null) {
+        if ($product !== null) {
             $resourcePath = str_replace(
-                '{' . 'slug' . '}',
-                ObjectSerializer::toPathValue($slug),
+                '{' . 'product' . '}',
+                ObjectSerializer::toPathValue($product),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($meter !== null) {
+            $resourcePath = str_replace(
+                '{' . 'meter' . '}',
+                ObjectSerializer::toPathValue($meter),
                 $resourcePath
             );
         }
@@ -36725,37 +36745,39 @@ class CommerceApi
     }
 
     /**
-     * Operation putCommerceRatesEntriesBySlug
+     * Operation putCommerceRatesEntriesByProductByMeter
      *
      * Edit a rate, and mark it as operator-set
      *
-     * @param  string $slug slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesBySlug'] to see the possible values for this operation
+     * @param  string $product product (required)
+     * @param  string $meter meter (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function putCommerceRatesEntriesBySlug($slug, string $contentType = self::contentTypes['putCommerceRatesEntriesBySlug'][0])
+    public function putCommerceRatesEntriesByProductByMeter($product, $meter, string $contentType = self::contentTypes['putCommerceRatesEntriesByProductByMeter'][0])
     {
-        $this->putCommerceRatesEntriesBySlugWithHttpInfo($slug, $contentType);
+        $this->putCommerceRatesEntriesByProductByMeterWithHttpInfo($product, $meter, $contentType);
     }
 
     /**
-     * Operation putCommerceRatesEntriesBySlugWithHttpInfo
+     * Operation putCommerceRatesEntriesByProductByMeterWithHttpInfo
      *
      * Edit a rate, and mark it as operator-set
      *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesBySlug'] to see the possible values for this operation
+     * @param  string $product (required)
+     * @param  string $meter (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putCommerceRatesEntriesBySlugWithHttpInfo($slug, string $contentType = self::contentTypes['putCommerceRatesEntriesBySlug'][0])
+    public function putCommerceRatesEntriesByProductByMeterWithHttpInfo($product, $meter, string $contentType = self::contentTypes['putCommerceRatesEntriesByProductByMeter'][0])
     {
-        $request = $this->putCommerceRatesEntriesBySlugRequest($slug, $contentType);
+        $request = $this->putCommerceRatesEntriesByProductByMeterRequest($product, $meter, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -36791,19 +36813,20 @@ class CommerceApi
     }
 
     /**
-     * Operation putCommerceRatesEntriesBySlugAsync
+     * Operation putCommerceRatesEntriesByProductByMeterAsync
      *
      * Edit a rate, and mark it as operator-set
      *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesBySlug'] to see the possible values for this operation
+     * @param  string $product (required)
+     * @param  string $meter (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putCommerceRatesEntriesBySlugAsync($slug, string $contentType = self::contentTypes['putCommerceRatesEntriesBySlug'][0])
+    public function putCommerceRatesEntriesByProductByMeterAsync($product, $meter, string $contentType = self::contentTypes['putCommerceRatesEntriesByProductByMeter'][0])
     {
-        return $this->putCommerceRatesEntriesBySlugAsyncWithHttpInfo($slug, $contentType)
+        return $this->putCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo($product, $meter, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -36812,20 +36835,21 @@ class CommerceApi
     }
 
     /**
-     * Operation putCommerceRatesEntriesBySlugAsyncWithHttpInfo
+     * Operation putCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo
      *
      * Edit a rate, and mark it as operator-set
      *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesBySlug'] to see the possible values for this operation
+     * @param  string $product (required)
+     * @param  string $meter (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putCommerceRatesEntriesBySlugAsyncWithHttpInfo($slug, string $contentType = self::contentTypes['putCommerceRatesEntriesBySlug'][0])
+    public function putCommerceRatesEntriesByProductByMeterAsyncWithHttpInfo($product, $meter, string $contentType = self::contentTypes['putCommerceRatesEntriesByProductByMeter'][0])
     {
         $returnType = '';
-        $request = $this->putCommerceRatesEntriesBySlugRequest($slug, $contentType);
+        $request = $this->putCommerceRatesEntriesByProductByMeterRequest($product, $meter, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -36851,26 +36875,34 @@ class CommerceApi
     }
 
     /**
-     * Create request for operation 'putCommerceRatesEntriesBySlug'
+     * Create request for operation 'putCommerceRatesEntriesByProductByMeter'
      *
-     * @param  string $slug (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesBySlug'] to see the possible values for this operation
+     * @param  string $product (required)
+     * @param  string $meter (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putCommerceRatesEntriesByProductByMeter'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putCommerceRatesEntriesBySlugRequest($slug, string $contentType = self::contentTypes['putCommerceRatesEntriesBySlug'][0])
+    public function putCommerceRatesEntriesByProductByMeterRequest($product, $meter, string $contentType = self::contentTypes['putCommerceRatesEntriesByProductByMeter'][0])
     {
 
-        // verify the required parameter 'slug' is set
-        if ($slug === null || (is_array($slug) && count($slug) === 0)) {
+        // verify the required parameter 'product' is set
+        if ($product === null || (is_array($product) && count($product) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $slug when calling putCommerceRatesEntriesBySlug'
+                'Missing the required parameter $product when calling putCommerceRatesEntriesByProductByMeter'
+            );
+        }
+
+        // verify the required parameter 'meter' is set
+        if ($meter === null || (is_array($meter) && count($meter) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $meter when calling putCommerceRatesEntriesByProductByMeter'
             );
         }
 
 
-        $resourcePath = '/v1/commerce/rates/entries/{slug}';
+        $resourcePath = '/v1/commerce/rates/entries/{product}/{meter}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -36880,10 +36912,18 @@ class CommerceApi
 
 
         // path params
-        if ($slug !== null) {
+        if ($product !== null) {
             $resourcePath = str_replace(
-                '{' . 'slug' . '}',
-                ObjectSerializer::toPathValue($slug),
+                '{' . 'product' . '}',
+                ObjectSerializer::toPathValue($product),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($meter !== null) {
+            $resourcePath = str_replace(
+                '{' . 'meter' . '}',
+                ObjectSerializer::toPathValue($meter),
                 $resourcePath
             );
         }

@@ -227,6 +227,7 @@ src/Model/BankQuestion.php
 src/Model/BankTally.php
 src/Model/BankTxnRow.php
 src/Model/BaseHealth.php
+src/Model/BaseView.php
 src/Model/BeginIn.php
 src/Model/Benchmark.php
 src/Model/BenchmarkCatalog.php
@@ -287,6 +288,7 @@ src/Model/BusRequest.php
 src/Model/BuyInput.php
 src/Model/ByoGPU.php
 src/Model/ByoWorker.php
+src/Model/CDApp.php
 src/Model/CalendarPost.php
 src/Model/Call.php
 src/Model/CallInput.php
@@ -351,6 +353,7 @@ src/Model/CatalogPage.php
 src/Model/Category.php
 src/Model/CategoryIn.php
 src/Model/CategorySpend.php
+src/Model/CdResp.php
 src/Model/Centre.php
 src/Model/Chain.php
 src/Model/ChainList.php
@@ -364,6 +367,7 @@ src/Model/ChannelResult.php
 src/Model/ChannelSpec.php
 src/Model/ChannelView.php
 src/Model/Charge.php
+src/Model/Charged.php
 src/Model/ChatChannels.php
 src/Model/ChatRequest.php
 src/Model/ChatResponse.php
@@ -433,7 +437,9 @@ src/Model/ContextBundle.php
 src/Model/ContextIn.php
 src/Model/ControlCommandView.php
 src/Model/ControlDrain.php
+src/Model/ControlIn.php
 src/Model/ControlList.php
+src/Model/ControlResult.php
 src/Model/CookieAck.php
 src/Model/CorpusView.php
 src/Model/CostLine.php
@@ -481,6 +487,7 @@ src/Model/DataroomLinkCreate.php
 src/Model/DataroomLinkOne.php
 src/Model/DataroomLinkStats.php
 src/Model/DataroomLinks.php
+src/Model/DataroomLiveness.php
 src/Model/DataroomMember.php
 src/Model/DataroomMembership.php
 src/Model/DataroomPageStat.php
@@ -496,6 +503,10 @@ src/Model/DatasetView.php
 src/Model/DecideBody.php
 src/Model/DecisionIn.php
 src/Model/DeckOut.php
+src/Model/Declaration.php
+src/Model/DeclareEnv.php
+src/Model/Declared.php
+src/Model/DeclaredResp.php
 src/Model/DefRow.php
 src/Model/Definition.php
 src/Model/DefsOut.php
@@ -504,6 +515,7 @@ src/Model/DeletedOut.php
 src/Model/Delivery.php
 src/Model/DeliveryList.php
 src/Model/DeliveryRow.php
+src/Model/DeployHealth.php
 src/Model/DeployLogs.php
 src/Model/DeployRecord.php
 src/Model/DeployReq.php
@@ -514,6 +526,7 @@ src/Model/DestinationField.php
 src/Model/DestinationList.php
 src/Model/DestinationStatus.php
 src/Model/DestinationTest.php
+src/Model/Detachment.php
 src/Model/DevicePollOut.php
 src/Model/DeviceStartIn.php
 src/Model/DeviceStartOut.php
@@ -593,6 +606,7 @@ src/Model/EvaluatorList.php
 src/Model/EvaluatorReq.php
 src/Model/EvaluatorView.php
 src/Model/Event.php
+src/Model/EventIn.php
 src/Model/EventList.php
 src/Model/EventView.php
 src/Model/Exception.php
@@ -1911,6 +1925,7 @@ src/Model/ProjectsRelease.php
 src/Model/ProjectsRepo.php
 src/Model/ProjectsSite.php
 src/Model/ProjectsSiteDeploy.php
+src/Model/ProjectsStar.php
 src/Model/ProjectsUpdate.php
 src/Model/ProjectsUpdateRepo.php
 src/Model/ProjectsUploadGrant.php
@@ -1965,6 +1980,8 @@ src/Model/ReadingReq.php
 src/Model/ReadingView.php
 src/Model/ReadmeJSON.php
 src/Model/Receipt.php
+src/Model/Recharge.php
+src/Model/Recharged.php
 src/Model/Record.php
 src/Model/RecordList.php
 src/Model/RedeemInput.php
@@ -2305,6 +2322,7 @@ src/Model/ToolResult.php
 src/Model/Top.php
 src/Model/TopModels.php
 src/Model/TopProducts.php
+src/Model/TopupIn.php
 src/Model/TotalView.php
 src/Model/TraceList.php
 src/Model/TraceView.php
@@ -2346,6 +2364,7 @@ src/Model/TrustSettings.php
 src/Model/TrustTally.php
 src/Model/Txn.php
 src/Model/UTM.php
+src/Model/Unreadable.php
 src/Model/UnreconciledOut.php
 src/Model/Unsubscribed.php
 src/Model/UpdateAgentIn.php

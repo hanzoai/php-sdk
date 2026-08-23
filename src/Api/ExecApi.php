@@ -137,31 +137,32 @@ class ExecApi
     /**
      * Operation getExecFilesBySid
      *
-     * List the files in an execution session
+     * Files lists what a session holds.
      *
-     * @param  string $sid sid (required)
+     * @param  string $sid SID is the session identifier — the sandbox this listing is of. The URL is the addressing authority: a path segment binds after the body and after the query, so the address decides which session is read whatever else is sent. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExecFilesBySid'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\Listing[]
      */
     public function getExecFilesBySid($sid, string $contentType = self::contentTypes['getExecFilesBySid'][0])
     {
-        $this->getExecFilesBySidWithHttpInfo($sid, $contentType);
+        list($response) = $this->getExecFilesBySidWithHttpInfo($sid, $contentType);
+        return $response;
     }
 
     /**
      * Operation getExecFilesBySidWithHttpInfo
      *
-     * List the files in an execution session
+     * Files lists what a session holds.
      *
-     * @param  string $sid (required)
+     * @param  string $sid SID is the session identifier — the sandbox this listing is of. The URL is the addressing authority: a path segment binds after the body and after the query, so the address decides which session is read whatever else is sent. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExecFilesBySid'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Listing[], HTTP status code, HTTP response headers (array of strings)
      */
     public function getExecFilesBySidWithHttpInfo($sid, string $contentType = self::contentTypes['getExecFilesBySid'][0])
     {
@@ -190,9 +191,45 @@ class ExecApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Listing[]',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Listing[]',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Listing[]',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -203,9 +240,9 @@ class ExecApi
     /**
      * Operation getExecFilesBySidAsync
      *
-     * List the files in an execution session
+     * Files lists what a session holds.
      *
-     * @param  string $sid (required)
+     * @param  string $sid SID is the session identifier — the sandbox this listing is of. The URL is the addressing authority: a path segment binds after the body and after the query, so the address decides which session is read whatever else is sent. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExecFilesBySid'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -224,9 +261,9 @@ class ExecApi
     /**
      * Operation getExecFilesBySidAsyncWithHttpInfo
      *
-     * List the files in an execution session
+     * Files lists what a session holds.
      *
-     * @param  string $sid (required)
+     * @param  string $sid SID is the session identifier — the sandbox this listing is of. The URL is the addressing authority: a path segment binds after the body and after the query, so the address decides which session is read whatever else is sent. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExecFilesBySid'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -234,14 +271,27 @@ class ExecApi
      */
     public function getExecFilesBySidAsyncWithHttpInfo($sid, string $contentType = self::contentTypes['getExecFilesBySid'][0])
     {
-        $returnType = '';
+        $returnType = '\Hanzo\Cloud\Model\Listing[]';
         $request = $this->getExecFilesBySidRequest($sid, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -263,7 +313,7 @@ class ExecApi
     /**
      * Create request for operation 'getExecFilesBySid'
      *
-     * @param  string $sid (required)
+     * @param  string $sid SID is the session identifier — the sandbox this listing is of. The URL is the addressing authority: a path segment binds after the body and after the query, so the address decides which session is read whatever else is sent. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getExecFilesBySid'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -300,7 +350,7 @@ class ExecApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );

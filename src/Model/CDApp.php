@@ -1,6 +1,6 @@
 <?php
 /**
- * ReferenceSet
+ * CDApp
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * ReferenceSet Class Doc Comment
+ * CDApp Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ReferenceSet implements ModelInterface, ArrayAccess, \JsonSerializable
+class CDApp implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class ReferenceSet implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ReferenceSet';
+    protected static $openAPIModelName = 'CDApp';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,19 +57,19 @@ class ReferenceSet implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'age' => 'string',
-        'as_of' => 'string',
-        'keys' => 'int',
-        'kind' => 'string',
-        'match' => 'string',
-        'max_age' => 'string',
-        'overrides' => 'int',
-        'refusal' => 'string',
-        'set' => 'string',
-        'sources' => '\Hanzo\Cloud\Model\ReferenceSource[]',
-        'stale' => 'bool',
-        'version' => 'string',
-        'what' => 'string'
+        'automated' => 'bool',
+        'health' => 'string',
+        'message' => 'string',
+        'name' => 'string',
+        'namespace' => 'string',
+        'operation_message' => 'string',
+        'path' => 'string',
+        'phase' => 'string',
+        'project' => 'string',
+        'reconciled_at' => 'string',
+        'revision' => 'string',
+        'self_heal' => 'bool',
+        'sync' => 'string'
     ];
 
     /**
@@ -80,19 +80,19 @@ class ReferenceSet implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'age' => null,
-        'as_of' => null,
-        'keys' => null,
-        'kind' => null,
-        'match' => null,
-        'max_age' => null,
-        'overrides' => null,
-        'refusal' => null,
-        'set' => null,
-        'sources' => null,
-        'stale' => null,
-        'version' => null,
-        'what' => null
+        'automated' => null,
+        'health' => null,
+        'message' => null,
+        'name' => null,
+        'namespace' => null,
+        'operation_message' => null,
+        'path' => null,
+        'phase' => null,
+        'project' => null,
+        'reconciled_at' => null,
+        'revision' => null,
+        'self_heal' => null,
+        'sync' => null
     ];
 
     /**
@@ -101,19 +101,19 @@ class ReferenceSet implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'age' => false,
-        'as_of' => false,
-        'keys' => false,
-        'kind' => false,
-        'match' => false,
-        'max_age' => false,
-        'overrides' => false,
-        'refusal' => false,
-        'set' => false,
-        'sources' => false,
-        'stale' => false,
-        'version' => false,
-        'what' => false
+        'automated' => false,
+        'health' => false,
+        'message' => false,
+        'name' => false,
+        'namespace' => false,
+        'operation_message' => false,
+        'path' => false,
+        'phase' => false,
+        'project' => false,
+        'reconciled_at' => false,
+        'revision' => false,
+        'self_heal' => false,
+        'sync' => false
     ];
 
     /**
@@ -202,19 +202,19 @@ class ReferenceSet implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'age' => 'age',
-        'as_of' => 'asOf',
-        'keys' => 'keys',
-        'kind' => 'kind',
-        'match' => 'match',
-        'max_age' => 'maxAge',
-        'overrides' => 'overrides',
-        'refusal' => 'refusal',
-        'set' => 'set',
-        'sources' => 'sources',
-        'stale' => 'stale',
-        'version' => 'version',
-        'what' => 'what'
+        'automated' => 'automated',
+        'health' => 'health',
+        'message' => 'message',
+        'name' => 'name',
+        'namespace' => 'namespace',
+        'operation_message' => 'operationMessage',
+        'path' => 'path',
+        'phase' => 'phase',
+        'project' => 'project',
+        'reconciled_at' => 'reconciledAt',
+        'revision' => 'revision',
+        'self_heal' => 'selfHeal',
+        'sync' => 'sync'
     ];
 
     /**
@@ -223,19 +223,19 @@ class ReferenceSet implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'age' => 'setAge',
-        'as_of' => 'setAsOf',
-        'keys' => 'setKeys',
-        'kind' => 'setKind',
-        'match' => 'setMatch',
-        'max_age' => 'setMaxAge',
-        'overrides' => 'setOverrides',
-        'refusal' => 'setRefusal',
-        'set' => 'setSet',
-        'sources' => 'setSources',
-        'stale' => 'setStale',
-        'version' => 'setVersion',
-        'what' => 'setWhat'
+        'automated' => 'setAutomated',
+        'health' => 'setHealth',
+        'message' => 'setMessage',
+        'name' => 'setName',
+        'namespace' => 'setNamespace',
+        'operation_message' => 'setOperationMessage',
+        'path' => 'setPath',
+        'phase' => 'setPhase',
+        'project' => 'setProject',
+        'reconciled_at' => 'setReconciledAt',
+        'revision' => 'setRevision',
+        'self_heal' => 'setSelfHeal',
+        'sync' => 'setSync'
     ];
 
     /**
@@ -244,19 +244,19 @@ class ReferenceSet implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'age' => 'getAge',
-        'as_of' => 'getAsOf',
-        'keys' => 'getKeys',
-        'kind' => 'getKind',
-        'match' => 'getMatch',
-        'max_age' => 'getMaxAge',
-        'overrides' => 'getOverrides',
-        'refusal' => 'getRefusal',
-        'set' => 'getSet',
-        'sources' => 'getSources',
-        'stale' => 'getStale',
-        'version' => 'getVersion',
-        'what' => 'getWhat'
+        'automated' => 'getAutomated',
+        'health' => 'getHealth',
+        'message' => 'getMessage',
+        'name' => 'getName',
+        'namespace' => 'getNamespace',
+        'operation_message' => 'getOperationMessage',
+        'path' => 'getPath',
+        'phase' => 'getPhase',
+        'project' => 'getProject',
+        'reconciled_at' => 'getReconciledAt',
+        'revision' => 'getRevision',
+        'self_heal' => 'getSelfHeal',
+        'sync' => 'getSync'
     ];
 
     /**
@@ -316,19 +316,19 @@ class ReferenceSet implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('age', $data ?? [], null);
-        $this->setIfExists('as_of', $data ?? [], null);
-        $this->setIfExists('keys', $data ?? [], null);
-        $this->setIfExists('kind', $data ?? [], null);
-        $this->setIfExists('match', $data ?? [], null);
-        $this->setIfExists('max_age', $data ?? [], null);
-        $this->setIfExists('overrides', $data ?? [], null);
-        $this->setIfExists('refusal', $data ?? [], null);
-        $this->setIfExists('set', $data ?? [], null);
-        $this->setIfExists('sources', $data ?? [], null);
-        $this->setIfExists('stale', $data ?? [], null);
-        $this->setIfExists('version', $data ?? [], null);
-        $this->setIfExists('what', $data ?? [], null);
+        $this->setIfExists('automated', $data ?? [], null);
+        $this->setIfExists('health', $data ?? [], null);
+        $this->setIfExists('message', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
+        $this->setIfExists('namespace', $data ?? [], null);
+        $this->setIfExists('operation_message', $data ?? [], null);
+        $this->setIfExists('path', $data ?? [], null);
+        $this->setIfExists('phase', $data ?? [], null);
+        $this->setIfExists('project', $data ?? [], null);
+        $this->setIfExists('reconciled_at', $data ?? [], null);
+        $this->setIfExists('revision', $data ?? [], null);
+        $this->setIfExists('self_heal', $data ?? [], null);
+        $this->setIfExists('sync', $data ?? [], null);
     }
 
     /**
@@ -374,352 +374,352 @@ class ReferenceSet implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets age
-     *
-     * @return string|null
-     */
-    public function getAge()
-    {
-        return $this->container['age'];
-    }
-
-    /**
-     * Sets age
-     *
-     * @param string|null $age Age is how long ago that was.
-     *
-     * @return self
-     */
-    public function setAge($age)
-    {
-        if (is_null($age)) {
-            throw new \InvalidArgumentException('non-nullable age cannot be null');
-        }
-        $this->container['age'] = $age;
-
-        return $this;
-    }
-
-    /**
-     * Gets as_of
-     *
-     * @return string|null
-     */
-    public function getAsOf()
-    {
-        return $this->container['as_of'];
-    }
-
-    /**
-     * Sets as_of
-     *
-     * @param string|null $as_of AsOf is when the OLDEST contributing publisher was current, RFC 3339. The oldest and not the newest: a set is exactly as fresh as its weakest source.
-     *
-     * @return self
-     */
-    public function setAsOf($as_of)
-    {
-        if (is_null($as_of)) {
-            throw new \InvalidArgumentException('non-nullable as_of cannot be null');
-        }
-        $this->container['as_of'] = $as_of;
-
-        return $this;
-    }
-
-    /**
-     * Gets keys
-     *
-     * @return int|null
-     */
-    public function getKeys()
-    {
-        return $this->container['keys'];
-    }
-
-    /**
-     * Sets keys
-     *
-     * @param int|null $keys Keys is how many members the baseline carries.
-     *
-     * @return self
-     */
-    public function setKeys($keys)
-    {
-        if (is_null($keys)) {
-            throw new \InvalidArgumentException('non-nullable keys cannot be null');
-        }
-        $this->container['keys'] = $keys;
-
-        return $this;
-    }
-
-    /**
-     * Gets kind
-     *
-     * @return string|null
-     */
-    public function getKind()
-    {
-        return $this->container['kind'];
-    }
-
-    /**
-     * Sets kind
-     *
-     * @param string|null $kind Kind is how the baseline comes to exist: fetch (downloaded from a publisher), local (computed here), attest (held by the component that screens against it, freshness reported), or client (declared and NOT held, because the source needs a licence we do not have).
-     *
-     * @return self
-     */
-    public function setKind($kind)
-    {
-        if (is_null($kind)) {
-            throw new \InvalidArgumentException('non-nullable kind cannot be null');
-        }
-        $this->container['kind'] = $kind;
-
-        return $this;
-    }
-
-    /**
-     * Gets match
-     *
-     * @return string|null
-     */
-    public function getMatch()
-    {
-        return $this->container['match'];
-    }
-
-    /**
-     * Sets match
-     *
-     * @param string|null $match Match is how a key is tested: exact, domain, net, digits, pattern or range.
-     *
-     * @return self
-     */
-    public function setMatch($match)
-    {
-        if (is_null($match)) {
-            throw new \InvalidArgumentException('non-nullable match cannot be null');
-        }
-        $this->container['match'] = $match;
-
-        return $this;
-    }
-
-    /**
-     * Gets max_age
-     *
-     * @return string|null
-     */
-    public function getMaxAge()
-    {
-        return $this->container['max_age'];
-    }
-
-    /**
-     * Sets max_age
-     *
-     * @param string|null $max_age MaxAge is how old this set may be before it is stale.
-     *
-     * @return self
-     */
-    public function setMaxAge($max_age)
-    {
-        if (is_null($max_age)) {
-            throw new \InvalidArgumentException('non-nullable max_age cannot be null');
-        }
-        $this->container['max_age'] = $max_age;
-
-        return $this;
-    }
-
-    /**
-     * Gets overrides
-     *
-     * @return int|null
-     */
-    public function getOverrides()
-    {
-        return $this->container['overrides'];
-    }
-
-    /**
-     * Sets overrides
-     *
-     * @param int|null $overrides Overrides is how many entries YOUR org has laid over this baseline.
-     *
-     * @return self
-     */
-    public function setOverrides($overrides)
-    {
-        if (is_null($overrides)) {
-            throw new \InvalidArgumentException('non-nullable overrides cannot be null');
-        }
-        $this->container['overrides'] = $overrides;
-
-        return $this;
-    }
-
-    /**
-     * Gets refusal
-     *
-     * @return string|null
-     */
-    public function getRefusal()
-    {
-        return $this->container['refusal'];
-    }
-
-    /**
-     * Sets refusal
-     *
-     * @param string|null $refusal Refusal names why the set cannot be relied on, when it cannot: never loaded, held elsewhere, or a licence we do not hold. Non-empty means a lookup against this set will not answer, rather than answering clean.
-     *
-     * @return self
-     */
-    public function setRefusal($refusal)
-    {
-        if (is_null($refusal)) {
-            throw new \InvalidArgumentException('non-nullable refusal cannot be null');
-        }
-        $this->container['refusal'] = $refusal;
-
-        return $this;
-    }
-
-    /**
-     * Gets set
-     *
-     * @return string|null
-     */
-    public function getSet()
-    {
-        return $this->container['set'];
-    }
-
-    /**
-     * Sets set
-     *
-     * @param string|null $set Set is the name this set is addressed by.
-     *
-     * @return self
-     */
-    public function setSet($set)
-    {
-        if (is_null($set)) {
-            throw new \InvalidArgumentException('non-nullable set cannot be null');
-        }
-        $this->container['set'] = $set;
-
-        return $this;
-    }
-
-    /**
-     * Gets sources
-     *
-     * @return \Hanzo\Cloud\Model\ReferenceSource[]|null
-     */
-    public function getSources()
-    {
-        return $this->container['sources'];
-    }
-
-    /**
-     * Sets sources
-     *
-     * @param \Hanzo\Cloud\Model\ReferenceSource[]|null $sources Sources is each contributing publisher, its licence and its own freshness.
-     *
-     * @return self
-     */
-    public function setSources($sources)
-    {
-        if (is_null($sources)) {
-            throw new \InvalidArgumentException('non-nullable sources cannot be null');
-        }
-        $this->container['sources'] = $sources;
-
-        return $this;
-    }
-
-    /**
-     * Gets stale
+     * Gets automated
      *
      * @return bool|null
      */
-    public function getStale()
+    public function getAutomated()
     {
-        return $this->container['stale'];
+        return $this->container['automated'];
     }
 
     /**
-     * Sets stale
+     * Sets automated
      *
-     * @param bool|null $stale Stale is whether it is past that bound. A stale set still answers and says so, because yesterday's list beats none.
+     * @param bool|null $automated Automated is whether CD applies git without being asked. It is cd.automated in the values file, rendered by the ApplicationSet's templatePatch — false means the Application reports drift and nothing moves.
      *
      * @return self
      */
-    public function setStale($stale)
+    public function setAutomated($automated)
     {
-        if (is_null($stale)) {
-            throw new \InvalidArgumentException('non-nullable stale cannot be null');
+        if (is_null($automated)) {
+            throw new \InvalidArgumentException('non-nullable automated cannot be null');
         }
-        $this->container['stale'] = $stale;
+        $this->container['automated'] = $automated;
 
         return $this;
     }
 
     /**
-     * Gets version
+     * Gets health
      *
      * @return string|null
      */
-    public function getVersion()
+    public function getHealth()
     {
-        return $this->container['version'];
+        return $this->container['health'];
     }
 
     /**
-     * Sets version
+     * Sets health
      *
-     * @param string|null $version Version is the exact baseline consulted — every contributing publisher and its content digest. A decision records this and an auditor resolves it back.
+     * @param string|null $health Health is the workload's verdict: Healthy, Progressing, Degraded, Missing.
      *
      * @return self
      */
-    public function setVersion($version)
+    public function setHealth($health)
     {
-        if (is_null($version)) {
-            throw new \InvalidArgumentException('non-nullable version cannot be null');
+        if (is_null($health)) {
+            throw new \InvalidArgumentException('non-nullable health cannot be null');
         }
-        $this->container['version'] = $version;
+        $this->container['health'] = $health;
 
         return $this;
     }
 
     /**
-     * Gets what
+     * Gets message
      *
      * @return string|null
      */
-    public function getWhat()
+    public function getMessage()
     {
-        return $this->container['what'];
+        return $this->container['message'];
     }
 
     /**
-     * Sets what
+     * Sets message
      *
-     * @param string|null $what What the set holds, in one sentence.
+     * @param string|null $message Message is why, when Health is not Healthy.
      *
      * @return self
      */
-    public function setWhat($what)
+    public function setMessage($message)
     {
-        if (is_null($what)) {
-            throw new \InvalidArgumentException('non-nullable what cannot be null');
+        if (is_null($message)) {
+            throw new \InvalidArgumentException('non-nullable message cannot be null');
         }
-        $this->container['what'] = $what;
+        $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return string|null
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param string|null $name Name is the Application name the generator mints: <namespace>-<app>. It is the join key against a Declaration.
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
+        }
+        $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets namespace
+     *
+     * @return string|null
+     */
+    public function getNamespace()
+    {
+        return $this->container['namespace'];
+    }
+
+    /**
+     * Sets namespace
+     *
+     * @param string|null $namespace Namespace is the DESTINATION namespace as the CR declares it — where the workload lands. For a fleet Application that is the org, but this is the OBSERVED field and not our model of it: the two can disagree, and a board whose whole job is drift must be able to show that they do.
+     *
+     * @return self
+     */
+    public function setNamespace($namespace)
+    {
+        if (is_null($namespace)) {
+            throw new \InvalidArgumentException('non-nullable namespace cannot be null');
+        }
+        $this->container['namespace'] = $namespace;
+
+        return $this;
+    }
+
+    /**
+     * Gets operation_message
+     *
+     * @return string|null
+     */
+    public function getOperationMessage()
+    {
+        return $this->container['operation_message'];
+    }
+
+    /**
+     * Sets operation_message
+     *
+     * @param string|null $operation_message operation_message
+     *
+     * @return self
+     */
+    public function setOperationMessage($operation_message)
+    {
+        if (is_null($operation_message)) {
+            throw new \InvalidArgumentException('non-nullable operation_message cannot be null');
+        }
+        $this->container['operation_message'] = $operation_message;
+
+        return $this;
+    }
+
+    /**
+     * Gets path
+     *
+     * @return string|null
+     */
+    public function getPath()
+    {
+        return $this->container['path'];
+    }
+
+    /**
+     * Sets path
+     *
+     * @param string|null $path Path is the values file CD renders against, relative to the chart source.
+     *
+     * @return self
+     */
+    public function setPath($path)
+    {
+        if (is_null($path)) {
+            throw new \InvalidArgumentException('non-nullable path cannot be null');
+        }
+        $this->container['path'] = $path;
+
+        return $this;
+    }
+
+    /**
+     * Gets phase
+     *
+     * @return string|null
+     */
+    public function getPhase()
+    {
+        return $this->container['phase'];
+    }
+
+    /**
+     * Sets phase
+     *
+     * @param string|null $phase Phase is the last sync operation's phase (Running, Succeeded, Failed) and OperationMessage is its message. A Failed phase with a Synced verdict is the shape a stuck Application takes.
+     *
+     * @return self
+     */
+    public function setPhase($phase)
+    {
+        if (is_null($phase)) {
+            throw new \InvalidArgumentException('non-nullable phase cannot be null');
+        }
+        $this->container['phase'] = $phase;
+
+        return $this;
+    }
+
+    /**
+     * Gets project
+     *
+     * @return string|null
+     */
+    public function getProject()
+    {
+        return $this->container['project'];
+    }
+
+    /**
+     * Sets project
+     *
+     * @param string|null $project Project is the AppProject fence the sync is admitted under.
+     *
+     * @return self
+     */
+    public function setProject($project)
+    {
+        if (is_null($project)) {
+            throw new \InvalidArgumentException('non-nullable project cannot be null');
+        }
+        $this->container['project'] = $project;
+
+        return $this;
+    }
+
+    /**
+     * Gets reconciled_at
+     *
+     * @return string|null
+     */
+    public function getReconciledAt()
+    {
+        return $this->container['reconciled_at'];
+    }
+
+    /**
+     * Sets reconciled_at
+     *
+     * @param string|null $reconciled_at ReconciledAt is when CD last compared this Application.
+     *
+     * @return self
+     */
+    public function setReconciledAt($reconciled_at)
+    {
+        if (is_null($reconciled_at)) {
+            throw new \InvalidArgumentException('non-nullable reconciled_at cannot be null');
+        }
+        $this->container['reconciled_at'] = $reconciled_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets revision
+     *
+     * @return string|null
+     */
+    public function getRevision()
+    {
+        return $this->container['revision'];
+    }
+
+    /**
+     * Sets revision
+     *
+     * @param string|null $revision Revision is the universe commit CD last applied. Empty means it has not applied one — never assume it means main.
+     *
+     * @return self
+     */
+    public function setRevision($revision)
+    {
+        if (is_null($revision)) {
+            throw new \InvalidArgumentException('non-nullable revision cannot be null');
+        }
+        $this->container['revision'] = $revision;
+
+        return $this;
+    }
+
+    /**
+     * Gets self_heal
+     *
+     * @return bool|null
+     */
+    public function getSelfHeal()
+    {
+        return $this->container['self_heal'];
+    }
+
+    /**
+     * Sets self_heal
+     *
+     * @param bool|null $self_heal SelfHeal is whether CD also corrects drift the cluster introduced.
+     *
+     * @return self
+     */
+    public function setSelfHeal($self_heal)
+    {
+        if (is_null($self_heal)) {
+            throw new \InvalidArgumentException('non-nullable self_heal cannot be null');
+        }
+        $this->container['self_heal'] = $self_heal;
+
+        return $this;
+    }
+
+    /**
+     * Gets sync
+     *
+     * @return string|null
+     */
+    public function getSync()
+    {
+        return $this->container['sync'];
+    }
+
+    /**
+     * Sets sync
+     *
+     * @param string|null $sync Sync is CD's verdict on git-versus-cluster: Synced, OutOfSync, or Unknown.
+     *
+     * @return self
+     */
+    public function setSync($sync)
+    {
+        if (is_null($sync)) {
+            throw new \InvalidArgumentException('non-nullable sync cannot be null');
+        }
+        $this->container['sync'] = $sync;
 
         return $this;
     }

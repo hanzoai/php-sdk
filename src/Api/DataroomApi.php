@@ -2017,29 +2017,30 @@ class DataroomApi
     /**
      * Operation getDataroomHealth
      *
-     * Liveness of the dataroom subsystem
+     * Health reports that the data room subsystem is up.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDataroomHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \Hanzo\Cloud\Model\DataroomLiveness
      */
     public function getDataroomHealth(string $contentType = self::contentTypes['getDataroomHealth'][0])
     {
-        $this->getDataroomHealthWithHttpInfo($contentType);
+        list($response) = $this->getDataroomHealthWithHttpInfo($contentType);
+        return $response;
     }
 
     /**
      * Operation getDataroomHealthWithHttpInfo
      *
-     * Liveness of the dataroom subsystem
+     * Health reports that the data room subsystem is up.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDataroomHealth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\DataroomLiveness, HTTP status code, HTTP response headers (array of strings)
      */
     public function getDataroomHealthWithHttpInfo(string $contentType = self::contentTypes['getDataroomHealth'][0])
     {
@@ -2068,9 +2069,45 @@ class DataroomApi
             $statusCode = $response->getStatusCode();
 
 
-            return [null, $statusCode, $response->getHeaders()];
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\DataroomLiveness',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\DataroomLiveness',
+                $request,
+                $response,
+            );
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\DataroomLiveness',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -2081,7 +2118,7 @@ class DataroomApi
     /**
      * Operation getDataroomHealthAsync
      *
-     * Liveness of the dataroom subsystem
+     * Health reports that the data room subsystem is up.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDataroomHealth'] to see the possible values for this operation
      *
@@ -2101,7 +2138,7 @@ class DataroomApi
     /**
      * Operation getDataroomHealthAsyncWithHttpInfo
      *
-     * Liveness of the dataroom subsystem
+     * Health reports that the data room subsystem is up.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDataroomHealth'] to see the possible values for this operation
      *
@@ -2110,14 +2147,27 @@ class DataroomApi
      */
     public function getDataroomHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getDataroomHealth'][0])
     {
-        $returnType = '';
+        $returnType = '\Hanzo\Cloud\Model\DataroomLiveness';
         $request = $this->getDataroomHealthRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -2160,7 +2210,7 @@ class DataroomApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );

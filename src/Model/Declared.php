@@ -1,6 +1,6 @@
 <?php
 /**
- * Tool
+ * Declared
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * Tool Class Doc Comment
+ * Declared Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
+class Declared implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Tool';
+    protected static $openAPIModelName = 'declared';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,13 +57,19 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'activated' => 'bool',
-        'description' => 'string',
-        'dispatchable' => 'bool',
-        'input_schema' => 'mixed',
+        'application' => 'string',
+        'automated' => 'bool',
+        'cd' => '\Hanzo\Cloud\Model\CDApp',
+        'digest' => 'string',
+        'env' => '\Hanzo\Cloud\Model\DeclareEnv[]',
+        'hosts' => 'string[]',
         'name' => 'string',
-        'price' => '\Hanzo\Cloud\Model\Price',
-        'source' => 'string'
+        'org' => 'string',
+        'path' => 'string',
+        'project' => 'string',
+        'replicas' => 'int',
+        'repository' => 'string',
+        'tag' => 'string'
     ];
 
     /**
@@ -74,13 +80,19 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'activated' => null,
-        'description' => null,
-        'dispatchable' => null,
-        'input_schema' => null,
+        'application' => null,
+        'automated' => null,
+        'cd' => null,
+        'digest' => null,
+        'env' => null,
+        'hosts' => null,
         'name' => null,
-        'price' => null,
-        'source' => null
+        'org' => null,
+        'path' => null,
+        'project' => null,
+        'replicas' => null,
+        'repository' => null,
+        'tag' => null
     ];
 
     /**
@@ -89,13 +101,19 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'activated' => false,
-        'description' => false,
-        'dispatchable' => false,
-        'input_schema' => true,
+        'application' => false,
+        'automated' => false,
+        'cd' => false,
+        'digest' => false,
+        'env' => false,
+        'hosts' => false,
         'name' => false,
-        'price' => false,
-        'source' => false
+        'org' => false,
+        'path' => false,
+        'project' => false,
+        'replicas' => false,
+        'repository' => false,
+        'tag' => false
     ];
 
     /**
@@ -184,13 +202,19 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'activated' => 'activated',
-        'description' => 'description',
-        'dispatchable' => 'dispatchable',
-        'input_schema' => 'inputSchema',
+        'application' => 'application',
+        'automated' => 'automated',
+        'cd' => 'cd',
+        'digest' => 'digest',
+        'env' => 'env',
+        'hosts' => 'hosts',
         'name' => 'name',
-        'price' => 'price',
-        'source' => 'source'
+        'org' => 'org',
+        'path' => 'path',
+        'project' => 'project',
+        'replicas' => 'replicas',
+        'repository' => 'repository',
+        'tag' => 'tag'
     ];
 
     /**
@@ -199,13 +223,19 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'activated' => 'setActivated',
-        'description' => 'setDescription',
-        'dispatchable' => 'setDispatchable',
-        'input_schema' => 'setInputSchema',
+        'application' => 'setApplication',
+        'automated' => 'setAutomated',
+        'cd' => 'setCd',
+        'digest' => 'setDigest',
+        'env' => 'setEnv',
+        'hosts' => 'setHosts',
         'name' => 'setName',
-        'price' => 'setPrice',
-        'source' => 'setSource'
+        'org' => 'setOrg',
+        'path' => 'setPath',
+        'project' => 'setProject',
+        'replicas' => 'setReplicas',
+        'repository' => 'setRepository',
+        'tag' => 'setTag'
     ];
 
     /**
@@ -214,13 +244,19 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'activated' => 'getActivated',
-        'description' => 'getDescription',
-        'dispatchable' => 'getDispatchable',
-        'input_schema' => 'getInputSchema',
+        'application' => 'getApplication',
+        'automated' => 'getAutomated',
+        'cd' => 'getCd',
+        'digest' => 'getDigest',
+        'env' => 'getEnv',
+        'hosts' => 'getHosts',
         'name' => 'getName',
-        'price' => 'getPrice',
-        'source' => 'getSource'
+        'org' => 'getOrg',
+        'path' => 'getPath',
+        'project' => 'getProject',
+        'replicas' => 'getReplicas',
+        'repository' => 'getRepository',
+        'tag' => 'getTag'
     ];
 
     /**
@@ -280,13 +316,19 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('activated', $data ?? [], null);
-        $this->setIfExists('description', $data ?? [], null);
-        $this->setIfExists('dispatchable', $data ?? [], null);
-        $this->setIfExists('input_schema', $data ?? [], null);
+        $this->setIfExists('application', $data ?? [], null);
+        $this->setIfExists('automated', $data ?? [], null);
+        $this->setIfExists('cd', $data ?? [], null);
+        $this->setIfExists('digest', $data ?? [], null);
+        $this->setIfExists('env', $data ?? [], null);
+        $this->setIfExists('hosts', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
-        $this->setIfExists('price', $data ?? [], null);
-        $this->setIfExists('source', $data ?? [], null);
+        $this->setIfExists('org', $data ?? [], null);
+        $this->setIfExists('path', $data ?? [], null);
+        $this->setIfExists('project', $data ?? [], null);
+        $this->setIfExists('replicas', $data ?? [], null);
+        $this->setIfExists('repository', $data ?? [], null);
+        $this->setIfExists('tag', $data ?? [], null);
     }
 
     /**
@@ -332,116 +374,163 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets activated
-     *
-     * @return bool|null
-     */
-    public function getActivated()
-    {
-        return $this->container['activated'];
-    }
-
-    /**
-     * Sets activated
-     *
-     * @param bool|null $activated Activated is filled by the registry from the activation store for the requesting (org,project); providers leave it zero. An unactivated tool is discoverable but refused 403 at dispatch.
-     *
-     * @return self
-     */
-    public function setActivated($activated)
-    {
-        if (is_null($activated)) {
-            throw new \InvalidArgumentException('non-nullable activated cannot be null');
-        }
-        $this->container['activated'] = $activated;
-
-        return $this;
-    }
-
-    /**
-     * Gets description
+     * Gets application
      *
      * @return string|null
      */
-    public function getDescription()
+    public function getApplication()
     {
-        return $this->container['description'];
+        return $this->container['application'];
     }
 
     /**
-     * Sets description
+     * Sets application
      *
-     * @param string|null $description Description is the prose a model reads to decide whether to call the tool.
+     * @param string|null $application application
      *
      * @return self
      */
-    public function setDescription($description)
+    public function setApplication($application)
     {
-        if (is_null($description)) {
-            throw new \InvalidArgumentException('non-nullable description cannot be null');
+        if (is_null($application)) {
+            throw new \InvalidArgumentException('non-nullable application cannot be null');
         }
-        $this->container['description'] = $description;
+        $this->container['application'] = $application;
 
         return $this;
     }
 
     /**
-     * Gets dispatchable
+     * Gets automated
      *
      * @return bool|null
      */
-    public function getDispatchable()
+    public function getAutomated()
     {
-        return $this->container['dispatchable'];
+        return $this->container['automated'];
     }
 
     /**
-     * Sets dispatchable
+     * Sets automated
      *
-     * @param bool|null $dispatchable Dispatchable is whether the tool can be CALLED. False for a listing-only entry: a skill is activated and attached to an agent, never called.
+     * @param bool|null $automated automated
      *
      * @return self
      */
-    public function setDispatchable($dispatchable)
+    public function setAutomated($automated)
     {
-        if (is_null($dispatchable)) {
-            throw new \InvalidArgumentException('non-nullable dispatchable cannot be null');
+        if (is_null($automated)) {
+            throw new \InvalidArgumentException('non-nullable automated cannot be null');
         }
-        $this->container['dispatchable'] = $dispatchable;
+        $this->container['automated'] = $automated;
 
         return $this;
     }
 
     /**
-     * Gets input_schema
+     * Gets cd
      *
-     * @return mixed|null
+     * @return \Hanzo\Cloud\Model\CDApp|null
      */
-    public function getInputSchema()
+    public function getCd()
     {
-        return $this->container['input_schema'];
+        return $this->container['cd'];
     }
 
     /**
-     * Sets input_schema
+     * Sets cd
      *
-     * @param mixed|null $input_schema input_schema
+     * @param \Hanzo\Cloud\Model\CDApp|null $cd cd
      *
      * @return self
      */
-    public function setInputSchema($input_schema)
+    public function setCd($cd)
     {
-        if (is_null($input_schema)) {
-            array_push($this->openAPINullablesSetToNull, 'input_schema');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('input_schema', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
+        if (is_null($cd)) {
+            throw new \InvalidArgumentException('non-nullable cd cannot be null');
         }
-        $this->container['input_schema'] = $input_schema;
+        $this->container['cd'] = $cd;
+
+        return $this;
+    }
+
+    /**
+     * Gets digest
+     *
+     * @return string|null
+     */
+    public function getDigest()
+    {
+        return $this->container['digest'];
+    }
+
+    /**
+     * Sets digest
+     *
+     * @param string|null $digest digest
+     *
+     * @return self
+     */
+    public function setDigest($digest)
+    {
+        if (is_null($digest)) {
+            throw new \InvalidArgumentException('non-nullable digest cannot be null');
+        }
+        $this->container['digest'] = $digest;
+
+        return $this;
+    }
+
+    /**
+     * Gets env
+     *
+     * @return \Hanzo\Cloud\Model\DeclareEnv[]|null
+     */
+    public function getEnv()
+    {
+        return $this->container['env'];
+    }
+
+    /**
+     * Sets env
+     *
+     * @param \Hanzo\Cloud\Model\DeclareEnv[]|null $env env
+     *
+     * @return self
+     */
+    public function setEnv($env)
+    {
+        if (is_null($env)) {
+            throw new \InvalidArgumentException('non-nullable env cannot be null');
+        }
+        $this->container['env'] = $env;
+
+        return $this;
+    }
+
+    /**
+     * Gets hosts
+     *
+     * @return string[]|null
+     */
+    public function getHosts()
+    {
+        return $this->container['hosts'];
+    }
+
+    /**
+     * Sets hosts
+     *
+     * @param string[]|null $hosts hosts
+     *
+     * @return self
+     */
+    public function setHosts($hosts)
+    {
+        if (is_null($hosts)) {
+            throw new \InvalidArgumentException('non-nullable hosts cannot be null');
+        }
+        $this->container['hosts'] = $hosts;
 
         return $this;
     }
@@ -459,7 +548,7 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name Name is the tool's id in the flat, fleet-wide tool namespace — the value a tools/call passes. Unique across sources: a collision is resolved by source precedence before the caller ever sees it.
+     * @param string|null $name name
      *
      * @return self
      */
@@ -474,55 +563,163 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets price
+     * Gets org
      *
-     * @return \Hanzo\Cloud\Model\Price|null
+     * @return string|null
      */
-    public function getPrice()
+    public function getOrg()
     {
-        return $this->container['price'];
+        return $this->container['org'];
     }
 
     /**
-     * Sets price
+     * Sets org
      *
-     * @param \Hanzo\Cloud\Model\Price|null $price Price is what a call costs and who is paid, absent for a free tool. Enforcement is the x402 settlement client; this is the declaration.
+     * @param string|null $org org
      *
      * @return self
      */
-    public function setPrice($price)
+    public function setOrg($org)
     {
-        if (is_null($price)) {
-            throw new \InvalidArgumentException('non-nullable price cannot be null');
+        if (is_null($org)) {
+            throw new \InvalidArgumentException('non-nullable org cannot be null');
         }
-        $this->container['price'] = $price;
+        $this->container['org'] = $org;
 
         return $this;
     }
 
     /**
-     * Gets source
+     * Gets path
      *
      * @return string|null
      */
-    public function getSource()
+    public function getPath()
     {
-        return $this->container['source'];
+        return $this->container['path'];
     }
 
     /**
-     * Sets source
+     * Sets path
      *
-     * @param string|null $source Source is where the tool comes from: connector, function, zap-service, agent, skill or mcp.
+     * @param string|null $path path
      *
      * @return self
      */
-    public function setSource($source)
+    public function setPath($path)
     {
-        if (is_null($source)) {
-            throw new \InvalidArgumentException('non-nullable source cannot be null');
+        if (is_null($path)) {
+            throw new \InvalidArgumentException('non-nullable path cannot be null');
         }
-        $this->container['source'] = $source;
+        $this->container['path'] = $path;
+
+        return $this;
+    }
+
+    /**
+     * Gets project
+     *
+     * @return string|null
+     */
+    public function getProject()
+    {
+        return $this->container['project'];
+    }
+
+    /**
+     * Sets project
+     *
+     * @param string|null $project project
+     *
+     * @return self
+     */
+    public function setProject($project)
+    {
+        if (is_null($project)) {
+            throw new \InvalidArgumentException('non-nullable project cannot be null');
+        }
+        $this->container['project'] = $project;
+
+        return $this;
+    }
+
+    /**
+     * Gets replicas
+     *
+     * @return int|null
+     */
+    public function getReplicas()
+    {
+        return $this->container['replicas'];
+    }
+
+    /**
+     * Sets replicas
+     *
+     * @param int|null $replicas replicas
+     *
+     * @return self
+     */
+    public function setReplicas($replicas)
+    {
+        if (is_null($replicas)) {
+            throw new \InvalidArgumentException('non-nullable replicas cannot be null');
+        }
+        $this->container['replicas'] = $replicas;
+
+        return $this;
+    }
+
+    /**
+     * Gets repository
+     *
+     * @return string|null
+     */
+    public function getRepository()
+    {
+        return $this->container['repository'];
+    }
+
+    /**
+     * Sets repository
+     *
+     * @param string|null $repository repository
+     *
+     * @return self
+     */
+    public function setRepository($repository)
+    {
+        if (is_null($repository)) {
+            throw new \InvalidArgumentException('non-nullable repository cannot be null');
+        }
+        $this->container['repository'] = $repository;
+
+        return $this;
+    }
+
+    /**
+     * Gets tag
+     *
+     * @return string|null
+     */
+    public function getTag()
+    {
+        return $this->container['tag'];
+    }
+
+    /**
+     * Sets tag
+     *
+     * @param string|null $tag tag
+     *
+     * @return self
+     */
+    public function setTag($tag)
+    {
+        if (is_null($tag)) {
+            throw new \InvalidArgumentException('non-nullable tag cannot be null');
+        }
+        $this->container['tag'] = $tag;
 
         return $this;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Tool
+ * Charged
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * Tool Class Doc Comment
+ * Charged Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
+class Charged implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Tool';
+    protected static $openAPIModelName = 'Charged';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,13 +57,11 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'activated' => 'bool',
-        'description' => 'string',
-        'dispatchable' => 'bool',
-        'input_schema' => 'mixed',
-        'name' => 'string',
-        'price' => '\Hanzo\Cloud\Model\Price',
-        'source' => 'string'
+        'balance_cents' => 'int',
+        'processor_ref' => 'string',
+        'status' => 'string',
+        'test' => 'bool',
+        'transaction_id' => 'string'
     ];
 
     /**
@@ -74,13 +72,11 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'activated' => null,
-        'description' => null,
-        'dispatchable' => null,
-        'input_schema' => null,
-        'name' => null,
-        'price' => null,
-        'source' => null
+        'balance_cents' => null,
+        'processor_ref' => null,
+        'status' => null,
+        'test' => null,
+        'transaction_id' => null
     ];
 
     /**
@@ -89,13 +85,11 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'activated' => false,
-        'description' => false,
-        'dispatchable' => false,
-        'input_schema' => true,
-        'name' => false,
-        'price' => false,
-        'source' => false
+        'balance_cents' => false,
+        'processor_ref' => false,
+        'status' => false,
+        'test' => false,
+        'transaction_id' => false
     ];
 
     /**
@@ -184,13 +178,11 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'activated' => 'activated',
-        'description' => 'description',
-        'dispatchable' => 'dispatchable',
-        'input_schema' => 'inputSchema',
-        'name' => 'name',
-        'price' => 'price',
-        'source' => 'source'
+        'balance_cents' => 'balanceCents',
+        'processor_ref' => 'processorRef',
+        'status' => 'status',
+        'test' => 'test',
+        'transaction_id' => 'transactionId'
     ];
 
     /**
@@ -199,13 +191,11 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'activated' => 'setActivated',
-        'description' => 'setDescription',
-        'dispatchable' => 'setDispatchable',
-        'input_schema' => 'setInputSchema',
-        'name' => 'setName',
-        'price' => 'setPrice',
-        'source' => 'setSource'
+        'balance_cents' => 'setBalanceCents',
+        'processor_ref' => 'setProcessorRef',
+        'status' => 'setStatus',
+        'test' => 'setTest',
+        'transaction_id' => 'setTransactionId'
     ];
 
     /**
@@ -214,13 +204,11 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'activated' => 'getActivated',
-        'description' => 'getDescription',
-        'dispatchable' => 'getDispatchable',
-        'input_schema' => 'getInputSchema',
-        'name' => 'getName',
-        'price' => 'getPrice',
-        'source' => 'getSource'
+        'balance_cents' => 'getBalanceCents',
+        'processor_ref' => 'getProcessorRef',
+        'status' => 'getStatus',
+        'test' => 'getTest',
+        'transaction_id' => 'getTransactionId'
     ];
 
     /**
@@ -280,13 +268,11 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('activated', $data ?? [], null);
-        $this->setIfExists('description', $data ?? [], null);
-        $this->setIfExists('dispatchable', $data ?? [], null);
-        $this->setIfExists('input_schema', $data ?? [], null);
-        $this->setIfExists('name', $data ?? [], null);
-        $this->setIfExists('price', $data ?? [], null);
-        $this->setIfExists('source', $data ?? [], null);
+        $this->setIfExists('balance_cents', $data ?? [], null);
+        $this->setIfExists('processor_ref', $data ?? [], null);
+        $this->setIfExists('status', $data ?? [], null);
+        $this->setIfExists('test', $data ?? [], null);
+        $this->setIfExists('transaction_id', $data ?? [], null);
     }
 
     /**
@@ -332,197 +318,136 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets activated
+     * Gets balance_cents
+     *
+     * @return int|null
+     */
+    public function getBalanceCents()
+    {
+        return $this->container['balance_cents'];
+    }
+
+    /**
+     * Sets balance_cents
+     *
+     * @param int|null $balance_cents BalanceCents is the subject's balance AFTER the charge settled, in cents, so a caller does not have to re-read to show the new number.
+     *
+     * @return self
+     */
+    public function setBalanceCents($balance_cents)
+    {
+        if (is_null($balance_cents)) {
+            throw new \InvalidArgumentException('non-nullable balance_cents cannot be null');
+        }
+        $this->container['balance_cents'] = $balance_cents;
+
+        return $this;
+    }
+
+    /**
+     * Gets processor_ref
+     *
+     * @return string|null
+     */
+    public function getProcessorRef()
+    {
+        return $this->container['processor_ref'];
+    }
+
+    /**
+     * Sets processor_ref
+     *
+     * @param string|null $processor_ref ProcessorRef is the payment processor's own reference. It is the only field that proves money moved at the GATEWAY rather than merely in our ledger, which is why it is answered and not only logged. Absent where the processor returned none.
+     *
+     * @return self
+     */
+    public function setProcessorRef($processor_ref)
+    {
+        if (is_null($processor_ref)) {
+            throw new \InvalidArgumentException('non-nullable processor_ref cannot be null');
+        }
+        $this->container['processor_ref'] = $processor_ref;
+
+        return $this;
+    }
+
+    /**
+     * Gets status
+     *
+     * @return string|null
+     */
+    public function getStatus()
+    {
+        return $this->container['status'];
+    }
+
+    /**
+     * Sets status
+     *
+     * @param string|null $status Status is how the charge ended. Read it rather than inferring success from the HTTP status: the call succeeded whenever this field is present, and what the PROCESSOR did is what this says.
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        if (is_null($status)) {
+            throw new \InvalidArgumentException('non-nullable status cannot be null');
+        }
+        $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets test
      *
      * @return bool|null
      */
-    public function getActivated()
+    public function getTest()
     {
-        return $this->container['activated'];
+        return $this->container['test'];
     }
 
     /**
-     * Sets activated
+     * Sets test
      *
-     * @param bool|null $activated Activated is filled by the registry from the activation store for the requesting (org,project); providers leave it zero. An unactivated tool is discoverable but refused 403 at dispatch.
+     * @param bool|null $test Test states which bucket was credited — sandbox money or real money — so no reader has to guess whether a receipt is real. Sandbox and live funds are physically separate ledgers, and a reader that conflates them restates the company's revenue.
      *
      * @return self
      */
-    public function setActivated($activated)
+    public function setTest($test)
     {
-        if (is_null($activated)) {
-            throw new \InvalidArgumentException('non-nullable activated cannot be null');
+        if (is_null($test)) {
+            throw new \InvalidArgumentException('non-nullable test cannot be null');
         }
-        $this->container['activated'] = $activated;
+        $this->container['test'] = $test;
 
         return $this;
     }
 
     /**
-     * Gets description
+     * Gets transaction_id
      *
      * @return string|null
      */
-    public function getDescription()
+    public function getTransactionId()
     {
-        return $this->container['description'];
+        return $this->container['transaction_id'];
     }
 
     /**
-     * Sets description
+     * Sets transaction_id
      *
-     * @param string|null $description Description is the prose a model reads to decide whether to call the tool.
+     * @param string|null $transaction_id TransactionID is the ledger entry this charge created. It is the handle a later read or a refund names, and it is minted by the ledger rather than by the caller.
      *
      * @return self
      */
-    public function setDescription($description)
+    public function setTransactionId($transaction_id)
     {
-        if (is_null($description)) {
-            throw new \InvalidArgumentException('non-nullable description cannot be null');
+        if (is_null($transaction_id)) {
+            throw new \InvalidArgumentException('non-nullable transaction_id cannot be null');
         }
-        $this->container['description'] = $description;
-
-        return $this;
-    }
-
-    /**
-     * Gets dispatchable
-     *
-     * @return bool|null
-     */
-    public function getDispatchable()
-    {
-        return $this->container['dispatchable'];
-    }
-
-    /**
-     * Sets dispatchable
-     *
-     * @param bool|null $dispatchable Dispatchable is whether the tool can be CALLED. False for a listing-only entry: a skill is activated and attached to an agent, never called.
-     *
-     * @return self
-     */
-    public function setDispatchable($dispatchable)
-    {
-        if (is_null($dispatchable)) {
-            throw new \InvalidArgumentException('non-nullable dispatchable cannot be null');
-        }
-        $this->container['dispatchable'] = $dispatchable;
-
-        return $this;
-    }
-
-    /**
-     * Gets input_schema
-     *
-     * @return mixed|null
-     */
-    public function getInputSchema()
-    {
-        return $this->container['input_schema'];
-    }
-
-    /**
-     * Sets input_schema
-     *
-     * @param mixed|null $input_schema input_schema
-     *
-     * @return self
-     */
-    public function setInputSchema($input_schema)
-    {
-        if (is_null($input_schema)) {
-            array_push($this->openAPINullablesSetToNull, 'input_schema');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('input_schema', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['input_schema'] = $input_schema;
-
-        return $this;
-    }
-
-    /**
-     * Gets name
-     *
-     * @return string|null
-     */
-    public function getName()
-    {
-        return $this->container['name'];
-    }
-
-    /**
-     * Sets name
-     *
-     * @param string|null $name Name is the tool's id in the flat, fleet-wide tool namespace — the value a tools/call passes. Unique across sources: a collision is resolved by source precedence before the caller ever sees it.
-     *
-     * @return self
-     */
-    public function setName($name)
-    {
-        if (is_null($name)) {
-            throw new \InvalidArgumentException('non-nullable name cannot be null');
-        }
-        $this->container['name'] = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets price
-     *
-     * @return \Hanzo\Cloud\Model\Price|null
-     */
-    public function getPrice()
-    {
-        return $this->container['price'];
-    }
-
-    /**
-     * Sets price
-     *
-     * @param \Hanzo\Cloud\Model\Price|null $price Price is what a call costs and who is paid, absent for a free tool. Enforcement is the x402 settlement client; this is the declaration.
-     *
-     * @return self
-     */
-    public function setPrice($price)
-    {
-        if (is_null($price)) {
-            throw new \InvalidArgumentException('non-nullable price cannot be null');
-        }
-        $this->container['price'] = $price;
-
-        return $this;
-    }
-
-    /**
-     * Gets source
-     *
-     * @return string|null
-     */
-    public function getSource()
-    {
-        return $this->container['source'];
-    }
-
-    /**
-     * Sets source
-     *
-     * @param string|null $source Source is where the tool comes from: connector, function, zap-service, agent, skill or mcp.
-     *
-     * @return self
-     */
-    public function setSource($source)
-    {
-        if (is_null($source)) {
-            throw new \InvalidArgumentException('non-nullable source cannot be null');
-        }
-        $this->container['source'] = $source;
+        $this->container['transaction_id'] = $transaction_id;
 
         return $this;
     }

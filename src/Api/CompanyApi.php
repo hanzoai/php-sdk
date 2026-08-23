@@ -1822,7 +1822,7 @@ class CompanyApi
     /**
      * Operation postCompanyDocuments
      *
-     * Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing seam.
+     * Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing client.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyDocuments'] to see the possible values for this operation
      *
@@ -1839,7 +1839,7 @@ class CompanyApi
     /**
      * Operation postCompanyDocumentsWithHttpInfo
      *
-     * Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing seam.
+     * Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing client.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyDocuments'] to see the possible values for this operation
      *
@@ -1923,7 +1923,7 @@ class CompanyApi
     /**
      * Operation postCompanyDocumentsAsync
      *
-     * Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing seam.
+     * Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing client.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyDocuments'] to see the possible values for this operation
      *
@@ -1943,7 +1943,7 @@ class CompanyApi
     /**
      * Operation postCompanyDocumentsAsyncWithHttpInfo
      *
-     * Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing seam.
+     * Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org&#39;s data room, and submits the state filing through the filing client.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postCompanyDocuments'] to see the possible values for this operation
      *

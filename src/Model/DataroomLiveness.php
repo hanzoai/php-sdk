@@ -1,6 +1,6 @@
 <?php
 /**
- * Tool
+ * DataroomLiveness
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * Tool Class Doc Comment
+ * DataroomLiveness Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
+class DataroomLiveness implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Tool';
+    protected static $openAPIModelName = 'dataroomLiveness';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,13 +57,8 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'activated' => 'bool',
-        'description' => 'string',
-        'dispatchable' => 'bool',
-        'input_schema' => 'mixed',
-        'name' => 'string',
-        'price' => '\Hanzo\Cloud\Model\Price',
-        'source' => 'string'
+        'service' => 'string',
+        'status' => 'string'
     ];
 
     /**
@@ -74,13 +69,8 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'activated' => null,
-        'description' => null,
-        'dispatchable' => null,
-        'input_schema' => null,
-        'name' => null,
-        'price' => null,
-        'source' => null
+        'service' => null,
+        'status' => null
     ];
 
     /**
@@ -89,13 +79,8 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'activated' => false,
-        'description' => false,
-        'dispatchable' => false,
-        'input_schema' => true,
-        'name' => false,
-        'price' => false,
-        'source' => false
+        'service' => false,
+        'status' => false
     ];
 
     /**
@@ -184,13 +169,8 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'activated' => 'activated',
-        'description' => 'description',
-        'dispatchable' => 'dispatchable',
-        'input_schema' => 'inputSchema',
-        'name' => 'name',
-        'price' => 'price',
-        'source' => 'source'
+        'service' => 'service',
+        'status' => 'status'
     ];
 
     /**
@@ -199,13 +179,8 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'activated' => 'setActivated',
-        'description' => 'setDescription',
-        'dispatchable' => 'setDispatchable',
-        'input_schema' => 'setInputSchema',
-        'name' => 'setName',
-        'price' => 'setPrice',
-        'source' => 'setSource'
+        'service' => 'setService',
+        'status' => 'setStatus'
     ];
 
     /**
@@ -214,13 +189,8 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'activated' => 'getActivated',
-        'description' => 'getDescription',
-        'dispatchable' => 'getDispatchable',
-        'input_schema' => 'getInputSchema',
-        'name' => 'getName',
-        'price' => 'getPrice',
-        'source' => 'getSource'
+        'service' => 'getService',
+        'status' => 'getStatus'
     ];
 
     /**
@@ -280,13 +250,8 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('activated', $data ?? [], null);
-        $this->setIfExists('description', $data ?? [], null);
-        $this->setIfExists('dispatchable', $data ?? [], null);
-        $this->setIfExists('input_schema', $data ?? [], null);
-        $this->setIfExists('name', $data ?? [], null);
-        $this->setIfExists('price', $data ?? [], null);
-        $this->setIfExists('source', $data ?? [], null);
+        $this->setIfExists('service', $data ?? [], null);
+        $this->setIfExists('status', $data ?? [], null);
     }
 
     /**
@@ -332,197 +297,55 @@ class Tool implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets activated
-     *
-     * @return bool|null
-     */
-    public function getActivated()
-    {
-        return $this->container['activated'];
-    }
-
-    /**
-     * Sets activated
-     *
-     * @param bool|null $activated Activated is filled by the registry from the activation store for the requesting (org,project); providers leave it zero. An unactivated tool is discoverable but refused 403 at dispatch.
-     *
-     * @return self
-     */
-    public function setActivated($activated)
-    {
-        if (is_null($activated)) {
-            throw new \InvalidArgumentException('non-nullable activated cannot be null');
-        }
-        $this->container['activated'] = $activated;
-
-        return $this;
-    }
-
-    /**
-     * Gets description
+     * Gets service
      *
      * @return string|null
      */
-    public function getDescription()
+    public function getService()
     {
-        return $this->container['description'];
+        return $this->container['service'];
     }
 
     /**
-     * Sets description
+     * Sets service
      *
-     * @param string|null $description Description is the prose a model reads to decide whether to call the tool.
+     * @param string|null $service Service names the subsystem answering, so a probe response is attributable when several are collected together.
      *
      * @return self
      */
-    public function setDescription($description)
+    public function setService($service)
     {
-        if (is_null($description)) {
-            throw new \InvalidArgumentException('non-nullable description cannot be null');
+        if (is_null($service)) {
+            throw new \InvalidArgumentException('non-nullable service cannot be null');
         }
-        $this->container['description'] = $description;
+        $this->container['service'] = $service;
 
         return $this;
     }
 
     /**
-     * Gets dispatchable
-     *
-     * @return bool|null
-     */
-    public function getDispatchable()
-    {
-        return $this->container['dispatchable'];
-    }
-
-    /**
-     * Sets dispatchable
-     *
-     * @param bool|null $dispatchable Dispatchable is whether the tool can be CALLED. False for a listing-only entry: a skill is activated and attached to an agent, never called.
-     *
-     * @return self
-     */
-    public function setDispatchable($dispatchable)
-    {
-        if (is_null($dispatchable)) {
-            throw new \InvalidArgumentException('non-nullable dispatchable cannot be null');
-        }
-        $this->container['dispatchable'] = $dispatchable;
-
-        return $this;
-    }
-
-    /**
-     * Gets input_schema
-     *
-     * @return mixed|null
-     */
-    public function getInputSchema()
-    {
-        return $this->container['input_schema'];
-    }
-
-    /**
-     * Sets input_schema
-     *
-     * @param mixed|null $input_schema input_schema
-     *
-     * @return self
-     */
-    public function setInputSchema($input_schema)
-    {
-        if (is_null($input_schema)) {
-            array_push($this->openAPINullablesSetToNull, 'input_schema');
-        } else {
-            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('input_schema', $nullablesSetToNull);
-            if ($index !== FALSE) {
-                unset($nullablesSetToNull[$index]);
-                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
-            }
-        }
-        $this->container['input_schema'] = $input_schema;
-
-        return $this;
-    }
-
-    /**
-     * Gets name
+     * Gets status
      *
      * @return string|null
      */
-    public function getName()
+    public function getStatus()
     {
-        return $this->container['name'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets name
+     * Sets status
      *
-     * @param string|null $name Name is the tool's id in the flat, fleet-wide tool namespace — the value a tools/call passes. Unique across sources: a collision is resolved by source precedence before the caller ever sees it.
+     * @param string|null $status Status is `ok`. This probe has no degraded answer by design: it reports process liveness and nothing that could be false while the process serves.
      *
      * @return self
      */
-    public function setName($name)
+    public function setStatus($status)
     {
-        if (is_null($name)) {
-            throw new \InvalidArgumentException('non-nullable name cannot be null');
+        if (is_null($status)) {
+            throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
-        $this->container['name'] = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets price
-     *
-     * @return \Hanzo\Cloud\Model\Price|null
-     */
-    public function getPrice()
-    {
-        return $this->container['price'];
-    }
-
-    /**
-     * Sets price
-     *
-     * @param \Hanzo\Cloud\Model\Price|null $price Price is what a call costs and who is paid, absent for a free tool. Enforcement is the x402 settlement client; this is the declaration.
-     *
-     * @return self
-     */
-    public function setPrice($price)
-    {
-        if (is_null($price)) {
-            throw new \InvalidArgumentException('non-nullable price cannot be null');
-        }
-        $this->container['price'] = $price;
-
-        return $this;
-    }
-
-    /**
-     * Gets source
-     *
-     * @return string|null
-     */
-    public function getSource()
-    {
-        return $this->container['source'];
-    }
-
-    /**
-     * Sets source
-     *
-     * @param string|null $source Source is where the tool comes from: connector, function, zap-service, agent, skill or mcp.
-     *
-     * @return self
-     */
-    public function setSource($source)
-    {
-        if (is_null($source)) {
-            throw new \InvalidArgumentException('non-nullable source cannot be null');
-        }
-        $this->container['source'] = $source;
+        $this->container['status'] = $status;
 
         return $this;
     }
