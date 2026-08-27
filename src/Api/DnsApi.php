@@ -1,6 +1,6 @@
 <?php
 /**
- * AccountApi
+ * DnsApi
  * PHP version 8.1
  *
  * @category Class
@@ -43,14 +43,14 @@ use Hanzo\Cloud\HeaderSelector;
 use Hanzo\Cloud\ObjectSerializer;
 
 /**
- * AccountApi Class Doc Comment
+ * DnsApi Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class AccountApi
+class DnsApi
 {
     /**
      * @var ClientInterface
@@ -74,34 +74,40 @@ class AccountApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
-        'deleteAccountKeys' => [
+        'deleteDnsZonesByZone' => [
             'application/json',
         ],
-        'getAccountAppearance' => [
+        'deleteDnsZonesByZoneRecordsByRecord' => [
             'application/json',
         ],
-        'getAccountAvatarByOrgByUserByDigest' => [
+        'getDnsHealth' => [
             'application/json',
         ],
-        'getAccountCsrf' => [
+        'getDnsZones' => [
             'application/json',
         ],
-        'getAccountEmbed' => [
+        'getDnsZonesByZone' => [
             'application/json',
         ],
-        'getAccountKeys' => [
+        'getDnsZonesByZoneRecords' => [
             'application/json',
         ],
-        'postAccountAppearance' => [
+        'getDnsZonesByZoneRecordsByRecord' => [
             'application/json',
         ],
-        'postAccountAvatar' => [
+        'patchDnsZonesByZoneRecordsByRecord' => [
             'application/json',
         ],
-        'postAccountKeys' => [
+        'postDnsSync' => [
             'application/json',
         ],
-        'postAccountOrgs' => [
+        'postDnsZones' => [
+            'application/json',
+        ],
+        'postDnsZonesByZoneRecords' => [
+            'application/json',
+        ],
+        'putDnsZonesByZoneRecordsByRecord' => [
             'application/json',
         ],
     ];
@@ -153,38 +159,37 @@ class AccountApi
     }
 
     /**
-     * Operation deleteAccountKeys
+     * Operation deleteDnsZonesByZone
      *
-     * Revokes the caller&#39;s own API key of the requested class.
+     * Delete a DNS zone
      *
-     * @param  string|null $type Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeys'] to see the possible values for this operation
+     * @param  string $zone zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDnsZonesByZone'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RevokedKey
+     * @return void
      */
-    public function deleteAccountKeys($type = null, string $contentType = self::contentTypes['deleteAccountKeys'][0])
+    public function deleteDnsZonesByZone($zone, string $contentType = self::contentTypes['deleteDnsZonesByZone'][0])
     {
-        list($response) = $this->deleteAccountKeysWithHttpInfo($type, $contentType);
-        return $response;
+        $this->deleteDnsZonesByZoneWithHttpInfo($zone, $contentType);
     }
 
     /**
-     * Operation deleteAccountKeysWithHttpInfo
+     * Operation deleteDnsZonesByZoneWithHttpInfo
      *
-     * Revokes the caller&#39;s own API key of the requested class.
+     * Delete a DNS zone
      *
-     * @param  string|null $type Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeys'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDnsZonesByZone'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RevokedKey, HTTP status code, HTTP response headers (array of strings)
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAccountKeysWithHttpInfo($type = null, string $contentType = self::contentTypes['deleteAccountKeys'][0])
+    public function deleteDnsZonesByZoneWithHttpInfo($zone, string $contentType = self::contentTypes['deleteDnsZonesByZone'][0])
     {
-        $request = $this->deleteAccountKeysRequest($type, $contentType);
+        $request = $this->deleteDnsZonesByZoneRequest($zone, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -209,45 +214,9 @@ class AccountApi
             $statusCode = $response->getStatusCode();
 
 
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RevokedKey',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RevokedKey',
-                $request,
-                $response,
-            );
+            return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RevokedKey',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
             }
         
 
@@ -256,19 +225,19 @@ class AccountApi
     }
 
     /**
-     * Operation deleteAccountKeysAsync
+     * Operation deleteDnsZonesByZoneAsync
      *
-     * Revokes the caller&#39;s own API key of the requested class.
+     * Delete a DNS zone
      *
-     * @param  string|null $type Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeys'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDnsZonesByZone'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAccountKeysAsync($type = null, string $contentType = self::contentTypes['deleteAccountKeys'][0])
+    public function deleteDnsZonesByZoneAsync($zone, string $contentType = self::contentTypes['deleteDnsZonesByZone'][0])
     {
-        return $this->deleteAccountKeysAsyncWithHttpInfo($type, $contentType)
+        return $this->deleteDnsZonesByZoneAsyncWithHttpInfo($zone, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -277,39 +246,26 @@ class AccountApi
     }
 
     /**
-     * Operation deleteAccountKeysAsyncWithHttpInfo
+     * Operation deleteDnsZonesByZoneAsyncWithHttpInfo
      *
-     * Revokes the caller&#39;s own API key of the requested class.
+     * Delete a DNS zone
      *
-     * @param  string|null $type Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeys'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDnsZonesByZone'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAccountKeysAsyncWithHttpInfo($type = null, string $contentType = self::contentTypes['deleteAccountKeys'][0])
+    public function deleteDnsZonesByZoneAsyncWithHttpInfo($zone, string $contentType = self::contentTypes['deleteDnsZonesByZone'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\RevokedKey';
-        $request = $this->deleteAccountKeysRequest($type, $contentType);
+        $returnType = '';
+        $request = $this->deleteDnsZonesByZoneRequest($zone, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -329,41 +285,46 @@ class AccountApi
     }
 
     /**
-     * Create request for operation 'deleteAccountKeys'
+     * Create request for operation 'deleteDnsZonesByZone'
      *
-     * @param  string|null $type Type is the key class to act on: \&quot;secret\&quot; (sk-, session-equivalent, belongs on a server) or \&quot;publishable\&quot; (pk-, org-identifying, safe in a browser bundle). Omitted means secret, which is what every existing caller means. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAccountKeys'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDnsZonesByZone'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteAccountKeysRequest($type = null, string $contentType = self::contentTypes['deleteAccountKeys'][0])
+    public function deleteDnsZonesByZoneRequest($zone, string $contentType = self::contentTypes['deleteDnsZonesByZone'][0])
     {
 
+        // verify the required parameter 'zone' is set
+        if ($zone === null || (is_array($zone) && count($zone) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $zone when calling deleteDnsZonesByZone'
+            );
+        }
 
 
-        $resourcePath = '/v1/account/keys';
+        $resourcePath = '/v1/dns/zones/{zone}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $type,
-            'type', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
 
 
+        // path params
+        if ($zone !== null) {
+            $resourcePath = str_replace(
+                '{' . 'zone' . '}',
+                ObjectSerializer::toPathValue($zone),
+                $resourcePath
+            );
+        }
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            [],
             $contentType,
             $multipart
         );
@@ -420,36 +381,39 @@ class AccountApi
     }
 
     /**
-     * Operation getAccountAppearance
+     * Operation deleteDnsZonesByZoneRecordsByRecord
      *
-     * Returns the signed-in caller&#39;s own appearance preference — text size, density and accent — read from their IAM account so it is the same on every device and every Hanzo surface.
+     * Delete a DNS record
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountAppearance'] to see the possible values for this operation
+     * @param  string $zone zone (required)
+     * @param  string $record record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Appearance
+     * @return void
      */
-    public function getAccountAppearance(string $contentType = self::contentTypes['getAccountAppearance'][0])
+    public function deleteDnsZonesByZoneRecordsByRecord($zone, $record, string $contentType = self::contentTypes['deleteDnsZonesByZoneRecordsByRecord'][0])
     {
-        list($response) = $this->getAccountAppearanceWithHttpInfo($contentType);
-        return $response;
+        $this->deleteDnsZonesByZoneRecordsByRecordWithHttpInfo($zone, $record, $contentType);
     }
 
     /**
-     * Operation getAccountAppearanceWithHttpInfo
+     * Operation deleteDnsZonesByZoneRecordsByRecordWithHttpInfo
      *
-     * Returns the signed-in caller&#39;s own appearance preference — text size, density and accent — read from their IAM account so it is the same on every device and every Hanzo surface.
+     * Delete a DNS record
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountAppearance'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Appearance, HTTP status code, HTTP response headers (array of strings)
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAccountAppearanceWithHttpInfo(string $contentType = self::contentTypes['getAccountAppearance'][0])
+    public function deleteDnsZonesByZoneRecordsByRecordWithHttpInfo($zone, $record, string $contentType = self::contentTypes['deleteDnsZonesByZoneRecordsByRecord'][0])
     {
-        $request = $this->getAccountAppearanceRequest($contentType);
+        $request = $this->deleteDnsZonesByZoneRecordsByRecordRequest($zone, $record, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -474,45 +438,9 @@ class AccountApi
             $statusCode = $response->getStatusCode();
 
 
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Appearance',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Appearance',
-                $request,
-                $response,
-            );
+            return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Appearance',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
             }
         
 
@@ -521,18 +449,20 @@ class AccountApi
     }
 
     /**
-     * Operation getAccountAppearanceAsync
+     * Operation deleteDnsZonesByZoneRecordsByRecordAsync
      *
-     * Returns the signed-in caller&#39;s own appearance preference — text size, density and accent — read from their IAM account so it is the same on every device and every Hanzo surface.
+     * Delete a DNS record
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountAppearance'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAccountAppearanceAsync(string $contentType = self::contentTypes['getAccountAppearance'][0])
+    public function deleteDnsZonesByZoneRecordsByRecordAsync($zone, $record, string $contentType = self::contentTypes['deleteDnsZonesByZoneRecordsByRecord'][0])
     {
-        return $this->getAccountAppearanceAsyncWithHttpInfo($contentType)
+        return $this->deleteDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo($zone, $record, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -541,38 +471,27 @@ class AccountApi
     }
 
     /**
-     * Operation getAccountAppearanceAsyncWithHttpInfo
+     * Operation deleteDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo
      *
-     * Returns the signed-in caller&#39;s own appearance preference — text size, density and accent — read from their IAM account so it is the same on every device and every Hanzo surface.
+     * Delete a DNS record
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountAppearance'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAccountAppearanceAsyncWithHttpInfo(string $contentType = self::contentTypes['getAccountAppearance'][0])
+    public function deleteDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo($zone, $record, string $contentType = self::contentTypes['deleteDnsZonesByZoneRecordsByRecord'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Appearance';
-        $request = $this->getAccountAppearanceRequest($contentType);
+        $returnType = '';
+        $request = $this->deleteDnsZonesByZoneRecordsByRecordRequest($zone, $record, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -592,18 +511,252 @@ class AccountApi
     }
 
     /**
-     * Create request for operation 'getAccountAppearance'
+     * Create request for operation 'deleteDnsZonesByZoneRecordsByRecord'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountAppearance'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAccountAppearanceRequest(string $contentType = self::contentTypes['getAccountAppearance'][0])
+    public function deleteDnsZonesByZoneRecordsByRecordRequest($zone, $record, string $contentType = self::contentTypes['deleteDnsZonesByZoneRecordsByRecord'][0])
+    {
+
+        // verify the required parameter 'zone' is set
+        if ($zone === null || (is_array($zone) && count($zone) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $zone when calling deleteDnsZonesByZoneRecordsByRecord'
+            );
+        }
+
+        // verify the required parameter 'record' is set
+        if ($record === null || (is_array($record) && count($record) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $record when calling deleteDnsZonesByZoneRecordsByRecord'
+            );
+        }
+
+
+        $resourcePath = '/v1/dns/zones/{zone}/records/{record}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($zone !== null) {
+            $resourcePath = str_replace(
+                '{' . 'zone' . '}',
+                ObjectSerializer::toPathValue($zone),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($record !== null) {
+            $resourcePath = str_replace(
+                '{' . 'record' . '}',
+                ObjectSerializer::toPathValue($record),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getDnsHealth
+     *
+     * Check the DNS control plane
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsHealth'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getDnsHealth(string $contentType = self::contentTypes['getDnsHealth'][0])
+    {
+        $this->getDnsHealthWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation getDnsHealthWithHttpInfo
+     *
+     * Check the DNS control plane
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsHealth'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getDnsHealthWithHttpInfo(string $contentType = self::contentTypes['getDnsHealth'][0])
+    {
+        $request = $this->getDnsHealthRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getDnsHealthAsync
+     *
+     * Check the DNS control plane
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsHealth'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDnsHealthAsync(string $contentType = self::contentTypes['getDnsHealth'][0])
+    {
+        return $this->getDnsHealthAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getDnsHealthAsyncWithHttpInfo
+     *
+     * Check the DNS control plane
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsHealth'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDnsHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getDnsHealth'][0])
+    {
+        $returnType = '';
+        $request = $this->getDnsHealthRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getDnsHealth'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsHealth'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getDnsHealthRequest(string $contentType = self::contentTypes['getDnsHealth'][0])
     {
 
 
-        $resourcePath = '/v1/account/appearance';
+        $resourcePath = '/v1/dns/health';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -615,7 +768,7 @@ class AccountApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            [],
             $contentType,
             $multipart
         );
@@ -672,41 +825,35 @@ class AccountApi
     }
 
     /**
-     * Operation getAccountAvatarByOrgByUserByDigest
+     * Operation getDnsZones
      *
-     * Fetch a profile photo
+     * List your org&#39;s DNS zones
      *
-     * @param  string $org org (required)
-     * @param  string $user user (required)
-     * @param  string $digest digest (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountAvatarByOrgByUserByDigest'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZones'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getAccountAvatarByOrgByUserByDigest($org, $user, $digest, string $contentType = self::contentTypes['getAccountAvatarByOrgByUserByDigest'][0])
+    public function getDnsZones(string $contentType = self::contentTypes['getDnsZones'][0])
     {
-        $this->getAccountAvatarByOrgByUserByDigestWithHttpInfo($org, $user, $digest, $contentType);
+        $this->getDnsZonesWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getAccountAvatarByOrgByUserByDigestWithHttpInfo
+     * Operation getDnsZonesWithHttpInfo
      *
-     * Fetch a profile photo
+     * List your org&#39;s DNS zones
      *
-     * @param  string $org (required)
-     * @param  string $user (required)
-     * @param  string $digest (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountAvatarByOrgByUserByDigest'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZones'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAccountAvatarByOrgByUserByDigestWithHttpInfo($org, $user, $digest, string $contentType = self::contentTypes['getAccountAvatarByOrgByUserByDigest'][0])
+    public function getDnsZonesWithHttpInfo(string $contentType = self::contentTypes['getDnsZones'][0])
     {
-        $request = $this->getAccountAvatarByOrgByUserByDigestRequest($org, $user, $digest, $contentType);
+        $request = $this->getDnsZonesRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -742,21 +889,18 @@ class AccountApi
     }
 
     /**
-     * Operation getAccountAvatarByOrgByUserByDigestAsync
+     * Operation getDnsZonesAsync
      *
-     * Fetch a profile photo
+     * List your org&#39;s DNS zones
      *
-     * @param  string $org (required)
-     * @param  string $user (required)
-     * @param  string $digest (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountAvatarByOrgByUserByDigest'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZones'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAccountAvatarByOrgByUserByDigestAsync($org, $user, $digest, string $contentType = self::contentTypes['getAccountAvatarByOrgByUserByDigest'][0])
+    public function getDnsZonesAsync(string $contentType = self::contentTypes['getDnsZones'][0])
     {
-        return $this->getAccountAvatarByOrgByUserByDigestAsyncWithHttpInfo($org, $user, $digest, $contentType)
+        return $this->getDnsZonesAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -765,22 +909,19 @@ class AccountApi
     }
 
     /**
-     * Operation getAccountAvatarByOrgByUserByDigestAsyncWithHttpInfo
+     * Operation getDnsZonesAsyncWithHttpInfo
      *
-     * Fetch a profile photo
+     * List your org&#39;s DNS zones
      *
-     * @param  string $org (required)
-     * @param  string $user (required)
-     * @param  string $digest (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountAvatarByOrgByUserByDigest'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZones'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAccountAvatarByOrgByUserByDigestAsyncWithHttpInfo($org, $user, $digest, string $contentType = self::contentTypes['getAccountAvatarByOrgByUserByDigest'][0])
+    public function getDnsZonesAsyncWithHttpInfo(string $contentType = self::contentTypes['getDnsZones'][0])
     {
         $returnType = '';
-        $request = $this->getAccountAvatarByOrgByUserByDigestRequest($org, $user, $digest, $contentType);
+        $request = $this->getDnsZonesRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -806,42 +947,232 @@ class AccountApi
     }
 
     /**
-     * Create request for operation 'getAccountAvatarByOrgByUserByDigest'
+     * Create request for operation 'getDnsZones'
      *
-     * @param  string $org (required)
-     * @param  string $user (required)
-     * @param  string $digest (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountAvatarByOrgByUserByDigest'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZones'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAccountAvatarByOrgByUserByDigestRequest($org, $user, $digest, string $contentType = self::contentTypes['getAccountAvatarByOrgByUserByDigest'][0])
+    public function getDnsZonesRequest(string $contentType = self::contentTypes['getDnsZones'][0])
     {
 
-        // verify the required parameter 'org' is set
-        if ($org === null || (is_array($org) && count($org) === 0)) {
+
+        $resourcePath = '/v1/dns/zones';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getDnsZonesByZone
+     *
+     * Read one DNS zone
+     *
+     * @param  string $zone zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZone'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getDnsZonesByZone($zone, string $contentType = self::contentTypes['getDnsZonesByZone'][0])
+    {
+        $this->getDnsZonesByZoneWithHttpInfo($zone, $contentType);
+    }
+
+    /**
+     * Operation getDnsZonesByZoneWithHttpInfo
+     *
+     * Read one DNS zone
+     *
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZone'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getDnsZonesByZoneWithHttpInfo($zone, string $contentType = self::contentTypes['getDnsZonesByZone'][0])
+    {
+        $request = $this->getDnsZonesByZoneRequest($zone, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getDnsZonesByZoneAsync
+     *
+     * Read one DNS zone
+     *
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZone'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDnsZonesByZoneAsync($zone, string $contentType = self::contentTypes['getDnsZonesByZone'][0])
+    {
+        return $this->getDnsZonesByZoneAsyncWithHttpInfo($zone, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getDnsZonesByZoneAsyncWithHttpInfo
+     *
+     * Read one DNS zone
+     *
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZone'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDnsZonesByZoneAsyncWithHttpInfo($zone, string $contentType = self::contentTypes['getDnsZonesByZone'][0])
+    {
+        $returnType = '';
+        $request = $this->getDnsZonesByZoneRequest($zone, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getDnsZonesByZone'
+     *
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZone'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getDnsZonesByZoneRequest($zone, string $contentType = self::contentTypes['getDnsZonesByZone'][0])
+    {
+
+        // verify the required parameter 'zone' is set
+        if ($zone === null || (is_array($zone) && count($zone) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $org when calling getAccountAvatarByOrgByUserByDigest'
+                'Missing the required parameter $zone when calling getDnsZonesByZone'
             );
         }
 
-        // verify the required parameter 'user' is set
-        if ($user === null || (is_array($user) && count($user) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $user when calling getAccountAvatarByOrgByUserByDigest'
-            );
-        }
 
-        // verify the required parameter 'digest' is set
-        if ($digest === null || (is_array($digest) && count($digest) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $digest when calling getAccountAvatarByOrgByUserByDigest'
-            );
-        }
-
-
-        $resourcePath = '/v1/account/avatar/{org}/{user}/{digest}';
+        $resourcePath = '/v1/dns/zones/{zone}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -851,26 +1182,10 @@ class AccountApi
 
 
         // path params
-        if ($org !== null) {
+        if ($zone !== null) {
             $resourcePath = str_replace(
-                '{' . 'org' . '}',
-                ObjectSerializer::toPathValue($org),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($user !== null) {
-            $resourcePath = str_replace(
-                '{' . 'user' . '}',
-                ObjectSerializer::toPathValue($user),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($digest !== null) {
-            $resourcePath = str_replace(
-                '{' . 'digest' . '}',
-                ObjectSerializer::toPathValue($digest),
+                '{' . 'zone' . '}',
+                ObjectSerializer::toPathValue($zone),
                 $resourcePath
             );
         }
@@ -934,1077 +1249,37 @@ class AccountApi
     }
 
     /**
-     * Operation getAccountCsrf
+     * Operation getDnsZonesByZoneRecords
      *
-     * IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
+     * List a zone&#39;s DNS records
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountCsrf'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\CsrfResp
-     */
-    public function getAccountCsrf(string $contentType = self::contentTypes['getAccountCsrf'][0])
-    {
-        list($response) = $this->getAccountCsrfWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getAccountCsrfWithHttpInfo
-     *
-     * IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountCsrf'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\CsrfResp, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getAccountCsrfWithHttpInfo(string $contentType = self::contentTypes['getAccountCsrf'][0])
-    {
-        $request = $this->getAccountCsrfRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\CsrfResp',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\CsrfResp',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\CsrfResp',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getAccountCsrfAsync
-     *
-     * IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountCsrf'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getAccountCsrfAsync(string $contentType = self::contentTypes['getAccountCsrf'][0])
-    {
-        return $this->getAccountCsrfAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getAccountCsrfAsyncWithHttpInfo
-     *
-     * IssueCSRFToken mints the anti-forgery token a browser echoes as X-CSRF-Token on every change it asks for.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountCsrf'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getAccountCsrfAsyncWithHttpInfo(string $contentType = self::contentTypes['getAccountCsrf'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\CsrfResp';
-        $request = $this->getAccountCsrfRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getAccountCsrf'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountCsrf'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getAccountCsrfRequest(string $contentType = self::contentTypes['getAccountCsrf'][0])
-    {
-
-
-        $resourcePath = '/v1/account/csrf';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getAccountEmbed
-     *
-     * Reports whether one of this brand&#39;s shared embedded apps (cms, erp, help) may be framed by the caller and is actually running, so a console module can choose between the embed and the provision panel.
-     *
-     * @param  string|null $app App is the embedded app to report on: cms (Content Studio), erp or help. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountEmbed'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\EmbedStatusResp
-     */
-    public function getAccountEmbed($app = null, string $contentType = self::contentTypes['getAccountEmbed'][0])
-    {
-        list($response) = $this->getAccountEmbedWithHttpInfo($app, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getAccountEmbedWithHttpInfo
-     *
-     * Reports whether one of this brand&#39;s shared embedded apps (cms, erp, help) may be framed by the caller and is actually running, so a console module can choose between the embed and the provision panel.
-     *
-     * @param  string|null $app App is the embedded app to report on: cms (Content Studio), erp or help. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountEmbed'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\EmbedStatusResp, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getAccountEmbedWithHttpInfo($app = null, string $contentType = self::contentTypes['getAccountEmbed'][0])
-    {
-        $request = $this->getAccountEmbedRequest($app, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\EmbedStatusResp',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\EmbedStatusResp',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\EmbedStatusResp',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getAccountEmbedAsync
-     *
-     * Reports whether one of this brand&#39;s shared embedded apps (cms, erp, help) may be framed by the caller and is actually running, so a console module can choose between the embed and the provision panel.
-     *
-     * @param  string|null $app App is the embedded app to report on: cms (Content Studio), erp or help. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountEmbed'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getAccountEmbedAsync($app = null, string $contentType = self::contentTypes['getAccountEmbed'][0])
-    {
-        return $this->getAccountEmbedAsyncWithHttpInfo($app, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getAccountEmbedAsyncWithHttpInfo
-     *
-     * Reports whether one of this brand&#39;s shared embedded apps (cms, erp, help) may be framed by the caller and is actually running, so a console module can choose between the embed and the provision panel.
-     *
-     * @param  string|null $app App is the embedded app to report on: cms (Content Studio), erp or help. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountEmbed'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getAccountEmbedAsyncWithHttpInfo($app = null, string $contentType = self::contentTypes['getAccountEmbed'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\EmbedStatusResp';
-        $request = $this->getAccountEmbedRequest($app, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getAccountEmbed'
-     *
-     * @param  string|null $app App is the embedded app to report on: cms (Content Studio), erp or help. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountEmbed'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getAccountEmbedRequest($app = null, string $contentType = self::contentTypes['getAccountEmbed'][0])
-    {
-
-
-
-        $resourcePath = '/v1/account/embed';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $app,
-            'app', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getAccountKeys
-     *
-     * Returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountKeys'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ApiKeyList
-     */
-    public function getAccountKeys(string $contentType = self::contentTypes['getAccountKeys'][0])
-    {
-        list($response) = $this->getAccountKeysWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getAccountKeysWithHttpInfo
-     *
-     * Returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountKeys'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ApiKeyList, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getAccountKeysWithHttpInfo(string $contentType = self::contentTypes['getAccountKeys'][0])
-    {
-        $request = $this->getAccountKeysRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ApiKeyList',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ApiKeyList',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ApiKeyList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getAccountKeysAsync
-     *
-     * Returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountKeys'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getAccountKeysAsync(string $contentType = self::contentTypes['getAccountKeys'][0])
-    {
-        return $this->getAccountKeysAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getAccountKeysAsyncWithHttpInfo
-     *
-     * Returns the caller&#39;s own API keys — every type they hold, read AUTHORITATIVELY from IAM rather than from the session claim, which lags a key minted moments ago.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountKeys'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getAccountKeysAsyncWithHttpInfo(string $contentType = self::contentTypes['getAccountKeys'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\ApiKeyList';
-        $request = $this->getAccountKeysRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getAccountKeys'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAccountKeys'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getAccountKeysRequest(string $contentType = self::contentTypes['getAccountKeys'][0])
-    {
-
-
-        $resourcePath = '/v1/account/keys';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postAccountAppearance
-     *
-     * Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
-     *
-     * @param  \Hanzo\Cloud\Model\Appearance $appearance appearance (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Appearance
-     */
-    public function postAccountAppearance($appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
-    {
-        list($response) = $this->postAccountAppearanceWithHttpInfo($appearance, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postAccountAppearanceWithHttpInfo
-     *
-     * Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
-     *
-     * @param  \Hanzo\Cloud\Model\Appearance $appearance (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Appearance, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postAccountAppearanceWithHttpInfo($appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
-    {
-        $request = $this->postAccountAppearanceRequest($appearance, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Appearance',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Appearance',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Appearance',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postAccountAppearanceAsync
-     *
-     * Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
-     *
-     * @param  \Hanzo\Cloud\Model\Appearance $appearance (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postAccountAppearanceAsync($appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
-    {
-        return $this->postAccountAppearanceAsyncWithHttpInfo($appearance, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postAccountAppearanceAsyncWithHttpInfo
-     *
-     * Stores the caller&#39;s appearance preference on their IAM account, preserving every other field of the row.
-     *
-     * @param  \Hanzo\Cloud\Model\Appearance $appearance (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postAccountAppearanceAsyncWithHttpInfo($appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\Appearance';
-        $request = $this->postAccountAppearanceRequest($appearance, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postAccountAppearance'
-     *
-     * @param  \Hanzo\Cloud\Model\Appearance $appearance (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAppearance'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postAccountAppearanceRequest($appearance, string $contentType = self::contentTypes['postAccountAppearance'][0])
-    {
-
-        // verify the required parameter 'appearance' is set
-        if ($appearance === null || (is_array($appearance) && count($appearance) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $appearance when calling postAccountAppearance'
-            );
-        }
-
-
-        $resourcePath = '/v1/account/appearance';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($appearance)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($appearance));
-            } else {
-                $httpBody = $appearance;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postAccountAvatar
-     *
-     * Set your profile photo
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAvatar'] to see the possible values for this operation
+     * @param  string $zone zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZoneRecords'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postAccountAvatar(string $contentType = self::contentTypes['postAccountAvatar'][0])
+    public function getDnsZonesByZoneRecords($zone, string $contentType = self::contentTypes['getDnsZonesByZoneRecords'][0])
     {
-        $this->postAccountAvatarWithHttpInfo($contentType);
+        $this->getDnsZonesByZoneRecordsWithHttpInfo($zone, $contentType);
     }
 
     /**
-     * Operation postAccountAvatarWithHttpInfo
+     * Operation getDnsZonesByZoneRecordsWithHttpInfo
      *
-     * Set your profile photo
+     * List a zone&#39;s DNS records
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAvatar'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZoneRecords'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAccountAvatarWithHttpInfo(string $contentType = self::contentTypes['postAccountAvatar'][0])
+    public function getDnsZonesByZoneRecordsWithHttpInfo($zone, string $contentType = self::contentTypes['getDnsZonesByZoneRecords'][0])
     {
-        $request = $this->postAccountAvatarRequest($contentType);
+        $request = $this->getDnsZonesByZoneRecordsRequest($zone, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2040,18 +1315,19 @@ class AccountApi
     }
 
     /**
-     * Operation postAccountAvatarAsync
+     * Operation getDnsZonesByZoneRecordsAsync
      *
-     * Set your profile photo
+     * List a zone&#39;s DNS records
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAvatar'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZoneRecords'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountAvatarAsync(string $contentType = self::contentTypes['postAccountAvatar'][0])
+    public function getDnsZonesByZoneRecordsAsync($zone, string $contentType = self::contentTypes['getDnsZonesByZoneRecords'][0])
     {
-        return $this->postAccountAvatarAsyncWithHttpInfo($contentType)
+        return $this->getDnsZonesByZoneRecordsAsyncWithHttpInfo($zone, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2060,19 +1336,20 @@ class AccountApi
     }
 
     /**
-     * Operation postAccountAvatarAsyncWithHttpInfo
+     * Operation getDnsZonesByZoneRecordsAsyncWithHttpInfo
      *
-     * Set your profile photo
+     * List a zone&#39;s DNS records
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAvatar'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZoneRecords'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountAvatarAsyncWithHttpInfo(string $contentType = self::contentTypes['postAccountAvatar'][0])
+    public function getDnsZonesByZoneRecordsAsyncWithHttpInfo($zone, string $contentType = self::contentTypes['getDnsZonesByZoneRecords'][0])
     {
         $returnType = '';
-        $request = $this->postAccountAvatarRequest($contentType);
+        $request = $this->getDnsZonesByZoneRecordsRequest($zone, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2098,18 +1375,720 @@ class AccountApi
     }
 
     /**
-     * Create request for operation 'postAccountAvatar'
+     * Create request for operation 'getDnsZonesByZoneRecords'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountAvatar'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZoneRecords'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAccountAvatarRequest(string $contentType = self::contentTypes['postAccountAvatar'][0])
+    public function getDnsZonesByZoneRecordsRequest($zone, string $contentType = self::contentTypes['getDnsZonesByZoneRecords'][0])
+    {
+
+        // verify the required parameter 'zone' is set
+        if ($zone === null || (is_array($zone) && count($zone) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $zone when calling getDnsZonesByZoneRecords'
+            );
+        }
+
+
+        $resourcePath = '/v1/dns/zones/{zone}/records';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($zone !== null) {
+            $resourcePath = str_replace(
+                '{' . 'zone' . '}',
+                ObjectSerializer::toPathValue($zone),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getDnsZonesByZoneRecordsByRecord
+     *
+     * Read one DNS record
+     *
+     * @param  string $zone zone (required)
+     * @param  string $record record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function getDnsZonesByZoneRecordsByRecord($zone, $record, string $contentType = self::contentTypes['getDnsZonesByZoneRecordsByRecord'][0])
+    {
+        $this->getDnsZonesByZoneRecordsByRecordWithHttpInfo($zone, $record, $contentType);
+    }
+
+    /**
+     * Operation getDnsZonesByZoneRecordsByRecordWithHttpInfo
+     *
+     * Read one DNS record
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getDnsZonesByZoneRecordsByRecordWithHttpInfo($zone, $record, string $contentType = self::contentTypes['getDnsZonesByZoneRecordsByRecord'][0])
+    {
+        $request = $this->getDnsZonesByZoneRecordsByRecordRequest($zone, $record, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getDnsZonesByZoneRecordsByRecordAsync
+     *
+     * Read one DNS record
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDnsZonesByZoneRecordsByRecordAsync($zone, $record, string $contentType = self::contentTypes['getDnsZonesByZoneRecordsByRecord'][0])
+    {
+        return $this->getDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo($zone, $record, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo
+     *
+     * Read one DNS record
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo($zone, $record, string $contentType = self::contentTypes['getDnsZonesByZoneRecordsByRecord'][0])
+    {
+        $returnType = '';
+        $request = $this->getDnsZonesByZoneRecordsByRecordRequest($zone, $record, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getDnsZonesByZoneRecordsByRecord'
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getDnsZonesByZoneRecordsByRecordRequest($zone, $record, string $contentType = self::contentTypes['getDnsZonesByZoneRecordsByRecord'][0])
+    {
+
+        // verify the required parameter 'zone' is set
+        if ($zone === null || (is_array($zone) && count($zone) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $zone when calling getDnsZonesByZoneRecordsByRecord'
+            );
+        }
+
+        // verify the required parameter 'record' is set
+        if ($record === null || (is_array($record) && count($record) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $record when calling getDnsZonesByZoneRecordsByRecord'
+            );
+        }
+
+
+        $resourcePath = '/v1/dns/zones/{zone}/records/{record}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($zone !== null) {
+            $resourcePath = str_replace(
+                '{' . 'zone' . '}',
+                ObjectSerializer::toPathValue($zone),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($record !== null) {
+            $resourcePath = str_replace(
+                '{' . 'record' . '}',
+                ObjectSerializer::toPathValue($record),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation patchDnsZonesByZoneRecordsByRecord
+     *
+     * Amend a DNS record
+     *
+     * @param  string $zone zone (required)
+     * @param  string $record record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function patchDnsZonesByZoneRecordsByRecord($zone, $record, string $contentType = self::contentTypes['patchDnsZonesByZoneRecordsByRecord'][0])
+    {
+        $this->patchDnsZonesByZoneRecordsByRecordWithHttpInfo($zone, $record, $contentType);
+    }
+
+    /**
+     * Operation patchDnsZonesByZoneRecordsByRecordWithHttpInfo
+     *
+     * Amend a DNS record
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function patchDnsZonesByZoneRecordsByRecordWithHttpInfo($zone, $record, string $contentType = self::contentTypes['patchDnsZonesByZoneRecordsByRecord'][0])
+    {
+        $request = $this->patchDnsZonesByZoneRecordsByRecordRequest($zone, $record, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation patchDnsZonesByZoneRecordsByRecordAsync
+     *
+     * Amend a DNS record
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchDnsZonesByZoneRecordsByRecordAsync($zone, $record, string $contentType = self::contentTypes['patchDnsZonesByZoneRecordsByRecord'][0])
+    {
+        return $this->patchDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo($zone, $record, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation patchDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo
+     *
+     * Amend a DNS record
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function patchDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo($zone, $record, string $contentType = self::contentTypes['patchDnsZonesByZoneRecordsByRecord'][0])
+    {
+        $returnType = '';
+        $request = $this->patchDnsZonesByZoneRecordsByRecordRequest($zone, $record, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'patchDnsZonesByZoneRecordsByRecord'
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function patchDnsZonesByZoneRecordsByRecordRequest($zone, $record, string $contentType = self::contentTypes['patchDnsZonesByZoneRecordsByRecord'][0])
+    {
+
+        // verify the required parameter 'zone' is set
+        if ($zone === null || (is_array($zone) && count($zone) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $zone when calling patchDnsZonesByZoneRecordsByRecord'
+            );
+        }
+
+        // verify the required parameter 'record' is set
+        if ($record === null || (is_array($record) && count($record) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $record when calling patchDnsZonesByZoneRecordsByRecord'
+            );
+        }
+
+
+        $resourcePath = '/v1/dns/zones/{zone}/records/{record}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($zone !== null) {
+            $resourcePath = str_replace(
+                '{' . 'zone' . '}',
+                ObjectSerializer::toPathValue($zone),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($record !== null) {
+            $resourcePath = str_replace(
+                '{' . 'record' . '}',
+                ObjectSerializer::toPathValue($record),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postDnsSync
+     *
+     * Push a set of zones and records in one call
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsSync'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function postDnsSync(string $contentType = self::contentTypes['postDnsSync'][0])
+    {
+        $this->postDnsSyncWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation postDnsSyncWithHttpInfo
+     *
+     * Push a set of zones and records in one call
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsSync'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postDnsSyncWithHttpInfo(string $contentType = self::contentTypes['postDnsSync'][0])
+    {
+        $request = $this->postDnsSyncRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postDnsSyncAsync
+     *
+     * Push a set of zones and records in one call
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsSync'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postDnsSyncAsync(string $contentType = self::contentTypes['postDnsSync'][0])
+    {
+        return $this->postDnsSyncAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postDnsSyncAsyncWithHttpInfo
+     *
+     * Push a set of zones and records in one call
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsSync'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postDnsSyncAsyncWithHttpInfo(string $contentType = self::contentTypes['postDnsSync'][0])
+    {
+        $returnType = '';
+        $request = $this->postDnsSyncRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postDnsSync'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsSync'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postDnsSyncRequest(string $contentType = self::contentTypes['postDnsSync'][0])
     {
 
 
-        $resourcePath = '/v1/account/avatar';
+        $resourcePath = '/v1/dns/sync';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2178,38 +2157,35 @@ class AccountApi
     }
 
     /**
-     * Operation postAccountKeys
+     * Operation postDnsZones
      *
-     * Creates — or rotates — the caller&#39;s API key of the requested type and returns it ONCE.
+     * Create a DNS zone
      *
-     * @param  \Hanzo\Cloud\Model\KeyTypeIn $key_type_in key_type_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountKeys'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsZones'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MintedKey
+     * @return void
      */
-    public function postAccountKeys($key_type_in, string $contentType = self::contentTypes['postAccountKeys'][0])
+    public function postDnsZones(string $contentType = self::contentTypes['postDnsZones'][0])
     {
-        list($response) = $this->postAccountKeysWithHttpInfo($key_type_in, $contentType);
-        return $response;
+        $this->postDnsZonesWithHttpInfo($contentType);
     }
 
     /**
-     * Operation postAccountKeysWithHttpInfo
+     * Operation postDnsZonesWithHttpInfo
      *
-     * Creates — or rotates — the caller&#39;s API key of the requested type and returns it ONCE.
+     * Create a DNS zone
      *
-     * @param  \Hanzo\Cloud\Model\KeyTypeIn $key_type_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountKeys'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsZones'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MintedKey, HTTP status code, HTTP response headers (array of strings)
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAccountKeysWithHttpInfo($key_type_in, string $contentType = self::contentTypes['postAccountKeys'][0])
+    public function postDnsZonesWithHttpInfo(string $contentType = self::contentTypes['postDnsZones'][0])
     {
-        $request = $this->postAccountKeysRequest($key_type_in, $contentType);
+        $request = $this->postDnsZonesRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2234,45 +2210,9 @@ class AccountApi
             $statusCode = $response->getStatusCode();
 
 
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MintedKey',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MintedKey',
-                $request,
-                $response,
-            );
+            return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MintedKey',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
             }
         
 
@@ -2281,19 +2221,18 @@ class AccountApi
     }
 
     /**
-     * Operation postAccountKeysAsync
+     * Operation postDnsZonesAsync
      *
-     * Creates — or rotates — the caller&#39;s API key of the requested type and returns it ONCE.
+     * Create a DNS zone
      *
-     * @param  \Hanzo\Cloud\Model\KeyTypeIn $key_type_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountKeys'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsZones'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountKeysAsync($key_type_in, string $contentType = self::contentTypes['postAccountKeys'][0])
+    public function postDnsZonesAsync(string $contentType = self::contentTypes['postDnsZones'][0])
     {
-        return $this->postAccountKeysAsyncWithHttpInfo($key_type_in, $contentType)
+        return $this->postDnsZonesAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2302,39 +2241,25 @@ class AccountApi
     }
 
     /**
-     * Operation postAccountKeysAsyncWithHttpInfo
+     * Operation postDnsZonesAsyncWithHttpInfo
      *
-     * Creates — or rotates — the caller&#39;s API key of the requested type and returns it ONCE.
+     * Create a DNS zone
      *
-     * @param  \Hanzo\Cloud\Model\KeyTypeIn $key_type_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountKeys'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsZones'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountKeysAsyncWithHttpInfo($key_type_in, string $contentType = self::contentTypes['postAccountKeys'][0])
+    public function postDnsZonesAsyncWithHttpInfo(string $contentType = self::contentTypes['postDnsZones'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\MintedKey';
-        $request = $this->postAccountKeysRequest($key_type_in, $contentType);
+        $returnType = '';
+        $request = $this->postDnsZonesRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -2354,26 +2279,18 @@ class AccountApi
     }
 
     /**
-     * Create request for operation 'postAccountKeys'
+     * Create request for operation 'postDnsZones'
      *
-     * @param  \Hanzo\Cloud\Model\KeyTypeIn $key_type_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountKeys'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsZones'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAccountKeysRequest($key_type_in, string $contentType = self::contentTypes['postAccountKeys'][0])
+    public function postDnsZonesRequest(string $contentType = self::contentTypes['postDnsZones'][0])
     {
 
-        // verify the required parameter 'key_type_in' is set
-        if ($key_type_in === null || (is_array($key_type_in) && count($key_type_in) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $key_type_in when calling postAccountKeys'
-            );
-        }
 
-
-        $resourcePath = '/v1/account/keys';
+        $resourcePath = '/v1/dns/zones';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2385,20 +2302,13 @@ class AccountApi
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            [],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($key_type_in)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($key_type_in));
-            } else {
-                $httpBody = $key_type_in;
-            }
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -2449,38 +2359,37 @@ class AccountApi
     }
 
     /**
-     * Operation postAccountOrgs
+     * Operation postDnsZonesByZoneRecords
      *
-     * Onboard creates the caller&#39;s organization.
+     * Create a DNS record
      *
-     * @param  \Hanzo\Cloud\Model\OnboardReq $onboard_req onboard_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountOrgs'] to see the possible values for this operation
+     * @param  string $zone zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsZonesByZoneRecords'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\OnboardResp
+     * @return void
      */
-    public function postAccountOrgs($onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
+    public function postDnsZonesByZoneRecords($zone, string $contentType = self::contentTypes['postDnsZonesByZoneRecords'][0])
     {
-        list($response) = $this->postAccountOrgsWithHttpInfo($onboard_req, $contentType);
-        return $response;
+        $this->postDnsZonesByZoneRecordsWithHttpInfo($zone, $contentType);
     }
 
     /**
-     * Operation postAccountOrgsWithHttpInfo
+     * Operation postDnsZonesByZoneRecordsWithHttpInfo
      *
-     * Onboard creates the caller&#39;s organization.
+     * Create a DNS record
      *
-     * @param  \Hanzo\Cloud\Model\OnboardReq $onboard_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountOrgs'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsZonesByZoneRecords'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\OnboardResp, HTTP status code, HTTP response headers (array of strings)
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAccountOrgsWithHttpInfo($onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
+    public function postDnsZonesByZoneRecordsWithHttpInfo($zone, string $contentType = self::contentTypes['postDnsZonesByZoneRecords'][0])
     {
-        $request = $this->postAccountOrgsRequest($onboard_req, $contentType);
+        $request = $this->postDnsZonesByZoneRecordsRequest($zone, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2505,45 +2414,9 @@ class AccountApi
             $statusCode = $response->getStatusCode();
 
 
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\OnboardResp',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\OnboardResp',
-                $request,
-                $response,
-            );
+            return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\OnboardResp',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
             }
         
 
@@ -2552,19 +2425,19 @@ class AccountApi
     }
 
     /**
-     * Operation postAccountOrgsAsync
+     * Operation postDnsZonesByZoneRecordsAsync
      *
-     * Onboard creates the caller&#39;s organization.
+     * Create a DNS record
      *
-     * @param  \Hanzo\Cloud\Model\OnboardReq $onboard_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountOrgs'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsZonesByZoneRecords'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountOrgsAsync($onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
+    public function postDnsZonesByZoneRecordsAsync($zone, string $contentType = self::contentTypes['postDnsZonesByZoneRecords'][0])
     {
-        return $this->postAccountOrgsAsyncWithHttpInfo($onboard_req, $contentType)
+        return $this->postDnsZonesByZoneRecordsAsyncWithHttpInfo($zone, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2573,39 +2446,26 @@ class AccountApi
     }
 
     /**
-     * Operation postAccountOrgsAsyncWithHttpInfo
+     * Operation postDnsZonesByZoneRecordsAsyncWithHttpInfo
      *
-     * Onboard creates the caller&#39;s organization.
+     * Create a DNS record
      *
-     * @param  \Hanzo\Cloud\Model\OnboardReq $onboard_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountOrgs'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsZonesByZoneRecords'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAccountOrgsAsyncWithHttpInfo($onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
+    public function postDnsZonesByZoneRecordsAsyncWithHttpInfo($zone, string $contentType = self::contentTypes['postDnsZonesByZoneRecords'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\OnboardResp';
-        $request = $this->postAccountOrgsRequest($onboard_req, $contentType);
+        $returnType = '';
+        $request = $this->postDnsZonesByZoneRecordsRequest($zone, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -2625,26 +2485,26 @@ class AccountApi
     }
 
     /**
-     * Create request for operation 'postAccountOrgs'
+     * Create request for operation 'postDnsZonesByZoneRecords'
      *
-     * @param  \Hanzo\Cloud\Model\OnboardReq $onboard_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAccountOrgs'] to see the possible values for this operation
+     * @param  string $zone (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postDnsZonesByZoneRecords'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAccountOrgsRequest($onboard_req, string $contentType = self::contentTypes['postAccountOrgs'][0])
+    public function postDnsZonesByZoneRecordsRequest($zone, string $contentType = self::contentTypes['postDnsZonesByZoneRecords'][0])
     {
 
-        // verify the required parameter 'onboard_req' is set
-        if ($onboard_req === null || (is_array($onboard_req) && count($onboard_req) === 0)) {
+        // verify the required parameter 'zone' is set
+        if ($zone === null || (is_array($zone) && count($zone) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $onboard_req when calling postAccountOrgs'
+                'Missing the required parameter $zone when calling postDnsZonesByZoneRecords'
             );
         }
 
 
-        $resourcePath = '/v1/account/orgs';
+        $resourcePath = '/v1/dns/zones/{zone}/records';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2653,23 +2513,24 @@ class AccountApi
 
 
 
+        // path params
+        if ($zone !== null) {
+            $resourcePath = str_replace(
+                '{' . 'zone' . '}',
+                ObjectSerializer::toPathValue($zone),
+                $resourcePath
+            );
+        }
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            [],
             $contentType,
             $multipart
         );
 
         // for model (json/xml)
-        if (isset($onboard_req)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($onboard_req));
-            } else {
-                $httpBody = $onboard_req;
-            }
-        } elseif (count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
@@ -2713,6 +2574,248 @@ class AccountApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putDnsZonesByZoneRecordsByRecord
+     *
+     * Amend a DNS record
+     *
+     * @param  string $zone zone (required)
+     * @param  string $record record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function putDnsZonesByZoneRecordsByRecord($zone, $record, string $contentType = self::contentTypes['putDnsZonesByZoneRecordsByRecord'][0])
+    {
+        $this->putDnsZonesByZoneRecordsByRecordWithHttpInfo($zone, $record, $contentType);
+    }
+
+    /**
+     * Operation putDnsZonesByZoneRecordsByRecordWithHttpInfo
+     *
+     * Amend a DNS record
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putDnsZonesByZoneRecordsByRecordWithHttpInfo($zone, $record, string $contentType = self::contentTypes['putDnsZonesByZoneRecordsByRecord'][0])
+    {
+        $request = $this->putDnsZonesByZoneRecordsByRecordRequest($zone, $record, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putDnsZonesByZoneRecordsByRecordAsync
+     *
+     * Amend a DNS record
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putDnsZonesByZoneRecordsByRecordAsync($zone, $record, string $contentType = self::contentTypes['putDnsZonesByZoneRecordsByRecord'][0])
+    {
+        return $this->putDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo($zone, $record, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo
+     *
+     * Amend a DNS record
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putDnsZonesByZoneRecordsByRecordAsyncWithHttpInfo($zone, $record, string $contentType = self::contentTypes['putDnsZonesByZoneRecordsByRecord'][0])
+    {
+        $returnType = '';
+        $request = $this->putDnsZonesByZoneRecordsByRecordRequest($zone, $record, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putDnsZonesByZoneRecordsByRecord'
+     *
+     * @param  string $zone (required)
+     * @param  string $record (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putDnsZonesByZoneRecordsByRecord'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putDnsZonesByZoneRecordsByRecordRequest($zone, $record, string $contentType = self::contentTypes['putDnsZonesByZoneRecordsByRecord'][0])
+    {
+
+        // verify the required parameter 'zone' is set
+        if ($zone === null || (is_array($zone) && count($zone) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $zone when calling putDnsZonesByZoneRecordsByRecord'
+            );
+        }
+
+        // verify the required parameter 'record' is set
+        if ($record === null || (is_array($record) && count($record) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $record when calling putDnsZonesByZoneRecordsByRecord'
+            );
+        }
+
+
+        $resourcePath = '/v1/dns/zones/{zone}/records/{record}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($zone !== null) {
+            $resourcePath = str_replace(
+                '{' . 'zone' . '}',
+                ObjectSerializer::toPathValue($zone),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($record !== null) {
+            $resourcePath = str_replace(
+                '{' . 'record' . '}',
+                ObjectSerializer::toPathValue($record),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

@@ -336,7 +336,7 @@ class CaptableRoundDetail implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets round
      *
-     * @param \Hanzo\Cloud\Model\CaptableRound|null $round Round is the round itself.
+     * @param \Hanzo\Cloud\Model\CaptableRound|null $round Round is the round's own terms — name, type, valuation, target and status — as against the investments beside it.
      *
      * @return self
      */

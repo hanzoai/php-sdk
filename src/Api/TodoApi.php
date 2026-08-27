@@ -95,6 +95,9 @@ class TodoApi
         'getTodoProjectsByKeyIssuesByNum' => [
             'application/json',
         ],
+        'getTodoRoomsByRoom' => [
+            'application/json',
+        ],
         'patchTodoProjectsByKey' => [
             'application/json',
         ],
@@ -747,6 +750,7 @@ class TodoApi
      * @param  string|null $status Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
      * @param  string|null $kind Kind keeps one shape: issue, pr, epic. (optional)
      * @param  string|null $repo Repo keeps issues bound to one git repository. (optional)
+     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
      * @param  string|null $source Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. (optional)
      * @param  string|null $assignee Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. (optional)
      * @param  int|null $limit Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
@@ -756,9 +760,9 @@ class TodoApi
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\IssueHits
      */
-    public function getTodoIssues($q = null, $project = null, $status = null, $kind = null, $repo = null, $source = null, $assignee = null, $limit = null, string $contentType = self::contentTypes['getTodoIssues'][0])
+    public function getTodoIssues($q = null, $project = null, $status = null, $kind = null, $repo = null, $room = null, $source = null, $assignee = null, $limit = null, string $contentType = self::contentTypes['getTodoIssues'][0])
     {
-        list($response) = $this->getTodoIssuesWithHttpInfo($q, $project, $status, $kind, $repo, $source, $assignee, $limit, $contentType);
+        list($response) = $this->getTodoIssuesWithHttpInfo($q, $project, $status, $kind, $repo, $room, $source, $assignee, $limit, $contentType);
         return $response;
     }
 
@@ -772,6 +776,7 @@ class TodoApi
      * @param  string|null $status Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
      * @param  string|null $kind Kind keeps one shape: issue, pr, epic. (optional)
      * @param  string|null $repo Repo keeps issues bound to one git repository. (optional)
+     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
      * @param  string|null $source Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. (optional)
      * @param  string|null $assignee Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. (optional)
      * @param  int|null $limit Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
@@ -781,9 +786,9 @@ class TodoApi
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\IssueHits, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTodoIssuesWithHttpInfo($q = null, $project = null, $status = null, $kind = null, $repo = null, $source = null, $assignee = null, $limit = null, string $contentType = self::contentTypes['getTodoIssues'][0])
+    public function getTodoIssuesWithHttpInfo($q = null, $project = null, $status = null, $kind = null, $repo = null, $room = null, $source = null, $assignee = null, $limit = null, string $contentType = self::contentTypes['getTodoIssues'][0])
     {
-        $request = $this->getTodoIssuesRequest($q, $project, $status, $kind, $repo, $source, $assignee, $limit, $contentType);
+        $request = $this->getTodoIssuesRequest($q, $project, $status, $kind, $repo, $room, $source, $assignee, $limit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -864,6 +869,7 @@ class TodoApi
      * @param  string|null $status Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
      * @param  string|null $kind Kind keeps one shape: issue, pr, epic. (optional)
      * @param  string|null $repo Repo keeps issues bound to one git repository. (optional)
+     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
      * @param  string|null $source Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. (optional)
      * @param  string|null $assignee Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. (optional)
      * @param  int|null $limit Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
@@ -872,9 +878,9 @@ class TodoApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTodoIssuesAsync($q = null, $project = null, $status = null, $kind = null, $repo = null, $source = null, $assignee = null, $limit = null, string $contentType = self::contentTypes['getTodoIssues'][0])
+    public function getTodoIssuesAsync($q = null, $project = null, $status = null, $kind = null, $repo = null, $room = null, $source = null, $assignee = null, $limit = null, string $contentType = self::contentTypes['getTodoIssues'][0])
     {
-        return $this->getTodoIssuesAsyncWithHttpInfo($q, $project, $status, $kind, $repo, $source, $assignee, $limit, $contentType)
+        return $this->getTodoIssuesAsyncWithHttpInfo($q, $project, $status, $kind, $repo, $room, $source, $assignee, $limit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -892,6 +898,7 @@ class TodoApi
      * @param  string|null $status Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
      * @param  string|null $kind Kind keeps one shape: issue, pr, epic. (optional)
      * @param  string|null $repo Repo keeps issues bound to one git repository. (optional)
+     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
      * @param  string|null $source Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. (optional)
      * @param  string|null $assignee Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. (optional)
      * @param  int|null $limit Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
@@ -900,10 +907,10 @@ class TodoApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTodoIssuesAsyncWithHttpInfo($q = null, $project = null, $status = null, $kind = null, $repo = null, $source = null, $assignee = null, $limit = null, string $contentType = self::contentTypes['getTodoIssues'][0])
+    public function getTodoIssuesAsyncWithHttpInfo($q = null, $project = null, $status = null, $kind = null, $repo = null, $room = null, $source = null, $assignee = null, $limit = null, string $contentType = self::contentTypes['getTodoIssues'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IssueHits';
-        $request = $this->getTodoIssuesRequest($q, $project, $status, $kind, $repo, $source, $assignee, $limit, $contentType);
+        $request = $this->getTodoIssuesRequest($q, $project, $status, $kind, $repo, $room, $source, $assignee, $limit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -949,6 +956,7 @@ class TodoApi
      * @param  string|null $status Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
      * @param  string|null $kind Kind keeps one shape: issue, pr, epic. (optional)
      * @param  string|null $repo Repo keeps issues bound to one git repository. (optional)
+     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
      * @param  string|null $source Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. (optional)
      * @param  string|null $assignee Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. (optional)
      * @param  int|null $limit Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
@@ -957,8 +965,9 @@ class TodoApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getTodoIssuesRequest($q = null, $project = null, $status = null, $kind = null, $repo = null, $source = null, $assignee = null, $limit = null, string $contentType = self::contentTypes['getTodoIssues'][0])
+    public function getTodoIssuesRequest($q = null, $project = null, $status = null, $kind = null, $repo = null, $room = null, $source = null, $assignee = null, $limit = null, string $contentType = self::contentTypes['getTodoIssues'][0])
     {
+
 
 
 
@@ -1016,6 +1025,15 @@ class TodoApi
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $repo,
             'repo', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $room,
+            'room', // param base name
             'string', // openApiType
             'form', // style
             true, // explode
@@ -2225,6 +2243,278 @@ class TodoApi
             $resourcePath = str_replace(
                 '{' . 'num' . '}',
                 ObjectSerializer::toPathValue($num),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getTodoRoomsByRoom
+     *
+     * Summarises one room&#39;s work.
+     *
+     * @param  string $room Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTodoRoomsByRoom'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\RoomWork
+     */
+    public function getTodoRoomsByRoom($room, string $contentType = self::contentTypes['getTodoRoomsByRoom'][0])
+    {
+        list($response) = $this->getTodoRoomsByRoomWithHttpInfo($room, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTodoRoomsByRoomWithHttpInfo
+     *
+     * Summarises one room&#39;s work.
+     *
+     * @param  string $room Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTodoRoomsByRoom'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\RoomWork, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTodoRoomsByRoomWithHttpInfo($room, string $contentType = self::contentTypes['getTodoRoomsByRoom'][0])
+    {
+        $request = $this->getTodoRoomsByRoomRequest($room, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\RoomWork',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\RoomWork',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\RoomWork',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTodoRoomsByRoomAsync
+     *
+     * Summarises one room&#39;s work.
+     *
+     * @param  string $room Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTodoRoomsByRoom'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTodoRoomsByRoomAsync($room, string $contentType = self::contentTypes['getTodoRoomsByRoom'][0])
+    {
+        return $this->getTodoRoomsByRoomAsyncWithHttpInfo($room, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTodoRoomsByRoomAsyncWithHttpInfo
+     *
+     * Summarises one room&#39;s work.
+     *
+     * @param  string $room Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTodoRoomsByRoom'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTodoRoomsByRoomAsyncWithHttpInfo($room, string $contentType = self::contentTypes['getTodoRoomsByRoom'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\RoomWork';
+        $request = $this->getTodoRoomsByRoomRequest($room, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTodoRoomsByRoom'
+     *
+     * @param  string $room Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTodoRoomsByRoom'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTodoRoomsByRoomRequest($room, string $contentType = self::contentTypes['getTodoRoomsByRoom'][0])
+    {
+
+        // verify the required parameter 'room' is set
+        if ($room === null || (is_array($room) && count($room) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $room when calling getTodoRoomsByRoom'
+            );
+        }
+
+
+        $resourcePath = '/v1/todo/rooms/{room}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($room !== null) {
+            $resourcePath = str_replace(
+                '{' . 'room' . '}',
+                ObjectSerializer::toPathValue($room),
                 $resourcePath
             );
         }

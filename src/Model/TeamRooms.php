@@ -1,6 +1,6 @@
 <?php
 /**
- * NewIssue
+ * TeamRooms
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * NewIssue Class Doc Comment
+ * TeamRooms Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
+class TeamRooms implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'newIssue';
+    protected static $openAPIModelName = 'teamRooms';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,11 +57,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'description' => 'string',
-        'key' => 'string',
-        'priority' => 'string',
-        'status' => 'string',
-        'title' => 'string'
+        'rooms' => '\Hanzo\Cloud\Model\TeamRoom[]'
     ];
 
     /**
@@ -72,11 +68,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'description' => null,
-        'key' => null,
-        'priority' => null,
-        'status' => null,
-        'title' => null
+        'rooms' => null
     ];
 
     /**
@@ -85,11 +77,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'description' => false,
-        'key' => false,
-        'priority' => false,
-        'status' => false,
-        'title' => false
+        'rooms' => false
     ];
 
     /**
@@ -178,11 +166,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'description' => 'description',
-        'key' => 'key',
-        'priority' => 'priority',
-        'status' => 'status',
-        'title' => 'title'
+        'rooms' => 'rooms'
     ];
 
     /**
@@ -191,11 +175,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'description' => 'setDescription',
-        'key' => 'setKey',
-        'priority' => 'setPriority',
-        'status' => 'setStatus',
-        'title' => 'setTitle'
+        'rooms' => 'setRooms'
     ];
 
     /**
@@ -204,11 +184,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'description' => 'getDescription',
-        'key' => 'getKey',
-        'priority' => 'getPriority',
-        'status' => 'getStatus',
-        'title' => 'getTitle'
+        'rooms' => 'getRooms'
     ];
 
     /**
@@ -268,11 +244,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('description', $data ?? [], null);
-        $this->setIfExists('key', $data ?? [], null);
-        $this->setIfExists('priority', $data ?? [], null);
-        $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('title', $data ?? [], null);
+        $this->setIfExists('rooms', $data ?? [], null);
     }
 
     /**
@@ -318,136 +290,28 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets description
+     * Gets rooms
      *
-     * @return string|null
+     * @return \Hanzo\Cloud\Model\TeamRoom[]|null
      */
-    public function getDescription()
+    public function getRooms()
     {
-        return $this->container['description'];
+        return $this->container['rooms'];
     }
 
     /**
-     * Sets description
+     * Sets rooms
      *
-     * @param string|null $description Description becomes the issue body.
+     * @param \Hanzo\Cloud\Model\TeamRoom[]|null $rooms Rooms is every room of every workspace the caller's org owns, each with the work facet it carries.
      *
      * @return self
      */
-    public function setDescription($description)
+    public function setRooms($rooms)
     {
-        if (is_null($description)) {
-            throw new \InvalidArgumentException('non-nullable description cannot be null');
+        if (is_null($rooms)) {
+            throw new \InvalidArgumentException('non-nullable rooms cannot be null');
         }
-        $this->container['description'] = $description;
-
-        return $this;
-    }
-
-    /**
-     * Gets key
-     *
-     * @return string|null
-     */
-    public function getKey()
-    {
-        return $this->container['key'];
-    }
-
-    /**
-     * Sets key
-     *
-     * @param string|null $key Key is the board — the repository name, from the path.
-     *
-     * @return self
-     */
-    public function setKey($key)
-    {
-        if (is_null($key)) {
-            throw new \InvalidArgumentException('non-nullable key cannot be null');
-        }
-        $this->container['key'] = $key;
-
-        return $this;
-    }
-
-    /**
-     * Gets priority
-     *
-     * @return string|null
-     */
-    public function getPriority()
-    {
-        return $this->container['priority'];
-    }
-
-    /**
-     * Sets priority
-     *
-     * @param string|null $priority Priority is one of none, urgent, high, medium or low.
-     *
-     * @return self
-     */
-    public function setPriority($priority)
-    {
-        if (is_null($priority)) {
-            throw new \InvalidArgumentException('non-nullable priority cannot be null');
-        }
-        $this->container['priority'] = $priority;
-
-        return $this;
-    }
-
-    /**
-     * Gets status
-     *
-     * @return string|null
-     */
-    public function getStatus()
-    {
-        return $this->container['status'];
-    }
-
-    /**
-     * Sets status
-     *
-     * @param string|null $status Status is the board column to open into: backlog, todo, in_progress, done or canceled. Empty opens into backlog.
-     *
-     * @return self
-     */
-    public function setStatus($status)
-    {
-        if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
-        }
-        $this->container['status'] = $status;
-
-        return $this;
-    }
-
-    /**
-     * Gets title
-     *
-     * @return string|null
-     */
-    public function getTitle()
-    {
-        return $this->container['title'];
-    }
-
-    /**
-     * Sets title
-     *
-     * @param string|null $title Title is the one line the card is read by on the board. Blank or whitespace is refused — an untitled card cannot be told apart from any other.
-     *
-     * @return self
-     */
-    public function setTitle($title)
-    {
-        if (is_null($title)) {
-            throw new \InvalidArgumentException('non-nullable title cannot be null');
-        }
-        $this->container['title'] = $title;
+        $this->container['rooms'] = $rooms;
 
         return $this;
     }

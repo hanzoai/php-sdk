@@ -1,6 +1,6 @@
 <?php
 /**
- * NewIssue
+ * RoomWork
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * NewIssue Class Doc Comment
+ * RoomWork Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
+class RoomWork implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'newIssue';
+    protected static $openAPIModelName = 'roomWork';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,11 +57,11 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'description' => 'string',
-        'key' => 'string',
-        'priority' => 'string',
-        'status' => 'string',
-        'title' => 'string'
+        'open' => 'int',
+        'room' => 'string',
+        'status' => 'array<string,int>',
+        'total' => 'int',
+        'updated' => 'int'
     ];
 
     /**
@@ -72,11 +72,11 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'description' => null,
-        'key' => null,
-        'priority' => null,
+        'open' => null,
+        'room' => null,
         'status' => null,
-        'title' => null
+        'total' => null,
+        'updated' => null
     ];
 
     /**
@@ -85,11 +85,11 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'description' => false,
-        'key' => false,
-        'priority' => false,
+        'open' => false,
+        'room' => false,
         'status' => false,
-        'title' => false
+        'total' => false,
+        'updated' => false
     ];
 
     /**
@@ -178,11 +178,11 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'description' => 'description',
-        'key' => 'key',
-        'priority' => 'priority',
+        'open' => 'open',
+        'room' => 'room',
         'status' => 'status',
-        'title' => 'title'
+        'total' => 'total',
+        'updated' => 'updated'
     ];
 
     /**
@@ -191,11 +191,11 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'description' => 'setDescription',
-        'key' => 'setKey',
-        'priority' => 'setPriority',
+        'open' => 'setOpen',
+        'room' => 'setRoom',
         'status' => 'setStatus',
-        'title' => 'setTitle'
+        'total' => 'setTotal',
+        'updated' => 'setUpdated'
     ];
 
     /**
@@ -204,11 +204,11 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'description' => 'getDescription',
-        'key' => 'getKey',
-        'priority' => 'getPriority',
+        'open' => 'getOpen',
+        'room' => 'getRoom',
         'status' => 'getStatus',
-        'title' => 'getTitle'
+        'total' => 'getTotal',
+        'updated' => 'getUpdated'
     ];
 
     /**
@@ -268,11 +268,11 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('description', $data ?? [], null);
-        $this->setIfExists('key', $data ?? [], null);
-        $this->setIfExists('priority', $data ?? [], null);
+        $this->setIfExists('open', $data ?? [], null);
+        $this->setIfExists('room', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('title', $data ?? [], null);
+        $this->setIfExists('total', $data ?? [], null);
+        $this->setIfExists('updated', $data ?? [], null);
     }
 
     /**
@@ -318,82 +318,55 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets description
+     * Gets open
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getDescription()
+    public function getOpen()
     {
-        return $this->container['description'];
+        return $this->container['open'];
     }
 
     /**
-     * Sets description
+     * Sets open
      *
-     * @param string|null $description Description becomes the issue body.
+     * @param int|null $open Open is how many items are still work: everything whose status does not end it. It is the number a channel header shows.
      *
      * @return self
      */
-    public function setDescription($description)
+    public function setOpen($open)
     {
-        if (is_null($description)) {
-            throw new \InvalidArgumentException('non-nullable description cannot be null');
+        if (is_null($open)) {
+            throw new \InvalidArgumentException('non-nullable open cannot be null');
         }
-        $this->container['description'] = $description;
+        $this->container['open'] = $open;
 
         return $this;
     }
 
     /**
-     * Gets key
+     * Gets room
      *
      * @return string|null
      */
-    public function getKey()
+    public function getRoom()
     {
-        return $this->container['key'];
+        return $this->container['room'];
     }
 
     /**
-     * Sets key
+     * Sets room
      *
-     * @param string|null $key Key is the board — the repository name, from the path.
+     * @param string|null $room Room is the room these counts are for, echoed back as it was resolved.
      *
      * @return self
      */
-    public function setKey($key)
+    public function setRoom($room)
     {
-        if (is_null($key)) {
-            throw new \InvalidArgumentException('non-nullable key cannot be null');
+        if (is_null($room)) {
+            throw new \InvalidArgumentException('non-nullable room cannot be null');
         }
-        $this->container['key'] = $key;
-
-        return $this;
-    }
-
-    /**
-     * Gets priority
-     *
-     * @return string|null
-     */
-    public function getPriority()
-    {
-        return $this->container['priority'];
-    }
-
-    /**
-     * Sets priority
-     *
-     * @param string|null $priority Priority is one of none, urgent, high, medium or low.
-     *
-     * @return self
-     */
-    public function setPriority($priority)
-    {
-        if (is_null($priority)) {
-            throw new \InvalidArgumentException('non-nullable priority cannot be null');
-        }
-        $this->container['priority'] = $priority;
+        $this->container['room'] = $room;
 
         return $this;
     }
@@ -401,7 +374,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets status
      *
-     * @return string|null
+     * @return array<string,int>|null
      */
     public function getStatus()
     {
@@ -411,7 +384,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param string|null $status Status is the board column to open into: backlog, todo, in_progress, done or canceled. Empty opens into backlog.
+     * @param array<string,int>|null $status Status is the count per board column, carrying EVERY column this surface knows — an empty column reads 0 rather than being absent, so a caller can render the board without inventing the vocabulary. The keys are the same closed set every other operation here validates against.
      *
      * @return self
      */
@@ -426,28 +399,55 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets title
+     * Gets total
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getTitle()
+    public function getTotal()
     {
-        return $this->container['title'];
+        return $this->container['total'];
     }
 
     /**
-     * Sets title
+     * Sets total
      *
-     * @param string|null $title Title is the one line the card is read by on the board. Blank or whitespace is refused — an untitled card cannot be told apart from any other.
+     * @param int|null $total Total is every item bound to this room, settled ones included, so Total minus Open is what the room has finished.
      *
      * @return self
      */
-    public function setTitle($title)
+    public function setTotal($total)
     {
-        if (is_null($title)) {
-            throw new \InvalidArgumentException('non-nullable title cannot be null');
+        if (is_null($total)) {
+            throw new \InvalidArgumentException('non-nullable total cannot be null');
         }
-        $this->container['title'] = $title;
+        $this->container['total'] = $total;
+
+        return $this;
+    }
+
+    /**
+     * Gets updated
+     *
+     * @return int|null
+     */
+    public function getUpdated()
+    {
+        return $this->container['updated'];
+    }
+
+    /**
+     * Sets updated
+     *
+     * @param int|null $updated Updated is when anything in this room's work last moved, in unix seconds. ABSENT when the room has no work at all: zero would read as the epoch, and a room nobody has filed anything in has no last activity rather than an infinitely old one. Total is 0 in exactly that case.
+     *
+     * @return self
+     */
+    public function setUpdated($updated)
+    {
+        if (is_null($updated)) {
+            throw new \InvalidArgumentException('non-nullable updated cannot be null');
+        }
+        $this->container['updated'] = $updated;
 
         return $this;
     }

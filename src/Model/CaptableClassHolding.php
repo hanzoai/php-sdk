@@ -438,7 +438,7 @@ class CaptableClassHolding implements ModelInterface, ArrayAccess, \JsonSerializ
     /**
      * Sets share_class_id
      *
-     * @param string|null $share_class_id ShareClassID is the share class.
+     * @param string|null $share_class_id ShareClassID addresses the class this position is for.
      *
      * @return self
      */

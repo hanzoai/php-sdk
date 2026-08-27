@@ -357,7 +357,7 @@ class EsignPDF implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id ID is the document.
+     * @param string|null $id ID is the document this PDF was rendered from.
      *
      * @return self
      */

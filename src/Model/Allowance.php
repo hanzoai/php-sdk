@@ -61,7 +61,8 @@ class Allowance implements ModelInterface, ArrayAccess, \JsonSerializable
         'plan' => 'string',
         'resets' => 'int',
         'spent' => 'bool',
-        'used' => 'int'
+        'used' => 'int',
+        'window' => 'string'
     ];
 
     /**
@@ -76,7 +77,8 @@ class Allowance implements ModelInterface, ArrayAccess, \JsonSerializable
         'plan' => null,
         'resets' => null,
         'spent' => null,
-        'used' => null
+        'used' => null,
+        'window' => null
     ];
 
     /**
@@ -89,7 +91,8 @@ class Allowance implements ModelInterface, ArrayAccess, \JsonSerializable
         'plan' => false,
         'resets' => false,
         'spent' => false,
-        'used' => false
+        'used' => false,
+        'window' => false
     ];
 
     /**
@@ -182,7 +185,8 @@ class Allowance implements ModelInterface, ArrayAccess, \JsonSerializable
         'plan' => 'plan',
         'resets' => 'resets',
         'spent' => 'spent',
-        'used' => 'used'
+        'used' => 'used',
+        'window' => 'window'
     ];
 
     /**
@@ -195,7 +199,8 @@ class Allowance implements ModelInterface, ArrayAccess, \JsonSerializable
         'plan' => 'setPlan',
         'resets' => 'setResets',
         'spent' => 'setSpent',
-        'used' => 'setUsed'
+        'used' => 'setUsed',
+        'window' => 'setWindow'
     ];
 
     /**
@@ -208,7 +213,8 @@ class Allowance implements ModelInterface, ArrayAccess, \JsonSerializable
         'plan' => 'getPlan',
         'resets' => 'getResets',
         'spent' => 'getSpent',
-        'used' => 'getUsed'
+        'used' => 'getUsed',
+        'window' => 'getWindow'
     ];
 
     /**
@@ -273,6 +279,7 @@ class Allowance implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('resets', $data ?? [], null);
         $this->setIfExists('spent', $data ?? [], null);
         $this->setIfExists('used', $data ?? [], null);
+        $this->setIfExists('window', $data ?? [], null);
     }
 
     /**
@@ -384,7 +391,7 @@ class Allowance implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets resets
      *
-     * @param int|null $resets unix seconds; when the count starts again
+     * @param int|null $resets unix seconds; when THAT window starts again
      *
      * @return self
      */
@@ -448,6 +455,33 @@ class Allowance implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable used cannot be null');
         }
         $this->container['used'] = $used;
+
+        return $this;
+    }
+
+    /**
+     * Gets window
+     *
+     * @return string|null
+     */
+    public function getWindow()
+    {
+        return $this->container['window'];
+    }
+
+    /**
+     * Sets window
+     *
+     * @param string|null $window Window is which ceiling these numbers describe — \"hour\" or \"day\" — because a caller is held to both and only one of them is the answer. It is the window that REFUSED where one did, and otherwise the one with least left, so Limit-Used is always the number that will actually stop them next. Empty where no window bounds the subject at all.
+     *
+     * @return self
+     */
+    public function setWindow($window)
+    {
+        if (is_null($window)) {
+            throw new \InvalidArgumentException('non-nullable window cannot be null');
+        }
+        $this->container['window'] = $window;
 
         return $this;
     }

@@ -63,6 +63,7 @@ class IssueHit implements ModelInterface, ArrayAccess, \JsonSerializable
         'priority' => 'string',
         'project' => 'string',
         'repo' => 'string',
+        'room' => 'string',
         'source' => 'string',
         'status' => 'string',
         'title' => 'string',
@@ -83,6 +84,7 @@ class IssueHit implements ModelInterface, ArrayAccess, \JsonSerializable
         'priority' => null,
         'project' => null,
         'repo' => null,
+        'room' => null,
         'source' => null,
         'status' => null,
         'title' => null,
@@ -101,6 +103,7 @@ class IssueHit implements ModelInterface, ArrayAccess, \JsonSerializable
         'priority' => false,
         'project' => false,
         'repo' => false,
+        'room' => false,
         'source' => false,
         'status' => false,
         'title' => false,
@@ -199,6 +202,7 @@ class IssueHit implements ModelInterface, ArrayAccess, \JsonSerializable
         'priority' => 'priority',
         'project' => 'project',
         'repo' => 'repo',
+        'room' => 'room',
         'source' => 'source',
         'status' => 'status',
         'title' => 'title',
@@ -217,6 +221,7 @@ class IssueHit implements ModelInterface, ArrayAccess, \JsonSerializable
         'priority' => 'setPriority',
         'project' => 'setProject',
         'repo' => 'setRepo',
+        'room' => 'setRoom',
         'source' => 'setSource',
         'status' => 'setStatus',
         'title' => 'setTitle',
@@ -235,6 +240,7 @@ class IssueHit implements ModelInterface, ArrayAccess, \JsonSerializable
         'priority' => 'getPriority',
         'project' => 'getProject',
         'repo' => 'getRepo',
+        'room' => 'getRoom',
         'source' => 'getSource',
         'status' => 'getStatus',
         'title' => 'getTitle',
@@ -304,6 +310,7 @@ class IssueHit implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('priority', $data ?? [], null);
         $this->setIfExists('project', $data ?? [], null);
         $this->setIfExists('repo', $data ?? [], null);
+        $this->setIfExists('room', $data ?? [], null);
         $this->setIfExists('source', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('title', $data ?? [], null);
@@ -510,6 +517,33 @@ class IssueHit implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable repo cannot be null');
         }
         $this->container['repo'] = $repo;
+
+        return $this;
+    }
+
+    /**
+     * Gets room
+     *
+     * @return string|null
+     */
+    public function getRoom()
+    {
+        return $this->container['room'];
+    }
+
+    /**
+     * Sets room
+     *
+     * @param string|null $room Room is the collaboration room the issue belongs to, spelled \"<workspace>_<room>\" — empty when it is not room-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read.
+     *
+     * @return self
+     */
+    public function setRoom($room)
+    {
+        if (is_null($room)) {
+            throw new \InvalidArgumentException('non-nullable room cannot be null');
+        }
+        $this->container['room'] = $room;
 
         return $this;
     }

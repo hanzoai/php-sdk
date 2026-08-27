@@ -541,7 +541,7 @@ class TrustItemView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets kind
      *
-     * @param string|null $kind Kind is what it is.
+     * @param string|null $kind Kind is one of report, letter, policy, questionnaire, subprocessor, article or update — the closed set the public centre knows how to draw.
      *
      * @return self
      */
@@ -568,7 +568,7 @@ class TrustItemView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name Name is its title.
+     * @param string|null $name Name is the label the centre lists it under.
      *
      * @return self
      */

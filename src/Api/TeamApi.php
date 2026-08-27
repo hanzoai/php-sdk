@@ -104,6 +104,9 @@ class TeamApi
         'getTeamFilesByWorkspaceByFilename' => [
             'application/json',
         ],
+        'getTeamRooms' => [
+            'application/json',
+        ],
         'getTeamTransactorApiV1Statistics' => [
             'application/json',
         ],
@@ -126,6 +129,9 @@ class TeamApi
             'application/octet-stream',
         ],
         'putTeamAccountCookie' => [
+            'application/json',
+        ],
+        'putTeamRoomsById' => [
             'application/json',
         ],
     ];
@@ -2638,6 +2644,258 @@ class TeamApi
     }
 
     /**
+     * Operation getTeamRooms
+     *
+     * Returns every room of the caller&#39;s org, across the workspaces it owns, with the work facet each carries.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamRooms
+     */
+    public function getTeamRooms(string $contentType = self::contentTypes['getTeamRooms'][0])
+    {
+        list($response) = $this->getTeamRoomsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamRoomsWithHttpInfo
+     *
+     * Returns every room of the caller&#39;s org, across the workspaces it owns, with the work facet each carries.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamRooms, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamRoomsWithHttpInfo(string $contentType = self::contentTypes['getTeamRooms'][0])
+    {
+        $request = $this->getTeamRoomsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamRooms',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamRooms',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamRooms',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamRoomsAsync
+     *
+     * Returns every room of the caller&#39;s org, across the workspaces it owns, with the work facet each carries.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamRoomsAsync(string $contentType = self::contentTypes['getTeamRooms'][0])
+    {
+        return $this->getTeamRoomsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamRoomsAsyncWithHttpInfo
+     *
+     * Returns every room of the caller&#39;s org, across the workspaces it owns, with the work facet each carries.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamRoomsAsyncWithHttpInfo(string $contentType = self::contentTypes['getTeamRooms'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamRooms';
+        $request = $this->getTeamRoomsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamRooms'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamRoomsRequest(string $contentType = self::contentTypes['getTeamRooms'][0])
+    {
+
+
+        $resourcePath = '/v1/team/rooms';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getTeamTransactorApiV1Statistics
      *
      * Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
@@ -4632,6 +4890,297 @@ class TeamApi
 
         // for model (json/xml)
         if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putTeamRoomsById
+     *
+     * States what a room is for: its lifecycle intent, and what it is about.
+     *
+     * @param  string $id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
+     * @param  \Hanzo\Cloud\Model\TeamRoomBind $team_room_bind team_room_bind (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamRoomsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamRoom
+     */
+    public function putTeamRoomsById($id, $team_room_bind, string $contentType = self::contentTypes['putTeamRoomsById'][0])
+    {
+        list($response) = $this->putTeamRoomsByIdWithHttpInfo($id, $team_room_bind, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putTeamRoomsByIdWithHttpInfo
+     *
+     * States what a room is for: its lifecycle intent, and what it is about.
+     *
+     * @param  string $id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
+     * @param  \Hanzo\Cloud\Model\TeamRoomBind $team_room_bind (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamRoomsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamRoom, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putTeamRoomsByIdWithHttpInfo($id, $team_room_bind, string $contentType = self::contentTypes['putTeamRoomsById'][0])
+    {
+        $request = $this->putTeamRoomsByIdRequest($id, $team_room_bind, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamRoom',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamRoom',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamRoom',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putTeamRoomsByIdAsync
+     *
+     * States what a room is for: its lifecycle intent, and what it is about.
+     *
+     * @param  string $id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
+     * @param  \Hanzo\Cloud\Model\TeamRoomBind $team_room_bind (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamRoomsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putTeamRoomsByIdAsync($id, $team_room_bind, string $contentType = self::contentTypes['putTeamRoomsById'][0])
+    {
+        return $this->putTeamRoomsByIdAsyncWithHttpInfo($id, $team_room_bind, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putTeamRoomsByIdAsyncWithHttpInfo
+     *
+     * States what a room is for: its lifecycle intent, and what it is about.
+     *
+     * @param  string $id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
+     * @param  \Hanzo\Cloud\Model\TeamRoomBind $team_room_bind (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamRoomsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putTeamRoomsByIdAsyncWithHttpInfo($id, $team_room_bind, string $contentType = self::contentTypes['putTeamRoomsById'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamRoom';
+        $request = $this->putTeamRoomsByIdRequest($id, $team_room_bind, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putTeamRoomsById'
+     *
+     * @param  string $id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write. (required)
+     * @param  \Hanzo\Cloud\Model\TeamRoomBind $team_room_bind (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putTeamRoomsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putTeamRoomsByIdRequest($id, $team_room_bind, string $contentType = self::contentTypes['putTeamRoomsById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling putTeamRoomsById'
+            );
+        }
+
+        // verify the required parameter 'team_room_bind' is set
+        if ($team_room_bind === null || (is_array($team_room_bind) && count($team_room_bind) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_room_bind when calling putTeamRoomsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/rooms/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_room_bind)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_room_bind));
+            } else {
+                $httpBody = $team_room_bind;
+            }
+        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {

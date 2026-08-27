@@ -309,7 +309,7 @@ class CsrfResp implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets csrf_token
      *
-     * @param string|null $csrf_token Token is the value to send back in the X-CSRF-Token header. It is bound to the caller's identity, so it authorizes writes as them and as nobody else.
+     * @param string|null $csrf_token Token is the value to send back in the X-CSRF-Token header. It is bound to the caller's identity, so it authorizes changes as them and as nobody else.
      *
      * @return self
      */
@@ -336,7 +336,7 @@ class CsrfResp implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets expires_in
      *
-     * @param int|null $expires_in ExpiresIn is the token's lifetime in seconds. Fetch a new one when it lapses; a write with an expired token is refused.
+     * @param int|null $expires_in ExpiresIn is the token's lifetime in seconds. Fetch a new one when it lapses; a change with an expired token is refused.
      *
      * @return self
      */

@@ -3533,6 +3533,7 @@ class AgentsApi
      * @param  string|null $parent Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. (optional)
      * @param  string|null $status Status filters to running, paused, done or error. (optional)
      * @param  string|null $project Project filters to the sessions tagged with one product slug. (optional)
+     * @param  string|null $room Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it. (optional)
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessions'] to see the possible values for this operation
      *
@@ -3540,9 +3541,9 @@ class AgentsApi
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\SessionList
      */
-    public function getAgentsSessions($root = null, $parent = null, $status = null, $project = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
+    public function getAgentsSessions($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
     {
-        list($response) = $this->getAgentsSessionsWithHttpInfo($root, $parent, $status, $project, $limit, $contentType);
+        list($response) = $this->getAgentsSessionsWithHttpInfo($root, $parent, $status, $project, $room, $limit, $contentType);
         return $response;
     }
 
@@ -3555,6 +3556,7 @@ class AgentsApi
      * @param  string|null $parent Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. (optional)
      * @param  string|null $status Status filters to running, paused, done or error. (optional)
      * @param  string|null $project Project filters to the sessions tagged with one product slug. (optional)
+     * @param  string|null $room Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it. (optional)
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessions'] to see the possible values for this operation
      *
@@ -3562,9 +3564,9 @@ class AgentsApi
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\SessionList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsSessionsWithHttpInfo($root = null, $parent = null, $status = null, $project = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
+    public function getAgentsSessionsWithHttpInfo($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
     {
-        $request = $this->getAgentsSessionsRequest($root, $parent, $status, $project, $limit, $contentType);
+        $request = $this->getAgentsSessionsRequest($root, $parent, $status, $project, $room, $limit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3644,15 +3646,16 @@ class AgentsApi
      * @param  string|null $parent Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. (optional)
      * @param  string|null $status Status filters to running, paused, done or error. (optional)
      * @param  string|null $project Project filters to the sessions tagged with one product slug. (optional)
+     * @param  string|null $room Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it. (optional)
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsAsync($root = null, $parent = null, $status = null, $project = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
+    public function getAgentsSessionsAsync($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
     {
-        return $this->getAgentsSessionsAsyncWithHttpInfo($root, $parent, $status, $project, $limit, $contentType)
+        return $this->getAgentsSessionsAsyncWithHttpInfo($root, $parent, $status, $project, $room, $limit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3669,16 +3672,17 @@ class AgentsApi
      * @param  string|null $parent Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. (optional)
      * @param  string|null $status Status filters to running, paused, done or error. (optional)
      * @param  string|null $project Project filters to the sessions tagged with one product slug. (optional)
+     * @param  string|null $room Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it. (optional)
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsAsyncWithHttpInfo($root = null, $parent = null, $status = null, $project = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
+    public function getAgentsSessionsAsyncWithHttpInfo($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\SessionList';
-        $request = $this->getAgentsSessionsRequest($root, $parent, $status, $project, $limit, $contentType);
+        $request = $this->getAgentsSessionsRequest($root, $parent, $status, $project, $room, $limit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3723,14 +3727,16 @@ class AgentsApi
      * @param  string|null $parent Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. (optional)
      * @param  string|null $status Status filters to running, paused, done or error. (optional)
      * @param  string|null $project Project filters to the sessions tagged with one product slug. (optional)
+     * @param  string|null $room Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it. (optional)
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsSessionsRequest($root = null, $parent = null, $status = null, $project = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
+    public function getAgentsSessionsRequest($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
     {
+
 
 
 
@@ -3776,6 +3782,15 @@ class AgentsApi
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $project,
             'project', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $room,
+            'room', // param base name
             'string', // openApiType
             'form', // style
             true, // explode

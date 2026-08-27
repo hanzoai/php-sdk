@@ -74,6 +74,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => 'string',
         'published' => 'bool',
         'repo' => 'string',
+        'room' => 'string',
         'root_session_id' => 'string',
         'started_at' => 'string',
         'status' => 'string',
@@ -110,6 +111,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => null,
         'published' => null,
         'repo' => null,
+        'room' => null,
         'root_session_id' => null,
         'started_at' => null,
         'status' => null,
@@ -144,6 +146,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => false,
         'published' => false,
         'repo' => false,
+        'room' => false,
         'root_session_id' => false,
         'started_at' => false,
         'status' => false,
@@ -258,6 +261,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => 'provider',
         'published' => 'published',
         'repo' => 'repo',
+        'room' => 'room',
         'root_session_id' => 'rootSessionId',
         'started_at' => 'startedAt',
         'status' => 'status',
@@ -292,6 +296,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => 'setProvider',
         'published' => 'setPublished',
         'repo' => 'setRepo',
+        'room' => 'setRoom',
         'root_session_id' => 'setRootSessionId',
         'started_at' => 'setStartedAt',
         'status' => 'setStatus',
@@ -326,6 +331,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => 'getProvider',
         'published' => 'getPublished',
         'repo' => 'getRepo',
+        'room' => 'getRoom',
         'root_session_id' => 'getRootSessionId',
         'started_at' => 'getStartedAt',
         'status' => 'getStatus',
@@ -411,6 +417,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('provider', $data ?? [], null);
         $this->setIfExists('published', $data ?? [], null);
         $this->setIfExists('repo', $data ?? [], null);
+        $this->setIfExists('room', $data ?? [], null);
         $this->setIfExists('root_session_id', $data ?? [], null);
         $this->setIfExists('started_at', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
@@ -919,6 +926,33 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable repo cannot be null');
         }
         $this->container['repo'] = $repo;
+
+        return $this;
+    }
+
+    /**
+     * Gets room
+     *
+     * @return string|null
+     */
+    public function getRoom()
+    {
+        return $this->container['room'];
+    }
+
+    /**
+     * Sets room
+     *
+     * @param string|null $room Room is the collaborative room this run was started in (HIP-0523), empty when it came from anywhere else — a CLI, a schedule, an API call. It is what lets a workspace view show the runs of one room beside its messages.
+     *
+     * @return self
+     */
+    public function setRoom($room)
+    {
+        if (is_null($room)) {
+            throw new \InvalidArgumentException('non-nullable room cannot be null');
+        }
+        $this->container['room'] = $room;
 
         return $this;
     }

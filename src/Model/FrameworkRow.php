@@ -506,7 +506,7 @@ class FrameworkRow implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets units
      *
-     * @param string|null $units Units is the plural of Unit.
+     * @param string|null $units Units is Unit's plural, carried so a caller renders \"12 controls\" without having to pluralise a word it does not know.
      *
      * @return self
      */

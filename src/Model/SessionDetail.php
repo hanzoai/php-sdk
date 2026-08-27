@@ -76,6 +76,7 @@ class SessionDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'published' => 'bool',
         'recent_events' => '\Hanzo\Cloud\Model\EventView[]',
         'repo' => 'string',
+        'room' => 'string',
         'root_session_id' => 'string',
         'started_at' => 'string',
         'status' => 'string',
@@ -114,6 +115,7 @@ class SessionDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'published' => null,
         'recent_events' => null,
         'repo' => null,
+        'room' => null,
         'root_session_id' => null,
         'started_at' => null,
         'status' => null,
@@ -150,6 +152,7 @@ class SessionDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'published' => false,
         'recent_events' => false,
         'repo' => false,
+        'room' => false,
         'root_session_id' => false,
         'started_at' => false,
         'status' => false,
@@ -266,6 +269,7 @@ class SessionDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'published' => 'published',
         'recent_events' => 'recentEvents',
         'repo' => 'repo',
+        'room' => 'room',
         'root_session_id' => 'rootSessionId',
         'started_at' => 'startedAt',
         'status' => 'status',
@@ -302,6 +306,7 @@ class SessionDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'published' => 'setPublished',
         'recent_events' => 'setRecentEvents',
         'repo' => 'setRepo',
+        'room' => 'setRoom',
         'root_session_id' => 'setRootSessionId',
         'started_at' => 'setStartedAt',
         'status' => 'setStatus',
@@ -338,6 +343,7 @@ class SessionDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'published' => 'getPublished',
         'recent_events' => 'getRecentEvents',
         'repo' => 'getRepo',
+        'room' => 'getRoom',
         'root_session_id' => 'getRootSessionId',
         'started_at' => 'getStartedAt',
         'status' => 'getStatus',
@@ -425,6 +431,7 @@ class SessionDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('published', $data ?? [], null);
         $this->setIfExists('recent_events', $data ?? [], null);
         $this->setIfExists('repo', $data ?? [], null);
+        $this->setIfExists('room', $data ?? [], null);
         $this->setIfExists('root_session_id', $data ?? [], null);
         $this->setIfExists('started_at', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
@@ -987,6 +994,33 @@ class SessionDetail implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable repo cannot be null');
         }
         $this->container['repo'] = $repo;
+
+        return $this;
+    }
+
+    /**
+     * Gets room
+     *
+     * @return string|null
+     */
+    public function getRoom()
+    {
+        return $this->container['room'];
+    }
+
+    /**
+     * Sets room
+     *
+     * @param string|null $room room
+     *
+     * @return self
+     */
+    public function setRoom($room)
+    {
+        if (is_null($room)) {
+            throw new \InvalidArgumentException('non-nullable room cannot be null');
+        }
+        $this->container['room'] = $room;
 
         return $this;
     }

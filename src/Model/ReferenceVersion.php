@@ -384,7 +384,7 @@ class ReferenceVersion implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets set
      *
-     * @param string|null $set Set is the set.
+     * @param string|null $set Set is the name the consulted set is addressed by.
      *
      * @return self
      */

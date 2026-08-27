@@ -67,6 +67,7 @@ class RegisterReq implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => 'string',
         'published' => 'bool',
         'repo' => 'string',
+        'room' => 'string',
         'status' => 'string',
         'target' => 'string',
         'task_run_id' => 'string',
@@ -93,6 +94,7 @@ class RegisterReq implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => null,
         'published' => null,
         'repo' => null,
+        'room' => null,
         'status' => null,
         'target' => null,
         'task_run_id' => null,
@@ -117,6 +119,7 @@ class RegisterReq implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => false,
         'published' => false,
         'repo' => false,
+        'room' => false,
         'status' => false,
         'target' => false,
         'task_run_id' => false,
@@ -221,6 +224,7 @@ class RegisterReq implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => 'provider',
         'published' => 'published',
         'repo' => 'repo',
+        'room' => 'room',
         'status' => 'status',
         'target' => 'target',
         'task_run_id' => 'taskRunId',
@@ -245,6 +249,7 @@ class RegisterReq implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => 'setProvider',
         'published' => 'setPublished',
         'repo' => 'setRepo',
+        'room' => 'setRoom',
         'status' => 'setStatus',
         'target' => 'setTarget',
         'task_run_id' => 'setTaskRunId',
@@ -269,6 +274,7 @@ class RegisterReq implements ModelInterface, ArrayAccess, \JsonSerializable
         'provider' => 'getProvider',
         'published' => 'getPublished',
         'repo' => 'getRepo',
+        'room' => 'getRoom',
         'status' => 'getStatus',
         'target' => 'getTarget',
         'task_run_id' => 'getTaskRunId',
@@ -344,6 +350,7 @@ class RegisterReq implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('provider', $data ?? [], null);
         $this->setIfExists('published', $data ?? [], null);
         $this->setIfExists('repo', $data ?? [], null);
+        $this->setIfExists('room', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('target', $data ?? [], null);
         $this->setIfExists('task_run_id', $data ?? [], null);
@@ -660,6 +667,33 @@ class RegisterReq implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable repo cannot be null');
         }
         $this->container['repo'] = $repo;
+
+        return $this;
+    }
+
+    /**
+     * Gets room
+     *
+     * @return string|null
+     */
+    public function getRoom()
+    {
+        return $this->container['room'];
+    }
+
+    /**
+     * Sets room
+     *
+     * @param string|null $room Room is the collaborative room this run was started in (HIP-0523), so a workspace view can list the sessions of one room. It is PROVENANCE and is set only here: there is deliberately no way to move a session to another room, so it is absent from the patch input and from UpdateSession's SET list.
+     *
+     * @return self
+     */
+    public function setRoom($room)
+    {
+        if (is_null($room)) {
+            throw new \InvalidArgumentException('non-nullable room cannot be null');
+        }
+        $this->container['room'] = $room;
 
         return $this;
     }

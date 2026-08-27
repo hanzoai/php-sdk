@@ -472,7 +472,7 @@ class CaptableHolding implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets stakeholder_id
      *
-     * @param string|null $stakeholder_id StakeholderID is the stakeholder.
+     * @param string|null $stakeholder_id StakeholderID addresses the stakeholder these totals are for.
      *
      * @return self
      */

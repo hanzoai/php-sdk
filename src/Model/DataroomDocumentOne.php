@@ -302,7 +302,7 @@ class DataroomDocumentOne implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets document
      *
-     * @param \Hanzo\Cloud\Model\DataroomDocument|null $document Document is the document itself.
+     * @param \Hanzo\Cloud\Model\DataroomDocument|null $document Document is the requested document's METADATA. Its bytes are a separate read, GET /v1/dataroom/documents/{id}/file.
      *
      * @return self
      */

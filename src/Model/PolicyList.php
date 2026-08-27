@@ -302,7 +302,7 @@ class PolicyList implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets policies
      *
-     * @param mixed[]|null $policies Policies is the list.
+     * @param mixed[]|null $policies Policies is the organization's published policy documents, each as the centre holds it.
      *
      * @return self
      */

@@ -31,6 +31,7 @@ src/Api/DataroomApi.php
 src/Api/DatasetApi.php
 src/Api/DeployApi.php
 src/Api/DestinationApi.php
+src/Api/DnsApi.php
 src/Api/DomainApi.php
 src/Api/EngineApi.php
 src/Api/EntitlementApi.php
@@ -2122,6 +2123,7 @@ src/Model/RollbackReq.php
 src/Model/Rollup.php
 src/Model/RollupAllotment.php
 src/Model/RollupBalance.php
+src/Model/RoomWork.php
 src/Model/Root.php
 src/Model/RoundInput.php
 src/Model/RoundOut.php
@@ -2323,6 +2325,9 @@ src/Model/TariffIn.php
 src/Model/Taxon.php
 src/Model/TaxonIn.php
 src/Model/Taxonomy.php
+src/Model/TeamRoom.php
+src/Model/TeamRoomBind.php
+src/Model/TeamRooms.php
 src/Model/TemplateCatalog.php
 src/Model/TemplateOverride.php
 src/Model/TemplateReply.php

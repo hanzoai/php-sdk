@@ -80,6 +80,9 @@ class MeetApi
         'getMeetSession' => [
             'application/json',
         ],
+        'meetCall' => [
+            'application/json',
+        ],
         'meetRecordRead' => [
             'application/json',
         ],
@@ -553,6 +556,300 @@ class MeetApi
 
         $headers = $this->headerSelector->selectHeaders(
             [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation meetCall
+     *
+     * Where a room&#39;s call happens
+     *
+     * @param  string $workspace Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\Call
+     */
+    public function meetCall($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
+    {
+        list($response) = $this->meetCallWithHttpInfo($workspace, $room, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation meetCallWithHttpInfo
+     *
+     * Where a room&#39;s call happens
+     *
+     * @param  string $workspace Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\Call, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function meetCallWithHttpInfo($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
+    {
+        $request = $this->meetCallRequest($workspace, $room, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Call',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Call',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Call',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation meetCallAsync
+     *
+     * Where a room&#39;s call happens
+     *
+     * @param  string $workspace Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function meetCallAsync($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
+    {
+        return $this->meetCallAsyncWithHttpInfo($workspace, $room, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation meetCallAsyncWithHttpInfo
+     *
+     * Where a room&#39;s call happens
+     *
+     * @param  string $workspace Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function meetCallAsyncWithHttpInfo($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\Call';
+        $request = $this->meetCallRequest($workspace, $room, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'meetCall'
+     *
+     * @param  string $workspace Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function meetCallRequest($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
+    {
+
+        // verify the required parameter 'workspace' is set
+        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $workspace when calling meetCall'
+            );
+        }
+
+        // verify the required parameter 'room' is set
+        if ($room === null || (is_array($room) && count($room) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $room when calling meetCall'
+            );
+        }
+
+
+        $resourcePath = '/v1/meet/call';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $workspace,
+            'workspace', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $room,
+            'room', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            true // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
             $contentType,
             $multipart
         );

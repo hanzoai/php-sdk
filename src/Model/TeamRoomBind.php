@@ -1,6 +1,6 @@
 <?php
 /**
- * NewIssue
+ * TeamRoomBind
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * NewIssue Class Doc Comment
+ * TeamRoomBind Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
+class TeamRoomBind implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'newIssue';
+    protected static $openAPIModelName = 'teamRoomBind';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,11 +57,10 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'description' => 'string',
-        'key' => 'string',
-        'priority' => 'string',
-        'status' => 'string',
-        'title' => 'string'
+        'bindings' => 'string[]',
+        'id' => 'string',
+        'life' => 'string',
+        'workspace' => 'string'
     ];
 
     /**
@@ -72,11 +71,10 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'description' => null,
-        'key' => null,
-        'priority' => null,
-        'status' => null,
-        'title' => null
+        'bindings' => null,
+        'id' => null,
+        'life' => null,
+        'workspace' => null
     ];
 
     /**
@@ -85,11 +83,10 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'description' => false,
-        'key' => false,
-        'priority' => false,
-        'status' => false,
-        'title' => false
+        'bindings' => false,
+        'id' => false,
+        'life' => false,
+        'workspace' => false
     ];
 
     /**
@@ -178,11 +175,10 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'description' => 'description',
-        'key' => 'key',
-        'priority' => 'priority',
-        'status' => 'status',
-        'title' => 'title'
+        'bindings' => 'bindings',
+        'id' => 'id',
+        'life' => 'life',
+        'workspace' => 'workspace'
     ];
 
     /**
@@ -191,11 +187,10 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'description' => 'setDescription',
-        'key' => 'setKey',
-        'priority' => 'setPriority',
-        'status' => 'setStatus',
-        'title' => 'setTitle'
+        'bindings' => 'setBindings',
+        'id' => 'setId',
+        'life' => 'setLife',
+        'workspace' => 'setWorkspace'
     ];
 
     /**
@@ -204,11 +199,10 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'description' => 'getDescription',
-        'key' => 'getKey',
-        'priority' => 'getPriority',
-        'status' => 'getStatus',
-        'title' => 'getTitle'
+        'bindings' => 'getBindings',
+        'id' => 'getId',
+        'life' => 'getLife',
+        'workspace' => 'getWorkspace'
     ];
 
     /**
@@ -268,11 +262,10 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('description', $data ?? [], null);
-        $this->setIfExists('key', $data ?? [], null);
-        $this->setIfExists('priority', $data ?? [], null);
-        $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('title', $data ?? [], null);
+        $this->setIfExists('bindings', $data ?? [], null);
+        $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('life', $data ?? [], null);
+        $this->setIfExists('workspace', $data ?? [], null);
     }
 
     /**
@@ -318,136 +311,109 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets description
+     * Gets bindings
      *
-     * @return string|null
+     * @return string[]|null
      */
-    public function getDescription()
+    public function getBindings()
     {
-        return $this->container['description'];
+        return $this->container['bindings'];
     }
 
     /**
-     * Sets description
+     * Sets bindings
      *
-     * @param string|null $description Description becomes the issue body.
+     * @param string[]|null $bindings Bindings REPLACES what the room is about, wholly. It is a replace and not a merge because a caller that cannot remove a binding would have no way to correct a wrong one, and an empty list sent explicitly is how a room is unbound. Absent (null) leaves the existing list alone.
      *
      * @return self
      */
-    public function setDescription($description)
+    public function setBindings($bindings)
     {
-        if (is_null($description)) {
-            throw new \InvalidArgumentException('non-nullable description cannot be null');
+        if (is_null($bindings)) {
+            throw new \InvalidArgumentException('non-nullable bindings cannot be null');
         }
-        $this->container['description'] = $description;
+        $this->container['bindings'] = $bindings;
 
         return $this;
     }
 
     /**
-     * Gets key
+     * Gets id
      *
      * @return string|null
      */
-    public function getKey()
+    public function getId()
     {
-        return $this->container['key'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets key
+     * Sets id
      *
-     * @param string|null $key Key is the board — the repository name, from the path.
+     * @param string|null $id ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write.
      *
      * @return self
      */
-    public function setKey($key)
+    public function setId($id)
     {
-        if (is_null($key)) {
-            throw new \InvalidArgumentException('non-nullable key cannot be null');
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
-        $this->container['key'] = $key;
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets priority
+     * Gets life
      *
      * @return string|null
      */
-    public function getPriority()
+    public function getLife()
     {
-        return $this->container['priority'];
+        return $this->container['life'];
     }
 
     /**
-     * Sets priority
+     * Sets life
      *
-     * @param string|null $priority Priority is one of none, urgent, high, medium or low.
+     * @param string|null $life Life sets the lifecycle intent: \"standing\" or \"bound\". Any other value is refused rather than stored, so a reader never has to interpret a third one. Empty leaves the current intent unchanged.
      *
      * @return self
      */
-    public function setPriority($priority)
+    public function setLife($life)
     {
-        if (is_null($priority)) {
-            throw new \InvalidArgumentException('non-nullable priority cannot be null');
+        if (is_null($life)) {
+            throw new \InvalidArgumentException('non-nullable life cannot be null');
         }
-        $this->container['priority'] = $priority;
+        $this->container['life'] = $life;
 
         return $this;
     }
 
     /**
-     * Gets status
+     * Gets workspace
      *
      * @return string|null
      */
-    public function getStatus()
+    public function getWorkspace()
     {
-        return $this->container['status'];
+        return $this->container['workspace'];
     }
 
     /**
-     * Sets status
+     * Sets workspace
      *
-     * @param string|null $status Status is the board column to open into: backlog, todo, in_progress, done or canceled. Empty opens into backlog.
+     * @param string|null $workspace Workspace names the workspace holding the room. It is required, because a room id is unique only within one and searching every workspace for a matching id would make the write's target depend on iteration order.
      *
      * @return self
      */
-    public function setStatus($status)
+    public function setWorkspace($workspace)
     {
-        if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
+        if (is_null($workspace)) {
+            throw new \InvalidArgumentException('non-nullable workspace cannot be null');
         }
-        $this->container['status'] = $status;
-
-        return $this;
-    }
-
-    /**
-     * Gets title
-     *
-     * @return string|null
-     */
-    public function getTitle()
-    {
-        return $this->container['title'];
-    }
-
-    /**
-     * Sets title
-     *
-     * @param string|null $title Title is the one line the card is read by on the board. Blank or whitespace is refused — an untitled card cannot be told apart from any other.
-     *
-     * @return self
-     */
-    public function setTitle($title)
-    {
-        if (is_null($title)) {
-            throw new \InvalidArgumentException('non-nullable title cannot be null');
-        }
-        $this->container['title'] = $title;
+        $this->container['workspace'] = $workspace;
 
         return $this;
     }

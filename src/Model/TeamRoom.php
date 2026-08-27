@@ -1,6 +1,6 @@
 <?php
 /**
- * NewIssue
+ * TeamRoom
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * NewIssue Class Doc Comment
+ * TeamRoom Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
+class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'newIssue';
+    protected static $openAPIModelName = 'teamRoom';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,11 +57,16 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'description' => 'string',
-        'key' => 'string',
-        'priority' => 'string',
-        'status' => 'string',
-        'title' => 'string'
+        'archived' => 'bool',
+        'bindings' => 'string[]',
+        'direct' => 'bool',
+        'id' => 'string',
+        'life' => 'string',
+        'members' => 'string[]',
+        'name' => 'string',
+        'private' => 'bool',
+        'topic' => 'string',
+        'workspace' => 'string'
     ];
 
     /**
@@ -72,11 +77,16 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'description' => null,
-        'key' => null,
-        'priority' => null,
-        'status' => null,
-        'title' => null
+        'archived' => null,
+        'bindings' => null,
+        'direct' => null,
+        'id' => null,
+        'life' => null,
+        'members' => null,
+        'name' => null,
+        'private' => null,
+        'topic' => null,
+        'workspace' => null
     ];
 
     /**
@@ -85,11 +95,16 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'description' => false,
-        'key' => false,
-        'priority' => false,
-        'status' => false,
-        'title' => false
+        'archived' => false,
+        'bindings' => false,
+        'direct' => false,
+        'id' => false,
+        'life' => false,
+        'members' => false,
+        'name' => false,
+        'private' => false,
+        'topic' => false,
+        'workspace' => false
     ];
 
     /**
@@ -178,11 +193,16 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'description' => 'description',
-        'key' => 'key',
-        'priority' => 'priority',
-        'status' => 'status',
-        'title' => 'title'
+        'archived' => 'archived',
+        'bindings' => 'bindings',
+        'direct' => 'direct',
+        'id' => 'id',
+        'life' => 'life',
+        'members' => 'members',
+        'name' => 'name',
+        'private' => 'private',
+        'topic' => 'topic',
+        'workspace' => 'workspace'
     ];
 
     /**
@@ -191,11 +211,16 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'description' => 'setDescription',
-        'key' => 'setKey',
-        'priority' => 'setPriority',
-        'status' => 'setStatus',
-        'title' => 'setTitle'
+        'archived' => 'setArchived',
+        'bindings' => 'setBindings',
+        'direct' => 'setDirect',
+        'id' => 'setId',
+        'life' => 'setLife',
+        'members' => 'setMembers',
+        'name' => 'setName',
+        'private' => 'setPrivate',
+        'topic' => 'setTopic',
+        'workspace' => 'setWorkspace'
     ];
 
     /**
@@ -204,11 +229,16 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'description' => 'getDescription',
-        'key' => 'getKey',
-        'priority' => 'getPriority',
-        'status' => 'getStatus',
-        'title' => 'getTitle'
+        'archived' => 'getArchived',
+        'bindings' => 'getBindings',
+        'direct' => 'getDirect',
+        'id' => 'getId',
+        'life' => 'getLife',
+        'members' => 'getMembers',
+        'name' => 'getName',
+        'private' => 'getPrivate',
+        'topic' => 'getTopic',
+        'workspace' => 'getWorkspace'
     ];
 
     /**
@@ -268,11 +298,16 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('description', $data ?? [], null);
-        $this->setIfExists('key', $data ?? [], null);
-        $this->setIfExists('priority', $data ?? [], null);
-        $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('title', $data ?? [], null);
+        $this->setIfExists('archived', $data ?? [], null);
+        $this->setIfExists('bindings', $data ?? [], null);
+        $this->setIfExists('direct', $data ?? [], null);
+        $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('life', $data ?? [], null);
+        $this->setIfExists('members', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
+        $this->setIfExists('private', $data ?? [], null);
+        $this->setIfExists('topic', $data ?? [], null);
+        $this->setIfExists('workspace', $data ?? [], null);
     }
 
     /**
@@ -318,136 +353,271 @@ class NewIssue implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets description
+     * Gets archived
      *
-     * @return string|null
+     * @return bool|null
      */
-    public function getDescription()
+    public function getArchived()
     {
-        return $this->container['description'];
+        return $this->container['archived'];
     }
 
     /**
-     * Sets description
+     * Sets archived
      *
-     * @param string|null $description Description becomes the issue body.
+     * @param bool|null $archived Archived reports that the room has been closed. It is the platform's own Space attribute — the same one the Team client writes — and NOT a field of the work facet, so there is exactly one answer to \"is this room open\".
      *
      * @return self
      */
-    public function setDescription($description)
+    public function setArchived($archived)
     {
-        if (is_null($description)) {
-            throw new \InvalidArgumentException('non-nullable description cannot be null');
+        if (is_null($archived)) {
+            throw new \InvalidArgumentException('non-nullable archived cannot be null');
         }
-        $this->container['description'] = $description;
+        $this->container['archived'] = $archived;
 
         return $this;
     }
 
     /**
-     * Gets key
+     * Gets bindings
      *
-     * @return string|null
+     * @return string[]|null
      */
-    public function getKey()
+    public function getBindings()
     {
-        return $this->container['key'];
+        return $this->container['bindings'];
     }
 
     /**
-     * Sets key
+     * Sets bindings
      *
-     * @param string|null $key Key is the board — the repository name, from the path.
+     * @param string[]|null $bindings Bindings are what this room is ABOUT, each a \"<kind>:<ref>\" string — \"project:acme/web\", \"repo:hanzoai/cloud\", \"issue:1010\". One list rather than one field per kind, because the next thing a room can be about should not be a schema change; and a bound value is opaque here on purpose, since the app that owns a project is the app that can resolve one. HIP-0523 §2: a binding is a REFERENCE, never a copy — a room holding an issue's title or status would be the parallel work-item store HIP-1160 §1 forbids.
      *
      * @return self
      */
-    public function setKey($key)
+    public function setBindings($bindings)
     {
-        if (is_null($key)) {
-            throw new \InvalidArgumentException('non-nullable key cannot be null');
+        if (is_null($bindings)) {
+            throw new \InvalidArgumentException('non-nullable bindings cannot be null');
         }
-        $this->container['key'] = $key;
+        $this->container['bindings'] = $bindings;
 
         return $this;
     }
 
     /**
-     * Gets priority
+     * Gets direct
      *
-     * @return string|null
+     * @return bool|null
      */
-    public function getPriority()
+    public function getDirect()
     {
-        return $this->container['priority'];
+        return $this->container['direct'];
     }
 
     /**
-     * Sets priority
+     * Sets direct
      *
-     * @param string|null $priority Priority is one of none, urgent, high, medium or low.
+     * @param bool|null $direct Direct reports that this is a room between people rather than a named room. It is derived from the document's class, so it cannot disagree with what the client will render.
      *
      * @return self
      */
-    public function setPriority($priority)
+    public function setDirect($direct)
     {
-        if (is_null($priority)) {
-            throw new \InvalidArgumentException('non-nullable priority cannot be null');
+        if (is_null($direct)) {
+            throw new \InvalidArgumentException('non-nullable direct cannot be null');
         }
-        $this->container['priority'] = $priority;
+        $this->container['direct'] = $direct;
 
         return $this;
     }
 
     /**
-     * Gets status
+     * Gets id
      *
      * @return string|null
      */
-    public function getStatus()
+    public function getId()
     {
-        return $this->container['status'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets status
+     * Sets id
      *
-     * @param string|null $status Status is the board column to open into: backlog, todo, in_progress, done or canceled. Empty opens into backlog.
+     * @param string|null $id ID is the room document's own id, and the value the bind op addresses. It is unique within a workspace, not across the org.
      *
      * @return self
      */
-    public function setStatus($status)
+    public function setId($id)
     {
-        if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
-        $this->container['status'] = $status;
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets title
+     * Gets life
      *
      * @return string|null
      */
-    public function getTitle()
+    public function getLife()
     {
-        return $this->container['title'];
+        return $this->container['life'];
     }
 
     /**
-     * Sets title
+     * Sets life
      *
-     * @param string|null $title Title is the one line the card is read by on the board. Blank or whitespace is refused — an untitled card cannot be told apart from any other.
+     * @param string|null $life Life is the room's lifecycle INTENT — \"standing\" or \"bound\" (HIP-0523 §2). Absent on the document it reads \"standing\": a room nobody classified is one that persists.
      *
      * @return self
      */
-    public function setTitle($title)
+    public function setLife($life)
     {
-        if (is_null($title)) {
-            throw new \InvalidArgumentException('non-nullable title cannot be null');
+        if (is_null($life)) {
+            throw new \InvalidArgumentException('non-nullable life cannot be null');
         }
-        $this->container['title'] = $title;
+        $this->container['life'] = $life;
+
+        return $this;
+    }
+
+    /**
+     * Gets members
+     *
+     * @return string[]|null
+     */
+    public function getMembers()
+    {
+        return $this->container['members'];
+    }
+
+    /**
+     * Sets members
+     *
+     * @param string[]|null $members Members are the account uuids in the room, agents included: an agent projects as a workspace member under a uuid derived from its id, so a caller comparing this against GET /v1/team/bots learns which rooms an agent is in.
+     *
+     * @return self
+     */
+    public function setMembers($members)
+    {
+        if (is_null($members)) {
+            throw new \InvalidArgumentException('non-nullable members cannot be null');
+        }
+        $this->container['members'] = $members;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return string|null
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param string|null $name Name is what a person sees in a sidebar. A direct message carries none, so this is empty for one — the members are its name.
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
+        }
+        $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets private
+     *
+     * @return bool|null
+     */
+    public function getPrivate()
+    {
+        return $this->container['private'];
+    }
+
+    /**
+     * Sets private
+     *
+     * @param bool|null $private Private reports that the room is restricted to its members.
+     *
+     * @return self
+     */
+    public function setPrivate($private)
+    {
+        if (is_null($private)) {
+            throw new \InvalidArgumentException('non-nullable private cannot be null');
+        }
+        $this->container['private'] = $private;
+
+        return $this;
+    }
+
+    /**
+     * Gets topic
+     *
+     * @return string|null
+     */
+    public function getTopic()
+    {
+        return $this->container['topic'];
+    }
+
+    /**
+     * Sets topic
+     *
+     * @param string|null $topic Topic is the room's own one-line subject, as the Team client sets it.
+     *
+     * @return self
+     */
+    public function setTopic($topic)
+    {
+        if (is_null($topic)) {
+            throw new \InvalidArgumentException('non-nullable topic cannot be null');
+        }
+        $this->container['topic'] = $topic;
+
+        return $this;
+    }
+
+    /**
+     * Gets workspace
+     *
+     * @return string|null
+     */
+    public function getWorkspace()
+    {
+        return $this->container['workspace'];
+    }
+
+    /**
+     * Sets workspace
+     *
+     * @param string|null $workspace Workspace is the workspace uuid holding this room. It is part of the room's address: two workspaces of one org may each hold a room with the same name, and only the pair identifies one.
+     *
+     * @return self
+     */
+    public function setWorkspace($workspace)
+    {
+        if (is_null($workspace)) {
+            throw new \InvalidArgumentException('non-nullable workspace cannot be null');
+        }
+        $this->container['workspace'] = $workspace;
 
         return $this;
     }
