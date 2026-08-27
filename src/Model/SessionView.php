@@ -70,6 +70,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'last_event' => '\Hanzo\Cloud\Model\LastEventView',
         'org' => 'string',
         'parent_session_id' => 'string',
+        'progress' => '\Hanzo\Cloud\Model\SessionProgress',
         'project' => 'string',
         'provider' => 'string',
         'published' => 'bool',
@@ -107,6 +108,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'last_event' => null,
         'org' => null,
         'parent_session_id' => null,
+        'progress' => null,
         'project' => null,
         'provider' => null,
         'published' => null,
@@ -142,6 +144,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'last_event' => false,
         'org' => false,
         'parent_session_id' => false,
+        'progress' => false,
         'project' => false,
         'provider' => false,
         'published' => false,
@@ -257,6 +260,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'last_event' => 'lastEvent',
         'org' => 'org',
         'parent_session_id' => 'parentSessionId',
+        'progress' => 'progress',
         'project' => 'project',
         'provider' => 'provider',
         'published' => 'published',
@@ -292,6 +296,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'last_event' => 'setLastEvent',
         'org' => 'setOrg',
         'parent_session_id' => 'setParentSessionId',
+        'progress' => 'setProgress',
         'project' => 'setProject',
         'provider' => 'setProvider',
         'published' => 'setPublished',
@@ -327,6 +332,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         'last_event' => 'getLastEvent',
         'org' => 'getOrg',
         'parent_session_id' => 'getParentSessionId',
+        'progress' => 'getProgress',
         'project' => 'getProject',
         'provider' => 'getProvider',
         'published' => 'getPublished',
@@ -413,6 +419,7 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('last_event', $data ?? [], null);
         $this->setIfExists('org', $data ?? [], null);
         $this->setIfExists('parent_session_id', $data ?? [], null);
+        $this->setIfExists('progress', $data ?? [], null);
         $this->setIfExists('project', $data ?? [], null);
         $this->setIfExists('provider', $data ?? [], null);
         $this->setIfExists('published', $data ?? [], null);
@@ -818,6 +825,33 @@ class SessionView implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable parent_session_id cannot be null');
         }
         $this->container['parent_session_id'] = $parent_session_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets progress
+     *
+     * @return \Hanzo\Cloud\Model\SessionProgress|null
+     */
+    public function getProgress()
+    {
+        return $this->container['progress'];
+    }
+
+    /**
+     * Sets progress
+     *
+     * @param \Hanzo\Cloud\Model\SessionProgress|null $progress Progress is how far along this run is — a share of its goal, a phase, and a line saying what it is doing. Always present, so a board never branches on whether it is there; `phase` says \"unknown\" when nothing has estimated it. It is a MODEL ESTIMATE wherever `estimated` is true, and the row's own word where it is false. See progress.go.
+     *
+     * @return self
+     */
+    public function setProgress($progress)
+    {
+        if (is_null($progress)) {
+            throw new \InvalidArgumentException('non-nullable progress cannot be null');
+        }
+        $this->container['progress'] = $progress;
 
         return $this;
     }

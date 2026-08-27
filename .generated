@@ -2222,6 +2222,7 @@ src/Model/SeriesPoint.php
 src/Model/SessionDetail.php
 src/Model/SessionEnded.php
 src/Model/SessionList.php
+src/Model/SessionProgress.php
 src/Model/SessionUser.php
 src/Model/SessionView.php
 src/Model/SetEnvReq.php
