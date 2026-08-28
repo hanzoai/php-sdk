@@ -57,7 +57,7 @@ class ModuleList implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'data' => '\Hanzo\Cloud\Model\ModuleInfo[]'
+        'data' => '\Hanzo\Cloud\Model\Module[]'
     ];
 
     /**
@@ -292,7 +292,7 @@ class ModuleList implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets data
      *
-     * @return \Hanzo\Cloud\Model\ModuleInfo[]|null
+     * @return \Hanzo\Cloud\Model\Module[]|null
      */
     public function getData()
     {
@@ -302,7 +302,7 @@ class ModuleList implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets data
      *
-     * @param \Hanzo\Cloud\Model\ModuleInfo[]|null $data Data is every module compiled into this binary, with the DocTypes it installs.
+     * @param \Hanzo\Cloud\Model\Module[]|null $data Data is every module compiled into this binary, with the DocTypes it installs and whether the caller's org has turned it on.
      *
      * @return self
      */
