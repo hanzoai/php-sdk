@@ -671,6 +671,7 @@ src/Model/FrameworkRow.php
 src/Model/FunctionDetail.php
 src/Model/FunctionView.php
 src/Model/Funnel.php
+src/Model/Fusion.php
 src/Model/GLRow.php
 src/Model/GPU.php
 src/Model/GcOut.php
@@ -981,7 +982,6 @@ src/Model/MachineView.php
 src/Model/MakeIn.php
 src/Model/MarketCatalog.php
 src/Model/MarketItem.php
-src/Model/Match.php
 src/Model/McpCatalog.php
 src/Model/McpCatalogSync.php
 src/Model/McpServerList.php
@@ -1952,6 +1952,7 @@ src/Model/PromptList.php
 src/Model/PromptMeta.php
 src/Model/PromptReq.php
 src/Model/PropSpec.php
+src/Model/Provenance.php
 src/Model/ProviderBreakdown.php
 src/Model/ProviderInfo.php
 src/Model/ProviderRow.php
@@ -2057,7 +2058,6 @@ src/Model/Request.php
 src/Model/ResolveReferenceIn.php
 src/Model/ResolveReferenceOut.php
 src/Model/ResourceUsage.php
-src/Model/Response.php
 src/Model/Responsible.php
 src/Model/RestartRef.php
 src/Model/Restarted.php

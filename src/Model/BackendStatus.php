@@ -357,7 +357,7 @@ class BackendStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets hits
      *
-     * @param int|null $hits Hits is how many results this leg returned, counted BEFORE fusion, so it is not the number that survived into Response.Hits — fusion merges what both legs found and the caller's limit and offset then page it. 0 for a leg that did not run.
+     * @param int|null $hits Hits is how many results this leg returned, counted BEFORE fusion, so it is not the number that survived into Fusion.Hits — fusion merges what both legs found and the caller's limit and offset then page it. 0 for a leg that did not run.
      *
      * @return self
      */

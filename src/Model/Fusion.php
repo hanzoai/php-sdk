@@ -1,6 +1,6 @@
 <?php
 /**
- * Response
+ * Fusion
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * Response Class Doc Comment
+ * Fusion Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class Response implements ModelInterface, ArrayAccess, \JsonSerializable
+class Fusion implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class Response implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Response';
+    protected static $openAPIModelName = 'Fusion';
 
     /**
       * Array of property to type mappings. Used for (de)serialization

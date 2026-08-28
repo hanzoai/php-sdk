@@ -19,11 +19,11 @@ declare(strict_types=1);
 require __DIR__ . '/client.php';
 
 use GuzzleHttp\Client;
-use Hanzo\Cloud\Api\ModelsApi;
+use Hanzo\Cloud\Api\AiApi;
 
 try {
     $http = new Client();
-    $api = new ModelsApi($http, anon());
+    $api = new AiApi($http, anon());
 
     $body = (string) $http->send($api->getModelsRequest())->getBody();
     $catalog = json_decode($body, true, 512, JSON_THROW_ON_ERROR)['data'] ?? [];

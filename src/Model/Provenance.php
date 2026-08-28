@@ -1,6 +1,6 @@
 <?php
 /**
- * Match
+ * Provenance
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * Match Class Doc Comment
+ * Provenance Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class Match implements ModelInterface, ArrayAccess, \JsonSerializable
+class Provenance implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class Match implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Match';
+    protected static $openAPIModelName = 'Provenance';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -316,7 +316,7 @@ class Match implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets backend
      *
-     * @param string|null $backend Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic) or \"code\" (the org's repositories). It is the same name that leg reports itself under in Response.Backends, so a hit can be traced to a status.
+     * @param string|null $backend Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic) or \"code\" (the org's repositories). It is the same name that leg reports itself under in Fusion.Backends, so a hit can be traced to a status.
      *
      * @return self
      */

@@ -135,7 +135,7 @@ class SearchApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Response
+     * @return \Hanzo\Cloud\Model\Fusion
      */
     public function search($request, string $contentType = self::contentTypes['search'][0])
     {
@@ -153,7 +153,7 @@ class SearchApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Fusion, HTTP status code, HTTP response headers (array of strings)
      */
     public function searchWithHttpInfo($request, string $contentType = self::contentTypes['search'][0])
     {
@@ -185,7 +185,7 @@ class SearchApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Response',
+                        '\Hanzo\Cloud\Model\Fusion',
                         $request,
                         $response,
                     );
@@ -207,7 +207,7 @@ class SearchApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Response',
+                '\Hanzo\Cloud\Model\Fusion',
                 $request,
                 $response,
             );
@@ -216,7 +216,7 @@ class SearchApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Response',
+                        '\Hanzo\Cloud\Model\Fusion',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -262,7 +262,7 @@ class SearchApi
      */
     public function searchAsyncWithHttpInfo($request, string $contentType = self::contentTypes['search'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Response';
+        $returnType = '\Hanzo\Cloud\Model\Fusion';
         $request = $this->searchRequest($request, $contentType);
 
         return $this->client

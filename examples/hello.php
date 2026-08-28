@@ -16,10 +16,10 @@ declare(strict_types=1);
 
 require __DIR__ . '/client.php';
 
-use Hanzo\Cloud\Api\KeysApi;
+use Hanzo\Cloud\Api\AccountApi;
 
 try {
-    $keys = (new KeysApi(null, authed()))->getKeys()->getKeys() ?? [];
+    $keys = (new AccountApi(null, authed()))->getAccountKeys()->getKeys() ?? [];
 
     printf("%d keys on this account at %s\n", count($keys), base_url());
     foreach ($keys as $key) {
