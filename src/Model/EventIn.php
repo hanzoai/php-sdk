@@ -377,7 +377,7 @@ class EventIn implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets kind
      *
-     * @param string|null $kind Kind is what this turn IS: message, tool-call, spawn, log, status or control. Anything else is refused — the vocabulary is closed so a reader can branch on it.
+     * @param string|null $kind Kind is what this turn IS: message, tool-call, spawn, log, status, control or progress. Anything else is refused — the vocabulary is closed so a reader can branch on it.
      *
      * @return self
      */
