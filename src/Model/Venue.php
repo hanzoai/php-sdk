@@ -1,6 +1,6 @@
 <?php
 /**
- * Call
+ * Venue
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * Call Class Doc Comment
+ * Venue Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class Call implements ModelInterface, ArrayAccess, \JsonSerializable
+class Venue implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class Call implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Call';
+    protected static $openAPIModelName = 'venue';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,12 +57,9 @@ class Call implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'agent' => 'string',
-        'from' => 'string',
-        'id' => 'string',
-        'org' => 'string',
-        'status' => 'string',
-        'to' => 'string'
+        'name' => 'string',
+        'ready' => 'bool',
+        'ws' => 'string'
     ];
 
     /**
@@ -73,12 +70,9 @@ class Call implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'agent' => null,
-        'from' => null,
-        'id' => null,
-        'org' => null,
-        'status' => null,
-        'to' => null
+        'name' => null,
+        'ready' => null,
+        'ws' => null
     ];
 
     /**
@@ -87,12 +81,9 @@ class Call implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'agent' => false,
-        'from' => false,
-        'id' => false,
-        'org' => false,
-        'status' => false,
-        'to' => false
+        'name' => false,
+        'ready' => false,
+        'ws' => false
     ];
 
     /**
@@ -181,12 +172,9 @@ class Call implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'agent' => 'agent',
-        'from' => 'from',
-        'id' => 'id',
-        'org' => 'org',
-        'status' => 'status',
-        'to' => 'to'
+        'name' => 'name',
+        'ready' => 'ready',
+        'ws' => 'ws'
     ];
 
     /**
@@ -195,12 +183,9 @@ class Call implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'agent' => 'setAgent',
-        'from' => 'setFrom',
-        'id' => 'setId',
-        'org' => 'setOrg',
-        'status' => 'setStatus',
-        'to' => 'setTo'
+        'name' => 'setName',
+        'ready' => 'setReady',
+        'ws' => 'setWs'
     ];
 
     /**
@@ -209,12 +194,9 @@ class Call implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'agent' => 'getAgent',
-        'from' => 'getFrom',
-        'id' => 'getId',
-        'org' => 'getOrg',
-        'status' => 'getStatus',
-        'to' => 'getTo'
+        'name' => 'getName',
+        'ready' => 'getReady',
+        'ws' => 'getWs'
     ];
 
     /**
@@ -274,12 +256,9 @@ class Call implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('agent', $data ?? [], null);
-        $this->setIfExists('from', $data ?? [], null);
-        $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('org', $data ?? [], null);
-        $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('to', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
+        $this->setIfExists('ready', $data ?? [], null);
+        $this->setIfExists('ws', $data ?? [], null);
     }
 
     /**
@@ -325,163 +304,82 @@ class Call implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets agent
+     * Gets name
      *
      * @return string|null
      */
-    public function getAgent()
+    public function getName()
     {
-        return $this->container['agent'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets agent
+     * Sets name
      *
-     * @param string|null $agent Agent names the Hanzo assistant handling the call. Set means the call was answered by that assistant rather than connected to a person.
+     * @param string|null $name Name is the media room to join: the value POST /v1/meet/getToken takes as roomName, and the value the media server keys participants on.
      *
      * @return self
      */
-    public function setAgent($agent)
+    public function setName($name)
     {
-        if (is_null($agent)) {
-            throw new \InvalidArgumentException('non-nullable agent cannot be null');
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
-        $this->container['agent'] = $agent;
+        $this->container['name'] = $name;
 
         return $this;
     }
 
     /**
-     * Gets from
+     * Gets ready
      *
-     * @return string|null
+     * @return bool|null
      */
-    public function getFrom()
+    public function getReady()
     {
-        return $this->container['from'];
+        return $this->container['ready'];
     }
 
     /**
-     * Sets from
+     * Sets ready
      *
-     * @param string|null $from From is the calling number in E.164. It must be one this org holds: a carrier refuses an origination from a number nobody proved they own.
+     * @param bool|null $ready Ready reports that this deployment can mint a join token for this room. It is false on a deployment holding no media-server key, where Name is still correct — the name is a property of the room and the key is a property of the deployment, so a caller learns the room's identity either way and learns not to offer a join button.
      *
      * @return self
      */
-    public function setFrom($from)
+    public function setReady($ready)
     {
-        if (is_null($from)) {
-            throw new \InvalidArgumentException('non-nullable from cannot be null');
+        if (is_null($ready)) {
+            throw new \InvalidArgumentException('non-nullable ready cannot be null');
         }
-        $this->container['from'] = $from;
+        $this->container['ready'] = $ready;
 
         return $this;
     }
 
     /**
-     * Gets id
+     * Gets ws
      *
      * @return string|null
      */
-    public function getId()
+    public function getWs()
     {
-        return $this->container['id'];
+        return $this->container['ws'];
     }
 
     /**
-     * Sets id
+     * Sets ws
      *
-     * @param string|null $id ID is the carrier's handle for the call — what a hangup or a lookup names.
+     * @param string|null $ws WS is where the media plane is — the address a client opens its own browser-to-server connection to. Empty when this deployment has not been told where its media server lives, which is reported rather than refused: a surface can say a call is unavailable without a second request.
      *
      * @return self
      */
-    public function setId($id)
+    public function setWs($ws)
     {
-        if (is_null($id)) {
-            throw new \InvalidArgumentException('non-nullable id cannot be null');
+        if (is_null($ws)) {
+            throw new \InvalidArgumentException('non-nullable ws cannot be null');
         }
-        $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets org
-     *
-     * @return string|null
-     */
-    public function getOrg()
-    {
-        return $this->container['org'];
-    }
-
-    /**
-     * Sets org
-     *
-     * @param string|null $org Org is the tenant the call was placed for or received by.
-     *
-     * @return self
-     */
-    public function setOrg($org)
-    {
-        if (is_null($org)) {
-            throw new \InvalidArgumentException('non-nullable org cannot be null');
-        }
-        $this->container['org'] = $org;
-
-        return $this;
-    }
-
-    /**
-     * Gets status
-     *
-     * @return string|null
-     */
-    public function getStatus()
-    {
-        return $this->container['status'];
-    }
-
-    /**
-     * Sets status
-     *
-     * @param string|null $status Status is where the call is: \"queued\", \"ringing\", \"answered\", \"completed\" or \"failed\". Only the last two are terminal.
-     *
-     * @return self
-     */
-    public function setStatus($status)
-    {
-        if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
-        }
-        $this->container['status'] = $status;
-
-        return $this;
-    }
-
-    /**
-     * Gets to
-     *
-     * @return string|null
-     */
-    public function getTo()
-    {
-        return $this->container['to'];
-    }
-
-    /**
-     * Sets to
-     *
-     * @param string|null $to To is the called number in E.164.
-     *
-     * @return self
-     */
-    public function setTo($to)
-    {
-        if (is_null($to)) {
-            throw new \InvalidArgumentException('non-nullable to cannot be null');
-        }
-        $this->container['to'] = $to;
+        $this->container['ws'] = $ws;
 
         return $this;
     }

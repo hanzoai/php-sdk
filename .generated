@@ -2417,6 +2417,7 @@ src/Model/ValidatorList.php
 src/Model/Variant.php
 src/Model/VendorRow.php
 src/Model/VendorsOut.php
+src/Model/Venue.php
 src/Model/Verdict.php
 src/Model/VerificationDecision.php
 src/Model/VerificationReq.php

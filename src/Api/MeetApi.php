@@ -622,7 +622,7 @@ class MeetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\Call
+     * @return \Hanzo\Cloud\Model\Venue
      */
     public function meetCall($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
     {
@@ -641,7 +641,7 @@ class MeetApi
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\Call, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\Venue, HTTP status code, HTTP response headers (array of strings)
      */
     public function meetCallWithHttpInfo($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
     {
@@ -673,7 +673,7 @@ class MeetApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\Call',
+                        '\Hanzo\Cloud\Model\Venue',
                         $request,
                         $response,
                     );
@@ -695,7 +695,7 @@ class MeetApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\Call',
+                '\Hanzo\Cloud\Model\Venue',
                 $request,
                 $response,
             );
@@ -704,7 +704,7 @@ class MeetApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\Call',
+                        '\Hanzo\Cloud\Model\Venue',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -752,7 +752,7 @@ class MeetApi
      */
     public function meetCallAsyncWithHttpInfo($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\Call';
+        $returnType = '\Hanzo\Cloud\Model\Venue';
         $request = $this->meetCallRequest($workspace, $room, $contentType);
 
         return $this->client
