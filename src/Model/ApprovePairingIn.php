@@ -309,7 +309,7 @@ class ApprovePairingIn implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets channel
      *
-     * @param string|null $channel Channel is the transport the request came in on: discord, slack, teams or telegram.
+     * @param string|null $channel Channel is the transport the request came in on: discord, slack, teams, telegram or whatsapp.
      *
      * @return self
      */

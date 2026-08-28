@@ -364,7 +364,7 @@ class AllowlistPutIn implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets channel
      *
-     * @param string|null $channel Channel is the transport to edit: discord, slack, teams or telegram. Required; an unknown value is a 404.
+     * @param string|null $channel Channel is the transport to edit: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
      *
      * @return self
      */

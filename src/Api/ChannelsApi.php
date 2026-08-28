@@ -400,7 +400,7 @@ class ChannelsApi
      *
      * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string|null $channel Channel is the transport to read: discord, slack, teams or telegram. Required; an unknown value is a 404. (optional)
+     * @param  string|null $channel Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -418,7 +418,7 @@ class ChannelsApi
      *
      * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string|null $channel Channel is the transport to read: discord, slack, teams or telegram. Required; an unknown value is a 404. (optional)
+     * @param  string|null $channel Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -503,7 +503,7 @@ class ChannelsApi
      *
      * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string|null $channel Channel is the transport to read: discord, slack, teams or telegram. Required; an unknown value is a 404. (optional)
+     * @param  string|null $channel Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -524,7 +524,7 @@ class ChannelsApi
      *
      * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string|null $channel Channel is the transport to read: discord, slack, teams or telegram. Required; an unknown value is a 404. (optional)
+     * @param  string|null $channel Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -574,7 +574,7 @@ class ChannelsApi
     /**
      * Create request for operation 'getChannelsAllowlist'
      *
-     * @param  string|null $channel Channel is the transport to read: discord, slack, teams or telegram. Required; an unknown value is a 404. (optional)
+     * @param  string|null $channel Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
