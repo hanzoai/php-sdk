@@ -1893,7 +1893,6 @@ src/Model/PoolScale.php
 src/Model/PopulatedFlow.php
 src/Model/Position.php
 src/Model/PostEventRequest.php
-src/Model/PostIndexIndexesByUidDocumentsDeleteBatchRequest.php
 src/Model/PostList.php
 src/Model/PrefsView.php
 src/Model/Preset.php

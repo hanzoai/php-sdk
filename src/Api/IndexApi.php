@@ -4025,16 +4025,16 @@ class IndexApi
      * Delete many documents by primary key in one call
      *
      * @param  string $uid uid (required)
-     * @param  \Hanzo\Cloud\Model\PostIndexIndexesByUidDocumentsDeleteBatchRequest|null $post_index_indexes_by_uid_documents_delete_batch_request post_index_indexes_by_uid_documents_delete_batch_request (optional)
+     * @param  mixed[]|null $request_body request_body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\IndexEnqueued
      */
-    public function postIndexIndexesByUidDocumentsDeleteBatch($uid, $post_index_indexes_by_uid_documents_delete_batch_request = null, string $contentType = self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'][0])
+    public function postIndexIndexesByUidDocumentsDeleteBatch($uid, $request_body = null, string $contentType = self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'][0])
     {
-        list($response) = $this->postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo($uid, $post_index_indexes_by_uid_documents_delete_batch_request, $contentType);
+        list($response) = $this->postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo($uid, $request_body, $contentType);
         return $response;
     }
 
@@ -4044,16 +4044,16 @@ class IndexApi
      * Delete many documents by primary key in one call
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\PostIndexIndexesByUidDocumentsDeleteBatchRequest|null $post_index_indexes_by_uid_documents_delete_batch_request (optional)
+     * @param  mixed[]|null $request_body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\IndexEnqueued, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo($uid, $post_index_indexes_by_uid_documents_delete_batch_request = null, string $contentType = self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'][0])
+    public function postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo($uid, $request_body = null, string $contentType = self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'][0])
     {
-        $request = $this->postIndexIndexesByUidDocumentsDeleteBatchRequest($uid, $post_index_indexes_by_uid_documents_delete_batch_request, $contentType);
+        $request = $this->postIndexIndexesByUidDocumentsDeleteBatchRequest($uid, $request_body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4133,15 +4133,15 @@ class IndexApi
      * Delete many documents by primary key in one call
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\PostIndexIndexesByUidDocumentsDeleteBatchRequest|null $post_index_indexes_by_uid_documents_delete_batch_request (optional)
+     * @param  mixed[]|null $request_body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIndexIndexesByUidDocumentsDeleteBatchAsync($uid, $post_index_indexes_by_uid_documents_delete_batch_request = null, string $contentType = self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'][0])
+    public function postIndexIndexesByUidDocumentsDeleteBatchAsync($uid, $request_body = null, string $contentType = self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'][0])
     {
-        return $this->postIndexIndexesByUidDocumentsDeleteBatchAsyncWithHttpInfo($uid, $post_index_indexes_by_uid_documents_delete_batch_request, $contentType)
+        return $this->postIndexIndexesByUidDocumentsDeleteBatchAsyncWithHttpInfo($uid, $request_body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4155,16 +4155,16 @@ class IndexApi
      * Delete many documents by primary key in one call
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\PostIndexIndexesByUidDocumentsDeleteBatchRequest|null $post_index_indexes_by_uid_documents_delete_batch_request (optional)
+     * @param  mixed[]|null $request_body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIndexIndexesByUidDocumentsDeleteBatchAsyncWithHttpInfo($uid, $post_index_indexes_by_uid_documents_delete_batch_request = null, string $contentType = self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'][0])
+    public function postIndexIndexesByUidDocumentsDeleteBatchAsyncWithHttpInfo($uid, $request_body = null, string $contentType = self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IndexEnqueued';
-        $request = $this->postIndexIndexesByUidDocumentsDeleteBatchRequest($uid, $post_index_indexes_by_uid_documents_delete_batch_request, $contentType);
+        $request = $this->postIndexIndexesByUidDocumentsDeleteBatchRequest($uid, $request_body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4206,13 +4206,13 @@ class IndexApi
      * Create request for operation 'postIndexIndexesByUidDocumentsDeleteBatch'
      *
      * @param  string $uid (required)
-     * @param  \Hanzo\Cloud\Model\PostIndexIndexesByUidDocumentsDeleteBatchRequest|null $post_index_indexes_by_uid_documents_delete_batch_request (optional)
+     * @param  mixed[]|null $request_body (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIndexIndexesByUidDocumentsDeleteBatchRequest($uid, $post_index_indexes_by_uid_documents_delete_batch_request = null, string $contentType = self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'][0])
+    public function postIndexIndexesByUidDocumentsDeleteBatchRequest($uid, $request_body = null, string $contentType = self::contentTypes['postIndexIndexesByUidDocumentsDeleteBatch'][0])
     {
 
         // verify the required parameter 'uid' is set
@@ -4250,12 +4250,12 @@ class IndexApi
         );
 
         // for model (json/xml)
-        if (isset($post_index_indexes_by_uid_documents_delete_batch_request)) {
+        if (isset($request_body)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($post_index_indexes_by_uid_documents_delete_batch_request));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($request_body));
             } else {
-                $httpBody = $post_index_indexes_by_uid_documents_delete_batch_request;
+                $httpBody = $request_body;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
