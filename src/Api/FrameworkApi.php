@@ -80,9 +80,6 @@ class FrameworkApi
         'deleteFrameworkDoctypesByName' => [
             'application/json',
         ],
-        'deleteFrameworkRolesByUserByRole' => [
-            'application/json',
-        ],
         'getFrameworkByDoctype' => [
             'application/json',
         ],
@@ -101,9 +98,6 @@ class FrameworkApi
         'getFrameworkModulesByModule' => [
             'application/json',
         ],
-        'getFrameworkRoles' => [
-            'application/json',
-        ],
         'getFrameworkSummary' => [
             'application/json',
         ],
@@ -120,9 +114,6 @@ class FrameworkApi
             'application/json',
         ],
         'postFrameworkModulesByModuleInstall' => [
-            'application/json',
-        ],
-        'postFrameworkRoles' => [
             'application/json',
         ],
         'putFrameworkByDoctypeByName' => [
@@ -184,7 +175,7 @@ class FrameworkApi
      *
      * Removes one document, after its on_trash hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkByDoctypeByName'] to see the possible values for this operation
      *
@@ -202,7 +193,7 @@ class FrameworkApi
      *
      * Removes one document, after its on_trash hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkByDoctypeByName'] to see the possible values for this operation
      *
@@ -252,7 +243,7 @@ class FrameworkApi
      *
      * Removes one document, after its on_trash hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkByDoctypeByName'] to see the possible values for this operation
      *
@@ -274,7 +265,7 @@ class FrameworkApi
      *
      * Removes one document, after its on_trash hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkByDoctypeByName'] to see the possible values for this operation
      *
@@ -312,7 +303,7 @@ class FrameworkApi
     /**
      * Create request for operation 'deleteFrameworkByDoctypeByName'
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkByDoctypeByName'] to see the possible values for this operation
      *
@@ -426,7 +417,7 @@ class FrameworkApi
      *
      * Removes a DocType and every document stored under it.
      *
-     * @param  string $name Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
+     * @param  string $name Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -443,7 +434,7 @@ class FrameworkApi
      *
      * Removes a DocType and every document stored under it.
      *
-     * @param  string $name Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
+     * @param  string $name Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -492,7 +483,7 @@ class FrameworkApi
      *
      * Removes a DocType and every document stored under it.
      *
-     * @param  string $name Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
+     * @param  string $name Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -513,7 +504,7 @@ class FrameworkApi
      *
      * Removes a DocType and every document stored under it.
      *
-     * @param  string $name Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
+     * @param  string $name Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -550,7 +541,7 @@ class FrameworkApi
     /**
      * Create request for operation 'deleteFrameworkDoctypesByName'
      *
-     * @param  string $name Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
+     * @param  string $name Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -644,253 +635,11 @@ class FrameworkApi
     }
 
     /**
-     * Operation deleteFrameworkRolesByUserByRole
-     *
-     * Removes one (user, role) grant in the caller&#39;s org.
-     *
-     * @param  string $user User is the assignee whose grant is being revoked, from the path. (required)
-     * @param  string $role Role is the role to revoke, from the path. A role name containing a space (\&quot;System Manager\&quot;) arrives percent-encoded and is decoded before it is matched against the stored assignment. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkRolesByUserByRole'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function deleteFrameworkRolesByUserByRole($user, $role, string $contentType = self::contentTypes['deleteFrameworkRolesByUserByRole'][0])
-    {
-        $this->deleteFrameworkRolesByUserByRoleWithHttpInfo($user, $role, $contentType);
-    }
-
-    /**
-     * Operation deleteFrameworkRolesByUserByRoleWithHttpInfo
-     *
-     * Removes one (user, role) grant in the caller&#39;s org.
-     *
-     * @param  string $user User is the assignee whose grant is being revoked, from the path. (required)
-     * @param  string $role Role is the role to revoke, from the path. A role name containing a space (\&quot;System Manager\&quot;) arrives percent-encoded and is decoded before it is matched against the stored assignment. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkRolesByUserByRole'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function deleteFrameworkRolesByUserByRoleWithHttpInfo($user, $role, string $contentType = self::contentTypes['deleteFrameworkRolesByUserByRole'][0])
-    {
-        $request = $this->deleteFrameworkRolesByUserByRoleRequest($user, $role, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation deleteFrameworkRolesByUserByRoleAsync
-     *
-     * Removes one (user, role) grant in the caller&#39;s org.
-     *
-     * @param  string $user User is the assignee whose grant is being revoked, from the path. (required)
-     * @param  string $role Role is the role to revoke, from the path. A role name containing a space (\&quot;System Manager\&quot;) arrives percent-encoded and is decoded before it is matched against the stored assignment. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkRolesByUserByRole'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function deleteFrameworkRolesByUserByRoleAsync($user, $role, string $contentType = self::contentTypes['deleteFrameworkRolesByUserByRole'][0])
-    {
-        return $this->deleteFrameworkRolesByUserByRoleAsyncWithHttpInfo($user, $role, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation deleteFrameworkRolesByUserByRoleAsyncWithHttpInfo
-     *
-     * Removes one (user, role) grant in the caller&#39;s org.
-     *
-     * @param  string $user User is the assignee whose grant is being revoked, from the path. (required)
-     * @param  string $role Role is the role to revoke, from the path. A role name containing a space (\&quot;System Manager\&quot;) arrives percent-encoded and is decoded before it is matched against the stored assignment. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkRolesByUserByRole'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function deleteFrameworkRolesByUserByRoleAsyncWithHttpInfo($user, $role, string $contentType = self::contentTypes['deleteFrameworkRolesByUserByRole'][0])
-    {
-        $returnType = '';
-        $request = $this->deleteFrameworkRolesByUserByRoleRequest($user, $role, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'deleteFrameworkRolesByUserByRole'
-     *
-     * @param  string $user User is the assignee whose grant is being revoked, from the path. (required)
-     * @param  string $role Role is the role to revoke, from the path. A role name containing a space (\&quot;System Manager\&quot;) arrives percent-encoded and is decoded before it is matched against the stored assignment. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFrameworkRolesByUserByRole'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function deleteFrameworkRolesByUserByRoleRequest($user, $role, string $contentType = self::contentTypes['deleteFrameworkRolesByUserByRole'][0])
-    {
-
-        // verify the required parameter 'user' is set
-        if ($user === null || (is_array($user) && count($user) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $user when calling deleteFrameworkRolesByUserByRole'
-            );
-        }
-
-        // verify the required parameter 'role' is set
-        if ($role === null || (is_array($role) && count($role) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $role when calling deleteFrameworkRolesByUserByRole'
-            );
-        }
-
-
-        $resourcePath = '/v1/framework/roles/{user}/{role}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($user !== null) {
-            $resourcePath = str_replace(
-                '{' . 'user' . '}',
-                ObjectSerializer::toPathValue($user),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($role !== null) {
-            $resourcePath = str_replace(
-                '{' . 'role' . '}',
-                ObjectSerializer::toPathValue($role),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'DELETE',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation getFrameworkByDoctype
      *
      * Returns the caller org&#39;s documents of one DocType, filtered, ordered and projected by the query.
      *
-     * @param  string $doctype DocType is the DocType to list, from the path. (required)
+     * @param  string $doctype DocType is the DocType to list, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string|null $filters Filters is a JSON object of equality matches, e.g. {\&quot;priority\&quot;:\&quot;High\&quot;}. Every key must be a field the DocType declares (or the managed name / docstatus); an undeclared one is refused rather than silently ignored. (optional)
      * @param  string|null $fields Fields projects the response to a subset — a JSON array [\&quot;a\&quot;,\&quot;b\&quot;] or a comma list \&quot;a,b\&quot;. The envelope keys are always returned. (optional)
      * @param  string|null $order_by OrderBy is \&quot;&lt;field&gt; [asc|desc]\&quot;. Empty means most-recently-updated first. (optional)
@@ -912,7 +661,7 @@ class FrameworkApi
      *
      * Returns the caller org&#39;s documents of one DocType, filtered, ordered and projected by the query.
      *
-     * @param  string $doctype DocType is the DocType to list, from the path. (required)
+     * @param  string $doctype DocType is the DocType to list, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string|null $filters Filters is a JSON object of equality matches, e.g. {\&quot;priority\&quot;:\&quot;High\&quot;}. Every key must be a field the DocType declares (or the managed name / docstatus); an undeclared one is refused rather than silently ignored. (optional)
      * @param  string|null $fields Fields projects the response to a subset — a JSON array [\&quot;a\&quot;,\&quot;b\&quot;] or a comma list \&quot;a,b\&quot;. The envelope keys are always returned. (optional)
      * @param  string|null $order_by OrderBy is \&quot;&lt;field&gt; [asc|desc]\&quot;. Empty means most-recently-updated first. (optional)
@@ -1001,7 +750,7 @@ class FrameworkApi
      *
      * Returns the caller org&#39;s documents of one DocType, filtered, ordered and projected by the query.
      *
-     * @param  string $doctype DocType is the DocType to list, from the path. (required)
+     * @param  string $doctype DocType is the DocType to list, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string|null $filters Filters is a JSON object of equality matches, e.g. {\&quot;priority\&quot;:\&quot;High\&quot;}. Every key must be a field the DocType declares (or the managed name / docstatus); an undeclared one is refused rather than silently ignored. (optional)
      * @param  string|null $fields Fields projects the response to a subset — a JSON array [\&quot;a\&quot;,\&quot;b\&quot;] or a comma list \&quot;a,b\&quot;. The envelope keys are always returned. (optional)
      * @param  string|null $order_by OrderBy is \&quot;&lt;field&gt; [asc|desc]\&quot;. Empty means most-recently-updated first. (optional)
@@ -1026,7 +775,7 @@ class FrameworkApi
      *
      * Returns the caller org&#39;s documents of one DocType, filtered, ordered and projected by the query.
      *
-     * @param  string $doctype DocType is the DocType to list, from the path. (required)
+     * @param  string $doctype DocType is the DocType to list, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string|null $filters Filters is a JSON object of equality matches, e.g. {\&quot;priority\&quot;:\&quot;High\&quot;}. Every key must be a field the DocType declares (or the managed name / docstatus); an undeclared one is refused rather than silently ignored. (optional)
      * @param  string|null $fields Fields projects the response to a subset — a JSON array [\&quot;a\&quot;,\&quot;b\&quot;] or a comma list \&quot;a,b\&quot;. The envelope keys are always returned. (optional)
      * @param  string|null $order_by OrderBy is \&quot;&lt;field&gt; [asc|desc]\&quot;. Empty means most-recently-updated first. (optional)
@@ -1080,7 +829,7 @@ class FrameworkApi
     /**
      * Create request for operation 'getFrameworkByDoctype'
      *
-     * @param  string $doctype DocType is the DocType to list, from the path. (required)
+     * @param  string $doctype DocType is the DocType to list, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string|null $filters Filters is a JSON object of equality matches, e.g. {\&quot;priority\&quot;:\&quot;High\&quot;}. Every key must be a field the DocType declares (or the managed name / docstatus); an undeclared one is refused rather than silently ignored. (optional)
      * @param  string|null $fields Fields projects the response to a subset — a JSON array [\&quot;a\&quot;,\&quot;b\&quot;] or a comma list \&quot;a,b\&quot;. The envelope keys are always returned. (optional)
      * @param  string|null $order_by OrderBy is \&quot;&lt;field&gt; [asc|desc]\&quot;. Empty means most-recently-updated first. (optional)
@@ -1222,7 +971,7 @@ class FrameworkApi
      *
      * Returns one document by name, with Password fields redacted.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkByDoctypeByName'] to see the possible values for this operation
      *
@@ -1241,7 +990,7 @@ class FrameworkApi
      *
      * Returns one document by name, with Password fields redacted.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkByDoctypeByName'] to see the possible values for this operation
      *
@@ -1327,7 +1076,7 @@ class FrameworkApi
      *
      * Returns one document by name, with Password fields redacted.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkByDoctypeByName'] to see the possible values for this operation
      *
@@ -1349,7 +1098,7 @@ class FrameworkApi
      *
      * Returns one document by name, with Password fields redacted.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkByDoctypeByName'] to see the possible values for this operation
      *
@@ -1400,7 +1149,7 @@ class FrameworkApi
     /**
      * Create request for operation 'getFrameworkByDoctypeByName'
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkByDoctypeByName'] to see the possible values for this operation
      *
@@ -1766,7 +1515,7 @@ class FrameworkApi
      *
      * Returns one DocType definition — its fields, naming rule, permissions and lifecycle flags.
      *
-     * @param  string $name Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
+     * @param  string $name Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1784,7 +1533,7 @@ class FrameworkApi
      *
      * Returns one DocType definition — its fields, naming rule, permissions and lifecycle flags.
      *
-     * @param  string $name Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
+     * @param  string $name Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1869,7 +1618,7 @@ class FrameworkApi
      *
      * Returns one DocType definition — its fields, naming rule, permissions and lifecycle flags.
      *
-     * @param  string $name Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
+     * @param  string $name Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1890,7 +1639,7 @@ class FrameworkApi
      *
      * Returns one DocType definition — its fields, naming rule, permissions and lifecycle flags.
      *
-     * @param  string $name Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
+     * @param  string $name Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1940,7 +1689,7 @@ class FrameworkApi
     /**
      * Create request for operation 'getFrameworkDoctypesByName'
      *
-     * @param  string $name Name is the DocType&#39;s name, from the path. A name containing a space (\&quot;Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
+     * @param  string $name Name is the DocType&#39;s ADDRESS — \&quot;module.name\&quot;, e.g. \&quot;kb.page\&quot;. A name containing a space (\&quot;erp.Sales Invoice\&quot;) arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkDoctypesByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2558,258 +2307,6 @@ class FrameworkApi
     }
 
     /**
-     * Operation getFrameworkRoles
-     *
-     * Returns every (user, role) assignment in the caller&#39;s org.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkRoles'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RoleList
-     */
-    public function getFrameworkRoles(string $contentType = self::contentTypes['getFrameworkRoles'][0])
-    {
-        list($response) = $this->getFrameworkRolesWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getFrameworkRolesWithHttpInfo
-     *
-     * Returns every (user, role) assignment in the caller&#39;s org.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkRoles'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RoleList, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getFrameworkRolesWithHttpInfo(string $contentType = self::contentTypes['getFrameworkRoles'][0])
-    {
-        $request = $this->getFrameworkRolesRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RoleList',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RoleList',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RoleList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getFrameworkRolesAsync
-     *
-     * Returns every (user, role) assignment in the caller&#39;s org.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkRoles'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getFrameworkRolesAsync(string $contentType = self::contentTypes['getFrameworkRoles'][0])
-    {
-        return $this->getFrameworkRolesAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getFrameworkRolesAsyncWithHttpInfo
-     *
-     * Returns every (user, role) assignment in the caller&#39;s org.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkRoles'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getFrameworkRolesAsyncWithHttpInfo(string $contentType = self::contentTypes['getFrameworkRoles'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\RoleList';
-        $request = $this->getFrameworkRolesRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getFrameworkRoles'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFrameworkRoles'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getFrameworkRolesRequest(string $contentType = self::contentTypes['getFrameworkRoles'][0])
-    {
-
-
-        $resourcePath = '/v1/framework/roles';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation getFrameworkSummary
      *
      * Reports how much of the DocType surface the caller&#39;s org uses: how many DocTypes it has defined, and how many documents exist across them.
@@ -3288,7 +2785,7 @@ class FrameworkApi
      *
      * Moves a submitted document to cancelled (docstatus 1 → 2) after its on_cancel hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkByDoctypeByNameCancel'] to see the possible values for this operation
      *
@@ -3307,7 +2804,7 @@ class FrameworkApi
      *
      * Moves a submitted document to cancelled (docstatus 1 → 2) after its on_cancel hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkByDoctypeByNameCancel'] to see the possible values for this operation
      *
@@ -3393,7 +2890,7 @@ class FrameworkApi
      *
      * Moves a submitted document to cancelled (docstatus 1 → 2) after its on_cancel hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkByDoctypeByNameCancel'] to see the possible values for this operation
      *
@@ -3415,7 +2912,7 @@ class FrameworkApi
      *
      * Moves a submitted document to cancelled (docstatus 1 → 2) after its on_cancel hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkByDoctypeByNameCancel'] to see the possible values for this operation
      *
@@ -3466,7 +2963,7 @@ class FrameworkApi
     /**
      * Create request for operation 'postFrameworkByDoctypeByNameCancel'
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkByDoctypeByNameCancel'] to see the possible values for this operation
      *
@@ -3580,7 +3077,7 @@ class FrameworkApi
      *
      * Moves a draft to submitted (docstatus 0 → 1) after its on_submit hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkByDoctypeByNameSubmit'] to see the possible values for this operation
      *
@@ -3599,7 +3096,7 @@ class FrameworkApi
      *
      * Moves a draft to submitted (docstatus 0 → 1) after its on_submit hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkByDoctypeByNameSubmit'] to see the possible values for this operation
      *
@@ -3685,7 +3182,7 @@ class FrameworkApi
      *
      * Moves a draft to submitted (docstatus 0 → 1) after its on_submit hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkByDoctypeByNameSubmit'] to see the possible values for this operation
      *
@@ -3707,7 +3204,7 @@ class FrameworkApi
      *
      * Moves a draft to submitted (docstatus 0 → 1) after its on_submit hooks agree.
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkByDoctypeByNameSubmit'] to see the possible values for this operation
      *
@@ -3758,7 +3255,7 @@ class FrameworkApi
     /**
      * Create request for operation 'postFrameworkByDoctypeByNameSubmit'
      *
-     * @param  string $doctype DocType is the document&#39;s DocType, from the path. (required)
+     * @param  string $doctype DocType is the document&#39;s DocType, by ADDRESS — \&quot;module.name\&quot;, from the path. (required)
      * @param  string $name Name is the document&#39;s name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkByDoctypeByNameSubmit'] to see the possible values for this operation
      *
@@ -4361,277 +3858,6 @@ class FrameworkApi
 
         // for model (json/xml)
         if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postFrameworkRoles
-     *
-     * Grants one user one role in the caller&#39;s org — how a member gains rights on a DocType, since permissions name roles and never users.
-     *
-     * @param  \Hanzo\Cloud\Model\RoleAssignment $role_assignment role_assignment (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkRoles'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\RoleAssignment
-     */
-    public function postFrameworkRoles($role_assignment, string $contentType = self::contentTypes['postFrameworkRoles'][0])
-    {
-        list($response) = $this->postFrameworkRolesWithHttpInfo($role_assignment, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postFrameworkRolesWithHttpInfo
-     *
-     * Grants one user one role in the caller&#39;s org — how a member gains rights on a DocType, since permissions name roles and never users.
-     *
-     * @param  \Hanzo\Cloud\Model\RoleAssignment $role_assignment (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkRoles'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\RoleAssignment, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postFrameworkRolesWithHttpInfo($role_assignment, string $contentType = self::contentTypes['postFrameworkRoles'][0])
-    {
-        $request = $this->postFrameworkRolesRequest($role_assignment, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 201:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\RoleAssignment',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\RoleAssignment',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 201:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\RoleAssignment',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postFrameworkRolesAsync
-     *
-     * Grants one user one role in the caller&#39;s org — how a member gains rights on a DocType, since permissions name roles and never users.
-     *
-     * @param  \Hanzo\Cloud\Model\RoleAssignment $role_assignment (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkRoles'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postFrameworkRolesAsync($role_assignment, string $contentType = self::contentTypes['postFrameworkRoles'][0])
-    {
-        return $this->postFrameworkRolesAsyncWithHttpInfo($role_assignment, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postFrameworkRolesAsyncWithHttpInfo
-     *
-     * Grants one user one role in the caller&#39;s org — how a member gains rights on a DocType, since permissions name roles and never users.
-     *
-     * @param  \Hanzo\Cloud\Model\RoleAssignment $role_assignment (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkRoles'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postFrameworkRolesAsyncWithHttpInfo($role_assignment, string $contentType = self::contentTypes['postFrameworkRoles'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\RoleAssignment';
-        $request = $this->postFrameworkRolesRequest($role_assignment, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postFrameworkRoles'
-     *
-     * @param  \Hanzo\Cloud\Model\RoleAssignment $role_assignment (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFrameworkRoles'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postFrameworkRolesRequest($role_assignment, string $contentType = self::contentTypes['postFrameworkRoles'][0])
-    {
-
-        // verify the required parameter 'role_assignment' is set
-        if ($role_assignment === null || (is_array($role_assignment) && count($role_assignment) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $role_assignment when calling postFrameworkRoles'
-            );
-        }
-
-
-        $resourcePath = '/v1/framework/roles';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($role_assignment)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($role_assignment));
-            } else {
-                $httpBody = $role_assignment;
-            }
-        } elseif (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {

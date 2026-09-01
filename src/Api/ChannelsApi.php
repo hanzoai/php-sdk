@@ -77,6 +77,9 @@ class ChannelsApi
         'getChannels' => [
             'application/json',
         ],
+        'getChannelsAgent' => [
+            'application/json',
+        ],
         'getChannelsAllowlist' => [
             'application/json',
         ],
@@ -90,6 +93,9 @@ class ChannelsApi
             'application/json',
         ],
         'postChannelsPairingApprove' => [
+            'application/json',
+        ],
+        'putChannelsAgent' => [
             'application/json',
         ],
         'putChannelsAllowlist' => [
@@ -396,11 +402,278 @@ class ChannelsApi
     }
 
     /**
+     * Operation getChannelsAgent
+     *
+     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
+     *
+     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAgent'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\ChannelAgents
+     */
+    public function getChannelsAgent($channel = null, string $contentType = self::contentTypes['getChannelsAgent'][0])
+    {
+        list($response) = $this->getChannelsAgentWithHttpInfo($channel, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getChannelsAgentWithHttpInfo
+     *
+     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
+     *
+     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAgent'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\ChannelAgents, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getChannelsAgentWithHttpInfo($channel = null, string $contentType = self::contentTypes['getChannelsAgent'][0])
+    {
+        $request = $this->getChannelsAgentRequest($channel, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ChannelAgents',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ChannelAgents',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ChannelAgents',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getChannelsAgentAsync
+     *
+     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
+     *
+     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAgent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelsAgentAsync($channel = null, string $contentType = self::contentTypes['getChannelsAgent'][0])
+    {
+        return $this->getChannelsAgentAsyncWithHttpInfo($channel, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getChannelsAgentAsyncWithHttpInfo
+     *
+     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
+     *
+     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAgent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelsAgentAsyncWithHttpInfo($channel = null, string $contentType = self::contentTypes['getChannelsAgent'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\ChannelAgents';
+        $request = $this->getChannelsAgentRequest($channel, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getChannelsAgent'
+     *
+     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAgent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getChannelsAgentRequest($channel = null, string $contentType = self::contentTypes['getChannelsAgent'][0])
+    {
+
+
+
+        $resourcePath = '/v1/channels/agent';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $channel,
+            'channel', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getChannelsAllowlist
      *
      * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string|null $channel Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -418,7 +691,7 @@ class ChannelsApi
      *
      * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string|null $channel Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -503,7 +776,7 @@ class ChannelsApi
      *
      * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string|null $channel Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -524,7 +797,7 @@ class ChannelsApi
      *
      * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string|null $channel Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -574,7 +847,7 @@ class ChannelsApi
     /**
      * Create request for operation 'getChannelsAllowlist'
      *
-     * @param  string|null $channel Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1683,6 +1956,277 @@ class ChannelsApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation putChannelsAgent
+     *
+     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
+     *
+     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put channel_agents_put (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAgent'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\ChannelAgents
+     */
+    public function putChannelsAgent($channel_agents_put, string $contentType = self::contentTypes['putChannelsAgent'][0])
+    {
+        list($response) = $this->putChannelsAgentWithHttpInfo($channel_agents_put, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putChannelsAgentWithHttpInfo
+     *
+     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
+     *
+     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAgent'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\ChannelAgents, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putChannelsAgentWithHttpInfo($channel_agents_put, string $contentType = self::contentTypes['putChannelsAgent'][0])
+    {
+        $request = $this->putChannelsAgentRequest($channel_agents_put, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\ChannelAgents',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ChannelAgents',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\ChannelAgents',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putChannelsAgentAsync
+     *
+     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
+     *
+     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAgent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putChannelsAgentAsync($channel_agents_put, string $contentType = self::contentTypes['putChannelsAgent'][0])
+    {
+        return $this->putChannelsAgentAsyncWithHttpInfo($channel_agents_put, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putChannelsAgentAsyncWithHttpInfo
+     *
+     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
+     *
+     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAgent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putChannelsAgentAsyncWithHttpInfo($channel_agents_put, string $contentType = self::contentTypes['putChannelsAgent'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\ChannelAgents';
+        $request = $this->putChannelsAgentRequest($channel_agents_put, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putChannelsAgent'
+     *
+     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAgent'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putChannelsAgentRequest($channel_agents_put, string $contentType = self::contentTypes['putChannelsAgent'][0])
+    {
+
+        // verify the required parameter 'channel_agents_put' is set
+        if ($channel_agents_put === null || (is_array($channel_agents_put) && count($channel_agents_put) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $channel_agents_put when calling putChannelsAgent'
+            );
+        }
+
+
+        $resourcePath = '/v1/channels/agent';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($channel_agents_put)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($channel_agents_put));
+            } else {
+                $httpBody = $channel_agents_put;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

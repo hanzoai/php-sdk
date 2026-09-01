@@ -316,7 +316,7 @@ class CollabRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets document_id
      *
-     * @param string|null $document_id DocumentID addresses the document field, as \"<workspaceUuid>|<objectClass>|<objectId>|<objectAttr>\" — the collaborator-client encodeDocumentId shape, from the path.
+     * @param string|null $document_id DocumentID addresses the document field, as \"<spaceUuid>|<objectClass>|<objectId>|<objectAttr>\" — the collaborator-client encodeDocumentId shape, from the path.
      *
      * @return self
      */

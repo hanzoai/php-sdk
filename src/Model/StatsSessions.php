@@ -302,7 +302,7 @@ class StatsSessions implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets active_sessions
      *
-     * @param array<string,\Hanzo\Cloud\Model\StatsUser[]>|null $active_sessions ActiveSessions maps a workspace uuid to its connected sessions. It carries only the token's OWN workspace, and is empty for a token that names none.
+     * @param array<string,\Hanzo\Cloud\Model\StatsUser[]>|null $active_sessions ActiveSessions maps a space uuid to its connected sessions. It carries only the token's OWN space, and is empty for a token that names none.
      *
      * @return self
      */

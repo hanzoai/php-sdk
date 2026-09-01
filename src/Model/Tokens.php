@@ -1,6 +1,6 @@
 <?php
 /**
- * PaymentOut
+ * Tokens
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * PaymentOut Class Doc Comment
+ * Tokens Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class PaymentOut implements ModelInterface, ArrayAccess, \JsonSerializable
+class Tokens implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PaymentOut implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'PaymentOut';
+    protected static $openAPIModelName = 'Tokens';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,11 +57,9 @@ class PaymentOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'balance_cents' => 'int',
-        'id' => 'string',
-        'processor_ref' => 'string',
-        'status' => 'string',
-        'test' => 'bool'
+        'chain' => 'string',
+        'reach' => '\Hanzo\Cloud\Model\Reach',
+        'tokens' => '\Hanzo\Cloud\Model\Token[]'
     ];
 
     /**
@@ -72,11 +70,9 @@ class PaymentOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'balance_cents' => null,
-        'id' => null,
-        'processor_ref' => null,
-        'status' => null,
-        'test' => null
+        'chain' => null,
+        'reach' => null,
+        'tokens' => null
     ];
 
     /**
@@ -85,11 +81,9 @@ class PaymentOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'balance_cents' => false,
-        'id' => false,
-        'processor_ref' => false,
-        'status' => false,
-        'test' => false
+        'chain' => false,
+        'reach' => false,
+        'tokens' => false
     ];
 
     /**
@@ -178,11 +172,9 @@ class PaymentOut implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'balance_cents' => 'balanceCents',
-        'id' => 'id',
-        'processor_ref' => 'processorRef',
-        'status' => 'status',
-        'test' => 'test'
+        'chain' => 'chain',
+        'reach' => 'reach',
+        'tokens' => 'tokens'
     ];
 
     /**
@@ -191,11 +183,9 @@ class PaymentOut implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'balance_cents' => 'setBalanceCents',
-        'id' => 'setId',
-        'processor_ref' => 'setProcessorRef',
-        'status' => 'setStatus',
-        'test' => 'setTest'
+        'chain' => 'setChain',
+        'reach' => 'setReach',
+        'tokens' => 'setTokens'
     ];
 
     /**
@@ -204,11 +194,9 @@ class PaymentOut implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'balance_cents' => 'getBalanceCents',
-        'id' => 'getId',
-        'processor_ref' => 'getProcessorRef',
-        'status' => 'getStatus',
-        'test' => 'getTest'
+        'chain' => 'getChain',
+        'reach' => 'getReach',
+        'tokens' => 'getTokens'
     ];
 
     /**
@@ -268,11 +256,9 @@ class PaymentOut implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('balance_cents', $data ?? [], null);
-        $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('processor_ref', $data ?? [], null);
-        $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('test', $data ?? [], null);
+        $this->setIfExists('chain', $data ?? [], null);
+        $this->setIfExists('reach', $data ?? [], null);
+        $this->setIfExists('tokens', $data ?? [], null);
     }
 
     /**
@@ -318,136 +304,82 @@ class PaymentOut implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets balance_cents
-     *
-     * @return int|null
-     */
-    public function getBalanceCents()
-    {
-        return $this->container['balance_cents'];
-    }
-
-    /**
-     * Sets balance_cents
-     *
-     * @param int|null $balance_cents BalanceCents is the org's balance AFTER this payment, read back from the same key just credited so it matches what the balance endpoint reports.
-     *
-     * @return self
-     */
-    public function setBalanceCents($balance_cents)
-    {
-        if (is_null($balance_cents)) {
-            throw new \InvalidArgumentException('non-nullable balance_cents cannot be null');
-        }
-        $this->container['balance_cents'] = $balance_cents;
-
-        return $this;
-    }
-
-    /**
-     * Gets id
+     * Gets chain
      *
      * @return string|null
      */
-    public function getId()
+    public function getChain()
     {
-        return $this->container['id'];
+        return $this->container['chain'];
     }
 
     /**
-     * Sets id
+     * Sets chain
      *
-     * @param string|null $id ID is the ledger transaction id for the credit. It is what getPayment reads back, and the customer-visible receipt for the money.
+     * @param string|null $chain chain
      *
      * @return self
      */
-    public function setId($id)
+    public function setChain($chain)
     {
-        if (is_null($id)) {
-            throw new \InvalidArgumentException('non-nullable id cannot be null');
+        if (is_null($chain)) {
+            throw new \InvalidArgumentException('non-nullable chain cannot be null');
         }
-        $this->container['id'] = $id;
+        $this->container['chain'] = $chain;
 
         return $this;
     }
 
     /**
-     * Gets processor_ref
+     * Gets reach
      *
-     * @return string|null
+     * @return \Hanzo\Cloud\Model\Reach|null
      */
-    public function getProcessorRef()
+    public function getReach()
     {
-        return $this->container['processor_ref'];
+        return $this->container['reach'];
     }
 
     /**
-     * Sets processor_ref
+     * Sets reach
      *
-     * @param string|null $processor_ref ProcessorRef is the payment processor's own reference for the charge (Square's payment id). It is the field that proves money actually moved at the gateway rather than only in our ledger — the thing to quote when reconciling against a processor dashboard.
+     * @param \Hanzo\Cloud\Model\Reach|null $reach reach
      *
      * @return self
      */
-    public function setProcessorRef($processor_ref)
+    public function setReach($reach)
     {
-        if (is_null($processor_ref)) {
-            throw new \InvalidArgumentException('non-nullable processor_ref cannot be null');
+        if (is_null($reach)) {
+            throw new \InvalidArgumentException('non-nullable reach cannot be null');
         }
-        $this->container['processor_ref'] = $processor_ref;
+        $this->container['reach'] = $reach;
 
         return $this;
     }
 
     /**
-     * Gets status
+     * Gets tokens
      *
-     * @return string|null
+     * @return \Hanzo\Cloud\Model\Token[]|null
      */
-    public function getStatus()
+    public function getTokens()
     {
-        return $this->container['status'];
+        return $this->container['tokens'];
     }
 
     /**
-     * Sets status
+     * Sets tokens
      *
-     * @param string|null $status Status is \"ok\" on a settled charge. A charge that did not settle is an error with the processor's reason, never a status field to inspect.
+     * @param \Hanzo\Cloud\Model\Token[]|null $tokens Tokens is `[]` where the indexer holds none and `null` where the read failed.
      *
      * @return self
      */
-    public function setStatus($status)
+    public function setTokens($tokens)
     {
-        if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
+        if (is_null($tokens)) {
+            throw new \InvalidArgumentException('non-nullable tokens cannot be null');
         }
-        $this->container['status'] = $status;
-
-        return $this;
-    }
-
-    /**
-     * Gets test
-     *
-     * @return bool|null
-     */
-    public function getTest()
-    {
-        return $this->container['test'];
-    }
-
-    /**
-     * Sets test
-     *
-     * @param bool|null $test Test reports which bucket this credited: true is a SANDBOX charge crediting the test balance, false is live money. It is always stated so a receipt can never be mistaken for the other kind.
-     *
-     * @return self
-     */
-    public function setTest($test)
-    {
-        if (is_null($test)) {
-            throw new \InvalidArgumentException('non-nullable test cannot be null');
-        }
-        $this->container['test'] = $test;
+        $this->container['tokens'] = $tokens;
 
         return $this;
     }

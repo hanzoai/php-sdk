@@ -1,6 +1,6 @@
 <?php
 /**
- * PaymentRecord
+ * Market
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * PaymentRecord Class Doc Comment
+ * Market Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
+class Market implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'PaymentRecord';
+    protected static $openAPIModelName = 'Market';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,14 +57,17 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'amount_cents' => 'int',
-        'created_at' => 'string',
-        'currency' => 'string',
-        'id' => 'string',
-        'notes' => 'string',
-        'status' => 'string',
-        'subject' => 'string',
-        'test' => 'bool'
+        'amm' => 'bool',
+        'coin' => 'string',
+        'day' => '\Hanzo\Cloud\Model\Day',
+        'factory' => 'array<string,string>',
+        'figures' => '\Hanzo\Cloud\Model\Figures',
+        'graph' => 'string',
+        'id' => 'int',
+        'name' => 'string',
+        'reach' => '\Hanzo\Cloud\Model\Reach',
+        'rpc' => 'string',
+        'slug' => 'string'
     ];
 
     /**
@@ -75,14 +78,17 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_cents' => null,
-        'created_at' => null,
-        'currency' => null,
+        'amm' => null,
+        'coin' => null,
+        'day' => null,
+        'factory' => null,
+        'figures' => null,
+        'graph' => null,
         'id' => null,
-        'notes' => null,
-        'status' => null,
-        'subject' => null,
-        'test' => null
+        'name' => null,
+        'reach' => null,
+        'rpc' => null,
+        'slug' => null
     ];
 
     /**
@@ -91,14 +97,17 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'amount_cents' => false,
-        'created_at' => false,
-        'currency' => false,
+        'amm' => false,
+        'coin' => false,
+        'day' => false,
+        'factory' => false,
+        'figures' => false,
+        'graph' => false,
         'id' => false,
-        'notes' => false,
-        'status' => false,
-        'subject' => false,
-        'test' => false
+        'name' => false,
+        'reach' => false,
+        'rpc' => false,
+        'slug' => false
     ];
 
     /**
@@ -187,14 +196,17 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'amount_cents' => 'amountCents',
-        'created_at' => 'createdAt',
-        'currency' => 'currency',
+        'amm' => 'amm',
+        'coin' => 'coin',
+        'day' => 'day',
+        'factory' => 'factory',
+        'figures' => 'figures',
+        'graph' => 'graph',
         'id' => 'id',
-        'notes' => 'notes',
-        'status' => 'status',
-        'subject' => 'subject',
-        'test' => 'test'
+        'name' => 'name',
+        'reach' => 'reach',
+        'rpc' => 'rpc',
+        'slug' => 'slug'
     ];
 
     /**
@@ -203,14 +215,17 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'amount_cents' => 'setAmountCents',
-        'created_at' => 'setCreatedAt',
-        'currency' => 'setCurrency',
+        'amm' => 'setAmm',
+        'coin' => 'setCoin',
+        'day' => 'setDay',
+        'factory' => 'setFactory',
+        'figures' => 'setFigures',
+        'graph' => 'setGraph',
         'id' => 'setId',
-        'notes' => 'setNotes',
-        'status' => 'setStatus',
-        'subject' => 'setSubject',
-        'test' => 'setTest'
+        'name' => 'setName',
+        'reach' => 'setReach',
+        'rpc' => 'setRpc',
+        'slug' => 'setSlug'
     ];
 
     /**
@@ -219,14 +234,17 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'amount_cents' => 'getAmountCents',
-        'created_at' => 'getCreatedAt',
-        'currency' => 'getCurrency',
+        'amm' => 'getAmm',
+        'coin' => 'getCoin',
+        'day' => 'getDay',
+        'factory' => 'getFactory',
+        'figures' => 'getFigures',
+        'graph' => 'getGraph',
         'id' => 'getId',
-        'notes' => 'getNotes',
-        'status' => 'getStatus',
-        'subject' => 'getSubject',
-        'test' => 'getTest'
+        'name' => 'getName',
+        'reach' => 'getReach',
+        'rpc' => 'getRpc',
+        'slug' => 'getSlug'
     ];
 
     /**
@@ -286,14 +304,17 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('amount_cents', $data ?? [], null);
-        $this->setIfExists('created_at', $data ?? [], null);
-        $this->setIfExists('currency', $data ?? [], null);
+        $this->setIfExists('amm', $data ?? [], null);
+        $this->setIfExists('coin', $data ?? [], null);
+        $this->setIfExists('day', $data ?? [], null);
+        $this->setIfExists('factory', $data ?? [], null);
+        $this->setIfExists('figures', $data ?? [], null);
+        $this->setIfExists('graph', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('notes', $data ?? [], null);
-        $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('subject', $data ?? [], null);
-        $this->setIfExists('test', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
+        $this->setIfExists('reach', $data ?? [], null);
+        $this->setIfExists('rpc', $data ?? [], null);
+        $this->setIfExists('slug', $data ?? [], null);
     }
 
     /**
@@ -339,82 +360,163 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets amount_cents
+     * Gets amm
      *
-     * @return int|null
+     * @return bool|null
      */
-    public function getAmountCents()
+    public function getAmm()
     {
-        return $this->container['amount_cents'];
+        return $this->container['amm'];
     }
 
     /**
-     * Sets amount_cents
+     * Sets amm
      *
-     * @param int|null $amount_cents AmountCents is the credited amount in whole cents.
+     * @param bool|null $amm Amm reports whether an automated market maker is deployed on this chain, which is the registry's factory addresses being present and not the indexer having rows. The two disagree in exactly the interesting case: a chain with a factory and nothing traded yet is a live venue with no history, and a chain with neither has no venue at all.
      *
      * @return self
      */
-    public function setAmountCents($amount_cents)
+    public function setAmm($amm)
     {
-        if (is_null($amount_cents)) {
-            throw new \InvalidArgumentException('non-nullable amount_cents cannot be null');
+        if (is_null($amm)) {
+            throw new \InvalidArgumentException('non-nullable amm cannot be null');
         }
-        $this->container['amount_cents'] = $amount_cents;
+        $this->container['amm'] = $amm;
 
         return $this;
     }
 
     /**
-     * Gets created_at
+     * Gets coin
      *
      * @return string|null
      */
-    public function getCreatedAt()
+    public function getCoin()
     {
-        return $this->container['created_at'];
+        return $this->container['coin'];
     }
 
     /**
-     * Sets created_at
+     * Sets coin
      *
-     * @param string|null $created_at CreatedAt is when the credit was written, RFC3339.
+     * @param string|null $coin coin
      *
      * @return self
      */
-    public function setCreatedAt($created_at)
+    public function setCoin($coin)
     {
-        if (is_null($created_at)) {
-            throw new \InvalidArgumentException('non-nullable created_at cannot be null');
+        if (is_null($coin)) {
+            throw new \InvalidArgumentException('non-nullable coin cannot be null');
         }
-        $this->container['created_at'] = $created_at;
+        $this->container['coin'] = $coin;
 
         return $this;
     }
 
     /**
-     * Gets currency
+     * Gets day
      *
-     * @return string|null
+     * @return \Hanzo\Cloud\Model\Day|null
      */
-    public function getCurrency()
+    public function getDay()
     {
-        return $this->container['currency'];
+        return $this->container['day'];
     }
 
     /**
-     * Sets currency
+     * Sets day
      *
-     * @param string|null $currency Currency is the ISO 4217 code.
+     * @param \Hanzo\Cloud\Model\Day|null $day day
      *
      * @return self
      */
-    public function setCurrency($currency)
+    public function setDay($day)
     {
-        if (is_null($currency)) {
-            throw new \InvalidArgumentException('non-nullable currency cannot be null');
+        if (is_null($day)) {
+            throw new \InvalidArgumentException('non-nullable day cannot be null');
         }
-        $this->container['currency'] = $currency;
+        $this->container['day'] = $day;
+
+        return $this;
+    }
+
+    /**
+     * Gets factory
+     *
+     * @return array<string,string>|null
+     */
+    public function getFactory()
+    {
+        return $this->container['factory'];
+    }
+
+    /**
+     * Sets factory
+     *
+     * @param array<string,string>|null $factory Factory is the AMM's factory contracts, by generation, omitted where none is deployed. Addresses come from the registry because that is what the indexer itself ingested from; anything else is a second copy free to drift.
+     *
+     * @return self
+     */
+    public function setFactory($factory)
+    {
+        if (is_null($factory)) {
+            throw new \InvalidArgumentException('non-nullable factory cannot be null');
+        }
+        $this->container['factory'] = $factory;
+
+        return $this;
+    }
+
+    /**
+     * Gets figures
+     *
+     * @return \Hanzo\Cloud\Model\Figures|null
+     */
+    public function getFigures()
+    {
+        return $this->container['figures'];
+    }
+
+    /**
+     * Sets figures
+     *
+     * @param \Hanzo\Cloud\Model\Figures|null $figures Figures is the chain's whole market maker, and Day its most recent active one. Both are absent unless Reach says Read, so a caller cannot mistake a zero this process never received for one the indexer computed. Day is also absent on a chain that has never traded — which reach reports as Read, so the two absences are told apart by the state beside them and never by the gap itself.
+     *
+     * @return self
+     */
+    public function setFigures($figures)
+    {
+        if (is_null($figures)) {
+            throw new \InvalidArgumentException('non-nullable figures cannot be null');
+        }
+        $this->container['figures'] = $figures;
+
+        return $this;
+    }
+
+    /**
+     * Gets graph
+     *
+     * @return string|null
+     */
+    public function getGraph()
+    {
+        return $this->container['graph'];
+    }
+
+    /**
+     * Sets graph
+     *
+     * @param string|null $graph Graph is where this chain's indexer answers, empty where it has none.
+     *
+     * @return self
+     */
+    public function setGraph($graph)
+    {
+        if (is_null($graph)) {
+            throw new \InvalidArgumentException('non-nullable graph cannot be null');
+        }
+        $this->container['graph'] = $graph;
 
         return $this;
     }
@@ -422,7 +524,7 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return int|null
      */
     public function getId()
     {
@@ -432,7 +534,7 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id ID is the ledger transaction id.
+     * @param int|null $id ID is the EVM chain id, which is what a wallet must agree with.
      *
      * @return self
      */
@@ -447,109 +549,109 @@ class PaymentRecord implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets notes
+     * Gets name
      *
      * @return string|null
      */
-    public function getNotes()
+    public function getName()
     {
-        return $this->container['notes'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets notes
+     * Sets name
      *
-     * @param string|null $notes Notes is the ledger memo, carrying the processor and its reference.
+     * @param string|null $name name
      *
      * @return self
      */
-    public function setNotes($notes)
+    public function setName($name)
     {
-        if (is_null($notes)) {
-            throw new \InvalidArgumentException('non-nullable notes cannot be null');
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
-        $this->container['notes'] = $notes;
+        $this->container['name'] = $name;
 
         return $this;
     }
 
     /**
-     * Gets status
+     * Gets reach
      *
-     * @return string|null
+     * @return \Hanzo\Cloud\Model\Reach|null
      */
-    public function getStatus()
+    public function getReach()
     {
-        return $this->container['status'];
+        return $this->container['reach'];
     }
 
     /**
-     * Sets status
+     * Sets reach
      *
-     * @param string|null $status Status is the payment's state. This ledger writes a deposit only AFTER the processor settled, so a payment that can be read is one that succeeded.
+     * @param \Hanzo\Cloud\Model\Reach|null $reach Reach is how far the read of this chain's FIGURES got — its own, so one indexer being down describes one row and leaves the others to answer.
      *
      * @return self
      */
-    public function setStatus($status)
+    public function setReach($reach)
     {
-        if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
+        if (is_null($reach)) {
+            throw new \InvalidArgumentException('non-nullable reach cannot be null');
         }
-        $this->container['status'] = $status;
+        $this->container['reach'] = $reach;
 
         return $this;
     }
 
     /**
-     * Gets subject
+     * Gets rpc
      *
      * @return string|null
      */
-    public function getSubject()
+    public function getRpc()
     {
-        return $this->container['subject'];
+        return $this->container['rpc'];
     }
 
     /**
-     * Sets subject
+     * Sets rpc
      *
-     * @param string|null $subject Subject is the billing key this payment credited.
+     * @param string|null $rpc RPC is the chain's PUBLIC JSON-RPC, empty where the registry names only a route this process happens to have. The registry's own `rpc` field is the INDEXER's route to the node and is sometimes inside its cluster — plain HTTP on a `.svc.cluster.local` name — which is reachable from the indexer, from nothing else, and from no browser. Publishing that as the chain's endpoint hands every caller an address that cannot answer them. See [endpoint].
      *
      * @return self
      */
-    public function setSubject($subject)
+    public function setRpc($rpc)
     {
-        if (is_null($subject)) {
-            throw new \InvalidArgumentException('non-nullable subject cannot be null');
+        if (is_null($rpc)) {
+            throw new \InvalidArgumentException('non-nullable rpc cannot be null');
         }
-        $this->container['subject'] = $subject;
+        $this->container['rpc'] = $rpc;
 
         return $this;
     }
 
     /**
-     * Gets test
+     * Gets slug
      *
-     * @return bool|null
+     * @return string|null
      */
-    public function getTest()
+    public function getSlug()
     {
-        return $this->container['test'];
+        return $this->container['slug'];
     }
 
     /**
-     * Sets test
+     * Sets slug
      *
-     * @param bool|null $test Test reports whether this was a sandbox charge (test balance) or live money.
+     * @param string|null $slug Slug is the chain's word in every indexer path — `cchain`, `zoo`. It is the value a caller passes back as `chain`, and it is NOT the chain id: `96369`, `C` and `c-chain` all answer 404 in that position.
      *
      * @return self
      */
-    public function setTest($test)
+    public function setSlug($slug)
     {
-        if (is_null($test)) {
-            throw new \InvalidArgumentException('non-nullable test cannot be null');
+        if (is_null($slug)) {
+            throw new \InvalidArgumentException('non-nullable slug cannot be null');
         }
-        $this->container['test'] = $test;
+        $this->container['slug'] = $slug;
 
         return $this;
     }

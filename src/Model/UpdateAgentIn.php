@@ -57,8 +57,10 @@ class UpdateAgentIn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'avatar' => 'string',
         'compute_ref' => 'string',
         'description' => 'string',
+        'emoji' => 'string',
         'execution_mode' => 'string',
         'instructions' => 'string',
         'model' => 'string',
@@ -76,8 +78,10 @@ class UpdateAgentIn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'avatar' => null,
         'compute_ref' => null,
         'description' => null,
+        'emoji' => null,
         'execution_mode' => null,
         'instructions' => null,
         'model' => null,
@@ -93,8 +97,10 @@ class UpdateAgentIn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'avatar' => false,
         'compute_ref' => false,
         'description' => false,
+        'emoji' => false,
         'execution_mode' => false,
         'instructions' => false,
         'model' => false,
@@ -190,8 +196,10 @@ class UpdateAgentIn implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'avatar' => 'avatar',
         'compute_ref' => 'computeRef',
         'description' => 'description',
+        'emoji' => 'emoji',
         'execution_mode' => 'executionMode',
         'instructions' => 'instructions',
         'model' => 'model',
@@ -207,8 +215,10 @@ class UpdateAgentIn implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'avatar' => 'setAvatar',
         'compute_ref' => 'setComputeRef',
         'description' => 'setDescription',
+        'emoji' => 'setEmoji',
         'execution_mode' => 'setExecutionMode',
         'instructions' => 'setInstructions',
         'model' => 'setModel',
@@ -224,8 +234,10 @@ class UpdateAgentIn implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'avatar' => 'getAvatar',
         'compute_ref' => 'getComputeRef',
         'description' => 'getDescription',
+        'emoji' => 'getEmoji',
         'execution_mode' => 'getExecutionMode',
         'instructions' => 'getInstructions',
         'model' => 'getModel',
@@ -292,8 +304,10 @@ class UpdateAgentIn implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('avatar', $data ?? [], null);
         $this->setIfExists('compute_ref', $data ?? [], null);
         $this->setIfExists('description', $data ?? [], null);
+        $this->setIfExists('emoji', $data ?? [], null);
         $this->setIfExists('execution_mode', $data ?? [], null);
         $this->setIfExists('instructions', $data ?? [], null);
         $this->setIfExists('model', $data ?? [], null);
@@ -346,6 +360,33 @@ class UpdateAgentIn implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
+     * Gets avatar
+     *
+     * @return string|null
+     */
+    public function getAvatar()
+    {
+        return $this->container['avatar'];
+    }
+
+    /**
+     * Sets avatar
+     *
+     * @param string|null $avatar Avatar and Emoji re-draw the agent. Sending either replaces the pair, so setting an image clears a glyph and \"\" for both goes back to the initial — there is no state where a row holds two answers.
+     *
+     * @return self
+     */
+    public function setAvatar($avatar)
+    {
+        if (is_null($avatar)) {
+            throw new \InvalidArgumentException('non-nullable avatar cannot be null');
+        }
+        $this->container['avatar'] = $avatar;
+
+        return $this;
+    }
+
+    /**
      * Gets compute_ref
      *
      * @return string|null
@@ -395,6 +436,33 @@ class UpdateAgentIn implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable description cannot be null');
         }
         $this->container['description'] = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets emoji
+     *
+     * @return string|null
+     */
+    public function getEmoji()
+    {
+        return $this->container['emoji'];
+    }
+
+    /**
+     * Sets emoji
+     *
+     * @param string|null $emoji Emoji re-draws the agent as a glyph. Sending either of the pair replaces BOTH, so setting a glyph clears an image and \"\" for both goes back to the initial — there is no state where a row holds two answers.
+     *
+     * @return self
+     */
+    public function setEmoji($emoji)
+    {
+        if (is_null($emoji)) {
+            throw new \InvalidArgumentException('non-nullable emoji cannot be null');
+        }
+        $this->container['emoji'] = $emoji;
 
         return $this;
     }

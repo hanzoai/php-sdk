@@ -77,7 +77,7 @@ class TeamApi
         'deleteTeamAccountCookie' => [
             'application/json',
         ],
-        'deleteTeamFilesByWorkspaceByFilename' => [
+        'deleteTeamFilesBySpaceByFilename' => [
             'application/json',
         ],
         'getTeamAccountAuthByProvider' => [
@@ -101,10 +101,13 @@ class TeamApi
         'getTeamCollaborator' => [
             'application/json',
         ],
-        'getTeamFilesByWorkspaceByFilename' => [
+        'getTeamFilesBySpaceByFilename' => [
             'application/json',
         ],
         'getTeamRooms' => [
+            'application/json',
+        ],
+        'getTeamRoomsByIdMessages' => [
             'application/json',
         ],
         'getTeamTransactorByToken' => [
@@ -122,8 +125,14 @@ class TeamApi
         'postTeamCollaboratorRpcByDocumentid' => [
             'application/json',
         ],
-        'postTeamFilesByWorkspace' => [
+        'postTeamFilesBySpace' => [
             'application/octet-stream',
+        ],
+        'postTeamRooms' => [
+            'application/json',
+        ],
+        'postTeamRoomsByIdMessages' => [
+            'application/json',
         ],
         'putTeamAccountCookie' => [
             'application/json',
@@ -432,41 +441,41 @@ class TeamApi
     }
 
     /**
-     * Operation deleteTeamFilesByWorkspaceByFilename
+     * Operation deleteTeamFilesBySpaceByFilename
      *
-     * Removes one blob from a workspace&#39;s file store.
+     * Removes one blob from a space&#39;s file store.
      *
-     * @param  string $workspace Workspace is the workspace uuid the blob belongs to, from the path. (required)
+     * @param  string $space Space is the space uuid the blob belongs to, from the path. (required)
      * @param  string $filename Filename is the last path segment, which the front sets to the blob id when it sends no explicit &#x60;file&#x60;. (required)
      * @param  string|null $file File is the blob id, and wins over the path segment when both are present. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamFilesByWorkspaceByFilename'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamFilesBySpaceByFilename'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function deleteTeamFilesByWorkspaceByFilename($workspace, $filename, $file = null, string $contentType = self::contentTypes['deleteTeamFilesByWorkspaceByFilename'][0])
+    public function deleteTeamFilesBySpaceByFilename($space, $filename, $file = null, string $contentType = self::contentTypes['deleteTeamFilesBySpaceByFilename'][0])
     {
-        $this->deleteTeamFilesByWorkspaceByFilenameWithHttpInfo($workspace, $filename, $file, $contentType);
+        $this->deleteTeamFilesBySpaceByFilenameWithHttpInfo($space, $filename, $file, $contentType);
     }
 
     /**
-     * Operation deleteTeamFilesByWorkspaceByFilenameWithHttpInfo
+     * Operation deleteTeamFilesBySpaceByFilenameWithHttpInfo
      *
-     * Removes one blob from a workspace&#39;s file store.
+     * Removes one blob from a space&#39;s file store.
      *
-     * @param  string $workspace Workspace is the workspace uuid the blob belongs to, from the path. (required)
+     * @param  string $space Space is the space uuid the blob belongs to, from the path. (required)
      * @param  string $filename Filename is the last path segment, which the front sets to the blob id when it sends no explicit &#x60;file&#x60;. (required)
      * @param  string|null $file File is the blob id, and wins over the path segment when both are present. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamFilesByWorkspaceByFilename'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamFilesBySpaceByFilename'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteTeamFilesByWorkspaceByFilenameWithHttpInfo($workspace, $filename, $file = null, string $contentType = self::contentTypes['deleteTeamFilesByWorkspaceByFilename'][0])
+    public function deleteTeamFilesBySpaceByFilenameWithHttpInfo($space, $filename, $file = null, string $contentType = self::contentTypes['deleteTeamFilesBySpaceByFilename'][0])
     {
-        $request = $this->deleteTeamFilesByWorkspaceByFilenameRequest($workspace, $filename, $file, $contentType);
+        $request = $this->deleteTeamFilesBySpaceByFilenameRequest($space, $filename, $file, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -502,21 +511,21 @@ class TeamApi
     }
 
     /**
-     * Operation deleteTeamFilesByWorkspaceByFilenameAsync
+     * Operation deleteTeamFilesBySpaceByFilenameAsync
      *
-     * Removes one blob from a workspace&#39;s file store.
+     * Removes one blob from a space&#39;s file store.
      *
-     * @param  string $workspace Workspace is the workspace uuid the blob belongs to, from the path. (required)
+     * @param  string $space Space is the space uuid the blob belongs to, from the path. (required)
      * @param  string $filename Filename is the last path segment, which the front sets to the blob id when it sends no explicit &#x60;file&#x60;. (required)
      * @param  string|null $file File is the blob id, and wins over the path segment when both are present. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamFilesByWorkspaceByFilename'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamFilesBySpaceByFilename'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTeamFilesByWorkspaceByFilenameAsync($workspace, $filename, $file = null, string $contentType = self::contentTypes['deleteTeamFilesByWorkspaceByFilename'][0])
+    public function deleteTeamFilesBySpaceByFilenameAsync($space, $filename, $file = null, string $contentType = self::contentTypes['deleteTeamFilesBySpaceByFilename'][0])
     {
-        return $this->deleteTeamFilesByWorkspaceByFilenameAsyncWithHttpInfo($workspace, $filename, $file, $contentType)
+        return $this->deleteTeamFilesBySpaceByFilenameAsyncWithHttpInfo($space, $filename, $file, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -525,22 +534,22 @@ class TeamApi
     }
 
     /**
-     * Operation deleteTeamFilesByWorkspaceByFilenameAsyncWithHttpInfo
+     * Operation deleteTeamFilesBySpaceByFilenameAsyncWithHttpInfo
      *
-     * Removes one blob from a workspace&#39;s file store.
+     * Removes one blob from a space&#39;s file store.
      *
-     * @param  string $workspace Workspace is the workspace uuid the blob belongs to, from the path. (required)
+     * @param  string $space Space is the space uuid the blob belongs to, from the path. (required)
      * @param  string $filename Filename is the last path segment, which the front sets to the blob id when it sends no explicit &#x60;file&#x60;. (required)
      * @param  string|null $file File is the blob id, and wins over the path segment when both are present. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamFilesByWorkspaceByFilename'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamFilesBySpaceByFilename'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteTeamFilesByWorkspaceByFilenameAsyncWithHttpInfo($workspace, $filename, $file = null, string $contentType = self::contentTypes['deleteTeamFilesByWorkspaceByFilename'][0])
+    public function deleteTeamFilesBySpaceByFilenameAsyncWithHttpInfo($space, $filename, $file = null, string $contentType = self::contentTypes['deleteTeamFilesBySpaceByFilename'][0])
     {
         $returnType = '';
-        $request = $this->deleteTeamFilesByWorkspaceByFilenameRequest($workspace, $filename, $file, $contentType);
+        $request = $this->deleteTeamFilesBySpaceByFilenameRequest($space, $filename, $file, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -566,36 +575,36 @@ class TeamApi
     }
 
     /**
-     * Create request for operation 'deleteTeamFilesByWorkspaceByFilename'
+     * Create request for operation 'deleteTeamFilesBySpaceByFilename'
      *
-     * @param  string $workspace Workspace is the workspace uuid the blob belongs to, from the path. (required)
+     * @param  string $space Space is the space uuid the blob belongs to, from the path. (required)
      * @param  string $filename Filename is the last path segment, which the front sets to the blob id when it sends no explicit &#x60;file&#x60;. (required)
      * @param  string|null $file File is the blob id, and wins over the path segment when both are present. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamFilesByWorkspaceByFilename'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteTeamFilesBySpaceByFilename'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteTeamFilesByWorkspaceByFilenameRequest($workspace, $filename, $file = null, string $contentType = self::contentTypes['deleteTeamFilesByWorkspaceByFilename'][0])
+    public function deleteTeamFilesBySpaceByFilenameRequest($space, $filename, $file = null, string $contentType = self::contentTypes['deleteTeamFilesBySpaceByFilename'][0])
     {
 
-        // verify the required parameter 'workspace' is set
-        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+        // verify the required parameter 'space' is set
+        if ($space === null || (is_array($space) && count($space) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $workspace when calling deleteTeamFilesByWorkspaceByFilename'
+                'Missing the required parameter $space when calling deleteTeamFilesBySpaceByFilename'
             );
         }
 
         // verify the required parameter 'filename' is set
         if ($filename === null || (is_array($filename) && count($filename) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $filename when calling deleteTeamFilesByWorkspaceByFilename'
+                'Missing the required parameter $filename when calling deleteTeamFilesBySpaceByFilename'
             );
         }
 
 
 
-        $resourcePath = '/v1/team/files/{workspace}/{filename}';
+        $resourcePath = '/v1/team/files/{space}/{filename}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -614,10 +623,10 @@ class TeamApi
 
 
         // path params
-        if ($workspace !== null) {
+        if ($space !== null) {
             $resourcePath = str_replace(
-                '{' . 'workspace' . '}',
-                ObjectSerializer::toPathValue($workspace),
+                '{' . 'space' . '}',
+                ObjectSerializer::toPathValue($space),
                 $resourcePath
             );
         }
@@ -1894,7 +1903,7 @@ class TeamApi
     /**
      * Operation getTeamBots
      *
-     * Returns the caller org&#39;s bot members — the org&#39;s agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
+     * Returns the caller org&#39;s bot members — the org&#39;s agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamBots'] to see the possible values for this operation
      *
@@ -1911,7 +1920,7 @@ class TeamApi
     /**
      * Operation getTeamBotsWithHttpInfo
      *
-     * Returns the caller org&#39;s bot members — the org&#39;s agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
+     * Returns the caller org&#39;s bot members — the org&#39;s agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamBots'] to see the possible values for this operation
      *
@@ -1995,7 +2004,7 @@ class TeamApi
     /**
      * Operation getTeamBotsAsync
      *
-     * Returns the caller org&#39;s bot members — the org&#39;s agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
+     * Returns the caller org&#39;s bot members — the org&#39;s agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamBots'] to see the possible values for this operation
      *
@@ -2015,7 +2024,7 @@ class TeamApi
     /**
      * Operation getTeamBotsAsyncWithHttpInfo
      *
-     * Returns the caller org&#39;s bot members — the org&#39;s agents projected as the workspace Employees they become, each with the member account uuid and Person reference the roster addresses it by.
+     * Returns the caller org&#39;s bot members — the org&#39;s agents projected as the space Employees they become, each with the member account uuid and Person reference the roster addresses it by.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamBots'] to see the possible values for this operation
      *
@@ -2346,40 +2355,40 @@ class TeamApi
     }
 
     /**
-     * Operation getTeamFilesByWorkspaceByFilename
+     * Operation getTeamFilesBySpaceByFilename
      *
-     * Download a workspace file
+     * Download a space file
      *
-     * @param  string $workspace workspace (required)
+     * @param  string $space space (required)
      * @param  string $filename filename (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamFilesByWorkspaceByFilename'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamFilesBySpaceByFilename'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \SplFileObject
      */
-    public function getTeamFilesByWorkspaceByFilename($workspace, $filename, string $contentType = self::contentTypes['getTeamFilesByWorkspaceByFilename'][0])
+    public function getTeamFilesBySpaceByFilename($space, $filename, string $contentType = self::contentTypes['getTeamFilesBySpaceByFilename'][0])
     {
-        list($response) = $this->getTeamFilesByWorkspaceByFilenameWithHttpInfo($workspace, $filename, $contentType);
+        list($response) = $this->getTeamFilesBySpaceByFilenameWithHttpInfo($space, $filename, $contentType);
         return $response;
     }
 
     /**
-     * Operation getTeamFilesByWorkspaceByFilenameWithHttpInfo
+     * Operation getTeamFilesBySpaceByFilenameWithHttpInfo
      *
-     * Download a workspace file
+     * Download a space file
      *
-     * @param  string $workspace (required)
+     * @param  string $space (required)
      * @param  string $filename (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamFilesByWorkspaceByFilename'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamFilesBySpaceByFilename'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getTeamFilesByWorkspaceByFilenameWithHttpInfo($workspace, $filename, string $contentType = self::contentTypes['getTeamFilesByWorkspaceByFilename'][0])
+    public function getTeamFilesBySpaceByFilenameWithHttpInfo($space, $filename, string $contentType = self::contentTypes['getTeamFilesBySpaceByFilename'][0])
     {
-        $request = $this->getTeamFilesByWorkspaceByFilenameRequest($workspace, $filename, $contentType);
+        $request = $this->getTeamFilesBySpaceByFilenameRequest($space, $filename, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2454,20 +2463,20 @@ class TeamApi
     }
 
     /**
-     * Operation getTeamFilesByWorkspaceByFilenameAsync
+     * Operation getTeamFilesBySpaceByFilenameAsync
      *
-     * Download a workspace file
+     * Download a space file
      *
-     * @param  string $workspace (required)
+     * @param  string $space (required)
      * @param  string $filename (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamFilesByWorkspaceByFilename'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamFilesBySpaceByFilename'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTeamFilesByWorkspaceByFilenameAsync($workspace, $filename, string $contentType = self::contentTypes['getTeamFilesByWorkspaceByFilename'][0])
+    public function getTeamFilesBySpaceByFilenameAsync($space, $filename, string $contentType = self::contentTypes['getTeamFilesBySpaceByFilename'][0])
     {
-        return $this->getTeamFilesByWorkspaceByFilenameAsyncWithHttpInfo($workspace, $filename, $contentType)
+        return $this->getTeamFilesBySpaceByFilenameAsyncWithHttpInfo($space, $filename, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2476,21 +2485,21 @@ class TeamApi
     }
 
     /**
-     * Operation getTeamFilesByWorkspaceByFilenameAsyncWithHttpInfo
+     * Operation getTeamFilesBySpaceByFilenameAsyncWithHttpInfo
      *
-     * Download a workspace file
+     * Download a space file
      *
-     * @param  string $workspace (required)
+     * @param  string $space (required)
      * @param  string $filename (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamFilesByWorkspaceByFilename'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamFilesBySpaceByFilename'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getTeamFilesByWorkspaceByFilenameAsyncWithHttpInfo($workspace, $filename, string $contentType = self::contentTypes['getTeamFilesByWorkspaceByFilename'][0])
+    public function getTeamFilesBySpaceByFilenameAsyncWithHttpInfo($space, $filename, string $contentType = self::contentTypes['getTeamFilesBySpaceByFilename'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->getTeamFilesByWorkspaceByFilenameRequest($workspace, $filename, $contentType);
+        $request = $this->getTeamFilesBySpaceByFilenameRequest($space, $filename, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2529,34 +2538,34 @@ class TeamApi
     }
 
     /**
-     * Create request for operation 'getTeamFilesByWorkspaceByFilename'
+     * Create request for operation 'getTeamFilesBySpaceByFilename'
      *
-     * @param  string $workspace (required)
+     * @param  string $space (required)
      * @param  string $filename (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamFilesByWorkspaceByFilename'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamFilesBySpaceByFilename'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getTeamFilesByWorkspaceByFilenameRequest($workspace, $filename, string $contentType = self::contentTypes['getTeamFilesByWorkspaceByFilename'][0])
+    public function getTeamFilesBySpaceByFilenameRequest($space, $filename, string $contentType = self::contentTypes['getTeamFilesBySpaceByFilename'][0])
     {
 
-        // verify the required parameter 'workspace' is set
-        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+        // verify the required parameter 'space' is set
+        if ($space === null || (is_array($space) && count($space) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $workspace when calling getTeamFilesByWorkspaceByFilename'
+                'Missing the required parameter $space when calling getTeamFilesBySpaceByFilename'
             );
         }
 
         // verify the required parameter 'filename' is set
         if ($filename === null || (is_array($filename) && count($filename) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $filename when calling getTeamFilesByWorkspaceByFilename'
+                'Missing the required parameter $filename when calling getTeamFilesBySpaceByFilename'
             );
         }
 
 
-        $resourcePath = '/v1/team/files/{workspace}/{filename}';
+        $resourcePath = '/v1/team/files/{space}/{filename}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2566,10 +2575,10 @@ class TeamApi
 
 
         // path params
-        if ($workspace !== null) {
+        if ($space !== null) {
             $resourcePath = str_replace(
-                '{' . 'workspace' . '}',
-                ObjectSerializer::toPathValue($workspace),
+                '{' . 'space' . '}',
+                ObjectSerializer::toPathValue($space),
                 $resourcePath
             );
         }
@@ -2643,7 +2652,7 @@ class TeamApi
     /**
      * Operation getTeamRooms
      *
-     * Returns every room of the caller&#39;s org, across the workspaces it owns, with the work facet each carries.
+     * Returns every room of the caller&#39;s org, across the spaces it owns, with the work facet each carries.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
      *
@@ -2660,7 +2669,7 @@ class TeamApi
     /**
      * Operation getTeamRoomsWithHttpInfo
      *
-     * Returns every room of the caller&#39;s org, across the workspaces it owns, with the work facet each carries.
+     * Returns every room of the caller&#39;s org, across the spaces it owns, with the work facet each carries.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
      *
@@ -2744,7 +2753,7 @@ class TeamApi
     /**
      * Operation getTeamRoomsAsync
      *
-     * Returns every room of the caller&#39;s org, across the workspaces it owns, with the work facet each carries.
+     * Returns every room of the caller&#39;s org, across the spaces it owns, with the work facet each carries.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
      *
@@ -2764,7 +2773,7 @@ class TeamApi
     /**
      * Operation getTeamRoomsAsyncWithHttpInfo
      *
-     * Returns every room of the caller&#39;s org, across the workspaces it owns, with the work facet each carries.
+     * Returns every room of the caller&#39;s org, across the spaces it owns, with the work facet each carries.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRooms'] to see the possible values for this operation
      *
@@ -2893,9 +2902,296 @@ class TeamApi
     }
 
     /**
+     * Operation getTeamRoomsByIdMessages
+     *
+     * Returns the tail of one room&#39;s conversation, oldest first.
+     *
+     * @param  string $id ID is the room, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRoomsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamMessages
+     */
+    public function getTeamRoomsByIdMessages($id, $space = null, string $contentType = self::contentTypes['getTeamRoomsByIdMessages'][0])
+    {
+        list($response) = $this->getTeamRoomsByIdMessagesWithHttpInfo($id, $space, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getTeamRoomsByIdMessagesWithHttpInfo
+     *
+     * Returns the tail of one room&#39;s conversation, oldest first.
+     *
+     * @param  string $id ID is the room, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRoomsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamMessages, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getTeamRoomsByIdMessagesWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamRoomsByIdMessages'][0])
+    {
+        $request = $this->getTeamRoomsByIdMessagesRequest($id, $space, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamMessages',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamMessages',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamMessages',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getTeamRoomsByIdMessagesAsync
+     *
+     * Returns the tail of one room&#39;s conversation, oldest first.
+     *
+     * @param  string $id ID is the room, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRoomsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamRoomsByIdMessagesAsync($id, $space = null, string $contentType = self::contentTypes['getTeamRoomsByIdMessages'][0])
+    {
+        return $this->getTeamRoomsByIdMessagesAsyncWithHttpInfo($id, $space, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getTeamRoomsByIdMessagesAsyncWithHttpInfo
+     *
+     * Returns the tail of one room&#39;s conversation, oldest first.
+     *
+     * @param  string $id ID is the room, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRoomsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getTeamRoomsByIdMessagesAsyncWithHttpInfo($id, $space = null, string $contentType = self::contentTypes['getTeamRoomsByIdMessages'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamMessages';
+        $request = $this->getTeamRoomsByIdMessagesRequest($id, $space, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getTeamRoomsByIdMessages'
+     *
+     * @param  string $id ID is the room, from the path. The URL is the authority. (required)
+     * @param  string|null $space Space names the space holding the room, and is required for the reason the bind op requires it: a room id is unique within a space and not across the org, so searching every space for a match would make the answer depend on iteration order. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamRoomsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getTeamRoomsByIdMessagesRequest($id, $space = null, string $contentType = self::contentTypes['getTeamRoomsByIdMessages'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling getTeamRoomsByIdMessages'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/team/rooms/{id}/messages';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $space,
+            'space', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getTeamTransactorByToken
      *
-     * Open the workspace data-plane socket
+     * Open the space data-plane socket
      *
      * @param  string $token token (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorByToken'] to see the possible values for this operation
@@ -2912,7 +3208,7 @@ class TeamApi
     /**
      * Operation getTeamTransactorByTokenWithHttpInfo
      *
-     * Open the workspace data-plane socket
+     * Open the space data-plane socket
      *
      * @param  string $token (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorByToken'] to see the possible values for this operation
@@ -2961,7 +3257,7 @@ class TeamApi
     /**
      * Operation getTeamTransactorByTokenAsync
      *
-     * Open the workspace data-plane socket
+     * Open the space data-plane socket
      *
      * @param  string $token (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorByToken'] to see the possible values for this operation
@@ -2982,7 +3278,7 @@ class TeamApi
     /**
      * Operation getTeamTransactorByTokenAsyncWithHttpInfo
      *
-     * Open the workspace data-plane socket
+     * Open the space data-plane socket
      *
      * @param  string $token (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorByToken'] to see the possible values for this operation
@@ -3117,9 +3413,9 @@ class TeamApi
     /**
      * Operation getTeamTransactorStatistics
      *
-     * Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
+     * Statistics returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
      *
-     * @param  string|null $token Token is the workspace token minted by selectWorkspace. (optional)
+     * @param  string|null $token Token is the space token minted by selectWorkspace. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorStatistics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -3135,9 +3431,9 @@ class TeamApi
     /**
      * Operation getTeamTransactorStatisticsWithHttpInfo
      *
-     * Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
+     * Statistics returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
      *
-     * @param  string|null $token Token is the workspace token minted by selectWorkspace. (optional)
+     * @param  string|null $token Token is the space token minted by selectWorkspace. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorStatistics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -3220,9 +3516,9 @@ class TeamApi
     /**
      * Operation getTeamTransactorStatisticsAsync
      *
-     * Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
+     * Statistics returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
      *
-     * @param  string|null $token Token is the workspace token minted by selectWorkspace. (optional)
+     * @param  string|null $token Token is the space token minted by selectWorkspace. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorStatistics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -3241,9 +3537,9 @@ class TeamApi
     /**
      * Operation getTeamTransactorStatisticsAsyncWithHttpInfo
      *
-     * Statistics returns the transactor&#39;s live sessions for the workspace the caller&#39;s credential names — the endpoint the front&#39;s workspace switcher and server panel poll on the transactor base.
+     * Statistics returns the transactor&#39;s live sessions for the space the caller&#39;s credential names — the endpoint the front&#39;s space switcher and server panel poll on the transactor base.
      *
-     * @param  string|null $token Token is the workspace token minted by selectWorkspace. (optional)
+     * @param  string|null $token Token is the space token minted by selectWorkspace. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorStatistics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -3293,7 +3589,7 @@ class TeamApi
     /**
      * Create request for operation 'getTeamTransactorStatistics'
      *
-     * @param  string|null $token Token is the workspace token minted by selectWorkspace. (optional)
+     * @param  string|null $token Token is the space token minted by selectWorkspace. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTeamTransactorStatistics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -3384,7 +3680,7 @@ class TeamApi
     /**
      * Operation postTeamAccount
      *
-     * Read the caller&#39;s account and switch workspace
+     * Read the caller&#39;s account and switch space
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamAccount'] to see the possible values for this operation
      *
@@ -3400,7 +3696,7 @@ class TeamApi
     /**
      * Operation postTeamAccountWithHttpInfo
      *
-     * Read the caller&#39;s account and switch workspace
+     * Read the caller&#39;s account and switch space
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamAccount'] to see the possible values for this operation
      *
@@ -3448,7 +3744,7 @@ class TeamApi
     /**
      * Operation postTeamAccountAsync
      *
-     * Read the caller&#39;s account and switch workspace
+     * Read the caller&#39;s account and switch space
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamAccount'] to see the possible values for this operation
      *
@@ -3468,7 +3764,7 @@ class TeamApi
     /**
      * Operation postTeamAccountAsyncWithHttpInfo
      *
-     * Read the caller&#39;s account and switch workspace
+     * Read the caller&#39;s account and switch space
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamAccount'] to see the possible values for this operation
      *
@@ -3586,7 +3882,7 @@ class TeamApi
     /**
      * Operation postTeamBotsSync
      *
-     * SyncBots re-projects the caller org&#39;s agents as workspace members into EVERY workspace of the org, and removes the ones whose agent is gone.
+     * SyncBots re-projects the caller org&#39;s agents as space members into EVERY space of the org, and removes the ones whose agent is gone.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamBotsSync'] to see the possible values for this operation
      *
@@ -3603,7 +3899,7 @@ class TeamApi
     /**
      * Operation postTeamBotsSyncWithHttpInfo
      *
-     * SyncBots re-projects the caller org&#39;s agents as workspace members into EVERY workspace of the org, and removes the ones whose agent is gone.
+     * SyncBots re-projects the caller org&#39;s agents as space members into EVERY space of the org, and removes the ones whose agent is gone.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamBotsSync'] to see the possible values for this operation
      *
@@ -3687,7 +3983,7 @@ class TeamApi
     /**
      * Operation postTeamBotsSyncAsync
      *
-     * SyncBots re-projects the caller org&#39;s agents as workspace members into EVERY workspace of the org, and removes the ones whose agent is gone.
+     * SyncBots re-projects the caller org&#39;s agents as space members into EVERY space of the org, and removes the ones whose agent is gone.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamBotsSync'] to see the possible values for this operation
      *
@@ -3707,7 +4003,7 @@ class TeamApi
     /**
      * Operation postTeamBotsSyncAsyncWithHttpInfo
      *
-     * SyncBots re-projects the caller org&#39;s agents as workspace members into EVERY workspace of the org, and removes the ones whose agent is gone.
+     * SyncBots re-projects the caller org&#39;s agents as space members into EVERY space of the org, and removes the ones whose agent is gone.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamBotsSync'] to see the possible values for this operation
      *
@@ -3840,7 +4136,7 @@ class TeamApi
      *
      * CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
      *
-     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;workspaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
+     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CollabRequest $collab_request collab_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
      *
@@ -3859,7 +4155,7 @@ class TeamApi
      *
      * CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
      *
-     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;workspaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
+     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CollabRequest $collab_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
      *
@@ -3945,7 +4241,7 @@ class TeamApi
      *
      * CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
      *
-     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;workspaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
+     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CollabRequest $collab_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
      *
@@ -3967,7 +4263,7 @@ class TeamApi
      *
      * CollabRPC is the collaborative-markup snapshot plane the Team front&#39;s editor speaks: createContent stores a document field&#39;s markup at a fresh, immutable blob ref and returns it, updateContent stores a new snapshot and answers nothing, and getContent reads back the exact snapshot a ref names.
      *
-     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;workspaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
+     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CollabRequest $collab_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
      *
@@ -4018,7 +4314,7 @@ class TeamApi
     /**
      * Create request for operation 'postTeamCollaboratorRpcByDocumentid'
      *
-     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;workspaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
+     * @param  string $document_id DocumentID addresses the document field, as \&quot;&lt;spaceUuid&gt;|&lt;objectClass&gt;|&lt;objectId&gt;|&lt;objectAttr&gt;\&quot; — the collaborator-client encodeDocumentId shape, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CollabRequest $collab_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamCollaboratorRpcByDocumentid'] to see the possible values for this operation
      *
@@ -4127,40 +4423,40 @@ class TeamApi
     }
 
     /**
-     * Operation postTeamFilesByWorkspace
+     * Operation postTeamFilesBySpace
      *
-     * Upload a file into a workspace
+     * Upload a file into a space
      *
-     * @param  string $workspace workspace (required)
+     * @param  string $space space (required)
      * @param  \SplFileObject|null $body body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamFilesByWorkspace'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamFilesBySpace'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \SplFileObject
      */
-    public function postTeamFilesByWorkspace($workspace, $body = null, string $contentType = self::contentTypes['postTeamFilesByWorkspace'][0])
+    public function postTeamFilesBySpace($space, $body = null, string $contentType = self::contentTypes['postTeamFilesBySpace'][0])
     {
-        list($response) = $this->postTeamFilesByWorkspaceWithHttpInfo($workspace, $body, $contentType);
+        list($response) = $this->postTeamFilesBySpaceWithHttpInfo($space, $body, $contentType);
         return $response;
     }
 
     /**
-     * Operation postTeamFilesByWorkspaceWithHttpInfo
+     * Operation postTeamFilesBySpaceWithHttpInfo
      *
-     * Upload a file into a workspace
+     * Upload a file into a space
      *
-     * @param  string $workspace (required)
+     * @param  string $space (required)
      * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamFilesByWorkspace'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamFilesBySpace'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \SplFileObject, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postTeamFilesByWorkspaceWithHttpInfo($workspace, $body = null, string $contentType = self::contentTypes['postTeamFilesByWorkspace'][0])
+    public function postTeamFilesBySpaceWithHttpInfo($space, $body = null, string $contentType = self::contentTypes['postTeamFilesBySpace'][0])
     {
-        $request = $this->postTeamFilesByWorkspaceRequest($workspace, $body, $contentType);
+        $request = $this->postTeamFilesBySpaceRequest($space, $body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4235,20 +4531,20 @@ class TeamApi
     }
 
     /**
-     * Operation postTeamFilesByWorkspaceAsync
+     * Operation postTeamFilesBySpaceAsync
      *
-     * Upload a file into a workspace
+     * Upload a file into a space
      *
-     * @param  string $workspace (required)
+     * @param  string $space (required)
      * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamFilesByWorkspace'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamFilesBySpace'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTeamFilesByWorkspaceAsync($workspace, $body = null, string $contentType = self::contentTypes['postTeamFilesByWorkspace'][0])
+    public function postTeamFilesBySpaceAsync($space, $body = null, string $contentType = self::contentTypes['postTeamFilesBySpace'][0])
     {
-        return $this->postTeamFilesByWorkspaceAsyncWithHttpInfo($workspace, $body, $contentType)
+        return $this->postTeamFilesBySpaceAsyncWithHttpInfo($space, $body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4257,21 +4553,21 @@ class TeamApi
     }
 
     /**
-     * Operation postTeamFilesByWorkspaceAsyncWithHttpInfo
+     * Operation postTeamFilesBySpaceAsyncWithHttpInfo
      *
-     * Upload a file into a workspace
+     * Upload a file into a space
      *
-     * @param  string $workspace (required)
+     * @param  string $space (required)
      * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamFilesByWorkspace'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamFilesBySpace'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postTeamFilesByWorkspaceAsyncWithHttpInfo($workspace, $body = null, string $contentType = self::contentTypes['postTeamFilesByWorkspace'][0])
+    public function postTeamFilesBySpaceAsyncWithHttpInfo($space, $body = null, string $contentType = self::contentTypes['postTeamFilesBySpace'][0])
     {
         $returnType = '\SplFileObject';
-        $request = $this->postTeamFilesByWorkspaceRequest($workspace, $body, $contentType);
+        $request = $this->postTeamFilesBySpaceRequest($space, $body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4310,28 +4606,28 @@ class TeamApi
     }
 
     /**
-     * Create request for operation 'postTeamFilesByWorkspace'
+     * Create request for operation 'postTeamFilesBySpace'
      *
-     * @param  string $workspace (required)
+     * @param  string $space (required)
      * @param  \SplFileObject|null $body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamFilesByWorkspace'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamFilesBySpace'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postTeamFilesByWorkspaceRequest($workspace, $body = null, string $contentType = self::contentTypes['postTeamFilesByWorkspace'][0])
+    public function postTeamFilesBySpaceRequest($space, $body = null, string $contentType = self::contentTypes['postTeamFilesBySpace'][0])
     {
 
-        // verify the required parameter 'workspace' is set
-        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+        // verify the required parameter 'space' is set
+        if ($space === null || (is_array($space) && count($space) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $workspace when calling postTeamFilesByWorkspace'
+                'Missing the required parameter $space when calling postTeamFilesBySpace'
             );
         }
 
 
 
-        $resourcePath = '/v1/team/files/{workspace}';
+        $resourcePath = '/v1/team/files/{space}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4341,10 +4637,10 @@ class TeamApi
 
 
         // path params
-        if ($workspace !== null) {
+        if ($space !== null) {
             $resourcePath = str_replace(
-                '{' . 'workspace' . '}',
-                ObjectSerializer::toPathValue($workspace),
+                '{' . 'space' . '}',
+                ObjectSerializer::toPathValue($space),
                 $resourcePath
             );
         }
@@ -4363,6 +4659,568 @@ class TeamApi
                 $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
             } else {
                 $httpBody = $body;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postTeamRooms
+     *
+     * Opens a named room and answers it as the store now holds it.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamRoomNew $team_room_new team_room_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRooms'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamRoom
+     */
+    public function postTeamRooms($team_room_new, string $contentType = self::contentTypes['postTeamRooms'][0])
+    {
+        list($response) = $this->postTeamRoomsWithHttpInfo($team_room_new, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postTeamRoomsWithHttpInfo
+     *
+     * Opens a named room and answers it as the store now holds it.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamRoomNew $team_room_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRooms'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamRoom, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postTeamRoomsWithHttpInfo($team_room_new, string $contentType = self::contentTypes['postTeamRooms'][0])
+    {
+        $request = $this->postTeamRoomsRequest($team_room_new, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamRoom',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamRoom',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamRoom',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postTeamRoomsAsync
+     *
+     * Opens a named room and answers it as the store now holds it.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamRoomNew $team_room_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRooms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamRoomsAsync($team_room_new, string $contentType = self::contentTypes['postTeamRooms'][0])
+    {
+        return $this->postTeamRoomsAsyncWithHttpInfo($team_room_new, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postTeamRoomsAsyncWithHttpInfo
+     *
+     * Opens a named room and answers it as the store now holds it.
+     *
+     * @param  \Hanzo\Cloud\Model\TeamRoomNew $team_room_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRooms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamRoomsAsyncWithHttpInfo($team_room_new, string $contentType = self::contentTypes['postTeamRooms'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamRoom';
+        $request = $this->postTeamRoomsRequest($team_room_new, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postTeamRooms'
+     *
+     * @param  \Hanzo\Cloud\Model\TeamRoomNew $team_room_new (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRooms'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postTeamRoomsRequest($team_room_new, string $contentType = self::contentTypes['postTeamRooms'][0])
+    {
+
+        // verify the required parameter 'team_room_new' is set
+        if ($team_room_new === null || (is_array($team_room_new) && count($team_room_new) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_room_new when calling postTeamRooms'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/rooms';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_room_new)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_room_new));
+            } else {
+                $httpBody = $team_room_new;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postTeamRoomsByIdMessages
+     *
+     * Says one thing in a room, as the caller.
+     *
+     * @param  string $id ID is the room to say it in, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamMessageWrite $team_message_write team_message_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRoomsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TeamMessage
+     */
+    public function postTeamRoomsByIdMessages($id, $team_message_write, string $contentType = self::contentTypes['postTeamRoomsByIdMessages'][0])
+    {
+        list($response) = $this->postTeamRoomsByIdMessagesWithHttpInfo($id, $team_message_write, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postTeamRoomsByIdMessagesWithHttpInfo
+     *
+     * Says one thing in a room, as the caller.
+     *
+     * @param  string $id ID is the room to say it in, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamMessageWrite $team_message_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRoomsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TeamMessage, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postTeamRoomsByIdMessagesWithHttpInfo($id, $team_message_write, string $contentType = self::contentTypes['postTeamRoomsByIdMessages'][0])
+    {
+        $request = $this->postTeamRoomsByIdMessagesRequest($id, $team_message_write, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TeamMessage',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TeamMessage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TeamMessage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postTeamRoomsByIdMessagesAsync
+     *
+     * Says one thing in a room, as the caller.
+     *
+     * @param  string $id ID is the room to say it in, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamMessageWrite $team_message_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRoomsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamRoomsByIdMessagesAsync($id, $team_message_write, string $contentType = self::contentTypes['postTeamRoomsByIdMessages'][0])
+    {
+        return $this->postTeamRoomsByIdMessagesAsyncWithHttpInfo($id, $team_message_write, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postTeamRoomsByIdMessagesAsyncWithHttpInfo
+     *
+     * Says one thing in a room, as the caller.
+     *
+     * @param  string $id ID is the room to say it in, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamMessageWrite $team_message_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRoomsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postTeamRoomsByIdMessagesAsyncWithHttpInfo($id, $team_message_write, string $contentType = self::contentTypes['postTeamRoomsByIdMessages'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TeamMessage';
+        $request = $this->postTeamRoomsByIdMessagesRequest($id, $team_message_write, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postTeamRoomsByIdMessages'
+     *
+     * @param  string $id ID is the room to say it in, from the path. (required)
+     * @param  \Hanzo\Cloud\Model\TeamMessageWrite $team_message_write (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postTeamRoomsByIdMessages'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postTeamRoomsByIdMessagesRequest($id, $team_message_write, string $contentType = self::contentTypes['postTeamRoomsByIdMessages'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling postTeamRoomsByIdMessages'
+            );
+        }
+
+        // verify the required parameter 'team_message_write' is set
+        if ($team_message_write === null || (is_array($team_message_write) && count($team_message_write) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $team_message_write when calling postTeamRoomsByIdMessages'
+            );
+        }
+
+
+        $resourcePath = '/v1/team/rooms/{id}/messages';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($team_message_write)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($team_message_write));
+            } else {
+                $httpBody = $team_message_write;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

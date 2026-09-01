@@ -57,9 +57,11 @@ class AgentView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'avatar' => 'string',
         'compute_ref' => 'string',
         'created_at' => 'string',
         'description' => 'string',
+        'emoji' => 'string',
         'execution_mode' => 'string',
         'id' => 'string',
         'model' => 'string',
@@ -80,9 +82,11 @@ class AgentView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'avatar' => null,
         'compute_ref' => null,
         'created_at' => null,
         'description' => null,
+        'emoji' => null,
         'execution_mode' => null,
         'id' => null,
         'model' => null,
@@ -101,9 +105,11 @@ class AgentView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'avatar' => false,
         'compute_ref' => false,
         'created_at' => false,
         'description' => false,
+        'emoji' => false,
         'execution_mode' => false,
         'id' => false,
         'model' => false,
@@ -202,9 +208,11 @@ class AgentView implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'avatar' => 'avatar',
         'compute_ref' => 'computeRef',
         'created_at' => 'createdAt',
         'description' => 'description',
+        'emoji' => 'emoji',
         'execution_mode' => 'executionMode',
         'id' => 'id',
         'model' => 'model',
@@ -223,9 +231,11 @@ class AgentView implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'avatar' => 'setAvatar',
         'compute_ref' => 'setComputeRef',
         'created_at' => 'setCreatedAt',
         'description' => 'setDescription',
+        'emoji' => 'setEmoji',
         'execution_mode' => 'setExecutionMode',
         'id' => 'setId',
         'model' => 'setModel',
@@ -244,9 +254,11 @@ class AgentView implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'avatar' => 'getAvatar',
         'compute_ref' => 'getComputeRef',
         'created_at' => 'getCreatedAt',
         'description' => 'getDescription',
+        'emoji' => 'getEmoji',
         'execution_mode' => 'getExecutionMode',
         'id' => 'getId',
         'model' => 'getModel',
@@ -316,9 +328,11 @@ class AgentView implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('avatar', $data ?? [], null);
         $this->setIfExists('compute_ref', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('description', $data ?? [], null);
+        $this->setIfExists('emoji', $data ?? [], null);
         $this->setIfExists('execution_mode', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('model', $data ?? [], null);
@@ -372,6 +386,33 @@ class AgentView implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets avatar
+     *
+     * @return string|null
+     */
+    public function getAvatar()
+    {
+        return $this->container['avatar'];
+    }
+
+    /**
+     * Sets avatar
+     *
+     * @param string|null $avatar Avatar is an image the agent is drawn as — a link to one, or the bytes inline as a data URL, up to 96 KiB. Emoji is the one glyph a caller picked when they had no image. At most one is ever set; neither means the agent is drawn as its initial, the same way a person with no photo is. Both are iam/pkg/schema's Mark, so a face means the same thing on an agent as it does on a person or an org. Avatar is the agent's picture: an image URL, or the image itself inline as a data URL up to 96 KiB. Empty when the agent has no image.
+     *
+     * @return self
+     */
+    public function setAvatar($avatar)
+    {
+        if (is_null($avatar)) {
+            throw new \InvalidArgumentException('non-nullable avatar cannot be null');
+        }
+        $this->container['avatar'] = $avatar;
+
+        return $this;
+    }
 
     /**
      * Gets compute_ref
@@ -450,6 +491,33 @@ class AgentView implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable description cannot be null');
         }
         $this->container['description'] = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets emoji
+     *
+     * @return string|null
+     */
+    public function getEmoji()
+    {
+        return $this->container['emoji'];
+    }
+
+    /**
+     * Sets emoji
+     *
+     * @param string|null $emoji Emoji is the single glyph a caller picked when they had no image. At most one of avatar and emoji is ever set; neither means the agent is drawn as its initial, the same way a person with no photo is.
+     *
+     * @return self
+     */
+    public function setEmoji($emoji)
+    {
+        if (is_null($emoji)) {
+            throw new \InvalidArgumentException('non-nullable emoji cannot be null');
+        }
+        $this->container['emoji'] = $emoji;
 
         return $this;
     }

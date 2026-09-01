@@ -438,7 +438,7 @@ class GraphNode implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets type
      *
-     * @param string|null $type kb-page | kb-memory | kb-source | kb-connector | unresolved
+     * @param string|null $type kb.page | kb.memory | kb.source | kb.connector | unresolved
      *
      * @return self
      */

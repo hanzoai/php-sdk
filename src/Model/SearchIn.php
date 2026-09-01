@@ -323,7 +323,7 @@ class SearchIn implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets doctypes
      *
-     * @param string[]|null $doctypes DocTypes restricts retrieval to a subset of the indexed knowledge doctypes (kb-page, kb-memory, kb-source). An empty or foreign list reads all of them.
+     * @param string[]|null $doctypes DocTypes restricts retrieval to a subset of the indexed knowledge doctypes (kb.page, kb.memory, kb.source). An empty or foreign list reads all of them.
      *
      * @return self
      */

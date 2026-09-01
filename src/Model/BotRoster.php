@@ -302,7 +302,7 @@ class BotRoster implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets bots
      *
-     * @param \Hanzo\Cloud\Model\BotMember[]|null $bots Bots is every agent of the caller's org, projected as a workspace member.
+     * @param \Hanzo\Cloud\Model\BotMember[]|null $bots Bots is every agent of the caller's org, projected as a space member.
      *
      * @return self
      */

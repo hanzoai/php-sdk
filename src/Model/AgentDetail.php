@@ -57,9 +57,11 @@ class AgentDetail implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'avatar' => 'string',
         'compute_ref' => 'string',
         'created_at' => 'string',
         'description' => 'string',
+        'emoji' => 'string',
         'execution_mode' => 'string',
         'id' => 'string',
         'instructions' => 'string',
@@ -82,9 +84,11 @@ class AgentDetail implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'avatar' => null,
         'compute_ref' => null,
         'created_at' => null,
         'description' => null,
+        'emoji' => null,
         'execution_mode' => null,
         'id' => null,
         'instructions' => null,
@@ -105,9 +109,11 @@ class AgentDetail implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'avatar' => false,
         'compute_ref' => false,
         'created_at' => false,
         'description' => false,
+        'emoji' => false,
         'execution_mode' => false,
         'id' => false,
         'instructions' => false,
@@ -208,9 +214,11 @@ class AgentDetail implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'avatar' => 'avatar',
         'compute_ref' => 'computeRef',
         'created_at' => 'createdAt',
         'description' => 'description',
+        'emoji' => 'emoji',
         'execution_mode' => 'executionMode',
         'id' => 'id',
         'instructions' => 'instructions',
@@ -231,9 +239,11 @@ class AgentDetail implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'avatar' => 'setAvatar',
         'compute_ref' => 'setComputeRef',
         'created_at' => 'setCreatedAt',
         'description' => 'setDescription',
+        'emoji' => 'setEmoji',
         'execution_mode' => 'setExecutionMode',
         'id' => 'setId',
         'instructions' => 'setInstructions',
@@ -254,9 +264,11 @@ class AgentDetail implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'avatar' => 'getAvatar',
         'compute_ref' => 'getComputeRef',
         'created_at' => 'getCreatedAt',
         'description' => 'getDescription',
+        'emoji' => 'getEmoji',
         'execution_mode' => 'getExecutionMode',
         'id' => 'getId',
         'instructions' => 'getInstructions',
@@ -328,9 +340,11 @@ class AgentDetail implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('avatar', $data ?? [], null);
         $this->setIfExists('compute_ref', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('description', $data ?? [], null);
+        $this->setIfExists('emoji', $data ?? [], null);
         $this->setIfExists('execution_mode', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('instructions', $data ?? [], null);
@@ -386,6 +400,33 @@ class AgentDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets avatar
+     *
+     * @return string|null
+     */
+    public function getAvatar()
+    {
+        return $this->container['avatar'];
+    }
+
+    /**
+     * Sets avatar
+     *
+     * @param string|null $avatar avatar
+     *
+     * @return self
+     */
+    public function setAvatar($avatar)
+    {
+        if (is_null($avatar)) {
+            throw new \InvalidArgumentException('non-nullable avatar cannot be null');
+        }
+        $this->container['avatar'] = $avatar;
+
+        return $this;
+    }
 
     /**
      * Gets compute_ref
@@ -464,6 +505,33 @@ class AgentDetail implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable description cannot be null');
         }
         $this->container['description'] = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets emoji
+     *
+     * @return string|null
+     */
+    public function getEmoji()
+    {
+        return $this->container['emoji'];
+    }
+
+    /**
+     * Sets emoji
+     *
+     * @param string|null $emoji emoji
+     *
+     * @return self
+     */
+    public function setEmoji($emoji)
+    {
+        if (is_null($emoji)) {
+            throw new \InvalidArgumentException('non-nullable emoji cannot be null');
+        }
+        $this->container['emoji'] = $emoji;
 
         return $this;
     }

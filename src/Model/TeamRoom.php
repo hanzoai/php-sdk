@@ -65,8 +65,8 @@ class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
         'members' => 'string[]',
         'name' => 'string',
         'private' => 'bool',
-        'topic' => 'string',
-        'workspace' => 'string'
+        'space' => 'string',
+        'topic' => 'string'
     ];
 
     /**
@@ -85,8 +85,8 @@ class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
         'members' => null,
         'name' => null,
         'private' => null,
-        'topic' => null,
-        'workspace' => null
+        'space' => null,
+        'topic' => null
     ];
 
     /**
@@ -103,8 +103,8 @@ class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
         'members' => false,
         'name' => false,
         'private' => false,
-        'topic' => false,
-        'workspace' => false
+        'space' => false,
+        'topic' => false
     ];
 
     /**
@@ -201,8 +201,8 @@ class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
         'members' => 'members',
         'name' => 'name',
         'private' => 'private',
-        'topic' => 'topic',
-        'workspace' => 'workspace'
+        'space' => 'space',
+        'topic' => 'topic'
     ];
 
     /**
@@ -219,8 +219,8 @@ class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
         'members' => 'setMembers',
         'name' => 'setName',
         'private' => 'setPrivate',
-        'topic' => 'setTopic',
-        'workspace' => 'setWorkspace'
+        'space' => 'setSpace',
+        'topic' => 'setTopic'
     ];
 
     /**
@@ -237,8 +237,8 @@ class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
         'members' => 'getMembers',
         'name' => 'getName',
         'private' => 'getPrivate',
-        'topic' => 'getTopic',
-        'workspace' => 'getWorkspace'
+        'space' => 'getSpace',
+        'topic' => 'getTopic'
     ];
 
     /**
@@ -306,8 +306,8 @@ class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('members', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('private', $data ?? [], null);
+        $this->setIfExists('space', $data ?? [], null);
         $this->setIfExists('topic', $data ?? [], null);
-        $this->setIfExists('workspace', $data ?? [], null);
     }
 
     /**
@@ -446,7 +446,7 @@ class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id ID is the room document's own id, and the value the bind op addresses. It is unique within a workspace, not across the org.
+     * @param string|null $id ID is the room document's own id, and the value the bind op addresses. It is unique within a space, not across the org.
      *
      * @return self
      */
@@ -500,7 +500,7 @@ class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets members
      *
-     * @param string[]|null $members Members are the account uuids in the room, agents included: an agent projects as a workspace member under a uuid derived from its id, so a caller comparing this against GET /v1/team/bots learns which rooms an agent is in.
+     * @param string[]|null $members Members are the account uuids in the room, agents included: an agent projects as a space member under a uuid derived from its id, so a caller comparing this against GET /v1/team/bots learns which rooms an agent is in.
      *
      * @return self
      */
@@ -569,6 +569,33 @@ class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets space
+     *
+     * @return string|null
+     */
+    public function getSpace()
+    {
+        return $this->container['space'];
+    }
+
+    /**
+     * Sets space
+     *
+     * @param string|null $space Space is the space uuid holding this room. It is part of the room's address: two spaces of one org may each hold a room with the same name, and only the pair identifies one.
+     *
+     * @return self
+     */
+    public function setSpace($space)
+    {
+        if (is_null($space)) {
+            throw new \InvalidArgumentException('non-nullable space cannot be null');
+        }
+        $this->container['space'] = $space;
+
+        return $this;
+    }
+
+    /**
      * Gets topic
      *
      * @return string|null
@@ -591,33 +618,6 @@ class TeamRoom implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable topic cannot be null');
         }
         $this->container['topic'] = $topic;
-
-        return $this;
-    }
-
-    /**
-     * Gets workspace
-     *
-     * @return string|null
-     */
-    public function getWorkspace()
-    {
-        return $this->container['workspace'];
-    }
-
-    /**
-     * Sets workspace
-     *
-     * @param string|null $workspace Workspace is the workspace uuid holding this room. It is part of the room's address: two workspaces of one org may each hold a room with the same name, and only the pair identifies one.
-     *
-     * @return self
-     */
-    public function setWorkspace($workspace)
-    {
-        if (is_null($workspace)) {
-            throw new \InvalidArgumentException('non-nullable workspace cannot be null');
-        }
-        $this->container['workspace'] = $workspace;
 
         return $this;
     }

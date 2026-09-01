@@ -534,7 +534,7 @@ class IssueHit implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets room
      *
-     * @param string|null $room Room is the collaboration room the issue belongs to, spelled \"<workspace>_<room>\" — empty when it is not room-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read.
+     * @param string|null $room Room is the collaboration room the issue belongs to, spelled \"<space>_<room>\" — empty when it is not room-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read.
      *
      * @return self
      */

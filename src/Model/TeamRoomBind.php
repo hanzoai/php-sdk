@@ -60,7 +60,7 @@ class TeamRoomBind implements ModelInterface, ArrayAccess, \JsonSerializable
         'bindings' => 'string[]',
         'id' => 'string',
         'life' => 'string',
-        'workspace' => 'string'
+        'space' => 'string'
     ];
 
     /**
@@ -74,7 +74,7 @@ class TeamRoomBind implements ModelInterface, ArrayAccess, \JsonSerializable
         'bindings' => null,
         'id' => null,
         'life' => null,
-        'workspace' => null
+        'space' => null
     ];
 
     /**
@@ -86,7 +86,7 @@ class TeamRoomBind implements ModelInterface, ArrayAccess, \JsonSerializable
         'bindings' => false,
         'id' => false,
         'life' => false,
-        'workspace' => false
+        'space' => false
     ];
 
     /**
@@ -178,7 +178,7 @@ class TeamRoomBind implements ModelInterface, ArrayAccess, \JsonSerializable
         'bindings' => 'bindings',
         'id' => 'id',
         'life' => 'life',
-        'workspace' => 'workspace'
+        'space' => 'space'
     ];
 
     /**
@@ -190,7 +190,7 @@ class TeamRoomBind implements ModelInterface, ArrayAccess, \JsonSerializable
         'bindings' => 'setBindings',
         'id' => 'setId',
         'life' => 'setLife',
-        'workspace' => 'setWorkspace'
+        'space' => 'setSpace'
     ];
 
     /**
@@ -202,7 +202,7 @@ class TeamRoomBind implements ModelInterface, ArrayAccess, \JsonSerializable
         'bindings' => 'getBindings',
         'id' => 'getId',
         'life' => 'getLife',
-        'workspace' => 'getWorkspace'
+        'space' => 'getSpace'
     ];
 
     /**
@@ -265,7 +265,7 @@ class TeamRoomBind implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('bindings', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('life', $data ?? [], null);
-        $this->setIfExists('workspace', $data ?? [], null);
+        $this->setIfExists('space', $data ?? [], null);
     }
 
     /**
@@ -392,28 +392,28 @@ class TeamRoomBind implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets workspace
+     * Gets space
      *
      * @return string|null
      */
-    public function getWorkspace()
+    public function getSpace()
     {
-        return $this->container['workspace'];
+        return $this->container['space'];
     }
 
     /**
-     * Sets workspace
+     * Sets space
      *
-     * @param string|null $workspace Workspace names the workspace holding the room. It is required, because a room id is unique only within one and searching every workspace for a matching id would make the write's target depend on iteration order.
+     * @param string|null $space Space names the space holding the room. It is required, because a room id is unique only within one and searching every space for a matching id would make the write's target depend on iteration order.
      *
      * @return self
      */
-    public function setWorkspace($workspace)
+    public function setSpace($space)
     {
-        if (is_null($workspace)) {
-            throw new \InvalidArgumentException('non-nullable workspace cannot be null');
+        if (is_null($space)) {
+            throw new \InvalidArgumentException('non-nullable space cannot be null');
         }
-        $this->container['workspace'] = $workspace;
+        $this->container['space'] = $space;
 
         return $this;
     }

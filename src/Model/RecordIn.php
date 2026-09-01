@@ -305,7 +305,7 @@ class RecordIn implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets room
      *
-     * @param string $room Room is the LiveKit room, named the way the office client names one (`<workspace>_<name>_<id>`). Its leading segment is what binds the room to a tenant, and it is the segment the caller's membership is checked against.
+     * @param string $room Room is the LiveKit room, named the way the office client names one (`<space>_<name>_<id>`). Its leading segment is what binds the room to a tenant, and it is the segment the caller's membership is checked against.
      *
      * @return self
      */

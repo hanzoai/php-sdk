@@ -122,6 +122,9 @@ class IamApi
         'deleteIamServiceAccountsByName' => [
             'application/json',
         ],
+        'deleteIamTeamsByName' => [
+            'application/json',
+        ],
         'deleteIamUsersByOwnerByName' => [
             'application/json',
         ],
@@ -258,6 +261,12 @@ class IamApi
             'application/json',
         ],
         'getIamServiceAccounts' => [
+            'application/json',
+        ],
+        'getIamTeams' => [
+            'application/json',
+        ],
+        'getIamTeamsByName' => [
             'application/json',
         ],
         'getIamUsers' => [
@@ -431,6 +440,9 @@ class IamApi
         'postIamSignup' => [
             'application/json',
         ],
+        'postIamTeams' => [
+            'application/json',
+        ],
         'postIamTokensIssue' => [
             'application/json',
         ],
@@ -494,6 +506,9 @@ class IamApi
         'putIamScimV2UsersByOwnerByName' => [
             'application/json',
         ],
+        'putIamTeamsByName' => [
+            'application/json',
+        ],
         'putIamUsersByOwnerByName' => [
             'application/json',
         ],
@@ -501,6 +516,9 @@ class IamApi
             'application/json',
         ],
         'setOrganizationAvatar' => [
+            'application/json',
+        ],
+        'setOrganizationProfile' => [
             'application/json',
         ],
         'updateOrganization' => [
@@ -1659,7 +1677,7 @@ class IamApi
     /**
      * Operation createSession
      *
-     * Records a sign-in.
+     * Records a sign-in and answers with the cookie id it minted.
      *
      * @param  \Hanzo\Cloud\Model\IamCreateSessionIn $iam_create_session_in iam_create_session_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSession'] to see the possible values for this operation
@@ -1677,7 +1695,7 @@ class IamApi
     /**
      * Operation createSessionWithHttpInfo
      *
-     * Records a sign-in.
+     * Records a sign-in and answers with the cookie id it minted.
      *
      * @param  \Hanzo\Cloud\Model\IamCreateSessionIn $iam_create_session_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSession'] to see the possible values for this operation
@@ -1762,7 +1780,7 @@ class IamApi
     /**
      * Operation createSessionAsync
      *
-     * Records a sign-in.
+     * Records a sign-in and answers with the cookie id it minted.
      *
      * @param  \Hanzo\Cloud\Model\IamCreateSessionIn $iam_create_session_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSession'] to see the possible values for this operation
@@ -1783,7 +1801,7 @@ class IamApi
     /**
      * Operation createSessionAsyncWithHttpInfo
      *
-     * Records a sign-in.
+     * Records a sign-in and answers with the cookie id it minted.
      *
      * @param  \Hanzo\Cloud\Model\IamCreateSessionIn $iam_create_session_in (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSession'] to see the possible values for this operation
@@ -4874,6 +4892,278 @@ class IamApi
 
         $headers = $this->headerSelector->selectHeaders(
             [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteIamTeamsByName
+     *
+     * Removes a team.
+     *
+     * @param  string $name name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamTeamsDeleteOutput
+     */
+    public function deleteIamTeamsByName($name, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
+    {
+        list($response) = $this->deleteIamTeamsByNameWithHttpInfo($name, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteIamTeamsByNameWithHttpInfo
+     *
+     * Removes a team.
+     *
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamTeamsDeleteOutput, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteIamTeamsByNameWithHttpInfo($name, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
+    {
+        $request = $this->deleteIamTeamsByNameRequest($name, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamTeamsDeleteOutput',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamTeamsDeleteOutput',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamTeamsDeleteOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteIamTeamsByNameAsync
+     *
+     * Removes a team.
+     *
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteIamTeamsByNameAsync($name, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
+    {
+        return $this->deleteIamTeamsByNameAsyncWithHttpInfo($name, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteIamTeamsByNameAsyncWithHttpInfo
+     *
+     * Removes a team.
+     *
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteIamTeamsByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamTeamsDeleteOutput';
+        $request = $this->deleteIamTeamsByNameRequest($name, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteIamTeamsByName'
+     *
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteIamTeamsByNameRequest($name, string $contentType = self::contentTypes['deleteIamTeamsByName'][0])
+    {
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling deleteIamTeamsByName'
+            );
+        }
+
+
+        $resourcePath = '/v1/iam/teams/{name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
             $contentType,
             $multipart
         );
@@ -10461,7 +10751,7 @@ class IamApi
     /**
      * Operation getIamKeys
      *
-     * Returns your organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
+     * Returns an organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
      *
      * @param  string|null $owner owner (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamKeys'] to see the possible values for this operation
@@ -10479,7 +10769,7 @@ class IamApi
     /**
      * Operation getIamKeysWithHttpInfo
      *
-     * Returns your organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
+     * Returns an organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
      *
      * @param  string|null $owner (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamKeys'] to see the possible values for this operation
@@ -10564,7 +10854,7 @@ class IamApi
     /**
      * Operation getIamKeysAsync
      *
-     * Returns your organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
+     * Returns an organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
      *
      * @param  string|null $owner (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamKeys'] to see the possible values for this operation
@@ -10585,7 +10875,7 @@ class IamApi
     /**
      * Operation getIamKeysAsyncWithHttpInfo
      *
-     * Returns your organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
+     * Returns an organization&#39;s API keys, newest first — what each is called, what it may reach, and its publishable half.
      *
      * @param  string|null $owner (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamKeys'] to see the possible values for this operation
@@ -16892,11 +17182,535 @@ class IamApi
     }
 
     /**
+     * Operation getIamTeams
+     *
+     * Returns your organization&#39;s teams, newest first — each a named set of people that roles and permissions are granted to.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeams'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamTeamsListOutput
+     */
+    public function getIamTeams(string $contentType = self::contentTypes['getIamTeams'][0])
+    {
+        list($response) = $this->getIamTeamsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getIamTeamsWithHttpInfo
+     *
+     * Returns your organization&#39;s teams, newest first — each a named set of people that roles and permissions are granted to.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeams'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamTeamsListOutput, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getIamTeamsWithHttpInfo(string $contentType = self::contentTypes['getIamTeams'][0])
+    {
+        $request = $this->getIamTeamsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamTeamsListOutput',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamTeamsListOutput',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamTeamsListOutput',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getIamTeamsAsync
+     *
+     * Returns your organization&#39;s teams, newest first — each a named set of people that roles and permissions are granted to.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeams'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getIamTeamsAsync(string $contentType = self::contentTypes['getIamTeams'][0])
+    {
+        return $this->getIamTeamsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getIamTeamsAsyncWithHttpInfo
+     *
+     * Returns your organization&#39;s teams, newest first — each a named set of people that roles and permissions are granted to.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeams'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getIamTeamsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIamTeams'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamTeamsListOutput';
+        $request = $this->getIamTeamsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getIamTeams'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeams'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getIamTeamsRequest(string $contentType = self::contentTypes['getIamTeams'][0])
+    {
+
+
+        $resourcePath = '/v1/iam/teams';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getIamTeamsByName
+     *
+     * Returns one team: who is in it.
+     *
+     * @param  string $name name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamTeam
+     */
+    public function getIamTeamsByName($name, string $contentType = self::contentTypes['getIamTeamsByName'][0])
+    {
+        list($response) = $this->getIamTeamsByNameWithHttpInfo($name, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getIamTeamsByNameWithHttpInfo
+     *
+     * Returns one team: who is in it.
+     *
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamTeam, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getIamTeamsByNameWithHttpInfo($name, string $contentType = self::contentTypes['getIamTeamsByName'][0])
+    {
+        $request = $this->getIamTeamsByNameRequest($name, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamTeam',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamTeam',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamTeam',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getIamTeamsByNameAsync
+     *
+     * Returns one team: who is in it.
+     *
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getIamTeamsByNameAsync($name, string $contentType = self::contentTypes['getIamTeamsByName'][0])
+    {
+        return $this->getIamTeamsByNameAsyncWithHttpInfo($name, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getIamTeamsByNameAsyncWithHttpInfo
+     *
+     * Returns one team: who is in it.
+     *
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getIamTeamsByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getIamTeamsByName'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamTeam';
+        $request = $this->getIamTeamsByNameRequest($name, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getIamTeamsByName'
+     *
+     * @param  string $name (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getIamTeamsByNameRequest($name, string $contentType = self::contentTypes['getIamTeamsByName'][0])
+    {
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling getIamTeamsByName'
+            );
+        }
+
+
+        $resourcePath = '/v1/iam/teams/{name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getIamUsers
      *
-     * Returns a page of the people in your organization, with the total so you can page through the rest.
+     * Returns a page of the people in an organization, with the total so you can page through the rest.
      *
-     * @param  string $owner owner (required)
+     * @param  string|null $owner owner (optional)
      * @param  string|null $email Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague&#39;s identity. (optional)
      * @param  int|null $limit limit (optional)
      * @param  int|null $offset offset (optional)
@@ -16906,7 +17720,7 @@ class IamApi
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\IamUsersListOutput
      */
-    public function getIamUsers($owner, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
+    public function getIamUsers($owner = null, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
     {
         list($response) = $this->getIamUsersWithHttpInfo($owner, $email, $limit, $offset, $contentType);
         return $response;
@@ -16915,9 +17729,9 @@ class IamApi
     /**
      * Operation getIamUsersWithHttpInfo
      *
-     * Returns a page of the people in your organization, with the total so you can page through the rest.
+     * Returns a page of the people in an organization, with the total so you can page through the rest.
      *
-     * @param  string $owner (required)
+     * @param  string|null $owner (optional)
      * @param  string|null $email Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague&#39;s identity. (optional)
      * @param  int|null $limit (optional)
      * @param  int|null $offset (optional)
@@ -16927,7 +17741,7 @@ class IamApi
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\IamUsersListOutput, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIamUsersWithHttpInfo($owner, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
+    public function getIamUsersWithHttpInfo($owner = null, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
     {
         $request = $this->getIamUsersRequest($owner, $email, $limit, $offset, $contentType);
 
@@ -17003,9 +17817,9 @@ class IamApi
     /**
      * Operation getIamUsersAsync
      *
-     * Returns a page of the people in your organization, with the total so you can page through the rest.
+     * Returns a page of the people in an organization, with the total so you can page through the rest.
      *
-     * @param  string $owner (required)
+     * @param  string|null $owner (optional)
      * @param  string|null $email Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague&#39;s identity. (optional)
      * @param  int|null $limit (optional)
      * @param  int|null $offset (optional)
@@ -17014,7 +17828,7 @@ class IamApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIamUsersAsync($owner, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
+    public function getIamUsersAsync($owner = null, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
     {
         return $this->getIamUsersAsyncWithHttpInfo($owner, $email, $limit, $offset, $contentType)
             ->then(
@@ -17027,9 +17841,9 @@ class IamApi
     /**
      * Operation getIamUsersAsyncWithHttpInfo
      *
-     * Returns a page of the people in your organization, with the total so you can page through the rest.
+     * Returns a page of the people in an organization, with the total so you can page through the rest.
      *
-     * @param  string $owner (required)
+     * @param  string|null $owner (optional)
      * @param  string|null $email Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague&#39;s identity. (optional)
      * @param  int|null $limit (optional)
      * @param  int|null $offset (optional)
@@ -17038,7 +17852,7 @@ class IamApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIamUsersAsyncWithHttpInfo($owner, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
+    public function getIamUsersAsyncWithHttpInfo($owner = null, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IamUsersListOutput';
         $request = $this->getIamUsersRequest($owner, $email, $limit, $offset, $contentType);
@@ -17082,7 +17896,7 @@ class IamApi
     /**
      * Create request for operation 'getIamUsers'
      *
-     * @param  string $owner (required)
+     * @param  string|null $owner (optional)
      * @param  string|null $email Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague&#39;s identity. (optional)
      * @param  int|null $limit (optional)
      * @param  int|null $offset (optional)
@@ -17091,15 +17905,9 @@ class IamApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIamUsersRequest($owner, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
+    public function getIamUsersRequest($owner = null, $email = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getIamUsers'][0])
     {
 
-        // verify the required parameter 'owner' is set
-        if ($owner === null || (is_array($owner) && count($owner) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $owner when calling getIamUsers'
-            );
-        }
 
 
 
@@ -17119,7 +17927,7 @@ class IamApi
             'string', // openApiType
             'form', // style
             true, // explode
-            true // required
+            false // required
         ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
@@ -21546,9 +22354,9 @@ class IamApi
     /**
      * Operation listSessions
      *
-     * Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application.
+     * Returns who is currently signed in to an organization, newest first, and can be narrowed to one person or one application.
      *
-     * @param  string $owner owner (required)
+     * @param  string|null $owner owner (optional)
      * @param  string|null $name name (optional)
      * @param  string|null $application application (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSessions'] to see the possible values for this operation
@@ -21557,7 +22365,7 @@ class IamApi
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\IamListSessionsOut
      */
-    public function listSessions($owner, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
+    public function listSessions($owner = null, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
     {
         list($response) = $this->listSessionsWithHttpInfo($owner, $name, $application, $contentType);
         return $response;
@@ -21566,9 +22374,9 @@ class IamApi
     /**
      * Operation listSessionsWithHttpInfo
      *
-     * Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application.
+     * Returns who is currently signed in to an organization, newest first, and can be narrowed to one person or one application.
      *
-     * @param  string $owner (required)
+     * @param  string|null $owner (optional)
      * @param  string|null $name (optional)
      * @param  string|null $application (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSessions'] to see the possible values for this operation
@@ -21577,7 +22385,7 @@ class IamApi
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\IamListSessionsOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listSessionsWithHttpInfo($owner, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
+    public function listSessionsWithHttpInfo($owner = null, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
     {
         $request = $this->listSessionsRequest($owner, $name, $application, $contentType);
 
@@ -21653,9 +22461,9 @@ class IamApi
     /**
      * Operation listSessionsAsync
      *
-     * Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application.
+     * Returns who is currently signed in to an organization, newest first, and can be narrowed to one person or one application.
      *
-     * @param  string $owner (required)
+     * @param  string|null $owner (optional)
      * @param  string|null $name (optional)
      * @param  string|null $application (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSessions'] to see the possible values for this operation
@@ -21663,7 +22471,7 @@ class IamApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listSessionsAsync($owner, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
+    public function listSessionsAsync($owner = null, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
     {
         return $this->listSessionsAsyncWithHttpInfo($owner, $name, $application, $contentType)
             ->then(
@@ -21676,9 +22484,9 @@ class IamApi
     /**
      * Operation listSessionsAsyncWithHttpInfo
      *
-     * Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application.
+     * Returns who is currently signed in to an organization, newest first, and can be narrowed to one person or one application.
      *
-     * @param  string $owner (required)
+     * @param  string|null $owner (optional)
      * @param  string|null $name (optional)
      * @param  string|null $application (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSessions'] to see the possible values for this operation
@@ -21686,7 +22494,7 @@ class IamApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listSessionsAsyncWithHttpInfo($owner, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
+    public function listSessionsAsyncWithHttpInfo($owner = null, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\IamListSessionsOut';
         $request = $this->listSessionsRequest($owner, $name, $application, $contentType);
@@ -21730,7 +22538,7 @@ class IamApi
     /**
      * Create request for operation 'listSessions'
      *
-     * @param  string $owner (required)
+     * @param  string|null $owner (optional)
      * @param  string|null $name (optional)
      * @param  string|null $application (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSessions'] to see the possible values for this operation
@@ -21738,15 +22546,9 @@ class IamApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listSessionsRequest($owner, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
+    public function listSessionsRequest($owner = null, $name = null, $application = null, string $contentType = self::contentTypes['listSessions'][0])
     {
 
-        // verify the required parameter 'owner' is set
-        if ($owner === null || (is_array($owner) && count($owner) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $owner when calling listSessions'
-            );
-        }
 
 
 
@@ -21765,7 +22567,7 @@ class IamApi
             'string', // openApiType
             'form', // style
             true, // explode
-            true // required
+            false // required
         ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
@@ -30542,6 +31344,277 @@ class IamApi
     }
 
     /**
+     * Operation postIamTeams
+     *
+     * Makes a team — a named set of people that roles and permissions grant to.
+     *
+     * @param  \Hanzo\Cloud\Model\IamTeamsInput $iam_teams_input iam_teams_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamTeams'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamTeam
+     */
+    public function postIamTeams($iam_teams_input, string $contentType = self::contentTypes['postIamTeams'][0])
+    {
+        list($response) = $this->postIamTeamsWithHttpInfo($iam_teams_input, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postIamTeamsWithHttpInfo
+     *
+     * Makes a team — a named set of people that roles and permissions grant to.
+     *
+     * @param  \Hanzo\Cloud\Model\IamTeamsInput $iam_teams_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamTeams'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamTeam, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postIamTeamsWithHttpInfo($iam_teams_input, string $contentType = self::contentTypes['postIamTeams'][0])
+    {
+        $request = $this->postIamTeamsRequest($iam_teams_input, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamTeam',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamTeam',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamTeam',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postIamTeamsAsync
+     *
+     * Makes a team — a named set of people that roles and permissions grant to.
+     *
+     * @param  \Hanzo\Cloud\Model\IamTeamsInput $iam_teams_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamTeams'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamTeamsAsync($iam_teams_input, string $contentType = self::contentTypes['postIamTeams'][0])
+    {
+        return $this->postIamTeamsAsyncWithHttpInfo($iam_teams_input, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postIamTeamsAsyncWithHttpInfo
+     *
+     * Makes a team — a named set of people that roles and permissions grant to.
+     *
+     * @param  \Hanzo\Cloud\Model\IamTeamsInput $iam_teams_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamTeams'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIamTeamsAsyncWithHttpInfo($iam_teams_input, string $contentType = self::contentTypes['postIamTeams'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamTeam';
+        $request = $this->postIamTeamsRequest($iam_teams_input, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postIamTeams'
+     *
+     * @param  \Hanzo\Cloud\Model\IamTeamsInput $iam_teams_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIamTeams'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postIamTeamsRequest($iam_teams_input, string $contentType = self::contentTypes['postIamTeams'][0])
+    {
+
+        // verify the required parameter 'iam_teams_input' is set
+        if ($iam_teams_input === null || (is_array($iam_teams_input) && count($iam_teams_input) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $iam_teams_input when calling postIamTeams'
+            );
+        }
+
+
+        $resourcePath = '/v1/iam/teams';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($iam_teams_input)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_teams_input));
+            } else {
+                $httpBody = $iam_teams_input;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation postIamTokensIssue
      *
      * Mints an access token for the &#x60;?id&#x3D;&lt;owner&gt;/&lt;name&gt;&#x60; target user (optional &#x60;?aud&#x3D;&#x60; resource, RFC 8707), issued by the authenticated + allow-listed confidential client.
@@ -36080,6 +37153,297 @@ class IamApi
     }
 
     /**
+     * Operation putIamTeamsByName
+     *
+     * Changes who is in a team.
+     *
+     * @param  string $name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. (required)
+     * @param  \Hanzo\Cloud\Model\IamTeamsInput $iam_teams_input iam_teams_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamTeam
+     */
+    public function putIamTeamsByName($name, $iam_teams_input, string $contentType = self::contentTypes['putIamTeamsByName'][0])
+    {
+        list($response) = $this->putIamTeamsByNameWithHttpInfo($name, $iam_teams_input, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation putIamTeamsByNameWithHttpInfo
+     *
+     * Changes who is in a team.
+     *
+     * @param  string $name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. (required)
+     * @param  \Hanzo\Cloud\Model\IamTeamsInput $iam_teams_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamTeam, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function putIamTeamsByNameWithHttpInfo($name, $iam_teams_input, string $contentType = self::contentTypes['putIamTeamsByName'][0])
+    {
+        $request = $this->putIamTeamsByNameRequest($name, $iam_teams_input, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamTeam',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamTeam',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamTeam',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation putIamTeamsByNameAsync
+     *
+     * Changes who is in a team.
+     *
+     * @param  string $name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. (required)
+     * @param  \Hanzo\Cloud\Model\IamTeamsInput $iam_teams_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putIamTeamsByNameAsync($name, $iam_teams_input, string $contentType = self::contentTypes['putIamTeamsByName'][0])
+    {
+        return $this->putIamTeamsByNameAsyncWithHttpInfo($name, $iam_teams_input, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation putIamTeamsByNameAsyncWithHttpInfo
+     *
+     * Changes who is in a team.
+     *
+     * @param  string $name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. (required)
+     * @param  \Hanzo\Cloud\Model\IamTeamsInput $iam_teams_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function putIamTeamsByNameAsyncWithHttpInfo($name, $iam_teams_input, string $contentType = self::contentTypes['putIamTeamsByName'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamTeam';
+        $request = $this->putIamTeamsByNameRequest($name, $iam_teams_input, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'putIamTeamsByName'
+     *
+     * @param  string $name Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL. (required)
+     * @param  \Hanzo\Cloud\Model\IamTeamsInput $iam_teams_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIamTeamsByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function putIamTeamsByNameRequest($name, $iam_teams_input, string $contentType = self::contentTypes['putIamTeamsByName'][0])
+    {
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling putIamTeamsByName'
+            );
+        }
+
+        // verify the required parameter 'iam_teams_input' is set
+        if ($iam_teams_input === null || (is_array($iam_teams_input) && count($iam_teams_input) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $iam_teams_input when calling putIamTeamsByName'
+            );
+        }
+
+
+        $resourcePath = '/v1/iam/teams/{name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($iam_teams_input)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_teams_input));
+            } else {
+                $httpBody = $iam_teams_input;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PUT',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation putIamUsersByOwnerByName
      *
      * Changes a person&#39;s profile, their roles, or the credentials they sign in with.
@@ -36973,6 +38337,277 @@ class IamApi
     }
 
     /**
+     * Operation setOrganizationProfile
+     *
+     * Changes how an organization reads: its display name, its website and its favicon.
+     *
+     * @param  \Hanzo\Cloud\Model\IamSetProfileInput $iam_set_profile_input iam_set_profile_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setOrganizationProfile'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IamOrganization
+     */
+    public function setOrganizationProfile($iam_set_profile_input, string $contentType = self::contentTypes['setOrganizationProfile'][0])
+    {
+        list($response) = $this->setOrganizationProfileWithHttpInfo($iam_set_profile_input, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation setOrganizationProfileWithHttpInfo
+     *
+     * Changes how an organization reads: its display name, its website and its favicon.
+     *
+     * @param  \Hanzo\Cloud\Model\IamSetProfileInput $iam_set_profile_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setOrganizationProfile'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IamOrganization, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function setOrganizationProfileWithHttpInfo($iam_set_profile_input, string $contentType = self::contentTypes['setOrganizationProfile'][0])
+    {
+        $request = $this->setOrganizationProfileRequest($iam_set_profile_input, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IamOrganization',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IamOrganization',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IamOrganization',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation setOrganizationProfileAsync
+     *
+     * Changes how an organization reads: its display name, its website and its favicon.
+     *
+     * @param  \Hanzo\Cloud\Model\IamSetProfileInput $iam_set_profile_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setOrganizationProfile'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setOrganizationProfileAsync($iam_set_profile_input, string $contentType = self::contentTypes['setOrganizationProfile'][0])
+    {
+        return $this->setOrganizationProfileAsyncWithHttpInfo($iam_set_profile_input, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation setOrganizationProfileAsyncWithHttpInfo
+     *
+     * Changes how an organization reads: its display name, its website and its favicon.
+     *
+     * @param  \Hanzo\Cloud\Model\IamSetProfileInput $iam_set_profile_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setOrganizationProfile'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setOrganizationProfileAsyncWithHttpInfo($iam_set_profile_input, string $contentType = self::contentTypes['setOrganizationProfile'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IamOrganization';
+        $request = $this->setOrganizationProfileRequest($iam_set_profile_input, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'setOrganizationProfile'
+     *
+     * @param  \Hanzo\Cloud\Model\IamSetProfileInput $iam_set_profile_input (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['setOrganizationProfile'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function setOrganizationProfileRequest($iam_set_profile_input, string $contentType = self::contentTypes['setOrganizationProfile'][0])
+    {
+
+        // verify the required parameter 'iam_set_profile_input' is set
+        if ($iam_set_profile_input === null || (is_array($iam_set_profile_input) && count($iam_set_profile_input) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $iam_set_profile_input when calling setOrganizationProfile'
+            );
+        }
+
+
+        $resourcePath = '/v1/iam/organizations/profile';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($iam_set_profile_input)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($iam_set_profile_input));
+            } else {
+                $httpBody = $iam_set_profile_input;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation updateOrganization
      *
      * Changes an organization&#39;s display, its defaults and the sign-in rules everyone in it inherits.
@@ -37597,7 +39232,7 @@ class IamApi
     /**
      * Operation updateSession
      *
-     * Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live.
+     * Names the browsers a session keeps — signing out the ones you leave off while the session itself stays live.
      *
      * @param  string $owner owner (required)
      * @param  string $name name (required)
@@ -37618,7 +39253,7 @@ class IamApi
     /**
      * Operation updateSessionWithHttpInfo
      *
-     * Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live.
+     * Names the browsers a session keeps — signing out the ones you leave off while the session itself stays live.
      *
      * @param  string $owner (required)
      * @param  string $name (required)
@@ -37706,7 +39341,7 @@ class IamApi
     /**
      * Operation updateSessionAsync
      *
-     * Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live.
+     * Names the browsers a session keeps — signing out the ones you leave off while the session itself stays live.
      *
      * @param  string $owner (required)
      * @param  string $name (required)
@@ -37730,7 +39365,7 @@ class IamApi
     /**
      * Operation updateSessionAsyncWithHttpInfo
      *
-     * Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live.
+     * Names the browsers a session keeps — signing out the ones you leave off while the session itself stays live.
      *
      * @param  string $owner (required)
      * @param  string $name (required)

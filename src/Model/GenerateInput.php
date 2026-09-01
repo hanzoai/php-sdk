@@ -460,7 +460,7 @@ class GenerateInput implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets doctype
      *
-     * @param string|null $doctype Campaign | SocialPost | Asset
+     * @param string|null $doctype marketing.Campaign | marketing.SocialPost | marketing.Asset
      *
      * @return self
      */

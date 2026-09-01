@@ -1,6 +1,6 @@
 <?php
 /**
- * RoleAssignment
+ * SpaceList
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * RoleAssignment Class Doc Comment
+ * SpaceList Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class RoleAssignment implements ModelInterface, ArrayAccess, \JsonSerializable
+class SpaceList implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class RoleAssignment implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'RoleAssignment';
+    protected static $openAPIModelName = 'spaceList';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,8 +57,8 @@ class RoleAssignment implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'role' => 'string',
-        'user' => 'string'
+        'spaces' => '\Hanzo\Cloud\Model\SpaceItem[]',
+        'total' => 'int'
     ];
 
     /**
@@ -69,8 +69,8 @@ class RoleAssignment implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'role' => null,
-        'user' => null
+        'spaces' => null,
+        'total' => null
     ];
 
     /**
@@ -79,8 +79,8 @@ class RoleAssignment implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'role' => false,
-        'user' => false
+        'spaces' => false,
+        'total' => false
     ];
 
     /**
@@ -169,8 +169,8 @@ class RoleAssignment implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'role' => 'role',
-        'user' => 'user'
+        'spaces' => 'spaces',
+        'total' => 'total'
     ];
 
     /**
@@ -179,8 +179,8 @@ class RoleAssignment implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'role' => 'setRole',
-        'user' => 'setUser'
+        'spaces' => 'setSpaces',
+        'total' => 'setTotal'
     ];
 
     /**
@@ -189,8 +189,8 @@ class RoleAssignment implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'role' => 'getRole',
-        'user' => 'getUser'
+        'spaces' => 'getSpaces',
+        'total' => 'getTotal'
     ];
 
     /**
@@ -250,8 +250,8 @@ class RoleAssignment implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('role', $data ?? [], null);
-        $this->setIfExists('user', $data ?? [], null);
+        $this->setIfExists('spaces', $data ?? [], null);
+        $this->setIfExists('total', $data ?? [], null);
     }
 
     /**
@@ -297,55 +297,55 @@ class RoleAssignment implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets role
+     * Gets spaces
      *
-     * @return string|null
+     * @return \Hanzo\Cloud\Model\SpaceItem[]|null
      */
-    public function getRole()
+    public function getSpaces()
     {
-        return $this->container['role'];
+        return $this->container['spaces'];
     }
 
     /**
-     * Sets role
+     * Sets spaces
      *
-     * @param string|null $role Role is the granted role's name.
+     * @param \Hanzo\Cloud\Model\SpaceItem[]|null $spaces Spaces are the caller org's spaces, oldest first as the store returns them.
      *
      * @return self
      */
-    public function setRole($role)
+    public function setSpaces($spaces)
     {
-        if (is_null($role)) {
-            throw new \InvalidArgumentException('non-nullable role cannot be null');
+        if (is_null($spaces)) {
+            throw new \InvalidArgumentException('non-nullable spaces cannot be null');
         }
-        $this->container['role'] = $role;
+        $this->container['spaces'] = $spaces;
 
         return $this;
     }
 
     /**
-     * Gets user
+     * Gets total
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getUser()
+    public function getTotal()
     {
-        return $this->container['user'];
+        return $this->container['total'];
     }
 
     /**
-     * Sets user
+     * Sets total
      *
-     * @param string|null $user User is the member the role is granted to.
+     * @param int|null $total Total is how many spaces this org has. It equals len(spaces): the listing is not paged, because one bucket per (org, space) keeps an org's count small by construction, which is the whole reason a drive is a prefix and not a bucket.
      *
      * @return self
      */
-    public function setUser($user)
+    public function setTotal($total)
     {
-        if (is_null($user)) {
-            throw new \InvalidArgumentException('non-nullable user cannot be null');
+        if (is_null($total)) {
+            throw new \InvalidArgumentException('non-nullable total cannot be null');
         }
-        $this->container['user'] = $user;
+        $this->container['total'] = $total;
 
         return $this;
     }

@@ -750,7 +750,7 @@ class TodoApi
      * @param  string|null $status Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
      * @param  string|null $kind Kind keeps one shape: issue, pr, epic. (optional)
      * @param  string|null $repo Repo keeps issues bound to one git repository. (optional)
-     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
+     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
      * @param  string|null $source Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. (optional)
      * @param  string|null $assignee Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. (optional)
      * @param  int|null $limit Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
@@ -776,7 +776,7 @@ class TodoApi
      * @param  string|null $status Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
      * @param  string|null $kind Kind keeps one shape: issue, pr, epic. (optional)
      * @param  string|null $repo Repo keeps issues bound to one git repository. (optional)
-     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
+     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
      * @param  string|null $source Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. (optional)
      * @param  string|null $assignee Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. (optional)
      * @param  int|null $limit Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
@@ -869,7 +869,7 @@ class TodoApi
      * @param  string|null $status Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
      * @param  string|null $kind Kind keeps one shape: issue, pr, epic. (optional)
      * @param  string|null $repo Repo keeps issues bound to one git repository. (optional)
-     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
+     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
      * @param  string|null $source Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. (optional)
      * @param  string|null $assignee Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. (optional)
      * @param  int|null $limit Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
@@ -898,7 +898,7 @@ class TodoApi
      * @param  string|null $status Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
      * @param  string|null $kind Kind keeps one shape: issue, pr, epic. (optional)
      * @param  string|null $repo Repo keeps issues bound to one git repository. (optional)
-     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
+     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
      * @param  string|null $source Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. (optional)
      * @param  string|null $assignee Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. (optional)
      * @param  int|null $limit Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
@@ -956,7 +956,7 @@ class TodoApi
      * @param  string|null $status Status keeps one board column: backlog, todo, in_progress, done, canceled. (optional)
      * @param  string|null $kind Kind keeps one shape: issue, pr, epic. (optional)
      * @param  string|null $repo Repo keeps issues bound to one git repository. (optional)
-     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
+     * @param  string|null $room Room keeps issues bound to one collaboration room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the exact value GET /v1/meet/call answers with, so a channel&#39;s call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board. (optional)
      * @param  string|null $source Source keeps one origin: team, git, crm, helpdesk, cms, agent. \&quot;git\&quot; is how you ask for the mirrored GitHub issues specifically. (optional)
      * @param  string|null $assignee Assignee keeps issues held by one person. Pass \&quot;me\&quot; for yourself. (optional)
      * @param  int|null $limit Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess. (optional)
@@ -2310,7 +2310,7 @@ class TodoApi
      *
      * Summarises one room&#39;s work.
      *
-     * @param  string $room Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
+     * @param  string $room Room is the room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTodoRoomsByRoom'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -2328,7 +2328,7 @@ class TodoApi
      *
      * Summarises one room&#39;s work.
      *
-     * @param  string $room Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
+     * @param  string $room Room is the room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTodoRoomsByRoom'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -2413,7 +2413,7 @@ class TodoApi
      *
      * Summarises one room&#39;s work.
      *
-     * @param  string $room Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
+     * @param  string $room Room is the room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTodoRoomsByRoom'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2434,7 +2434,7 @@ class TodoApi
      *
      * Summarises one room&#39;s work.
      *
-     * @param  string $room Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
+     * @param  string $room Room is the room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTodoRoomsByRoom'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2484,7 +2484,7 @@ class TodoApi
     /**
      * Create request for operation 'getTodoRoomsByRoom'
      *
-     * @param  string $room Room is the room, spelled \&quot;&lt;workspace&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
+     * @param  string $room Room is the room, spelled \&quot;&lt;space&gt;_&lt;room&gt;\&quot; — the same value GET /v1/meet/call answers with, so a channel&#39;s call and its work name the room identically. From the path. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTodoRoomsByRoom'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException

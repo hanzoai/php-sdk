@@ -1,6 +1,6 @@
 <?php
 /**
- * RoleList
+ * LinearBackfillIn
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * RoleList Class Doc Comment
+ * LinearBackfillIn Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class RoleList implements ModelInterface, ArrayAccess, \JsonSerializable
+class LinearBackfillIn implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class RoleList implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'roleList';
+    protected static $openAPIModelName = 'linearBackfillIn';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,7 +57,7 @@ class RoleList implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'data' => '\Hanzo\Cloud\Model\RoleAssignment[]'
+        'state' => 'string'
     ];
 
     /**
@@ -68,7 +68,7 @@ class RoleList implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'data' => null
+        'state' => null
     ];
 
     /**
@@ -77,7 +77,7 @@ class RoleList implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'data' => false
+        'state' => false
     ];
 
     /**
@@ -166,7 +166,7 @@ class RoleList implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'data' => 'data'
+        'state' => 'state'
     ];
 
     /**
@@ -175,7 +175,7 @@ class RoleList implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'data' => 'setData'
+        'state' => 'setState'
     ];
 
     /**
@@ -184,7 +184,7 @@ class RoleList implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'data' => 'getData'
+        'state' => 'getState'
     ];
 
     /**
@@ -244,7 +244,7 @@ class RoleList implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('data', $data ?? [], null);
+        $this->setIfExists('state', $data ?? [], null);
     }
 
     /**
@@ -290,28 +290,28 @@ class RoleList implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets data
+     * Gets state
      *
-     * @return \Hanzo\Cloud\Model\RoleAssignment[]|null
+     * @return string|null
      */
-    public function getData()
+    public function getState()
     {
-        return $this->container['data'];
+        return $this->container['state'];
     }
 
     /**
-     * Sets data
+     * Sets state
      *
-     * @param \Hanzo\Cloud\Model\RoleAssignment[]|null $data Data is every (user, role) assignment in the caller's org.
+     * @param string|null $state State is the set of issues to walk: \"open\" (the default), \"closed\" or \"all\".
      *
      * @return self
      */
-    public function setData($data)
+    public function setState($state)
     {
-        if (is_null($data)) {
-            throw new \InvalidArgumentException('non-nullable data cannot be null');
+        if (is_null($state)) {
+            throw new \InvalidArgumentException('non-nullable state cannot be null');
         }
-        $this->container['data'] = $data;
+        $this->container['state'] = $state;
 
         return $this;
     }

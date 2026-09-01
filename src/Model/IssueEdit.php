@@ -57,6 +57,7 @@ class IssueEdit implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'assignee' => 'string',
         'description' => 'string',
         'key' => 'string',
         'num' => 'int',
@@ -73,6 +74,7 @@ class IssueEdit implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'assignee' => null,
         'description' => null,
         'key' => null,
         'num' => null,
@@ -87,6 +89,7 @@ class IssueEdit implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'assignee' => false,
         'description' => false,
         'key' => false,
         'num' => false,
@@ -181,6 +184,7 @@ class IssueEdit implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'assignee' => 'assignee',
         'description' => 'description',
         'key' => 'key',
         'num' => 'num',
@@ -195,6 +199,7 @@ class IssueEdit implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'assignee' => 'setAssignee',
         'description' => 'setDescription',
         'key' => 'setKey',
         'num' => 'setNum',
@@ -209,6 +214,7 @@ class IssueEdit implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'assignee' => 'getAssignee',
         'description' => 'getDescription',
         'key' => 'getKey',
         'num' => 'getNum',
@@ -274,6 +280,7 @@ class IssueEdit implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('assignee', $data ?? [], null);
         $this->setIfExists('description', $data ?? [], null);
         $this->setIfExists('key', $data ?? [], null);
         $this->setIfExists('num', $data ?? [], null);
@@ -323,6 +330,33 @@ class IssueEdit implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets assignee
+     *
+     * @return string|null
+     */
+    public function getAssignee()
+    {
+        return $this->container['assignee'];
+    }
+
+    /**
+     * Sets assignee
+     *
+     * @param string|null $assignee Assignee hands the work to somebody — a person or an agent, by the name they are known by on the forge. \"\" TAKES IT OFF whoever holds it, which is why this is a pointer: absent leaves the holder alone.  It is the other half of `claim`, which that handler already named: a claim takes work for the CALLER and refuses to name anyone else, because giving work away is a different act with different authority. This is that act, and until it existed a board could only be worked by whoever clicked first — an agent could never be given anything.
+     *
+     * @return self
+     */
+    public function setAssignee($assignee)
+    {
+        if (is_null($assignee)) {
+            throw new \InvalidArgumentException('non-nullable assignee cannot be null');
+        }
+        $this->container['assignee'] = $assignee;
+
+        return $this;
+    }
 
     /**
      * Gets description

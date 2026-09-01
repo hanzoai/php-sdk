@@ -61,11 +61,11 @@ class IamRolesInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'string',
         'display_name' => 'string',
         'domains' => 'string[]',
-        'groups' => 'string[]',
         'is_enabled' => 'bool',
         'name' => 'string',
         'owner' => 'string',
         'roles' => 'string[]',
+        'teams' => 'string[]',
         'users' => 'string[]'
     ];
 
@@ -81,11 +81,11 @@ class IamRolesInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => null,
         'display_name' => null,
         'domains' => null,
-        'groups' => null,
         'is_enabled' => null,
         'name' => null,
         'owner' => null,
         'roles' => null,
+        'teams' => null,
         'users' => null
     ];
 
@@ -99,11 +99,11 @@ class IamRolesInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => false,
         'display_name' => false,
         'domains' => false,
-        'groups' => false,
         'is_enabled' => false,
         'name' => false,
         'owner' => false,
         'roles' => false,
+        'teams' => false,
         'users' => false
     ];
 
@@ -197,11 +197,11 @@ class IamRolesInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'description',
         'display_name' => 'displayName',
         'domains' => 'domains',
-        'groups' => 'groups',
         'is_enabled' => 'isEnabled',
         'name' => 'name',
         'owner' => 'owner',
         'roles' => 'roles',
+        'teams' => 'teams',
         'users' => 'users'
     ];
 
@@ -215,11 +215,11 @@ class IamRolesInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'setDescription',
         'display_name' => 'setDisplayName',
         'domains' => 'setDomains',
-        'groups' => 'setGroups',
         'is_enabled' => 'setIsEnabled',
         'name' => 'setName',
         'owner' => 'setOwner',
         'roles' => 'setRoles',
+        'teams' => 'setTeams',
         'users' => 'setUsers'
     ];
 
@@ -233,11 +233,11 @@ class IamRolesInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'getDescription',
         'display_name' => 'getDisplayName',
         'domains' => 'getDomains',
-        'groups' => 'getGroups',
         'is_enabled' => 'getIsEnabled',
         'name' => 'getName',
         'owner' => 'getOwner',
         'roles' => 'getRoles',
+        'teams' => 'getTeams',
         'users' => 'getUsers'
     ];
 
@@ -302,11 +302,11 @@ class IamRolesInput implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('description', $data ?? [], null);
         $this->setIfExists('display_name', $data ?? [], null);
         $this->setIfExists('domains', $data ?? [], null);
-        $this->setIfExists('groups', $data ?? [], null);
         $this->setIfExists('is_enabled', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('owner', $data ?? [], null);
         $this->setIfExists('roles', $data ?? [], null);
+        $this->setIfExists('teams', $data ?? [], null);
         $this->setIfExists('users', $data ?? [], null);
     }
 
@@ -461,33 +461,6 @@ class IamRolesInput implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets groups
-     *
-     * @return string[]|null
-     */
-    public function getGroups()
-    {
-        return $this->container['groups'];
-    }
-
-    /**
-     * Sets groups
-     *
-     * @param string[]|null $groups groups
-     *
-     * @return self
-     */
-    public function setGroups($groups)
-    {
-        if (is_null($groups)) {
-            throw new \InvalidArgumentException('non-nullable groups cannot be null');
-        }
-        $this->container['groups'] = $groups;
-
-        return $this;
-    }
-
-    /**
      * Gets is_enabled
      *
      * @return bool|null
@@ -591,6 +564,33 @@ class IamRolesInput implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable roles cannot be null');
         }
         $this->container['roles'] = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Gets teams
+     *
+     * @return string[]|null
+     */
+    public function getTeams()
+    {
+        return $this->container['teams'];
+    }
+
+    /**
+     * Sets teams
+     *
+     * @param string[]|null $teams teams
+     *
+     * @return self
+     */
+    public function setTeams($teams)
+    {
+        if (is_null($teams)) {
+            throw new \InvalidArgumentException('non-nullable teams cannot be null');
+        }
+        $this->container['teams'] = $teams;
 
         return $this;
     }

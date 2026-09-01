@@ -68,7 +68,6 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'display_name' => 'string',
         'domains' => 'string[]',
         'effect' => 'string',
-        'groups' => 'string[]',
         'id' => 'string',
         'is_enabled' => 'bool',
         'model' => 'string',
@@ -79,6 +78,7 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'roles' => 'string[]',
         'state' => 'string',
         'submitter' => 'string',
+        'teams' => 'string[]',
         'updated_at' => '\DateTime',
         'users' => 'string[]'
     ];
@@ -102,7 +102,6 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'display_name' => null,
         'domains' => null,
         'effect' => null,
-        'groups' => null,
         'id' => null,
         'is_enabled' => null,
         'model' => null,
@@ -113,6 +112,7 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'roles' => null,
         'state' => null,
         'submitter' => null,
+        'teams' => null,
         'updated_at' => 'date-time',
         'users' => null
     ];
@@ -134,7 +134,6 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'display_name' => false,
         'domains' => false,
         'effect' => false,
-        'groups' => false,
         'id' => false,
         'is_enabled' => false,
         'model' => false,
@@ -145,6 +144,7 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'roles' => false,
         'state' => false,
         'submitter' => false,
+        'teams' => false,
         'updated_at' => false,
         'users' => false
     ];
@@ -246,7 +246,6 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'display_name' => 'displayName',
         'domains' => 'domains',
         'effect' => 'effect',
-        'groups' => 'groups',
         'id' => 'id',
         'is_enabled' => 'isEnabled',
         'model' => 'model',
@@ -257,6 +256,7 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'roles' => 'roles',
         'state' => 'state',
         'submitter' => 'submitter',
+        'teams' => 'teams',
         'updated_at' => 'updatedAt',
         'users' => 'users'
     ];
@@ -278,7 +278,6 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'display_name' => 'setDisplayName',
         'domains' => 'setDomains',
         'effect' => 'setEffect',
-        'groups' => 'setGroups',
         'id' => 'setId',
         'is_enabled' => 'setIsEnabled',
         'model' => 'setModel',
@@ -289,6 +288,7 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'roles' => 'setRoles',
         'state' => 'setState',
         'submitter' => 'setSubmitter',
+        'teams' => 'setTeams',
         'updated_at' => 'setUpdatedAt',
         'users' => 'setUsers'
     ];
@@ -310,7 +310,6 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'display_name' => 'getDisplayName',
         'domains' => 'getDomains',
         'effect' => 'getEffect',
-        'groups' => 'getGroups',
         'id' => 'getId',
         'is_enabled' => 'getIsEnabled',
         'model' => 'getModel',
@@ -321,6 +320,7 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         'roles' => 'getRoles',
         'state' => 'getState',
         'submitter' => 'getSubmitter',
+        'teams' => 'getTeams',
         'updated_at' => 'getUpdatedAt',
         'users' => 'getUsers'
     ];
@@ -393,7 +393,6 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('display_name', $data ?? [], null);
         $this->setIfExists('domains', $data ?? [], null);
         $this->setIfExists('effect', $data ?? [], null);
-        $this->setIfExists('groups', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('is_enabled', $data ?? [], null);
         $this->setIfExists('model', $data ?? [], null);
@@ -404,6 +403,7 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('roles', $data ?? [], null);
         $this->setIfExists('state', $data ?? [], null);
         $this->setIfExists('submitter', $data ?? [], null);
+        $this->setIfExists('teams', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
         $this->setIfExists('users', $data ?? [], null);
     }
@@ -748,33 +748,6 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets groups
-     *
-     * @return string[]|null
-     */
-    public function getGroups()
-    {
-        return $this->container['groups'];
-    }
-
-    /**
-     * Sets groups
-     *
-     * @param string[]|null $groups groups
-     *
-     * @return self
-     */
-    public function setGroups($groups)
-    {
-        if (is_null($groups)) {
-            throw new \InvalidArgumentException('non-nullable groups cannot be null');
-        }
-        $this->container['groups'] = $groups;
-
-        return $this;
-    }
-
-    /**
      * Gets id
      *
      * @return string|null
@@ -1040,6 +1013,33 @@ class IamPermission implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable submitter cannot be null');
         }
         $this->container['submitter'] = $submitter;
+
+        return $this;
+    }
+
+    /**
+     * Gets teams
+     *
+     * @return string[]|null
+     */
+    public function getTeams()
+    {
+        return $this->container['teams'];
+    }
+
+    /**
+     * Sets teams
+     *
+     * @param string[]|null $teams teams
+     *
+     * @return self
+     */
+    public function setTeams($teams)
+    {
+        if (is_null($teams)) {
+            throw new \InvalidArgumentException('non-nullable teams cannot be null');
+        }
+        $this->container['teams'] = $teams;
 
         return $this;
     }

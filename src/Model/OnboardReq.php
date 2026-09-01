@@ -336,7 +336,7 @@ class OnboardReq implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets personal
      *
-     * @param bool|null $personal Personal asks for the caller's own workspace: the name is derived from their username and the slug auto-suffixes to stay unique. Meaningless — and refused — for a caller who already has an organization.
+     * @param bool|null $personal Personal asks for the caller's own space: the name is derived from their username and the slug auto-suffixes to stay unique. Meaningless — and refused — for a caller who already has an organization.
      *
      * @return self
      */

@@ -126,7 +126,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'github' => 'string',
         'gitlab' => 'string',
         'google' => 'string',
-        'groups' => 'string[]',
         'hash' => 'string',
         'heroku' => 'string',
         'homepage' => 'string',
@@ -195,7 +194,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'patreon' => 'string',
         'paypal' => 'string',
         'permanent_avatar' => 'string',
-        'permissions' => '\Hanzo\Cloud\Model\IamPermission[]',
         'phone' => 'string',
         'pre_hash' => 'string',
         'preferred_mfa_type' => 'string',
@@ -207,7 +205,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'region' => 'string',
         'register_source' => 'string',
         'register_type' => 'string',
-        'roles' => '\Hanzo\Cloud\Model\IamRole[]',
         'salesforce' => 'string',
         'score' => 'int',
         'shopify' => 'string',
@@ -323,7 +320,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'github' => null,
         'gitlab' => null,
         'google' => null,
-        'groups' => null,
         'hash' => null,
         'heroku' => null,
         'homepage' => null,
@@ -392,7 +388,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'patreon' => null,
         'paypal' => null,
         'permanent_avatar' => null,
-        'permissions' => null,
         'phone' => null,
         'pre_hash' => null,
         'preferred_mfa_type' => null,
@@ -404,7 +399,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'region' => null,
         'register_source' => null,
         'register_type' => null,
-        'roles' => null,
         'salesforce' => null,
         'score' => null,
         'shopify' => null,
@@ -518,7 +512,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'github' => false,
         'gitlab' => false,
         'google' => false,
-        'groups' => false,
         'hash' => false,
         'heroku' => false,
         'homepage' => false,
@@ -587,7 +580,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'patreon' => false,
         'paypal' => false,
         'permanent_avatar' => false,
-        'permissions' => false,
         'phone' => false,
         'pre_hash' => false,
         'preferred_mfa_type' => false,
@@ -599,7 +591,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'region' => false,
         'register_source' => false,
         'register_type' => false,
-        'roles' => false,
         'salesforce' => false,
         'score' => false,
         'shopify' => false,
@@ -793,7 +784,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'github' => 'github',
         'gitlab' => 'gitlab',
         'google' => 'google',
-        'groups' => 'groups',
         'hash' => 'hash',
         'heroku' => 'heroku',
         'homepage' => 'homepage',
@@ -862,7 +852,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'patreon' => 'patreon',
         'paypal' => 'paypal',
         'permanent_avatar' => 'permanentAvatar',
-        'permissions' => 'permissions',
         'phone' => 'phone',
         'pre_hash' => 'preHash',
         'preferred_mfa_type' => 'preferredMfaType',
@@ -874,7 +863,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'region' => 'region',
         'register_source' => 'registerSource',
         'register_type' => 'registerType',
-        'roles' => 'roles',
         'salesforce' => 'salesforce',
         'score' => 'score',
         'shopify' => 'shopify',
@@ -988,7 +976,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'github' => 'setGithub',
         'gitlab' => 'setGitlab',
         'google' => 'setGoogle',
-        'groups' => 'setGroups',
         'hash' => 'setHash',
         'heroku' => 'setHeroku',
         'homepage' => 'setHomepage',
@@ -1057,7 +1044,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'patreon' => 'setPatreon',
         'paypal' => 'setPaypal',
         'permanent_avatar' => 'setPermanentAvatar',
-        'permissions' => 'setPermissions',
         'phone' => 'setPhone',
         'pre_hash' => 'setPreHash',
         'preferred_mfa_type' => 'setPreferredMfaType',
@@ -1069,7 +1055,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'region' => 'setRegion',
         'register_source' => 'setRegisterSource',
         'register_type' => 'setRegisterType',
-        'roles' => 'setRoles',
         'salesforce' => 'setSalesforce',
         'score' => 'setScore',
         'shopify' => 'setShopify',
@@ -1183,7 +1168,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'github' => 'getGithub',
         'gitlab' => 'getGitlab',
         'google' => 'getGoogle',
-        'groups' => 'getGroups',
         'hash' => 'getHash',
         'heroku' => 'getHeroku',
         'homepage' => 'getHomepage',
@@ -1252,7 +1236,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'patreon' => 'getPatreon',
         'paypal' => 'getPaypal',
         'permanent_avatar' => 'getPermanentAvatar',
-        'permissions' => 'getPermissions',
         'phone' => 'getPhone',
         'pre_hash' => 'getPreHash',
         'preferred_mfa_type' => 'getPreferredMfaType',
@@ -1264,7 +1247,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'region' => 'getRegion',
         'register_source' => 'getRegisterSource',
         'register_type' => 'getRegisterType',
-        'roles' => 'getRoles',
         'salesforce' => 'getSalesforce',
         'score' => 'getScore',
         'shopify' => 'getShopify',
@@ -1429,7 +1411,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('github', $data ?? [], null);
         $this->setIfExists('gitlab', $data ?? [], null);
         $this->setIfExists('google', $data ?? [], null);
-        $this->setIfExists('groups', $data ?? [], null);
         $this->setIfExists('hash', $data ?? [], null);
         $this->setIfExists('heroku', $data ?? [], null);
         $this->setIfExists('homepage', $data ?? [], null);
@@ -1498,7 +1479,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('patreon', $data ?? [], null);
         $this->setIfExists('paypal', $data ?? [], null);
         $this->setIfExists('permanent_avatar', $data ?? [], null);
-        $this->setIfExists('permissions', $data ?? [], null);
         $this->setIfExists('phone', $data ?? [], null);
         $this->setIfExists('pre_hash', $data ?? [], null);
         $this->setIfExists('preferred_mfa_type', $data ?? [], null);
@@ -1510,7 +1490,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('region', $data ?? [], null);
         $this->setIfExists('register_source', $data ?? [], null);
         $this->setIfExists('register_type', $data ?? [], null);
-        $this->setIfExists('roles', $data ?? [], null);
         $this->setIfExists('salesforce', $data ?? [], null);
         $this->setIfExists('score', $data ?? [], null);
         $this->setIfExists('shopify', $data ?? [], null);
@@ -1604,7 +1583,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets access_key
      *
-     * @param string|null $access_key API credentials. AccessSecret / AccessSecretHash / the OAuth tokens are bearer material. AccessSecretHash MUST persist (orm stores via JSON; a json:\"-\" field is never saved), so it carries a real json tag and the handler's redact() strips it (and AccessSecret + the token fields) before responding.
+     * @param string|null $access_key API credentials. AccessSecret / AccessSecretHash / the OAuth tokens are bearer material, so Mask blanks them and the handler's redact() strips them before responding. They carry real json tags because a field orm never saves is a field that silently vanishes.  A presented secret is resolved through Key.AccessSecretDigest and nowhere else, so no credential is ISSUED into these columns: they hold what older rows left behind, and every writer that touches them clears them.
      *
      * @return self
      */
@@ -3455,33 +3434,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets groups
-     *
-     * @return string[]|null
-     */
-    public function getGroups()
-    {
-        return $this->container['groups'];
-    }
-
-    /**
-     * Sets groups
-     *
-     * @param string[]|null $groups groups
-     *
-     * @return self
-     */
-    public function setGroups($groups)
-    {
-        if (is_null($groups)) {
-            throw new \InvalidArgumentException('non-nullable groups cannot be null');
-        }
-        $this->container['groups'] = $groups;
-
-        return $this;
-    }
-
-    /**
      * Gets hash
      *
      * @return string|null
@@ -5318,33 +5270,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets permissions
-     *
-     * @return \Hanzo\Cloud\Model\IamPermission[]|null
-     */
-    public function getPermissions()
-    {
-        return $this->container['permissions'];
-    }
-
-    /**
-     * Sets permissions
-     *
-     * @param \Hanzo\Cloud\Model\IamPermission[]|null $permissions permissions
-     *
-     * @return self
-     */
-    public function setPermissions($permissions)
-    {
-        if (is_null($permissions)) {
-            throw new \InvalidArgumentException('non-nullable permissions cannot be null');
-        }
-        $this->container['permissions'] = $permissions;
-
-        return $this;
-    }
-
-    /**
      * Gets phone
      *
      * @return string|null
@@ -5637,33 +5562,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable register_type cannot be null');
         }
         $this->container['register_type'] = $register_type;
-
-        return $this;
-    }
-
-    /**
-     * Gets roles
-     *
-     * @return \Hanzo\Cloud\Model\IamRole[]|null
-     */
-    public function getRoles()
-    {
-        return $this->container['roles'];
-    }
-
-    /**
-     * Sets roles
-     *
-     * @param \Hanzo\Cloud\Model\IamRole[]|null $roles Authorization attachments. Roles and Permissions are computed on read from the authz store and carried here for API parity with v1.
-     *
-     * @return self
-     */
-    public function setRoles($roles)
-    {
-        if (is_null($roles)) {
-            throw new \InvalidArgumentException('non-nullable roles cannot be null');
-        }
-        $this->container['roles'] = $roles;
 
         return $this;
     }

@@ -200,6 +200,18 @@ class IntegrationsApi
         'postIntegrationsGithubWebhook' => [
             'application/json',
         ],
+        'postIntegrationsLinearClaim' => [
+            'application/json',
+        ],
+        'postIntegrationsLinearComments' => [
+            'application/json',
+        ],
+        'postIntegrationsLinearIssuesBackfill' => [
+            'application/json',
+        ],
+        'postIntegrationsLinearWebhook' => [
+            'application/json',
+        ],
         'postIntegrationsOpenrouterWebhook' => [
             'application/json',
         ],
@@ -10430,6 +10442,1021 @@ class IntegrationsApi
 
 
         $resourcePath = '/v1/integrations/github/webhook';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postIntegrationsLinearClaim
+     *
+     * Binds the caller&#39;s Linear organization to the org and seals the webhook secret.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearClaimIn $linear_claim_in linear_claim_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearClaim'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\LinearClaimOut
+     */
+    public function postIntegrationsLinearClaim($linear_claim_in, string $contentType = self::contentTypes['postIntegrationsLinearClaim'][0])
+    {
+        list($response) = $this->postIntegrationsLinearClaimWithHttpInfo($linear_claim_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postIntegrationsLinearClaimWithHttpInfo
+     *
+     * Binds the caller&#39;s Linear organization to the org and seals the webhook secret.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearClaimIn $linear_claim_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearClaim'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\LinearClaimOut, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postIntegrationsLinearClaimWithHttpInfo($linear_claim_in, string $contentType = self::contentTypes['postIntegrationsLinearClaim'][0])
+    {
+        $request = $this->postIntegrationsLinearClaimRequest($linear_claim_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\LinearClaimOut',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\LinearClaimOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\LinearClaimOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postIntegrationsLinearClaimAsync
+     *
+     * Binds the caller&#39;s Linear organization to the org and seals the webhook secret.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearClaimIn $linear_claim_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearClaim'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIntegrationsLinearClaimAsync($linear_claim_in, string $contentType = self::contentTypes['postIntegrationsLinearClaim'][0])
+    {
+        return $this->postIntegrationsLinearClaimAsyncWithHttpInfo($linear_claim_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postIntegrationsLinearClaimAsyncWithHttpInfo
+     *
+     * Binds the caller&#39;s Linear organization to the org and seals the webhook secret.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearClaimIn $linear_claim_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearClaim'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIntegrationsLinearClaimAsyncWithHttpInfo($linear_claim_in, string $contentType = self::contentTypes['postIntegrationsLinearClaim'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\LinearClaimOut';
+        $request = $this->postIntegrationsLinearClaimRequest($linear_claim_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postIntegrationsLinearClaim'
+     *
+     * @param  \Hanzo\Cloud\Model\LinearClaimIn $linear_claim_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearClaim'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postIntegrationsLinearClaimRequest($linear_claim_in, string $contentType = self::contentTypes['postIntegrationsLinearClaim'][0])
+    {
+
+        // verify the required parameter 'linear_claim_in' is set
+        if ($linear_claim_in === null || (is_array($linear_claim_in) && count($linear_claim_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $linear_claim_in when calling postIntegrationsLinearClaim'
+            );
+        }
+
+
+        $resourcePath = '/v1/integrations/linear/claim';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($linear_claim_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($linear_claim_in));
+            } else {
+                $httpBody = $linear_claim_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postIntegrationsLinearComments
+     *
+     * Posts a comment on a Linear issue with the caller&#39;s own key, so it carries their name.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearCommentIn $linear_comment_in linear_comment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearComments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\LinearCommentOut
+     */
+    public function postIntegrationsLinearComments($linear_comment_in, string $contentType = self::contentTypes['postIntegrationsLinearComments'][0])
+    {
+        list($response) = $this->postIntegrationsLinearCommentsWithHttpInfo($linear_comment_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postIntegrationsLinearCommentsWithHttpInfo
+     *
+     * Posts a comment on a Linear issue with the caller&#39;s own key, so it carries their name.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearCommentIn $linear_comment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearComments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\LinearCommentOut, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postIntegrationsLinearCommentsWithHttpInfo($linear_comment_in, string $contentType = self::contentTypes['postIntegrationsLinearComments'][0])
+    {
+        $request = $this->postIntegrationsLinearCommentsRequest($linear_comment_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\LinearCommentOut',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\LinearCommentOut',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\LinearCommentOut',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postIntegrationsLinearCommentsAsync
+     *
+     * Posts a comment on a Linear issue with the caller&#39;s own key, so it carries their name.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearCommentIn $linear_comment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearComments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIntegrationsLinearCommentsAsync($linear_comment_in, string $contentType = self::contentTypes['postIntegrationsLinearComments'][0])
+    {
+        return $this->postIntegrationsLinearCommentsAsyncWithHttpInfo($linear_comment_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postIntegrationsLinearCommentsAsyncWithHttpInfo
+     *
+     * Posts a comment on a Linear issue with the caller&#39;s own key, so it carries their name.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearCommentIn $linear_comment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearComments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIntegrationsLinearCommentsAsyncWithHttpInfo($linear_comment_in, string $contentType = self::contentTypes['postIntegrationsLinearComments'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\LinearCommentOut';
+        $request = $this->postIntegrationsLinearCommentsRequest($linear_comment_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postIntegrationsLinearComments'
+     *
+     * @param  \Hanzo\Cloud\Model\LinearCommentIn $linear_comment_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearComments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postIntegrationsLinearCommentsRequest($linear_comment_in, string $contentType = self::contentTypes['postIntegrationsLinearComments'][0])
+    {
+
+        // verify the required parameter 'linear_comment_in' is set
+        if ($linear_comment_in === null || (is_array($linear_comment_in) && count($linear_comment_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $linear_comment_in when calling postIntegrationsLinearComments'
+            );
+        }
+
+
+        $resourcePath = '/v1/integrations/linear/comments';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($linear_comment_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($linear_comment_in));
+            } else {
+                $httpBody = $linear_comment_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postIntegrationsLinearIssuesBackfill
+     *
+     * Seeds the native todo with the EXISTING Linear issues the caller&#39;s key can see (default state&#x3D;open); the webhook keeps them live thereafter.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearBackfillIn $linear_backfill_in linear_backfill_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearIssuesBackfill'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\LinearBackfillResult
+     */
+    public function postIntegrationsLinearIssuesBackfill($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationsLinearIssuesBackfill'][0])
+    {
+        list($response) = $this->postIntegrationsLinearIssuesBackfillWithHttpInfo($linear_backfill_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postIntegrationsLinearIssuesBackfillWithHttpInfo
+     *
+     * Seeds the native todo with the EXISTING Linear issues the caller&#39;s key can see (default state&#x3D;open); the webhook keeps them live thereafter.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearBackfillIn $linear_backfill_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearIssuesBackfill'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\LinearBackfillResult, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postIntegrationsLinearIssuesBackfillWithHttpInfo($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationsLinearIssuesBackfill'][0])
+    {
+        $request = $this->postIntegrationsLinearIssuesBackfillRequest($linear_backfill_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\LinearBackfillResult',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\LinearBackfillResult',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\LinearBackfillResult',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postIntegrationsLinearIssuesBackfillAsync
+     *
+     * Seeds the native todo with the EXISTING Linear issues the caller&#39;s key can see (default state&#x3D;open); the webhook keeps them live thereafter.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearBackfillIn $linear_backfill_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearIssuesBackfill'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIntegrationsLinearIssuesBackfillAsync($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationsLinearIssuesBackfill'][0])
+    {
+        return $this->postIntegrationsLinearIssuesBackfillAsyncWithHttpInfo($linear_backfill_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postIntegrationsLinearIssuesBackfillAsyncWithHttpInfo
+     *
+     * Seeds the native todo with the EXISTING Linear issues the caller&#39;s key can see (default state&#x3D;open); the webhook keeps them live thereafter.
+     *
+     * @param  \Hanzo\Cloud\Model\LinearBackfillIn $linear_backfill_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearIssuesBackfill'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIntegrationsLinearIssuesBackfillAsyncWithHttpInfo($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationsLinearIssuesBackfill'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\LinearBackfillResult';
+        $request = $this->postIntegrationsLinearIssuesBackfillRequest($linear_backfill_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postIntegrationsLinearIssuesBackfill'
+     *
+     * @param  \Hanzo\Cloud\Model\LinearBackfillIn $linear_backfill_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearIssuesBackfill'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postIntegrationsLinearIssuesBackfillRequest($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationsLinearIssuesBackfill'][0])
+    {
+
+        // verify the required parameter 'linear_backfill_in' is set
+        if ($linear_backfill_in === null || (is_array($linear_backfill_in) && count($linear_backfill_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $linear_backfill_in when calling postIntegrationsLinearIssuesBackfill'
+            );
+        }
+
+
+        $resourcePath = '/v1/integrations/linear/issues/backfill';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($linear_backfill_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($linear_backfill_in));
+            } else {
+                $httpBody = $linear_backfill_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postIntegrationsLinearWebhook
+     *
+     * Linear webhook
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearWebhook'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function postIntegrationsLinearWebhook(string $contentType = self::contentTypes['postIntegrationsLinearWebhook'][0])
+    {
+        $this->postIntegrationsLinearWebhookWithHttpInfo($contentType);
+    }
+
+    /**
+     * Operation postIntegrationsLinearWebhookWithHttpInfo
+     *
+     * Linear webhook
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearWebhook'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postIntegrationsLinearWebhookWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsLinearWebhook'][0])
+    {
+        $request = $this->postIntegrationsLinearWebhookRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postIntegrationsLinearWebhookAsync
+     *
+     * Linear webhook
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearWebhook'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIntegrationsLinearWebhookAsync(string $contentType = self::contentTypes['postIntegrationsLinearWebhook'][0])
+    {
+        return $this->postIntegrationsLinearWebhookAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postIntegrationsLinearWebhookAsyncWithHttpInfo
+     *
+     * Linear webhook
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearWebhook'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIntegrationsLinearWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsLinearWebhook'][0])
+    {
+        $returnType = '';
+        $request = $this->postIntegrationsLinearWebhookRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postIntegrationsLinearWebhook'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearWebhook'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postIntegrationsLinearWebhookRequest(string $contentType = self::contentTypes['postIntegrationsLinearWebhook'][0])
+    {
+
+
+        $resourcePath = '/v1/integrations/linear/webhook';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

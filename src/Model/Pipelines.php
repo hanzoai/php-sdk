@@ -1,6 +1,6 @@
 <?php
 /**
- * PaymentIn
+ * Pipelines
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * PaymentIn Class Doc Comment
+ * Pipelines Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class PaymentIn implements ModelInterface, ArrayAccess, \JsonSerializable
+class Pipelines implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PaymentIn implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'PaymentIn';
+    protected static $openAPIModelName = 'Pipelines';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,10 +57,11 @@ class PaymentIn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'amount_cents' => 'int',
-        'currency' => 'string',
-        'idempotency_key' => 'string',
-        'source_id' => 'string'
+        'fetched_at' => '\DateTime',
+        'orgs' => 'string[]',
+        'services' => '\Hanzo\Cloud\Model\Pipeline[]',
+        'source_err' => 'string',
+        'stale' => 'bool'
     ];
 
     /**
@@ -71,10 +72,11 @@ class PaymentIn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_cents' => null,
-        'currency' => null,
-        'idempotency_key' => null,
-        'source_id' => null
+        'fetched_at' => 'date-time',
+        'orgs' => null,
+        'services' => null,
+        'source_err' => null,
+        'stale' => null
     ];
 
     /**
@@ -83,10 +85,11 @@ class PaymentIn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'amount_cents' => false,
-        'currency' => false,
-        'idempotency_key' => false,
-        'source_id' => false
+        'fetched_at' => false,
+        'orgs' => false,
+        'services' => false,
+        'source_err' => false,
+        'stale' => false
     ];
 
     /**
@@ -175,10 +178,11 @@ class PaymentIn implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'amount_cents' => 'amountCents',
-        'currency' => 'currency',
-        'idempotency_key' => 'idempotencyKey',
-        'source_id' => 'sourceId'
+        'fetched_at' => 'fetchedAt',
+        'orgs' => 'orgs',
+        'services' => 'services',
+        'source_err' => 'sourceErr',
+        'stale' => 'stale'
     ];
 
     /**
@@ -187,10 +191,11 @@ class PaymentIn implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'amount_cents' => 'setAmountCents',
-        'currency' => 'setCurrency',
-        'idempotency_key' => 'setIdempotencyKey',
-        'source_id' => 'setSourceId'
+        'fetched_at' => 'setFetchedAt',
+        'orgs' => 'setOrgs',
+        'services' => 'setServices',
+        'source_err' => 'setSourceErr',
+        'stale' => 'setStale'
     ];
 
     /**
@@ -199,10 +204,11 @@ class PaymentIn implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'amount_cents' => 'getAmountCents',
-        'currency' => 'getCurrency',
-        'idempotency_key' => 'getIdempotencyKey',
-        'source_id' => 'getSourceId'
+        'fetched_at' => 'getFetchedAt',
+        'orgs' => 'getOrgs',
+        'services' => 'getServices',
+        'source_err' => 'getSourceErr',
+        'stale' => 'getStale'
     ];
 
     /**
@@ -262,10 +268,11 @@ class PaymentIn implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('amount_cents', $data ?? [], null);
-        $this->setIfExists('currency', $data ?? [], null);
-        $this->setIfExists('idempotency_key', $data ?? [], null);
-        $this->setIfExists('source_id', $data ?? [], null);
+        $this->setIfExists('fetched_at', $data ?? [], null);
+        $this->setIfExists('orgs', $data ?? [], null);
+        $this->setIfExists('services', $data ?? [], null);
+        $this->setIfExists('source_err', $data ?? [], null);
+        $this->setIfExists('stale', $data ?? [], null);
     }
 
     /**
@@ -311,109 +318,136 @@ class PaymentIn implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets amount_cents
+     * Gets fetched_at
      *
-     * @return int|null
+     * @return \DateTime|null
      */
-    public function getAmountCents()
+    public function getFetchedAt()
     {
-        return $this->container['amount_cents'];
+        return $this->container['fetched_at'];
     }
 
     /**
-     * Sets amount_cents
+     * Sets fetched_at
      *
-     * @param int|null $amount_cents AmountCents is the amount to charge, in whole cents (5000 is $50.00). Server-side bounds apply and are authoritative — the default floor is $1 and the ceiling $5,000, so a fat-fingered or hostile amount is refused before any money moves.
+     * @param \DateTime|null $fetched_at fetched_at
      *
      * @return self
      */
-    public function setAmountCents($amount_cents)
+    public function setFetchedAt($fetched_at)
     {
-        if (is_null($amount_cents)) {
-            throw new \InvalidArgumentException('non-nullable amount_cents cannot be null');
+        if (is_null($fetched_at)) {
+            throw new \InvalidArgumentException('non-nullable fetched_at cannot be null');
         }
-        $this->container['amount_cents'] = $amount_cents;
+        $this->container['fetched_at'] = $fetched_at;
 
         return $this;
     }
 
     /**
-     * Gets currency
+     * Gets orgs
      *
-     * @return string|null
+     * @return string[]|null
      */
-    public function getCurrency()
+    public function getOrgs()
     {
-        return $this->container['currency'];
+        return $this->container['orgs'];
     }
 
     /**
-     * Sets currency
+     * Sets orgs
      *
-     * @param string|null $currency Currency is the ISO 4217 code, lower-cased. Empty means usd.
+     * @param string[]|null $orgs orgs
      *
      * @return self
      */
-    public function setCurrency($currency)
+    public function setOrgs($orgs)
     {
-        if (is_null($currency)) {
-            throw new \InvalidArgumentException('non-nullable currency cannot be null');
+        if (is_null($orgs)) {
+            throw new \InvalidArgumentException('non-nullable orgs cannot be null');
         }
-        $this->container['currency'] = $currency;
+        $this->container['orgs'] = $orgs;
 
         return $this;
     }
 
     /**
-     * Gets idempotency_key
+     * Gets services
      *
-     * @return string|null
+     * @return \Hanzo\Cloud\Model\Pipeline[]|null
      */
-    public function getIdempotencyKey()
+    public function getServices()
     {
-        return $this->container['idempotency_key'];
+        return $this->container['services'];
     }
 
     /**
-     * Sets idempotency_key
+     * Sets services
      *
-     * @param string|null $idempotency_key IdempotencyKey makes a retry safe: the same key never charges twice, it replays the first result. Sending one is strongly recommended for an agent, which retries by construction. Empty falls back to a windowed key derived from the amount and currency, so a double-submit inside 15 minutes still collapses onto one charge.
+     * @param \Hanzo\Cloud\Model\Pipeline[]|null $services services
      *
      * @return self
      */
-    public function setIdempotencyKey($idempotency_key)
+    public function setServices($services)
     {
-        if (is_null($idempotency_key)) {
-            throw new \InvalidArgumentException('non-nullable idempotency_key cannot be null');
+        if (is_null($services)) {
+            throw new \InvalidArgumentException('non-nullable services cannot be null');
         }
-        $this->container['idempotency_key'] = $idempotency_key;
+        $this->container['services'] = $services;
 
         return $this;
     }
 
     /**
-     * Gets source_id
+     * Gets source_err
      *
      * @return string|null
      */
-    public function getSourceId()
+    public function getSourceErr()
     {
-        return $this->container['source_id'];
+        return $this->container['source_err'];
     }
 
     /**
-     * Sets source_id
+     * Sets source_err
      *
-     * @param string|null $source_id SourceID is the single-use payment token that stands in for the card: a Square Web Payments SDK nonce minted in the browser, or a Square sandbox test nonce when the org's credentials are sandbox ones. The card number itself never reaches this process, which is what keeps it out of PCI scope.
+     * @param string|null $source_err source_err
      *
      * @return self
      */
-    public function setSourceId($source_id)
+    public function setSourceErr($source_err)
     {
-        if (is_null($source_id)) {
-            throw new \InvalidArgumentException('non-nullable source_id cannot be null');
+        if (is_null($source_err)) {
+            throw new \InvalidArgumentException('non-nullable source_err cannot be null');
         }
-        $this->container['source_id'] = $source_id;
+        $this->container['source_err'] = $source_err;
+
+        return $this;
+    }
+
+    /**
+     * Gets stale
+     *
+     * @return bool|null
+     */
+    public function getStale()
+    {
+        return $this->container['stale'];
+    }
+
+    /**
+     * Sets stale
+     *
+     * @param bool|null $stale stale
+     *
+     * @return self
+     */
+    public function setStale($stale)
+    {
+        if (is_null($stale)) {
+            throw new \InvalidArgumentException('non-nullable stale cannot be null');
+        }
+        $this->container['stale'] = $stale;
 
         return $this;
     }

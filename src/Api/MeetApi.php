@@ -616,17 +616,17 @@ class MeetApi
      *
      * Where a room&#39;s call happens
      *
-     * @param  string $workspace Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
-     * @param  string $room Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. (required)
+     * @param  string $space Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\Venue
      */
-    public function meetCall($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
+    public function meetCall($space, $room, string $contentType = self::contentTypes['meetCall'][0])
     {
-        list($response) = $this->meetCallWithHttpInfo($workspace, $room, $contentType);
+        list($response) = $this->meetCallWithHttpInfo($space, $room, $contentType);
         return $response;
     }
 
@@ -635,17 +635,17 @@ class MeetApi
      *
      * Where a room&#39;s call happens
      *
-     * @param  string $workspace Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
-     * @param  string $room Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. (required)
+     * @param  string $space Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\Venue, HTTP status code, HTTP response headers (array of strings)
      */
-    public function meetCallWithHttpInfo($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
+    public function meetCallWithHttpInfo($space, $room, string $contentType = self::contentTypes['meetCall'][0])
     {
-        $request = $this->meetCallRequest($workspace, $room, $contentType);
+        $request = $this->meetCallRequest($space, $room, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -721,16 +721,16 @@ class MeetApi
      *
      * Where a room&#39;s call happens
      *
-     * @param  string $workspace Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
-     * @param  string $room Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. (required)
+     * @param  string $space Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function meetCallAsync($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
+    public function meetCallAsync($space, $room, string $contentType = self::contentTypes['meetCall'][0])
     {
-        return $this->meetCallAsyncWithHttpInfo($workspace, $room, $contentType)
+        return $this->meetCallAsyncWithHttpInfo($space, $room, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -743,17 +743,17 @@ class MeetApi
      *
      * Where a room&#39;s call happens
      *
-     * @param  string $workspace Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
-     * @param  string $room Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. (required)
+     * @param  string $space Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function meetCallAsyncWithHttpInfo($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
+    public function meetCallAsyncWithHttpInfo($space, $room, string $contentType = self::contentTypes['meetCall'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\Venue';
-        $request = $this->meetCallRequest($workspace, $room, $contentType);
+        $request = $this->meetCallRequest($space, $room, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -794,20 +794,20 @@ class MeetApi
     /**
      * Create request for operation 'meetCall'
      *
-     * @param  string $workspace Workspace is the workspace uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
-     * @param  string $room Room is the room&#39;s own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it. (required)
+     * @param  string $space Space is the space uuid holding the room, as GET /v1/team/rooms reports it. It is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the room&#39;s own id within that space, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the space holding it. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function meetCallRequest($workspace, $room, string $contentType = self::contentTypes['meetCall'][0])
+    public function meetCallRequest($space, $room, string $contentType = self::contentTypes['meetCall'][0])
     {
 
-        // verify the required parameter 'workspace' is set
-        if ($workspace === null || (is_array($workspace) && count($workspace) === 0)) {
+        // verify the required parameter 'space' is set
+        if ($space === null || (is_array($space) && count($space) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $workspace when calling meetCall'
+                'Missing the required parameter $space when calling meetCall'
             );
         }
 
@@ -828,8 +828,8 @@ class MeetApi
 
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $workspace,
-            'workspace', // param base name
+            $space,
+            'space', // param base name
             'string', // openApiType
             'form', // style
             true, // explode
@@ -910,7 +910,7 @@ class MeetApi
      *
      * What is being recorded in a room, and where the file goes
      *
-     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordRead'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -928,7 +928,7 @@ class MeetApi
      *
      * What is being recorded in a room, and where the file goes
      *
-     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordRead'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1013,7 +1013,7 @@ class MeetApi
      *
      * What is being recorded in a room, and where the file goes
      *
-     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordRead'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1034,7 +1034,7 @@ class MeetApi
      *
      * What is being recorded in a room, and where the file goes
      *
-     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordRead'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1084,7 +1084,7 @@ class MeetApi
     /**
      * Create request for operation 'meetRecordRead'
      *
-     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordRead'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1454,7 +1454,7 @@ class MeetApi
      *
      * Stop a room&#39;s recording
      *
-     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordStop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1472,7 +1472,7 @@ class MeetApi
      *
      * Stop a room&#39;s recording
      *
-     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordStop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1557,7 +1557,7 @@ class MeetApi
      *
      * Stop a room&#39;s recording
      *
-     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1578,7 +1578,7 @@ class MeetApi
      *
      * Stop a room&#39;s recording
      *
-     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1628,7 +1628,7 @@ class MeetApi
     /**
      * Create request for operation 'meetRecordStop'
      *
-     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;workspace&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
+     * @param  string $room Room is the LiveKit room, named the way the office client names one (&#x60;&lt;space&gt;_&lt;name&gt;_&lt;id&gt;&#x60;). Its leading segment is what binds the room to a tenant, and it is the segment the caller&#39;s membership is checked against. (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['meetRecordStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
