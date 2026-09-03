@@ -70,7 +70,7 @@ class O11yO11yReductionRules implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static $openAPIFormats = [
         'rules' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

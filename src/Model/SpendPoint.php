@@ -69,7 +69,7 @@ class SpendPoint implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cents' => null,
+        'cents' => 'int64',
         't' => null
     ];
 

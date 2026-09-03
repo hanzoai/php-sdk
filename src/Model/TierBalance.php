@@ -72,11 +72,11 @@ class TierBalance implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'credits_remaining' => null,
+        'credits_remaining' => 'int64',
         'currency' => null,
-        'daily_remaining' => null,
-        'effective_available' => null,
-        'prepaid_available' => null
+        'daily_remaining' => 'int64',
+        'effective_available' => 'int64',
+        'prepaid_available' => 'int64'
     ];
 
     /**

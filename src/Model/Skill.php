@@ -62,7 +62,8 @@ class Skill implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'string',
         'id' => 'string',
         'name' => 'string',
-        'org' => 'string'
+        'org' => 'string',
+        'source' => 'string'
     ];
 
     /**
@@ -74,11 +75,12 @@ class Skill implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'content' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'description' => null,
         'id' => null,
         'name' => null,
-        'org' => null
+        'org' => null,
+        'source' => null
     ];
 
     /**
@@ -92,7 +94,8 @@ class Skill implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => false,
         'id' => false,
         'name' => false,
-        'org' => false
+        'org' => false,
+        'source' => false
     ];
 
     /**
@@ -186,7 +189,8 @@ class Skill implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'description',
         'id' => 'id',
         'name' => 'name',
-        'org' => 'org'
+        'org' => 'org',
+        'source' => 'source'
     ];
 
     /**
@@ -200,7 +204,8 @@ class Skill implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'setDescription',
         'id' => 'setId',
         'name' => 'setName',
-        'org' => 'setOrg'
+        'org' => 'setOrg',
+        'source' => 'setSource'
     ];
 
     /**
@@ -214,7 +219,8 @@ class Skill implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => 'getDescription',
         'id' => 'getId',
         'name' => 'getName',
-        'org' => 'getOrg'
+        'org' => 'getOrg',
+        'source' => 'getSource'
     ];
 
     /**
@@ -280,6 +286,7 @@ class Skill implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('org', $data ?? [], null);
+        $this->setIfExists('source', $data ?? [], null);
     }
 
     /**
@@ -482,6 +489,33 @@ class Skill implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable org cannot be null');
         }
         $this->container['org'] = $org;
+
+        return $this;
+    }
+
+    /**
+     * Gets source
+     *
+     * @return string|null
+     */
+    public function getSource()
+    {
+        return $this->container['source'];
+    }
+
+    /**
+     * Sets source
+     *
+     * @param string|null $source Source is the repository the skill was read from, \"<project>/<name>\" or \"<name>\"; empty for a skill written through the API. A push replaces every skill of its source at once, so a skill leaves when its file does.
+     *
+     * @return self
+     */
+    public function setSource($source)
+    {
+        if (is_null($source)) {
+            throw new \InvalidArgumentException('non-nullable source cannot be null');
+        }
+        $this->container['source'] = $source;
 
         return $this;
     }

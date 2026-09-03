@@ -73,11 +73,11 @@ class CommerceOverview implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'aov' => null,
+        'aov' => 'double',
         'available' => null,
-        'orders' => null,
+        'orders' => 'int64',
         'reason' => null,
-        'revenue' => null,
+        'revenue' => 'double',
         'source' => null
     ];
 

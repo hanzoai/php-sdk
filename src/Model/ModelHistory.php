@@ -72,7 +72,7 @@ class ModelHistory implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'model' => null,
         'points' => null,
-        'trend' => null
+        'trend' => 'double'
     ];
 
     /**

@@ -69,8 +69,8 @@ class CaptableInstrumentTotal implements ModelInterface, ArrayAccess, \JsonSeria
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'capital' => null,
-        'count' => null
+        'capital' => 'double',
+        'count' => 'int64'
     ];
 
     /**

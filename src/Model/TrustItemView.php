@@ -81,7 +81,7 @@ class TrustItemView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'attester' => null,
         'body' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'document' => null,
         'framework' => null,
         'id' => null,
@@ -90,7 +90,7 @@ class TrustItemView implements ModelInterface, ArrayAccess, \JsonSerializable
         'retired' => null,
         'summary' => null,
         'tier' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

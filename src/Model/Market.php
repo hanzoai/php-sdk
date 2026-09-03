@@ -84,7 +84,7 @@ class Market implements ModelInterface, ArrayAccess, \JsonSerializable
         'factory' => null,
         'figures' => null,
         'graph' => null,
-        'id' => null,
+        'id' => 'int64',
         'name' => null,
         'reach' => null,
         'rpc' => null,

@@ -71,10 +71,10 @@ class SocialSummary implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'accounts' => null,
-        'posts' => null,
-        'published' => null,
-        'scheduled' => null
+        'accounts' => 'int64',
+        'posts' => 'int64',
+        'published' => 'int64',
+        'scheduled' => 'int64'
     ];
 
     /**

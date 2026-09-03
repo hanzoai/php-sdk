@@ -72,7 +72,7 @@ class PoolScale implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'cluster_id' => null,
-        'count' => null,
+        'count' => 'int64',
         'pool_id' => null,
         'provider' => null
     ];

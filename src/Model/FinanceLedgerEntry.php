@@ -75,8 +75,8 @@ class FinanceLedgerEntry implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'account' => null,
-        'balance_cents' => null,
-        'cents' => null,
+        'balance_cents' => 'int64',
+        'cents' => 'int64',
         'currency' => null,
         'date' => null,
         'description' => null,

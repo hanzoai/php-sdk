@@ -73,8 +73,8 @@ class Remittance implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_cents' => null,
-        'created_at' => null,
+        'amount_cents' => 'int64',
+        'created_at' => 'int64',
         'id' => null,
         'method' => null,
         'reference' => null,

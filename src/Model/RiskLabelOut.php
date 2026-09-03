@@ -73,11 +73,11 @@ class RiskLabelOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'duplicate' => null,
+        'duplicate' => 'int64',
         'mirror' => null,
-        'pending' => null,
-        'recorded' => null,
-        'refused' => null,
+        'pending' => 'int64',
+        'recorded' => 'int64',
+        'refused' => 'int64',
         'results' => null
     ];
 

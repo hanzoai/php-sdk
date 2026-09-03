@@ -80,10 +80,10 @@ class GitApi
         'deleteGitReposByName' => [
             'application/json',
         ],
-        'deleteGitReposByNameMirrorsById' => [
+        'deleteGitReposByNameSubscriptionsById' => [
             'application/json',
         ],
-        'deleteGitReposByNameSubscriptionsById' => [
+        'deleteGitReposByNameTargetsById' => [
             'application/json',
         ],
         'getGit' => [
@@ -122,9 +122,6 @@ class GitApi
         'getGitReposByNameFiles' => [
             'application/json',
         ],
-        'getGitReposByNameMirrors' => [
-            'application/json',
-        ],
         'getGitReposByNamePulls' => [
             'application/json',
         ],
@@ -138,6 +135,9 @@ class GitApi
             'application/json',
         ],
         'getGitReposByNameSubscriptions' => [
+            'application/json',
+        ],
+        'getGitReposByNameTargets' => [
             'application/json',
         ],
         'getGitReposByNameTree' => [
@@ -173,9 +173,6 @@ class GitApi
         'postGitReposByNameMirror' => [
             'application/json',
         ],
-        'postGitReposByNameMirrors' => [
-            'application/json',
-        ],
         'postGitReposByNamePulls' => [
             'application/json',
         ],
@@ -188,22 +185,10 @@ class GitApi
         'postGitReposByNameSubscriptions' => [
             'application/json',
         ],
+        'postGitReposByNameTargets' => [
+            'application/json',
+        ],
         'postGitWebhook' => [
-            'application/json',
-        ],
-        'postGitZapCreaterepo' => [
-            'application/json',
-        ],
-        'postGitZapDeleterepo' => [
-            'application/json',
-        ],
-        'postGitZapGetrepo' => [
-            'application/json',
-        ],
-        'postGitZapListrepos' => [
-            'application/json',
-        ],
-        'postGitZapUsage' => [
             'application/json',
         ],
     ];
@@ -699,248 +684,6 @@ class GitApi
     }
 
     /**
-     * Operation deleteGitReposByNameMirrorsById
-     *
-     * Removes one outbound mirror target; later pushes stop being forwarded to it.
-     *
-     * @param  string $name Name is the repo, from the :name path segment. (required)
-     * @param  string $id ID is the row to remove, from the :id path segment. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteGitReposByNameMirrorsById'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function deleteGitReposByNameMirrorsById($name, $id, string $contentType = self::contentTypes['deleteGitReposByNameMirrorsById'][0])
-    {
-        $this->deleteGitReposByNameMirrorsByIdWithHttpInfo($name, $id, $contentType);
-    }
-
-    /**
-     * Operation deleteGitReposByNameMirrorsByIdWithHttpInfo
-     *
-     * Removes one outbound mirror target; later pushes stop being forwarded to it.
-     *
-     * @param  string $name Name is the repo, from the :name path segment. (required)
-     * @param  string $id ID is the row to remove, from the :id path segment. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteGitReposByNameMirrorsById'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function deleteGitReposByNameMirrorsByIdWithHttpInfo($name, $id, string $contentType = self::contentTypes['deleteGitReposByNameMirrorsById'][0])
-    {
-        $request = $this->deleteGitReposByNameMirrorsByIdRequest($name, $id, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation deleteGitReposByNameMirrorsByIdAsync
-     *
-     * Removes one outbound mirror target; later pushes stop being forwarded to it.
-     *
-     * @param  string $name Name is the repo, from the :name path segment. (required)
-     * @param  string $id ID is the row to remove, from the :id path segment. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteGitReposByNameMirrorsById'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function deleteGitReposByNameMirrorsByIdAsync($name, $id, string $contentType = self::contentTypes['deleteGitReposByNameMirrorsById'][0])
-    {
-        return $this->deleteGitReposByNameMirrorsByIdAsyncWithHttpInfo($name, $id, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation deleteGitReposByNameMirrorsByIdAsyncWithHttpInfo
-     *
-     * Removes one outbound mirror target; later pushes stop being forwarded to it.
-     *
-     * @param  string $name Name is the repo, from the :name path segment. (required)
-     * @param  string $id ID is the row to remove, from the :id path segment. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteGitReposByNameMirrorsById'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function deleteGitReposByNameMirrorsByIdAsyncWithHttpInfo($name, $id, string $contentType = self::contentTypes['deleteGitReposByNameMirrorsById'][0])
-    {
-        $returnType = '';
-        $request = $this->deleteGitReposByNameMirrorsByIdRequest($name, $id, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'deleteGitReposByNameMirrorsById'
-     *
-     * @param  string $name Name is the repo, from the :name path segment. (required)
-     * @param  string $id ID is the row to remove, from the :id path segment. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteGitReposByNameMirrorsById'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function deleteGitReposByNameMirrorsByIdRequest($name, $id, string $contentType = self::contentTypes['deleteGitReposByNameMirrorsById'][0])
-    {
-
-        // verify the required parameter 'name' is set
-        if ($name === null || (is_array($name) && count($name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $name when calling deleteGitReposByNameMirrorsById'
-            );
-        }
-
-        // verify the required parameter 'id' is set
-        if ($id === null || (is_array($id) && count($id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling deleteGitReposByNameMirrorsById'
-            );
-        }
-
-
-        $resourcePath = '/v1/git/repos/{name}/mirrors/{id}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'name' . '}',
-                ObjectSerializer::toPathValue($name),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'id' . '}',
-                ObjectSerializer::toPathValue($id),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'DELETE',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation deleteGitReposByNameSubscriptionsById
      *
      * Removes one Slack subscription from a repo; the notifier stops posting that repo&#39;s events to that channel.
@@ -1099,6 +842,248 @@ class GitApi
 
 
         $resourcePath = '/v1/git/repos/{name}/subscriptions/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteGitReposByNameTargetsById
+     *
+     * Removes one outbound mirror target; later pushes stop being forwarded to it.
+     *
+     * @param  string $name Name is the repo, from the :name path segment. (required)
+     * @param  string $id ID is the row to remove, from the :id path segment. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteGitReposByNameTargetsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteGitReposByNameTargetsById($name, $id, string $contentType = self::contentTypes['deleteGitReposByNameTargetsById'][0])
+    {
+        $this->deleteGitReposByNameTargetsByIdWithHttpInfo($name, $id, $contentType);
+    }
+
+    /**
+     * Operation deleteGitReposByNameTargetsByIdWithHttpInfo
+     *
+     * Removes one outbound mirror target; later pushes stop being forwarded to it.
+     *
+     * @param  string $name Name is the repo, from the :name path segment. (required)
+     * @param  string $id ID is the row to remove, from the :id path segment. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteGitReposByNameTargetsById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteGitReposByNameTargetsByIdWithHttpInfo($name, $id, string $contentType = self::contentTypes['deleteGitReposByNameTargetsById'][0])
+    {
+        $request = $this->deleteGitReposByNameTargetsByIdRequest($name, $id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteGitReposByNameTargetsByIdAsync
+     *
+     * Removes one outbound mirror target; later pushes stop being forwarded to it.
+     *
+     * @param  string $name Name is the repo, from the :name path segment. (required)
+     * @param  string $id ID is the row to remove, from the :id path segment. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteGitReposByNameTargetsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteGitReposByNameTargetsByIdAsync($name, $id, string $contentType = self::contentTypes['deleteGitReposByNameTargetsById'][0])
+    {
+        return $this->deleteGitReposByNameTargetsByIdAsyncWithHttpInfo($name, $id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteGitReposByNameTargetsByIdAsyncWithHttpInfo
+     *
+     * Removes one outbound mirror target; later pushes stop being forwarded to it.
+     *
+     * @param  string $name Name is the repo, from the :name path segment. (required)
+     * @param  string $id ID is the row to remove, from the :id path segment. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteGitReposByNameTargetsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteGitReposByNameTargetsByIdAsyncWithHttpInfo($name, $id, string $contentType = self::contentTypes['deleteGitReposByNameTargetsById'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteGitReposByNameTargetsByIdRequest($name, $id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteGitReposByNameTargetsById'
+     *
+     * @param  string $name Name is the repo, from the :name path segment. (required)
+     * @param  string $id ID is the row to remove, from the :id path segment. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteGitReposByNameTargetsById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteGitReposByNameTargetsByIdRequest($name, $id, string $contentType = self::contentTypes['deleteGitReposByNameTargetsById'][0])
+    {
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling deleteGitReposByNameTargetsById'
+            );
+        }
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteGitReposByNameTargetsById'
+            );
+        }
+
+
+        $resourcePath = '/v1/git/repos/{name}/targets/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4272,278 +4257,6 @@ class GitApi
     }
 
     /**
-     * Operation getGitReposByNameMirrors
-     *
-     * Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
-     *
-     * @param  string $name Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGitReposByNameMirrors'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MirrorList
-     */
-    public function getGitReposByNameMirrors($name, string $contentType = self::contentTypes['getGitReposByNameMirrors'][0])
-    {
-        list($response) = $this->getGitReposByNameMirrorsWithHttpInfo($name, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getGitReposByNameMirrorsWithHttpInfo
-     *
-     * Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
-     *
-     * @param  string $name Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGitReposByNameMirrors'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MirrorList, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getGitReposByNameMirrorsWithHttpInfo($name, string $contentType = self::contentTypes['getGitReposByNameMirrors'][0])
-    {
-        $request = $this->getGitReposByNameMirrorsRequest($name, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MirrorList',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MirrorList',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MirrorList',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getGitReposByNameMirrorsAsync
-     *
-     * Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
-     *
-     * @param  string $name Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGitReposByNameMirrors'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getGitReposByNameMirrorsAsync($name, string $contentType = self::contentTypes['getGitReposByNameMirrors'][0])
-    {
-        return $this->getGitReposByNameMirrorsAsyncWithHttpInfo($name, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getGitReposByNameMirrorsAsyncWithHttpInfo
-     *
-     * Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
-     *
-     * @param  string $name Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGitReposByNameMirrors'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getGitReposByNameMirrorsAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getGitReposByNameMirrors'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\MirrorList';
-        $request = $this->getGitReposByNameMirrorsRequest($name, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getGitReposByNameMirrors'
-     *
-     * @param  string $name Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGitReposByNameMirrors'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getGitReposByNameMirrorsRequest($name, string $contentType = self::contentTypes['getGitReposByNameMirrors'][0])
-    {
-
-        // verify the required parameter 'name' is set
-        if ($name === null || (is_array($name) && count($name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $name when calling getGitReposByNameMirrors'
-            );
-        }
-
-
-        $resourcePath = '/v1/git/repos/{name}/mirrors';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'name' . '}',
-                ObjectSerializer::toPathValue($name),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation getGitReposByNamePulls
      *
      * Returns a repo&#39;s pull requests, newest number first — what is waiting to be reviewed, and what has already landed.
@@ -5878,6 +5591,278 @@ class GitApi
 
 
         $resourcePath = '/v1/git/repos/{name}/subscriptions';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getGitReposByNameTargets
+     *
+     * Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
+     *
+     * @param  string $name Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGitReposByNameTargets'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MirrorList
+     */
+    public function getGitReposByNameTargets($name, string $contentType = self::contentTypes['getGitReposByNameTargets'][0])
+    {
+        list($response) = $this->getGitReposByNameTargetsWithHttpInfo($name, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getGitReposByNameTargetsWithHttpInfo
+     *
+     * Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
+     *
+     * @param  string $name Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGitReposByNameTargets'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MirrorList, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getGitReposByNameTargetsWithHttpInfo($name, string $contentType = self::contentTypes['getGitReposByNameTargets'][0])
+    {
+        $request = $this->getGitReposByNameTargetsRequest($name, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MirrorList',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MirrorList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MirrorList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getGitReposByNameTargetsAsync
+     *
+     * Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
+     *
+     * @param  string $name Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGitReposByNameTargets'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getGitReposByNameTargetsAsync($name, string $contentType = self::contentTypes['getGitReposByNameTargets'][0])
+    {
+        return $this->getGitReposByNameTargetsAsyncWithHttpInfo($name, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getGitReposByNameTargetsAsyncWithHttpInfo
+     *
+     * Returns a repo&#39;s outbound mirror targets — the downstream remotes the mirror reactor pushes to whenever a push lands here.
+     *
+     * @param  string $name Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGitReposByNameTargets'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getGitReposByNameTargetsAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getGitReposByNameTargets'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MirrorList';
+        $request = $this->getGitReposByNameTargetsRequest($name, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getGitReposByNameTargets'
+     *
+     * @param  string $name Name is the repo&#39;s org-unique handle, from the :name path segment. A trailing \&quot;.git\&quot; is stripped. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getGitReposByNameTargets'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getGitReposByNameTargetsRequest($name, string $contentType = self::contentTypes['getGitReposByNameTargets'][0])
+    {
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling getGitReposByNameTargets'
+            );
+        }
+
+
+        $resourcePath = '/v1/git/repos/{name}/targets';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8964,297 +8949,6 @@ class GitApi
     }
 
     /**
-     * Operation postGitReposByNameMirrors
-     *
-     * Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
-     *
-     * @param  string $name Name is the repo whose advanced refs are pushed downstream, from the :name path segment. (required)
-     * @param  \Hanzo\Cloud\Model\MirrorTargetReq $mirror_target_req mirror_target_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitReposByNameMirrors'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\MirrorTargetView
-     */
-    public function postGitReposByNameMirrors($name, $mirror_target_req, string $contentType = self::contentTypes['postGitReposByNameMirrors'][0])
-    {
-        list($response) = $this->postGitReposByNameMirrorsWithHttpInfo($name, $mirror_target_req, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postGitReposByNameMirrorsWithHttpInfo
-     *
-     * Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
-     *
-     * @param  string $name Name is the repo whose advanced refs are pushed downstream, from the :name path segment. (required)
-     * @param  \Hanzo\Cloud\Model\MirrorTargetReq $mirror_target_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitReposByNameMirrors'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\MirrorTargetView, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postGitReposByNameMirrorsWithHttpInfo($name, $mirror_target_req, string $contentType = self::contentTypes['postGitReposByNameMirrors'][0])
-    {
-        $request = $this->postGitReposByNameMirrorsRequest($name, $mirror_target_req, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 201:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\MirrorTargetView',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\MirrorTargetView',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 201:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\MirrorTargetView',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postGitReposByNameMirrorsAsync
-     *
-     * Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
-     *
-     * @param  string $name Name is the repo whose advanced refs are pushed downstream, from the :name path segment. (required)
-     * @param  \Hanzo\Cloud\Model\MirrorTargetReq $mirror_target_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitReposByNameMirrors'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitReposByNameMirrorsAsync($name, $mirror_target_req, string $contentType = self::contentTypes['postGitReposByNameMirrors'][0])
-    {
-        return $this->postGitReposByNameMirrorsAsyncWithHttpInfo($name, $mirror_target_req, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postGitReposByNameMirrorsAsyncWithHttpInfo
-     *
-     * Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
-     *
-     * @param  string $name Name is the repo whose advanced refs are pushed downstream, from the :name path segment. (required)
-     * @param  \Hanzo\Cloud\Model\MirrorTargetReq $mirror_target_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitReposByNameMirrors'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitReposByNameMirrorsAsyncWithHttpInfo($name, $mirror_target_req, string $contentType = self::contentTypes['postGitReposByNameMirrors'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\MirrorTargetView';
-        $request = $this->postGitReposByNameMirrorsRequest($name, $mirror_target_req, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postGitReposByNameMirrors'
-     *
-     * @param  string $name Name is the repo whose advanced refs are pushed downstream, from the :name path segment. (required)
-     * @param  \Hanzo\Cloud\Model\MirrorTargetReq $mirror_target_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitReposByNameMirrors'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postGitReposByNameMirrorsRequest($name, $mirror_target_req, string $contentType = self::contentTypes['postGitReposByNameMirrors'][0])
-    {
-
-        // verify the required parameter 'name' is set
-        if ($name === null || (is_array($name) && count($name) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $name when calling postGitReposByNameMirrors'
-            );
-        }
-
-        // verify the required parameter 'mirror_target_req' is set
-        if ($mirror_target_req === null || (is_array($mirror_target_req) && count($mirror_target_req) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $mirror_target_req when calling postGitReposByNameMirrors'
-            );
-        }
-
-
-        $resourcePath = '/v1/git/repos/{name}/mirrors';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-        // path params
-        if ($name !== null) {
-            $resourcePath = str_replace(
-                '{' . 'name' . '}',
-                ObjectSerializer::toPathValue($name),
-                $resourcePath
-            );
-        }
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($mirror_target_req)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($mirror_target_req));
-            } else {
-                $httpBody = $mirror_target_req;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
      * Operation postGitReposByNamePulls
      *
      * Proposes a branch for merging and returns it with its number.
@@ -10420,6 +10114,297 @@ class GitApi
     }
 
     /**
+     * Operation postGitReposByNameTargets
+     *
+     * Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
+     *
+     * @param  string $name Name is the repo whose advanced refs are pushed downstream, from the :name path segment. (required)
+     * @param  \Hanzo\Cloud\Model\MirrorTargetReq $mirror_target_req mirror_target_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitReposByNameTargets'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\MirrorTargetView
+     */
+    public function postGitReposByNameTargets($name, $mirror_target_req, string $contentType = self::contentTypes['postGitReposByNameTargets'][0])
+    {
+        list($response) = $this->postGitReposByNameTargetsWithHttpInfo($name, $mirror_target_req, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postGitReposByNameTargetsWithHttpInfo
+     *
+     * Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
+     *
+     * @param  string $name Name is the repo whose advanced refs are pushed downstream, from the :name path segment. (required)
+     * @param  \Hanzo\Cloud\Model\MirrorTargetReq $mirror_target_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitReposByNameTargets'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\MirrorTargetView, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postGitReposByNameTargetsWithHttpInfo($name, $mirror_target_req, string $contentType = self::contentTypes['postGitReposByNameTargets'][0])
+    {
+        $request = $this->postGitReposByNameTargetsRequest($name, $mirror_target_req, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\MirrorTargetView',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\MirrorTargetView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\MirrorTargetView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postGitReposByNameTargetsAsync
+     *
+     * Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
+     *
+     * @param  string $name Name is the repo whose advanced refs are pushed downstream, from the :name path segment. (required)
+     * @param  \Hanzo\Cloud\Model\MirrorTargetReq $mirror_target_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitReposByNameTargets'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postGitReposByNameTargetsAsync($name, $mirror_target_req, string $contentType = self::contentTypes['postGitReposByNameTargets'][0])
+    {
+        return $this->postGitReposByNameTargetsAsyncWithHttpInfo($name, $mirror_target_req, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postGitReposByNameTargetsAsyncWithHttpInfo
+     *
+     * Registers a downstream remote the repo&#39;s advanced refs are pushed to whenever a push lands here.
+     *
+     * @param  string $name Name is the repo whose advanced refs are pushed downstream, from the :name path segment. (required)
+     * @param  \Hanzo\Cloud\Model\MirrorTargetReq $mirror_target_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitReposByNameTargets'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postGitReposByNameTargetsAsyncWithHttpInfo($name, $mirror_target_req, string $contentType = self::contentTypes['postGitReposByNameTargets'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\MirrorTargetView';
+        $request = $this->postGitReposByNameTargetsRequest($name, $mirror_target_req, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postGitReposByNameTargets'
+     *
+     * @param  string $name Name is the repo whose advanced refs are pushed downstream, from the :name path segment. (required)
+     * @param  \Hanzo\Cloud\Model\MirrorTargetReq $mirror_target_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitReposByNameTargets'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postGitReposByNameTargetsRequest($name, $mirror_target_req, string $contentType = self::contentTypes['postGitReposByNameTargets'][0])
+    {
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling postGitReposByNameTargets'
+            );
+        }
+
+        // verify the required parameter 'mirror_target_req' is set
+        if ($mirror_target_req === null || (is_array($mirror_target_req) && count($mirror_target_req) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $mirror_target_req when calling postGitReposByNameTargets'
+            );
+        }
+
+
+        $resourcePath = '/v1/git/repos/{name}/targets';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($mirror_target_req)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($mirror_target_req));
+            } else {
+                $httpBody = $mirror_target_req;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation postGitWebhook
      *
      * Retired — forge pushes build via platform.hanzo.ai
@@ -10554,1055 +10539,6 @@ class GitApi
 
 
         $resourcePath = '/v1/git/webhook';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postGitZapCreaterepo
-     *
-     * Create a repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapCreaterepo'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postGitZapCreaterepo($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapCreaterepo'][0])
-    {
-        $this->postGitZapCreaterepoWithHttpInfo($zap_proc_req, $contentType);
-    }
-
-    /**
-     * Operation postGitZapCreaterepoWithHttpInfo
-     *
-     * Create a repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapCreaterepo'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postGitZapCreaterepoWithHttpInfo($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapCreaterepo'][0])
-    {
-        $request = $this->postGitZapCreaterepoRequest($zap_proc_req, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postGitZapCreaterepoAsync
-     *
-     * Create a repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapCreaterepo'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitZapCreaterepoAsync($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapCreaterepo'][0])
-    {
-        return $this->postGitZapCreaterepoAsyncWithHttpInfo($zap_proc_req, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postGitZapCreaterepoAsyncWithHttpInfo
-     *
-     * Create a repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapCreaterepo'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitZapCreaterepoAsyncWithHttpInfo($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapCreaterepo'][0])
-    {
-        $returnType = '';
-        $request = $this->postGitZapCreaterepoRequest($zap_proc_req, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postGitZapCreaterepo'
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapCreaterepo'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postGitZapCreaterepoRequest($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapCreaterepo'][0])
-    {
-
-
-
-        $resourcePath = '/v1/git/zap/createRepo';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($zap_proc_req)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($zap_proc_req));
-            } else {
-                $httpBody = $zap_proc_req;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postGitZapDeleterepo
-     *
-     * Delete a repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapDeleterepo'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postGitZapDeleterepo($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapDeleterepo'][0])
-    {
-        $this->postGitZapDeleterepoWithHttpInfo($zap_proc_req, $contentType);
-    }
-
-    /**
-     * Operation postGitZapDeleterepoWithHttpInfo
-     *
-     * Delete a repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapDeleterepo'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postGitZapDeleterepoWithHttpInfo($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapDeleterepo'][0])
-    {
-        $request = $this->postGitZapDeleterepoRequest($zap_proc_req, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postGitZapDeleterepoAsync
-     *
-     * Delete a repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapDeleterepo'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitZapDeleterepoAsync($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapDeleterepo'][0])
-    {
-        return $this->postGitZapDeleterepoAsyncWithHttpInfo($zap_proc_req, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postGitZapDeleterepoAsyncWithHttpInfo
-     *
-     * Delete a repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapDeleterepo'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitZapDeleterepoAsyncWithHttpInfo($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapDeleterepo'][0])
-    {
-        $returnType = '';
-        $request = $this->postGitZapDeleterepoRequest($zap_proc_req, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postGitZapDeleterepo'
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapDeleterepo'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postGitZapDeleterepoRequest($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapDeleterepo'][0])
-    {
-
-
-
-        $resourcePath = '/v1/git/zap/deleteRepo';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($zap_proc_req)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($zap_proc_req));
-            } else {
-                $httpBody = $zap_proc_req;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postGitZapGetrepo
-     *
-     * Read one repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapGetrepo'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postGitZapGetrepo($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapGetrepo'][0])
-    {
-        $this->postGitZapGetrepoWithHttpInfo($zap_proc_req, $contentType);
-    }
-
-    /**
-     * Operation postGitZapGetrepoWithHttpInfo
-     *
-     * Read one repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapGetrepo'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postGitZapGetrepoWithHttpInfo($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapGetrepo'][0])
-    {
-        $request = $this->postGitZapGetrepoRequest($zap_proc_req, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postGitZapGetrepoAsync
-     *
-     * Read one repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapGetrepo'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitZapGetrepoAsync($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapGetrepo'][0])
-    {
-        return $this->postGitZapGetrepoAsyncWithHttpInfo($zap_proc_req, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postGitZapGetrepoAsyncWithHttpInfo
-     *
-     * Read one repository over the ZAP transport
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapGetrepo'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitZapGetrepoAsyncWithHttpInfo($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapGetrepo'][0])
-    {
-        $returnType = '';
-        $request = $this->postGitZapGetrepoRequest($zap_proc_req, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postGitZapGetrepo'
-     *
-     * @param  \Hanzo\Cloud\Model\ZapProcReq|null $zap_proc_req (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapGetrepo'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postGitZapGetrepoRequest($zap_proc_req = null, string $contentType = self::contentTypes['postGitZapGetrepo'][0])
-    {
-
-
-
-        $resourcePath = '/v1/git/zap/getRepo';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($zap_proc_req)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($zap_proc_req));
-            } else {
-                $httpBody = $zap_proc_req;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postGitZapListrepos
-     *
-     * List your repositories over the ZAP transport
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapListrepos'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postGitZapListrepos(string $contentType = self::contentTypes['postGitZapListrepos'][0])
-    {
-        $this->postGitZapListreposWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postGitZapListreposWithHttpInfo
-     *
-     * List your repositories over the ZAP transport
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapListrepos'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postGitZapListreposWithHttpInfo(string $contentType = self::contentTypes['postGitZapListrepos'][0])
-    {
-        $request = $this->postGitZapListreposRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postGitZapListreposAsync
-     *
-     * List your repositories over the ZAP transport
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapListrepos'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitZapListreposAsync(string $contentType = self::contentTypes['postGitZapListrepos'][0])
-    {
-        return $this->postGitZapListreposAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postGitZapListreposAsyncWithHttpInfo
-     *
-     * List your repositories over the ZAP transport
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapListrepos'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitZapListreposAsyncWithHttpInfo(string $contentType = self::contentTypes['postGitZapListrepos'][0])
-    {
-        $returnType = '';
-        $request = $this->postGitZapListreposRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postGitZapListrepos'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapListrepos'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postGitZapListreposRequest(string $contentType = self::contentTypes['postGitZapListrepos'][0])
-    {
-
-
-        $resourcePath = '/v1/git/zap/listRepos';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            [],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'POST',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postGitZapUsage
-     *
-     * Report your org&#39;s git storage footprint over the ZAP transport
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapUsage'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return void
-     */
-    public function postGitZapUsage(string $contentType = self::contentTypes['postGitZapUsage'][0])
-    {
-        $this->postGitZapUsageWithHttpInfo($contentType);
-    }
-
-    /**
-     * Operation postGitZapUsageWithHttpInfo
-     *
-     * Report your org&#39;s git storage footprint over the ZAP transport
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapUsage'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postGitZapUsageWithHttpInfo(string $contentType = self::contentTypes['postGitZapUsage'][0])
-    {
-        $request = $this->postGitZapUsageRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            return [null, $statusCode, $response->getHeaders()];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postGitZapUsageAsync
-     *
-     * Report your org&#39;s git storage footprint over the ZAP transport
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapUsage'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitZapUsageAsync(string $contentType = self::contentTypes['postGitZapUsage'][0])
-    {
-        return $this->postGitZapUsageAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postGitZapUsageAsyncWithHttpInfo
-     *
-     * Report your org&#39;s git storage footprint over the ZAP transport
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapUsage'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postGitZapUsageAsyncWithHttpInfo(string $contentType = self::contentTypes['postGitZapUsage'][0])
-    {
-        $returnType = '';
-        $request = $this->postGitZapUsageRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postGitZapUsage'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitZapUsage'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function postGitZapUsageRequest(string $contentType = self::contentTypes['postGitZapUsage'][0])
-    {
-
-
-        $resourcePath = '/v1/git/zap/usage';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

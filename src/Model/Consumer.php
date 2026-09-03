@@ -82,10 +82,10 @@ class Consumer implements ModelInterface, ArrayAccess, \JsonSerializable
         'created' => 'date-time',
         'delivered' => null,
         'name' => null,
-        'num_ack_pending' => null,
-        'num_pending' => null,
-        'num_redelivered' => null,
-        'num_waiting' => null,
+        'num_ack_pending' => 'int64',
+        'num_pending' => 'uint64',
+        'num_redelivered' => 'int64',
+        'num_waiting' => 'int64',
         'stream_name' => null
     ];
 

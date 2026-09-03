@@ -73,9 +73,9 @@ class Spec implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'arch' => null,
-        'cpus' => null,
+        'cpus' => 'int64',
         'gpus' => null,
-        'memory' => null,
+        'memory' => 'int64',
         'os' => null
     ];
 

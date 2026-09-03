@@ -74,7 +74,7 @@ class ControlCommandView implements ModelInterface, ArrayAccess, \JsonSerializab
         'command' => null,
         'message' => null,
         'payload' => null,
-        'seq' => null
+        'seq' => 'int64'
     ];
 
     /**

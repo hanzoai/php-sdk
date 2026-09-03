@@ -76,15 +76,15 @@ class Quote implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'charge_cents' => null,
+        'charge_cents' => 'int64',
         'code' => null,
-        'discount_cents' => null,
+        'discount_cents' => 'int64',
         'eligible' => null,
-        'list_cents' => null,
+        'list_cents' => 'int64',
         'plan' => null,
         'reason' => null,
-        'remaining' => null,
-        'seats' => null
+        'remaining' => 'int64',
+        'seats' => 'int64'
     ];
 
     /**

@@ -82,7 +82,7 @@ class GithubSearchHit implements ModelInterface, ArrayAccess, \JsonSerializable
         'html_url' => null,
         'language' => null,
         'private' => null,
-        'stars' => null
+        'stars' => 'int64'
     ];
 
     /**

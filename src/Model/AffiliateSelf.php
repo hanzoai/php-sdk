@@ -83,20 +83,20 @@ class AffiliateSelf implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'accrued_cents' => null,
+        'accrued_cents' => 'int64',
         'code' => null,
-        'default_rate_bps' => null,
-        'downline_total' => null,
+        'default_rate_bps' => 'int64',
+        'downline_total' => 'int64',
         'handle' => null,
         'id' => null,
         'is_affiliate' => null,
         'levels' => null,
         'link' => null,
-        'margin_bps' => null,
-        'paid_cents' => null,
+        'margin_bps' => 'int64',
+        'paid_cents' => 'int64',
         'payouts' => null,
-        'pending_cents' => null,
-        'rate_bps' => null,
+        'pending_cents' => 'int64',
+        'rate_bps' => 'int64',
         'schedule' => null,
         'status' => null
     ];

@@ -72,7 +72,7 @@ class HistoryOut implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'benchmark' => null,
         'data' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

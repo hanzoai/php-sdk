@@ -72,9 +72,9 @@ class BucketWrite implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'bucket' => null,
-        'history' => null,
-        'max_value' => null,
-        'ttl' => null
+        'history' => 'int64',
+        'max_value' => 'int64',
+        'ttl' => 'int64'
     ];
 
     /**

@@ -73,12 +73,12 @@ class GithubBackfillResult implements ModelInterface, ArrayAccess, \JsonSerializ
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created' => null,
-        'failed' => null,
-        'issues' => null,
-        'repos' => null,
+        'created' => 'int64',
+        'failed' => 'int64',
+        'issues' => 'int64',
+        'repos' => 'int64',
         'truncated' => null,
-        'updated' => null
+        'updated' => 'int64'
     ];
 
     /**

@@ -76,11 +76,11 @@ class TrafficCaller implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'action' => null,
         'cred' => null,
-        'failures' => null,
-        'held_until' => null,
-        'paths' => null,
+        'failures' => 'int64',
+        'held_until' => 'int64',
+        'paths' => 'int64',
         'reason' => null,
-        'requests' => null
+        'requests' => 'int64'
     ];
 
     /**

@@ -71,7 +71,7 @@ class BlueprintHealth implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'blueprints' => null,
+        'blueprints' => 'int64',
         'rate_card' => null,
         'service' => null,
         'status' => null

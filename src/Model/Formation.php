@@ -88,7 +88,7 @@ class Formation implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'already_incorporated' => null,
         'cap_table_imported' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'document_ids' => null,
         'esign_ref' => null,
         'filing' => null,
@@ -104,7 +104,7 @@ class Formation implements ModelInterface, ArrayAccess, \JsonSerializable
         'signed' => null,
         'stage' => null,
         'structure' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

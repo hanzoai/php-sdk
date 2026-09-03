@@ -70,7 +70,7 @@ class O11yAgentReport implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'data' => null,
-        'timestamp_millis' => null
+        'timestamp_millis' => 'int64'
     ];
 
     /**

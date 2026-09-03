@@ -69,7 +69,7 @@ class O11yO11yTestNotificationResult implements ModelInterface, ArrayAccess, \Js
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'alert_count' => null,
+        'alert_count' => 'int64',
         'message' => null
     ];
 

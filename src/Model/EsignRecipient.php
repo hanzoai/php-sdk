@@ -84,8 +84,8 @@ class EsignRecipient implements ModelInterface, ArrayAccess, \JsonSerializable
         'rejection_reason' => null,
         'role' => null,
         'send_status' => null,
-        'signed_at' => null,
-        'signing_order' => null,
+        'signed_at' => 'int64',
+        'signing_order' => 'double',
         'signing_status' => null
     ];
 

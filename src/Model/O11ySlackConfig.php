@@ -119,7 +119,7 @@ class O11ySlackConfig implements ModelInterface, ArrayAccess, \JsonSerializable
         'short_fields' => null,
         'text' => null,
         'thumb_url' => null,
-        'timeout' => null,
+        'timeout' => 'int64',
         'title' => null,
         'title_link' => null,
         'username' => null

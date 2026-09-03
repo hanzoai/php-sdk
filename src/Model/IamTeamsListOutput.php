@@ -70,7 +70,7 @@ class IamTeamsListOutput implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'teams' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

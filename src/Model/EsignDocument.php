@@ -80,8 +80,8 @@ class EsignDocument implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'completed_at' => null,
-        'created_at' => null,
+        'completed_at' => 'int64',
+        'created_at' => 'int64',
         'external_id' => null,
         'fields' => null,
         'id' => null,
@@ -92,7 +92,7 @@ class EsignDocument implements ModelInterface, ArrayAccess, \JsonSerializable
         'status' => null,
         'subject' => null,
         'title' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

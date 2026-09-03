@@ -79,16 +79,16 @@ class AdCampaign implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'account' => null,
-        'budget' => null,
-        'created_at' => null,
+        'budget' => 'int64',
+        'created_at' => 'int64',
         'external_id' => null,
         'id' => null,
         'name' => null,
         'objective' => null,
         'platform' => null,
-        'spend' => null,
+        'spend' => 'int64',
         'status' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

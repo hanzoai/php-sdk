@@ -71,7 +71,7 @@ class DevicePollOut implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'connector' => null,
-        'interval' => null,
+        'interval' => 'int64',
         'status' => null
     ];
 

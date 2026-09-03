@@ -79,16 +79,16 @@ class ClusterView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amd_gpu' => null,
+        'amd_gpu' => 'int64',
         'created_at' => null,
         'do_cluster_id' => null,
         'doks_cluster_id' => null,
         'kind' => null,
         'name' => null,
-        'node_count' => null,
+        'node_count' => 'int64',
         'node_pools' => null,
         'node_size' => null,
-        'nvidia_gpu' => null,
+        'nvidia_gpu' => 'int64',
         'region' => null,
         'status' => null
     ];

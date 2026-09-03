@@ -71,8 +71,8 @@ class RevokeResp implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'links' => null,
-        'revoked' => null,
-        'sessions_stopped' => null
+        'revoked' => 'int64',
+        'sessions_stopped' => 'int64'
     ];
 
     /**

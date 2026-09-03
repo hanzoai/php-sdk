@@ -74,11 +74,11 @@ class RoundInput implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'name' => null,
-        'pre_money_valuation' => null,
-        'price_per_share' => null,
+        'pre_money_valuation' => 'double',
+        'price_per_share' => 'double',
         'round_type' => null,
         'share_class_id' => null,
-        'target_amount' => null
+        'target_amount' => 'double'
     ];
 
     /**

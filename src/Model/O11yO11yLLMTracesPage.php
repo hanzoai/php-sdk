@@ -71,8 +71,8 @@ class O11yO11yLLMTracesPage implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPIFormats = [
         'items' => null,
-        'limit' => null,
-        'offset' => null
+        'limit' => 'int64',
+        'offset' => 'int64'
     ];
 
     /**

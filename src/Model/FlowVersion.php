@@ -76,14 +76,14 @@ class FlowVersion implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created' => null,
+        'created' => 'int64',
         'display_name' => null,
         'flow_id' => null,
         'id' => null,
         'schema_version' => null,
         'state' => null,
         'trigger' => null,
-        'updated' => null,
+        'updated' => 'int64',
         'valid' => null
     ];
 

@@ -83,18 +83,18 @@ class DataroomLink implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'allow_download' => null,
         'allow_list' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'dataroom_id' => null,
         'deny_list' => null,
         'document_id' => null,
         'email_protected' => null,
-        'expires_at' => null,
+        'expires_at' => 'int64',
         'has_password' => null,
         'id' => null,
         'is_archived' => null,
         'link_type' => null,
         'name' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

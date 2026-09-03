@@ -72,9 +72,9 @@ class ProjectsUploadGrant implements ModelInterface, ArrayAccess, \JsonSerializa
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'expires_at' => null,
+        'expires_at' => 'int64',
         'fields' => null,
-        'max_bytes' => null,
+        'max_bytes' => 'int64',
         'prefix' => null,
         'url' => null
     ];

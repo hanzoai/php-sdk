@@ -72,7 +72,7 @@ class Charged implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'balance_cents' => null,
+        'balance_cents' => 'int64',
         'processor_ref' => null,
         'status' => null,
         'test' => null,

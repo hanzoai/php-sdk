@@ -82,7 +82,7 @@ class RoutedRunOut implements ModelInterface, ArrayAccess, \JsonSerializable
         'prompt' => null,
         'repo' => null,
         'session_id' => null,
-        'timeout_seconds' => null
+        'timeout_seconds' => 'int64'
     ];
 
     /**

@@ -69,7 +69,7 @@ class ReviewQueue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'count' => null,
+        'count' => 'int64',
         'queue' => null
     ];
 

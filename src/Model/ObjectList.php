@@ -74,7 +74,7 @@ class ObjectList implements ModelInterface, ArrayAccess, \JsonSerializable
         'bucket' => null,
         'objects' => null,
         'prefix' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

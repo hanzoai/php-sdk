@@ -71,8 +71,8 @@ class PromoStatus implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'promo' => null,
-        'redeemed' => null,
-        'remaining' => null
+        'redeemed' => 'int64',
+        'remaining' => 'int64'
     ];
 
     /**

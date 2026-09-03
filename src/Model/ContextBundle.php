@@ -72,11 +72,11 @@ class ContextBundle implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'budget_tokens' => null,
+        'budget_tokens' => 'int64',
         'query' => null,
         'repo' => null,
         'spans' => null,
-        'used_tokens' => null
+        'used_tokens' => 'int64'
     ];
 
     /**

@@ -77,7 +77,7 @@ class BlobJSON implements ModelInterface, ArrayAccess, \JsonSerializable
         'content' => null,
         'encoding' => null,
         'path' => null,
-        'size' => null,
+        'size' => 'int64',
         'truncated' => null
     ];
 

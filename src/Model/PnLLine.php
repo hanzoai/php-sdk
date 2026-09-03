@@ -72,7 +72,7 @@ class PnLLine implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'account' => null,
-        'amount' => null,
+        'amount' => 'int64',
         'name' => null,
         'type' => null
     ];

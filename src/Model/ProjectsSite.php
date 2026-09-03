@@ -75,7 +75,7 @@ class ProjectsSite implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'slug' => null,
         'status' => null,
-        'updated_at' => null,
+        'updated_at' => 'int64',
         'url' => null
     ];
 

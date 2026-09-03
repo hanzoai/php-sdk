@@ -69,8 +69,8 @@ class O11yLimitMetricValue implements ModelInterface, ArrayAccess, \JsonSerializ
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'count' => null,
-        'size' => null
+        'count' => 'int64',
+        'size' => 'int64'
     ];
 
     /**

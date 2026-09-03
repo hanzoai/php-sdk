@@ -78,7 +78,7 @@ class IndexTask implements ModelInterface, ArrayAccess, \JsonSerializable
         'started_at' => null,
         'status' => null,
         'type' => null,
-        'uid' => null
+        'uid' => 'int64'
     ];
 
     /**

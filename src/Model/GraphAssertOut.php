@@ -71,10 +71,10 @@ class GraphAssertOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'duplicate' => null,
+        'duplicate' => 'int64',
         'reasons' => null,
-        'recorded' => null,
-        'refused' => null
+        'recorded' => 'int64',
+        'refused' => 'int64'
     ];
 
     /**

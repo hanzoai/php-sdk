@@ -80,19 +80,19 @@ class O11yJobRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'active_pods' => null,
-        'desired_successful_pods' => null,
-        'failed_pods' => null,
-        'job_cpu' => null,
-        'job_cpu_limit' => null,
-        'job_cpu_request' => null,
-        'job_memory' => null,
-        'job_memory_limit' => null,
-        'job_memory_request' => null,
+        'active_pods' => 'int64',
+        'desired_successful_pods' => 'int64',
+        'failed_pods' => 'int64',
+        'job_cpu' => 'double',
+        'job_cpu_limit' => 'double',
+        'job_cpu_request' => 'double',
+        'job_memory' => 'double',
+        'job_memory_limit' => 'double',
+        'job_memory_request' => 'double',
         'job_name' => null,
         'meta' => null,
         'pod_counts_by_phase' => null,
-        'successful_pods' => null
+        'successful_pods' => 'int64'
     ];
 
     /**

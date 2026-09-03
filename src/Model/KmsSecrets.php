@@ -72,7 +72,7 @@ class KmsSecrets implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'names' => null,
         'secrets' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

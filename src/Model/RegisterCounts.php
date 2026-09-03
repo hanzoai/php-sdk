@@ -69,8 +69,8 @@ class RegisterCounts implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'by_stage' => null,
-        'total' => null
+        'by_stage' => 'int64',
+        'total' => 'int64'
     ];
 
     /**

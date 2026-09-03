@@ -78,7 +78,7 @@ class FrameworkRow implements ModelInterface, ArrayAccess, \JsonSerializable
         'framework' => null,
         'name' => null,
         'publisher' => null,
-        'total' => null,
+        'total' => 'int64',
         'unit' => null,
         'units' => null
     ];

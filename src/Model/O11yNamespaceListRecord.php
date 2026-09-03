@@ -73,8 +73,8 @@ class O11yNamespaceListRecord implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static $openAPIFormats = [
         'count_by_phase' => null,
-        'cpu_usage' => null,
-        'memory_usage' => null,
+        'cpu_usage' => 'double',
+        'memory_usage' => 'double',
         'meta' => null,
         'namespace_name' => null
     ];

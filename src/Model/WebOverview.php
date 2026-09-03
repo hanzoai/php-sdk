@@ -74,11 +74,11 @@ class WebOverview implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'available' => null,
-        'pageviews' => null,
+        'pageviews' => 'int64',
         'reason' => null,
-        'sessions' => null,
+        'sessions' => 'int64',
         'source' => null,
-        'visitors' => null
+        'visitors' => 'int64'
     ];
 
     /**

@@ -72,9 +72,9 @@ class O11yO11yLLMAnnotationsPage implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static $openAPIFormats = [
         'items' => null,
-        'limit' => null,
-        'offset' => null,
-        'total' => null
+        'limit' => 'int64',
+        'offset' => 'int64',
+        'total' => 'int64'
     ];
 
     /**

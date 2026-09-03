@@ -1,6 +1,6 @@
 <?php
 /**
- * ZapProcReq
+ * JoinFailure
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * ZapProcReq Class Doc Comment
+ * JoinFailure Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
+class JoinFailure implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'zapProcReq';
+    protected static $openAPIModelName = 'joinFailure';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,9 +57,9 @@ class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'description' => 'string',
-        'name' => 'string',
-        'project' => 'string'
+        'channel' => 'string',
+        'error' => 'string',
+        'name' => 'string'
     ];
 
     /**
@@ -70,9 +70,9 @@ class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'description' => null,
-        'name' => null,
-        'project' => null
+        'channel' => null,
+        'error' => null,
+        'name' => null
     ];
 
     /**
@@ -81,9 +81,9 @@ class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'description' => false,
-        'name' => false,
-        'project' => false
+        'channel' => false,
+        'error' => false,
+        'name' => false
     ];
 
     /**
@@ -172,9 +172,9 @@ class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'description' => 'description',
-        'name' => 'name',
-        'project' => 'project'
+        'channel' => 'channel',
+        'error' => 'error',
+        'name' => 'name'
     ];
 
     /**
@@ -183,9 +183,9 @@ class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'description' => 'setDescription',
-        'name' => 'setName',
-        'project' => 'setProject'
+        'channel' => 'setChannel',
+        'error' => 'setError',
+        'name' => 'setName'
     ];
 
     /**
@@ -194,9 +194,9 @@ class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'description' => 'getDescription',
-        'name' => 'getName',
-        'project' => 'getProject'
+        'channel' => 'getChannel',
+        'error' => 'getError',
+        'name' => 'getName'
     ];
 
     /**
@@ -256,9 +256,9 @@ class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('description', $data ?? [], null);
+        $this->setIfExists('channel', $data ?? [], null);
+        $this->setIfExists('error', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
-        $this->setIfExists('project', $data ?? [], null);
     }
 
     /**
@@ -304,28 +304,55 @@ class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets description
+     * Gets channel
      *
      * @return string|null
      */
-    public function getDescription()
+    public function getChannel()
     {
-        return $this->container['description'];
+        return $this->container['channel'];
     }
 
     /**
-     * Sets description
+     * Sets channel
      *
-     * @param string|null $description description
+     * @param string|null $channel Channel is Slack's id for the room that refused.
      *
      * @return self
      */
-    public function setDescription($description)
+    public function setChannel($channel)
     {
-        if (is_null($description)) {
-            throw new \InvalidArgumentException('non-nullable description cannot be null');
+        if (is_null($channel)) {
+            throw new \InvalidArgumentException('non-nullable channel cannot be null');
         }
-        $this->container['description'] = $description;
+        $this->container['channel'] = $channel;
+
+        return $this;
+    }
+
+    /**
+     * Gets error
+     *
+     * @return string|null
+     */
+    public function getError()
+    {
+        return $this->container['error'];
+    }
+
+    /**
+     * Sets error
+     *
+     * @param string|null $error Error is Slack's own code, carried through unchanged.
+     *
+     * @return self
+     */
+    public function setError($error)
+    {
+        if (is_null($error)) {
+            throw new \InvalidArgumentException('non-nullable error cannot be null');
+        }
+        $this->container['error'] = $error;
 
         return $this;
     }
@@ -343,7 +370,7 @@ class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string|null $name Name is that room's human name, so the operator does not have to look the id up.
      *
      * @return self
      */
@@ -353,33 +380,6 @@ class ZapProcReq implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets project
-     *
-     * @return string|null
-     */
-    public function getProject()
-    {
-        return $this->container['project'];
-    }
-
-    /**
-     * Sets project
-     *
-     * @param string|null $project project
-     *
-     * @return self
-     */
-    public function setProject($project)
-    {
-        if (is_null($project)) {
-            throw new \InvalidArgumentException('non-nullable project cannot be null');
-        }
-        $this->container['project'] = $project;
 
         return $this;
     }

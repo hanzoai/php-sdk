@@ -73,10 +73,10 @@ class CapVerdict implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'allow' => null,
-        'cap_cents' => null,
+        'cap_cents' => 'int64',
         'reason' => null,
-        'spent_cents' => null,
-        'warn_pct' => null
+        'spent_cents' => 'int64',
+        'warn_pct' => 'int64'
     ];
 
     /**

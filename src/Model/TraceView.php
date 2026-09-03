@@ -88,7 +88,7 @@ class TraceView implements ModelInterface, ArrayAccess, \JsonSerializable
         'end_time' => null,
         'id' => null,
         'input' => null,
-        'latency_ms' => null,
+        'latency_ms' => 'double',
         'model' => null,
         'name' => null,
         'output' => null,

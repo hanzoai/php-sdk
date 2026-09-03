@@ -70,8 +70,8 @@ class O11yAvailabilityResponseRange implements ModelInterface, ArrayAccess, \Jso
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'since_sec' => null,
-        'step_sec' => null
+        'since_sec' => 'int64',
+        'step_sec' => 'int64'
     ];
 
     /**

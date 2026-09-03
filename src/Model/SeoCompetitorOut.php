@@ -72,7 +72,7 @@ class SeoCompetitorOut implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'competitors' => null,
         'cost' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

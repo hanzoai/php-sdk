@@ -77,10 +77,10 @@ class RiskDatasetRows implements ModelInterface, ArrayAccess, \JsonSerializable
         'dataset' => null,
         'digest' => null,
         'dims' => null,
-        'limit' => null,
-        'offset' => null,
+        'limit' => 'int64',
+        'offset' => 'int64',
         'rows' => null,
-        'version' => null
+        'version' => 'int64'
     ];
 
     /**

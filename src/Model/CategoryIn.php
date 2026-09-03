@@ -75,7 +75,7 @@ class CategoryIn implements ModelInterface, ArrayAccess, \JsonSerializable
         'brands' => null,
         'id' => null,
         'label' => null,
-        'order' => null,
+        'order' => 'int64',
         'summary' => null
     ];
 

@@ -78,9 +78,9 @@ class O11yPostableProfile implements ModelInterface, ArrayAccess, \JsonSerializa
     protected static $openAPIFormats = [
         'existing_observability_tool' => null,
         'has_existing_observability_tool' => null,
-        'logs_scale_per_day_in_gb' => null,
-        'number_of_hosts' => null,
-        'number_of_services' => null,
+        'logs_scale_per_day_in_gb' => 'int64',
+        'number_of_hosts' => 'int64',
+        'number_of_services' => 'int64',
         'reasons_for_interest_in_o11y' => null,
         'timeline_for_migrating_to_o11y' => null,
         'uses_otel' => null,

@@ -77,15 +77,15 @@ class O11yO11yLLMTrace implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'completion_tokens' => null,
+        'completion_tokens' => 'int64',
         'id' => null,
-        'latency_ms' => null,
-        'observations' => null,
-        'prompt_tokens' => null,
+        'latency_ms' => 'double',
+        'observations' => 'int64',
+        'prompt_tokens' => 'int64',
         'service_name' => null,
         'session_id' => null,
-        'total_cost' => null,
-        'total_tokens' => null,
+        'total_cost' => 'double',
+        'total_tokens' => 'int64',
         'user_id' => null
     ];
 

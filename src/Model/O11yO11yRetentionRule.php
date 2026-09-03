@@ -70,7 +70,7 @@ class O11yO11yRetentionRule implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPIFormats = [
         'conditions' => null,
-        'ttl_days' => null
+        'ttl_days' => 'int64'
     ];
 
     /**

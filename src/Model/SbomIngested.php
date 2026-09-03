@@ -69,7 +69,7 @@ class SbomIngested implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'component_count' => null,
+        'component_count' => 'int64',
         'image_digest' => null
     ];
 

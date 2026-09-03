@@ -78,15 +78,15 @@ class Pairing implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'a' => null,
-        'a_correct' => null,
+        'a_correct' => 'int64',
         'b' => null,
-        'b_correct' => null,
+        'b_correct' => 'int64',
         'benchmark' => null,
-        'mcnemar_p' => null,
-        'n_common' => null,
-        'net_a_minus_b' => null,
-        'rescue_a_over_b' => null,
-        'rescue_b_over_a' => null
+        'mcnemar_p' => 'double',
+        'n_common' => 'int64',
+        'net_a_minus_b' => 'int64',
+        'rescue_a_over_b' => 'int64',
+        'rescue_b_over_a' => 'int64'
     ];
 
     /**

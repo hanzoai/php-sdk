@@ -70,7 +70,7 @@ class AccountView implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'address' => null,
-        'balance_cents' => null
+        'balance_cents' => 'int64'
     ];
 
     /**

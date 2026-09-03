@@ -77,7 +77,7 @@ class ReferenceSource implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'as_of' => null,
         'basis' => null,
-        'keys' => null,
+        'keys' => 'int64',
         'origin' => null,
         'refusal' => null,
         'source' => null,

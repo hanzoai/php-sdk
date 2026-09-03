@@ -73,7 +73,7 @@ class GraphNeighborsIn implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'as_of' => null,
-        'depth' => null,
+        'depth' => 'int64',
         'direction' => null,
         'relation' => null,
         'seeds' => null

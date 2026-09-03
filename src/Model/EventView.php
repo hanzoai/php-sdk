@@ -79,7 +79,7 @@ class EventView implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => null,
         'kind' => null,
         'payload' => null,
-        'seq' => null,
+        'seq' => 'int64',
         'session_id' => null
     ];
 

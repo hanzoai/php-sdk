@@ -70,7 +70,7 @@ class Streams implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'streams' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

@@ -71,7 +71,7 @@ class AffiliateBoard implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'leaders' => null,
-        'total' => null,
+        'total' => 'int64',
         'you' => null
     ];
 

@@ -79,8 +79,8 @@ class CaptableSafe implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'capital' => null,
-        'discount_rate' => null,
+        'capital' => 'double',
+        'discount_rate' => 'double',
         'id' => null,
         'issue_date' => null,
         'mfn' => null,
@@ -90,7 +90,7 @@ class CaptableSafe implements ModelInterface, ArrayAccess, \JsonSerializable
         'stakeholder_name' => null,
         'status' => null,
         'type' => null,
-        'valuation_cap' => null
+        'valuation_cap' => 'double'
     ];
 
     /**

@@ -70,7 +70,7 @@ class O11yO11yPercentilePosition implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static $openAPIFormats = [
         'description' => null,
-        'percentile' => null
+        'percentile' => 'double'
     ];
 
     /**

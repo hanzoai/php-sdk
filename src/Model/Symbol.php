@@ -72,7 +72,7 @@ class Symbol implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'detail' => null,
-        'kind' => null,
+        'kind' => 'int64',
         'name' => null,
         'range' => null
     ];

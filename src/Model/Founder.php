@@ -75,7 +75,7 @@ class Founder implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'decided_by' => null,
         'email' => null,
-        'equity_bps' => null,
+        'equity_bps' => 'int64',
         'kyc_ref' => null,
         'kyc_status' => null,
         'name' => null

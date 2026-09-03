@@ -74,16 +74,28 @@ class NetworkApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'deleteNetworkIdentitiesById' => [
+            'application/json',
+        ],
         'getNetwork' => [
             'application/json',
         ],
         'getNetworkById' => [
             'application/json',
         ],
+        'getNetworkIdentities' => [
+            'application/json',
+        ],
         'getNetworkRouters' => [
             'application/json',
         ],
         'getNetworkServices' => [
+            'application/json',
+        ],
+        'postNetworkIdentities' => [
+            'application/json',
+        ],
+        'postNetworkServices' => [
             'application/json',
         ],
     ];
@@ -132,6 +144,228 @@ class NetworkApi
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Operation deleteNetworkIdentitiesById
+     *
+     * Removes one of the org&#39;s fabric identities.
+     *
+     * @param  string $id ID is the identity id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkIdentitiesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return void
+     */
+    public function deleteNetworkIdentitiesById($id, string $contentType = self::contentTypes['deleteNetworkIdentitiesById'][0])
+    {
+        $this->deleteNetworkIdentitiesByIdWithHttpInfo($id, $contentType);
+    }
+
+    /**
+     * Operation deleteNetworkIdentitiesByIdWithHttpInfo
+     *
+     * Removes one of the org&#39;s fabric identities.
+     *
+     * @param  string $id ID is the identity id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkIdentitiesById'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteNetworkIdentitiesByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteNetworkIdentitiesById'][0])
+    {
+        $request = $this->deleteNetworkIdentitiesByIdRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            return [null, $statusCode, $response->getHeaders()];
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteNetworkIdentitiesByIdAsync
+     *
+     * Removes one of the org&#39;s fabric identities.
+     *
+     * @param  string $id ID is the identity id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkIdentitiesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteNetworkIdentitiesByIdAsync($id, string $contentType = self::contentTypes['deleteNetworkIdentitiesById'][0])
+    {
+        return $this->deleteNetworkIdentitiesByIdAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteNetworkIdentitiesByIdAsyncWithHttpInfo
+     *
+     * Removes one of the org&#39;s fabric identities.
+     *
+     * @param  string $id ID is the identity id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkIdentitiesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteNetworkIdentitiesByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteNetworkIdentitiesById'][0])
+    {
+        $returnType = '';
+        $request = $this->deleteNetworkIdentitiesByIdRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteNetworkIdentitiesById'
+     *
+     * @param  string $id ID is the identity id from the path. The URL is the addressing authority, so it binds from there whatever else the request carries. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteNetworkIdentitiesById'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteNetworkIdentitiesByIdRequest($id, string $contentType = self::contentTypes['deleteNetworkIdentitiesById'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling deleteNetworkIdentitiesById'
+            );
+        }
+
+
+        $resourcePath = '/v1/network/identities/{id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            [],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
     }
 
     /**
@@ -599,6 +833,258 @@ class NetworkApi
                 $resourcePath
             );
         }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getNetworkIdentities
+     *
+     * Returns the fabric identities the caller&#39;s org owns.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getNetworkIdentities'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IdentityList
+     */
+    public function getNetworkIdentities(string $contentType = self::contentTypes['getNetworkIdentities'][0])
+    {
+        list($response) = $this->getNetworkIdentitiesWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getNetworkIdentitiesWithHttpInfo
+     *
+     * Returns the fabric identities the caller&#39;s org owns.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getNetworkIdentities'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IdentityList, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getNetworkIdentitiesWithHttpInfo(string $contentType = self::contentTypes['getNetworkIdentities'][0])
+    {
+        $request = $this->getNetworkIdentitiesRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IdentityList',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IdentityList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IdentityList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getNetworkIdentitiesAsync
+     *
+     * Returns the fabric identities the caller&#39;s org owns.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getNetworkIdentities'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getNetworkIdentitiesAsync(string $contentType = self::contentTypes['getNetworkIdentities'][0])
+    {
+        return $this->getNetworkIdentitiesAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getNetworkIdentitiesAsyncWithHttpInfo
+     *
+     * Returns the fabric identities the caller&#39;s org owns.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getNetworkIdentities'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getNetworkIdentitiesAsyncWithHttpInfo(string $contentType = self::contentTypes['getNetworkIdentities'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IdentityList';
+        $request = $this->getNetworkIdentitiesRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getNetworkIdentities'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getNetworkIdentities'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getNetworkIdentitiesRequest(string $contentType = self::contentTypes['getNetworkIdentities'][0])
+    {
+
+
+        $resourcePath = '/v1/network/identities';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
 
 
         $headers = $this->headerSelector->selectHeaders(
@@ -1156,6 +1642,548 @@ class NetworkApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postNetworkIdentities
+     *
+     * Mints a fabric identity for a device the caller&#39;s org brings.
+     *
+     * @param  \Hanzo\Cloud\Model\IdentityIn $identity_in identity_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkIdentities'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\IdentityView
+     */
+    public function postNetworkIdentities($identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
+    {
+        list($response) = $this->postNetworkIdentitiesWithHttpInfo($identity_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postNetworkIdentitiesWithHttpInfo
+     *
+     * Mints a fabric identity for a device the caller&#39;s org brings.
+     *
+     * @param  \Hanzo\Cloud\Model\IdentityIn $identity_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkIdentities'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\IdentityView, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postNetworkIdentitiesWithHttpInfo($identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
+    {
+        $request = $this->postNetworkIdentitiesRequest($identity_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\IdentityView',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\IdentityView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\IdentityView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postNetworkIdentitiesAsync
+     *
+     * Mints a fabric identity for a device the caller&#39;s org brings.
+     *
+     * @param  \Hanzo\Cloud\Model\IdentityIn $identity_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkIdentities'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postNetworkIdentitiesAsync($identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
+    {
+        return $this->postNetworkIdentitiesAsyncWithHttpInfo($identity_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postNetworkIdentitiesAsyncWithHttpInfo
+     *
+     * Mints a fabric identity for a device the caller&#39;s org brings.
+     *
+     * @param  \Hanzo\Cloud\Model\IdentityIn $identity_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkIdentities'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postNetworkIdentitiesAsyncWithHttpInfo($identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\IdentityView';
+        $request = $this->postNetworkIdentitiesRequest($identity_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postNetworkIdentities'
+     *
+     * @param  \Hanzo\Cloud\Model\IdentityIn $identity_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkIdentities'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postNetworkIdentitiesRequest($identity_in, string $contentType = self::contentTypes['postNetworkIdentities'][0])
+    {
+
+        // verify the required parameter 'identity_in' is set
+        if ($identity_in === null || (is_array($identity_in) && count($identity_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $identity_in when calling postNetworkIdentities'
+            );
+        }
+
+
+        $resourcePath = '/v1/network/identities';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($identity_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($identity_in));
+            } else {
+                $httpBody = $identity_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postNetworkServices
+     *
+     * Puts a name on the org&#39;s overlay: a fabric service forwarding to host:port on whichever of the org&#39;s devices carries the \&quot;&lt;name&gt;-host\&quot; role, dialable at \&quot;&lt;name&gt;.&lt;org&gt;.zt\&quot; by any of the org&#39;s identities — and by the cloud&#39;s own, which is what lets a BYO cluster&#39;s apiserver be attached to the fleet with a \&quot;.zt\&quot; kubeconfig.
+     *
+     * @param  \Hanzo\Cloud\Model\ServiceIn $service_in service_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkServices'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PublishedView
+     */
+    public function postNetworkServices($service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
+    {
+        list($response) = $this->postNetworkServicesWithHttpInfo($service_in, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postNetworkServicesWithHttpInfo
+     *
+     * Puts a name on the org&#39;s overlay: a fabric service forwarding to host:port on whichever of the org&#39;s devices carries the \&quot;&lt;name&gt;-host\&quot; role, dialable at \&quot;&lt;name&gt;.&lt;org&gt;.zt\&quot; by any of the org&#39;s identities — and by the cloud&#39;s own, which is what lets a BYO cluster&#39;s apiserver be attached to the fleet with a \&quot;.zt\&quot; kubeconfig.
+     *
+     * @param  \Hanzo\Cloud\Model\ServiceIn $service_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkServices'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PublishedView, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postNetworkServicesWithHttpInfo($service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
+    {
+        $request = $this->postNetworkServicesRequest($service_in, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PublishedView',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PublishedView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PublishedView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postNetworkServicesAsync
+     *
+     * Puts a name on the org&#39;s overlay: a fabric service forwarding to host:port on whichever of the org&#39;s devices carries the \&quot;&lt;name&gt;-host\&quot; role, dialable at \&quot;&lt;name&gt;.&lt;org&gt;.zt\&quot; by any of the org&#39;s identities — and by the cloud&#39;s own, which is what lets a BYO cluster&#39;s apiserver be attached to the fleet with a \&quot;.zt\&quot; kubeconfig.
+     *
+     * @param  \Hanzo\Cloud\Model\ServiceIn $service_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkServices'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postNetworkServicesAsync($service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
+    {
+        return $this->postNetworkServicesAsyncWithHttpInfo($service_in, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postNetworkServicesAsyncWithHttpInfo
+     *
+     * Puts a name on the org&#39;s overlay: a fabric service forwarding to host:port on whichever of the org&#39;s devices carries the \&quot;&lt;name&gt;-host\&quot; role, dialable at \&quot;&lt;name&gt;.&lt;org&gt;.zt\&quot; by any of the org&#39;s identities — and by the cloud&#39;s own, which is what lets a BYO cluster&#39;s apiserver be attached to the fleet with a \&quot;.zt\&quot; kubeconfig.
+     *
+     * @param  \Hanzo\Cloud\Model\ServiceIn $service_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkServices'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postNetworkServicesAsyncWithHttpInfo($service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PublishedView';
+        $request = $this->postNetworkServicesRequest($service_in, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postNetworkServices'
+     *
+     * @param  \Hanzo\Cloud\Model\ServiceIn $service_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postNetworkServices'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postNetworkServicesRequest($service_in, string $contentType = self::contentTypes['postNetworkServices'][0])
+    {
+
+        // verify the required parameter 'service_in' is set
+        if ($service_in === null || (is_array($service_in) && count($service_in) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $service_in when calling postNetworkServices'
+            );
+        }
+
+
+        $resourcePath = '/v1/network/services';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($service_in)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($service_in));
+            } else {
+                $httpBody = $service_in;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

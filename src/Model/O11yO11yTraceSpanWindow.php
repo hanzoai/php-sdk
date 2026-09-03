@@ -73,10 +73,10 @@ class O11yO11yTraceSpanWindow implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static $openAPIFormats = [
         'columns' => null,
-        'end_timestamp_millis' => null,
+        'end_timestamp_millis' => 'uint64',
         'events' => null,
         'is_sub_tree' => null,
-        'start_timestamp_millis' => null
+        'start_timestamp_millis' => 'uint64'
     ];
 
     /**

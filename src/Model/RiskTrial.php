@@ -77,14 +77,14 @@ class RiskTrial implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'alerted' => null,
-        'curve' => null,
-        'fit' => null,
-        'learned' => null,
-        'realised' => null,
+        'alerted' => 'int64',
+        'curve' => 'double',
+        'fit' => 'double',
+        'learned' => 'int64',
+        'realised' => 'double',
         'saturated' => null,
-        'scored' => null,
-        'stated' => null,
+        'scored' => 'int64',
+        'stated' => 'double',
         'topology' => null,
         'warm' => null
     ];

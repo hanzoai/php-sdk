@@ -81,20 +81,20 @@ class ModelStat implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'completion_tokens' => null,
-        'cost_cents' => null,
-        'cost_pct' => null,
-        'error_rate' => null,
-        'errors' => null,
+        'completion_tokens' => 'int64',
+        'cost_cents' => 'int64',
+        'cost_pct' => 'double',
+        'error_rate' => 'double',
+        'errors' => 'int64',
         'model' => null,
-        'model_count' => null,
-        'p50_ms' => null,
-        'p95_ms' => null,
-        'p99_ms' => null,
-        'prompt_tokens' => null,
+        'model_count' => 'int64',
+        'p50_ms' => 'double',
+        'p95_ms' => 'double',
+        'p99_ms' => 'double',
+        'prompt_tokens' => 'int64',
         'provider' => null,
-        'requests' => null,
-        'total_tokens' => null
+        'requests' => 'int64',
+        'total_tokens' => 'int64'
     ];
 
     /**

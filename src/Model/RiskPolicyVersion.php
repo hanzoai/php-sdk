@@ -76,9 +76,9 @@ class RiskPolicyVersion implements ModelInterface, ArrayAccess, \JsonSerializabl
         'at' => null,
         'by' => null,
         'live' => null,
-        'review' => null,
-        'sample' => null,
-        'version' => null
+        'review' => 'double',
+        'sample' => 'double',
+        'version' => 'int64'
     ];
 
     /**

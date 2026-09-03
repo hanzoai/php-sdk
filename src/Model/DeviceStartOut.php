@@ -74,7 +74,7 @@ class DeviceStartOut implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'expires_at' => null,
         'flow' => null,
-        'interval' => null,
+        'interval' => 'int64',
         'user_code' => null,
         'verify_url' => null
     ];

@@ -84,20 +84,20 @@ class O11yO11yLLMObservation implements ModelInterface, ArrayAccess, \JsonSerial
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'completion_tokens' => null,
+        'completion_tokens' => 'int64',
         'id' => null,
-        'latency_ms' => null,
+        'latency_ms' => 'double',
         'model' => null,
         'name' => null,
         'parent_observation_id' => null,
-        'prompt_tokens' => null,
+        'prompt_tokens' => 'int64',
         'provider' => null,
         'service_name' => null,
         'session_id' => null,
         'start_time' => 'date-time',
         'status_code' => null,
-        'total_cost' => null,
-        'total_tokens' => null,
+        'total_cost' => 'double',
+        'total_tokens' => 'int64',
         'trace_id' => null,
         'type' => null,
         'user_id' => null

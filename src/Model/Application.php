@@ -76,7 +76,7 @@ class Application implements ModelInterface, ArrayAccess, \JsonSerializable
         'code' => null,
         'created' => null,
         'id' => null,
-        'rate_bps' => null,
+        'rate_bps' => 'int64',
         'requested_code' => null,
         'status' => null
     ];

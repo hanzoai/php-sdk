@@ -78,13 +78,13 @@ class Enrollment implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'address' => null,
         'channel' => null,
-        'current_step' => null,
-        'enrolled_at' => null,
+        'current_step' => 'int64',
+        'enrolled_at' => 'int64',
         'id' => null,
-        'next_run_at' => null,
+        'next_run_at' => 'int64',
         'sequence_id' => null,
         'status' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

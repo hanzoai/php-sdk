@@ -79,10 +79,10 @@ class RiskDatasetSpec implements ModelInterface, ArrayAccess, \JsonSerializable
         'cuts' => null,
         'dims' => null,
         'from' => null,
-        'horizon' => null,
+        'horizon' => 'int64',
         'kind' => null,
         'name' => null,
-        'rows' => null,
+        'rows' => 'int64',
         'seed' => null,
         'to' => null
     ];

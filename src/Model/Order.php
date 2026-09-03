@@ -72,7 +72,7 @@ class Order implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'contacts' => null,
         'domain' => null,
-        'years' => null
+        'years' => 'int64'
     ];
 
     /**

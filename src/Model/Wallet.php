@@ -83,7 +83,7 @@ class Wallet implements ModelInterface, ArrayAccess, \JsonSerializable
         'address' => null,
         'agent' => null,
         'chain' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'custody' => null,
         'finance_account' => null,
         'id' => null,

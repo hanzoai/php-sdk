@@ -88,7 +88,7 @@ class Receipt implements ModelInterface, ArrayAccess, \JsonSerializable
         'payee_org' => null,
         'payer' => null,
         'resource' => null,
-        'settled_at' => null,
+        'settled_at' => 'int64',
         'settled_via' => null,
         'tx_hash' => null
     ];

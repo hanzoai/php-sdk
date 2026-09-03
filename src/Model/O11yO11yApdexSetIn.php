@@ -72,7 +72,7 @@ class O11yO11yApdexSetIn implements ModelInterface, ArrayAccess, \JsonSerializab
     protected static $openAPIFormats = [
         'exclude_status_codes' => null,
         'service_name' => null,
-        'threshold' => null
+        'threshold' => 'double'
     ];
 
     /**

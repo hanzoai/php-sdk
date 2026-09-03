@@ -70,7 +70,7 @@ class RenewReq implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'domain' => null,
-        'years' => null
+        'years' => 'int64'
     ];
 
     /**

@@ -75,7 +75,7 @@ class KvEntry implements ModelInterface, ArrayAccess, \JsonSerializable
         'created' => null,
         'key' => null,
         'operation' => null,
-        'revision' => null,
+        'revision' => 'uint64',
         'value' => null
     ];
 

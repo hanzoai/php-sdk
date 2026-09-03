@@ -70,7 +70,7 @@ class IngestResp implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'accepted' => null,
+        'accepted' => 'int64',
         'links' => null,
         'stored' => null
     ];

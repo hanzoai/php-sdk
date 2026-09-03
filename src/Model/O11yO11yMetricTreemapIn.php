@@ -72,11 +72,11 @@ class O11yO11yMetricTreemapIn implements ModelInterface, ArrayAccess, \JsonSeria
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end' => null,
+        'end' => 'int64',
         'filter' => null,
-        'limit' => null,
+        'limit' => 'int64',
         'mode' => null,
-        'start' => null
+        'start' => 'int64'
     ];
 
     /**

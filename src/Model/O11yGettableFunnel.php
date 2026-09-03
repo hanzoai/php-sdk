@@ -78,7 +78,7 @@ class O11yGettableFunnel implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created_at' => null,
+        'created_at' => 'int64',
         'created_by' => null,
         'description' => null,
         'funnel' => null,
@@ -86,7 +86,7 @@ class O11yGettableFunnel implements ModelInterface, ArrayAccess, \JsonSerializab
         'funnel_name' => null,
         'org_id' => null,
         'steps' => null,
-        'updated_at' => null,
+        'updated_at' => 'int64',
         'updated_by' => null,
         'user_email' => null
     ];

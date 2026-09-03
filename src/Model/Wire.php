@@ -103,9 +103,9 @@ class Wire implements ModelInterface, ArrayAccess, \JsonSerializable
         'resource' => null,
         'resource_id' => null,
         'result' => null,
-        'seq' => null,
+        'seq' => 'uint64',
         'source_ip' => null,
-        'status' => null,
+        'status' => 'int64',
         'sub' => null,
         'time' => null,
         'user_agent' => null

@@ -71,9 +71,9 @@ class Figures implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'count' => null,
+        'count' => 'int64',
         'locked' => null,
-        'pools' => null,
+        'pools' => 'int64',
         'volume' => null
     ];
 

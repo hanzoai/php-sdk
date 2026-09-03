@@ -84,7 +84,7 @@ class ScoreView implements ModelInterface, ArrayAccess, \JsonSerializable
         'string_value' => null,
         'timestamp' => null,
         'trace_id' => null,
-        'value' => null
+        'value' => 'double'
     ];
 
     /**

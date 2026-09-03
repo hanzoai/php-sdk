@@ -86,7 +86,7 @@ class Centre implements ModelInterface, ArrayAccess, \JsonSerializable
         'documents' => null,
         'faq' => null,
         'frameworks' => null,
-        'generated' => null,
+        'generated' => 'int64',
         'inventory' => null,
         'org' => null,
         'policies' => null,

@@ -72,7 +72,7 @@ class Written implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'id' => null,
         'kind' => null,
-        'updated' => null
+        'updated' => 'int64'
     ];
 
     /**

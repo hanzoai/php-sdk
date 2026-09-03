@@ -82,7 +82,7 @@ class RiskLabelRecord implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'at' => null,
         'by' => null,
-        'confidence' => null,
+        'confidence' => 'double',
         'disposition' => null,
         'evidence' => null,
         'hold' => null,

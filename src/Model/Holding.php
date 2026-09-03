@@ -75,14 +75,14 @@ class Holding implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cost_cents' => null,
+        'cost_cents' => 'int64',
         'domain' => null,
         'expires_at' => null,
         'nameservers' => null,
-        'order' => null,
+        'order' => 'int64',
         'org' => null,
-        'price_cents' => null,
-        'registered_at' => null
+        'price_cents' => 'int64',
+        'registered_at' => 'int64'
     ];
 
     /**

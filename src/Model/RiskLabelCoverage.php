@@ -82,21 +82,21 @@ class RiskLabelCoverage implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'contested' => null,
-        'events' => null,
-        'explore' => null,
-        'facts' => null,
+        'contested' => 'int64',
+        'events' => 'int64',
+        'explore' => 'double',
+        'facts' => 'int64',
         'from' => null,
-        'horizon' => null,
-        'judged' => null,
-        'matured' => null,
-        'pending' => null,
-        'productive' => null,
+        'horizon' => 'int64',
+        'judged' => 'int64',
+        'matured' => 'int64',
+        'pending' => 'int64',
+        'productive' => 'int64',
         'sources' => null,
         'to' => null,
-        'unlabelled' => null,
-        'unmatured' => null,
-        'unproductive' => null
+        'unlabelled' => 'int64',
+        'unmatured' => 'int64',
+        'unproductive' => 'int64'
     ];
 
     /**

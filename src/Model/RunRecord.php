@@ -76,14 +76,14 @@ class RunRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'avg_score' => null,
+        'avg_score' => 'double',
         'created_at' => null,
         'dataset' => null,
-        'items' => null,
+        'items' => 'int64',
         'judge_model' => null,
         'model' => null,
         'run_name' => null,
-        'scored' => null,
+        'scored' => 'int64',
         'updated_at' => null
     ];
 

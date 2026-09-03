@@ -73,11 +73,11 @@ class RiskPolicyOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'changes' => null,
-        'disposed' => null,
+        'changes' => 'int64',
+        'disposed' => 'int64',
         'history' => null,
-        'retained' => null,
-        'version' => null,
+        'retained' => 'int64',
+        'version' => 'int64',
         'window' => null
     ];
 

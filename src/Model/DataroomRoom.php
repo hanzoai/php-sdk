@@ -73,12 +73,12 @@ class DataroomRoom implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created_at' => null,
+        'created_at' => 'int64',
         'description' => null,
         'id' => null,
         'name' => null,
         'p_id' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

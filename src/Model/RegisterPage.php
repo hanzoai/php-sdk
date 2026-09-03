@@ -71,10 +71,10 @@ class RegisterPage implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'count' => null,
+        'count' => 'int64',
         'formations' => null,
-        'limit' => null,
-        'offset' => null
+        'limit' => 'int64',
+        'offset' => 'int64'
     ];
 
     /**

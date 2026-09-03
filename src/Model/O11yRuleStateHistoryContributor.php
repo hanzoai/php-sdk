@@ -72,8 +72,8 @@ class O11yRuleStateHistoryContributor implements ModelInterface, ArrayAccess, \J
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'count' => null,
-        'fingerprint' => null,
+        'count' => 'uint64',
+        'fingerprint' => 'uint64',
         'labels' => null,
         'related_logs_link' => null,
         'related_traces_link' => null

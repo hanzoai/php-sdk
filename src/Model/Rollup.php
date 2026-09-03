@@ -77,10 +77,10 @@ class Rollup implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'balance' => null,
-        'consumed_cents' => null,
+        'consumed_cents' => 'int64',
         'currency' => null,
         'included' => null,
-        'overage_cents' => null,
+        'overage_cents' => 'int64',
         'period' => null,
         'plan' => null,
         'user' => null,

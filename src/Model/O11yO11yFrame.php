@@ -72,10 +72,10 @@ class O11yO11yFrame implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'column' => null,
+        'column' => 'uint32',
         'file' => null,
         'function' => null,
-        'line' => null,
+        'line' => 'uint32',
         'own' => null
     ];
 

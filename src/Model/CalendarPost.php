@@ -79,14 +79,14 @@ class CalendarPost implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'body' => null,
         'channel' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'error' => null,
         'id' => null,
-        'published_at' => null,
-        'scheduled_at' => null,
+        'published_at' => 'int64',
+        'scheduled_at' => 'int64',
         'status' => null,
         'title' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

@@ -82,11 +82,11 @@ class ReferenceSet implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'age' => null,
         'as_of' => null,
-        'keys' => null,
+        'keys' => 'int64',
         'kind' => null,
         'match' => null,
         'max_age' => null,
-        'overrides' => null,
+        'overrides' => 'int64',
         'refusal' => null,
         'set' => null,
         'sources' => null,

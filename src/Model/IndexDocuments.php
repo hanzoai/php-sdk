@@ -71,10 +71,10 @@ class IndexDocuments implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'limit' => null,
-        'offset' => null,
+        'limit' => 'int64',
+        'offset' => 'int64',
         'results' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

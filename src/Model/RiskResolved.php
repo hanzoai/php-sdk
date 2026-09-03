@@ -82,7 +82,7 @@ class RiskResolved implements ModelInterface, ArrayAccess, \JsonSerializable
         'as_of' => null,
         'at' => null,
         'by' => null,
-        'confidence' => null,
+        'confidence' => 'double',
         'conflicts' => null,
         'contested' => null,
         'disposition' => null,

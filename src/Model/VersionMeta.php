@@ -71,8 +71,8 @@ class VersionMeta implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'brand' => null,
-        'updated_at' => null,
-        'version' => null
+        'updated_at' => 'int64',
+        'version' => 'int64'
     ];
 
     /**

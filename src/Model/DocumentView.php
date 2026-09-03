@@ -82,15 +82,15 @@ class DocumentView implements ModelInterface, ArrayAccess, \JsonSerializable
         'body' => null,
         'category' => null,
         'content_type' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'esign_provider' => null,
         'id' => null,
-        'signed_at' => null,
+        'signed_at' => 'int64',
         'status' => null,
         'template_id' => null,
-        'template_version' => null,
+        'template_version' => 'int64',
         'title' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

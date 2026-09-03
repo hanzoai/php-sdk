@@ -72,7 +72,7 @@ class SeoIdeaOut implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'cost' => null,
         'keywords' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

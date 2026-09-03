@@ -72,7 +72,7 @@ class WebSearchResults implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'engines' => null,
-        'number_of_results' => null,
+        'number_of_results' => 'int64',
         'query' => null,
         'results' => null
     ];

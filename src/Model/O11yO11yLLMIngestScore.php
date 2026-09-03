@@ -82,7 +82,7 @@ class O11yO11yLLMIngestScore implements ModelInterface, ArrayAccess, \JsonSerial
         'source' => null,
         'string_value' => null,
         'trace_id' => null,
-        'value' => null
+        'value' => 'double'
     ];
 
     /**

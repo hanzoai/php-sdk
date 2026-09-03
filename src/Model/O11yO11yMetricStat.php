@@ -75,8 +75,8 @@ class O11yO11yMetricStat implements ModelInterface, ArrayAccess, \JsonSerializab
     protected static $openAPIFormats = [
         'description' => null,
         'metric_name' => null,
-        'samples' => null,
-        'timeseries' => null,
+        'samples' => 'uint64',
+        'timeseries' => 'uint64',
         'type' => null,
         'unit' => null
     ];

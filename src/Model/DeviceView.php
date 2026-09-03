@@ -74,7 +74,7 @@ class DeviceView implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'accounts' => null,
-        'active_sessions' => null,
+        'active_sessions' => 'int64',
         'host' => null,
         'last_seen' => null,
         'machine' => null,

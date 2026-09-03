@@ -73,7 +73,7 @@ class AffiliateLinks implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'is_affiliate' => null,
         'links' => null,
-        'max_links' => null,
+        'max_links' => 'int64',
         'status' => null
     ];
 

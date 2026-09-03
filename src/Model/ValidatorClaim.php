@@ -72,7 +72,7 @@ class ValidatorClaim implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'nonce' => null,
         'signature' => null,
-        'token_id' => null
+        'token_id' => 'uint64'
     ];
 
     /**

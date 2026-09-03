@@ -69,7 +69,7 @@ class Catalog implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'connector_count' => null,
+        'connector_count' => 'int64',
         'connectors' => null
     ];
 

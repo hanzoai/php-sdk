@@ -75,14 +75,14 @@ class RiskSplitCounts implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'judged' => null,
-        'productive' => null,
-        'rows' => null,
-        'subjects' => null,
-        'test' => null,
-        'train' => null,
-        'unproductive' => null,
-        'val' => null
+        'judged' => 'int64',
+        'productive' => 'int64',
+        'rows' => 'int64',
+        'subjects' => 'int64',
+        'test' => 'int64',
+        'train' => 'int64',
+        'unproductive' => 'int64',
+        'val' => 'int64'
     ];
 
     /**

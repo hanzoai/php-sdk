@@ -74,13 +74,13 @@ class O11yJobListRequest implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end' => null,
+        'end' => 'int64',
         'filters' => null,
         'group_by' => null,
-        'limit' => null,
-        'offset' => null,
+        'limit' => 'int64',
+        'offset' => 'int64',
         'order_by' => null,
-        'start' => null
+        'start' => 'int64'
     ];
 
     /**

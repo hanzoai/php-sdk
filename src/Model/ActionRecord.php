@@ -76,7 +76,7 @@ class ActionRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'args' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'err' => null,
         'id' => null,
         'ok' => null,

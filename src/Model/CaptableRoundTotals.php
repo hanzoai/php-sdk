@@ -69,8 +69,8 @@ class CaptableRoundTotals implements ModelInterface, ArrayAccess, \JsonSerializa
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'count' => null,
-        'total_raised' => null
+        'count' => 'int64',
+        'total_raised' => 'double'
     ];
 
     /**

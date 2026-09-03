@@ -92,7 +92,7 @@ class GitOpsApp implements ModelInterface, ArrayAccess, \JsonSerializable
         'project' => null,
         'reconciled_at' => null,
         'repo_url' => null,
-        'resources' => null,
+        'resources' => 'int64',
         'revision' => null,
         'self_heal' => null,
         'sync' => null,

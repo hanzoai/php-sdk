@@ -77,12 +77,12 @@ class O11yVolumeListRecord implements ModelInterface, ArrayAccess, \JsonSerializ
     protected static $openAPIFormats = [
         'meta' => null,
         'persistent_volume_claim_name' => null,
-        'volume_available' => null,
-        'volume_capacity' => null,
-        'volume_inodes' => null,
-        'volume_inodes_free' => null,
-        'volume_inodes_used' => null,
-        'volume_usage' => null
+        'volume_available' => 'double',
+        'volume_capacity' => 'double',
+        'volume_inodes' => 'double',
+        'volume_inodes_free' => 'double',
+        'volume_inodes_used' => 'double',
+        'volume_usage' => 'double'
     ];
 
     /**

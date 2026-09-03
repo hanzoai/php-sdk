@@ -69,7 +69,7 @@ class IamWorkspacesListOutput implements ModelInterface, ArrayAccess, \JsonSeria
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'total' => null,
+        'total' => 'int64',
         'workspaces' => null
     ];
 

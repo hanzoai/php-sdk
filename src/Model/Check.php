@@ -76,7 +76,7 @@ class Check implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'at' => 'date-time',
         'job' => null,
-        'number' => null,
+        'number' => 'int64',
         'state' => null,
         'tested' => null,
         'url' => null,

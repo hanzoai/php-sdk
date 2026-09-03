@@ -77,14 +77,14 @@ class DataroomDocument implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'content_type' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'file_key' => null,
-        'file_size' => null,
+        'file_size' => 'int64',
         'id' => null,
         'name' => null,
-        'num_pages' => null,
+        'num_pages' => 'int64',
         'type' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

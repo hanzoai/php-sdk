@@ -71,8 +71,8 @@ class O11yO11yLLMObservationsPage implements ModelInterface, ArrayAccess, \JsonS
       */
     protected static $openAPIFormats = [
         'items' => null,
-        'limit' => null,
-        'offset' => null
+        'limit' => 'int64',
+        'offset' => 'int64'
     ];
 
     /**

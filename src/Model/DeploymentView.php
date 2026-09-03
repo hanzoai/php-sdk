@@ -82,15 +82,15 @@ class DeploymentView implements ModelInterface, ArrayAccess, \JsonSerializable
         'application_id' => null,
         'build_id' => null,
         'commit' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'id' => null,
         'image' => null,
         'message' => null,
         'org' => null,
         'source' => null,
         'status' => null,
-        'updated_at' => null,
-        'version' => null
+        'updated_at' => 'int64',
+        'version' => 'int64'
     ];
 
     /**

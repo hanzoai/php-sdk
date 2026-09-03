@@ -79,8 +79,8 @@ class O11yIncidentioConfig implements ModelInterface, ArrayAccess, \JsonSerializ
         'alert_source_token' => null,
         'alert_source_token_file' => null,
         'http_config' => null,
-        'max_alerts' => null,
-        'timeout' => null,
+        'max_alerts' => 'uint64',
+        'timeout' => 'int64',
         'url' => null,
         'url_file' => null
     ];

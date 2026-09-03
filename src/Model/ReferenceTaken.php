@@ -74,13 +74,13 @@ class ReferenceTaken implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'keys' => null,
+        'keys' => 'int64',
         'refusal' => null,
         'resumed' => null,
         'source' => null,
         'unchanged' => null,
         'version' => null,
-        'wrote' => null
+        'wrote' => 'int64'
     ];
 
     /**

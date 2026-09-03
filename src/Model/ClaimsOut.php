@@ -70,7 +70,7 @@ class ClaimsOut implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'data' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

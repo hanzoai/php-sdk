@@ -79,16 +79,16 @@ class CaptableRound implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'close_date' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'id' => null,
         'name' => null,
-        'pre_money_valuation' => null,
-        'price_per_share' => null,
-        'raised_amount' => null,
+        'pre_money_valuation' => 'double',
+        'price_per_share' => 'double',
+        'raised_amount' => 'double',
         'round_type' => null,
         'share_class_id' => null,
         'status' => null,
-        'target_amount' => null
+        'target_amount' => 'double'
     ];
 
     /**

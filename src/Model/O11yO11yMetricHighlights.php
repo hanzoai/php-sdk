@@ -71,10 +71,10 @@ class O11yO11yMetricHighlights implements ModelInterface, ArrayAccess, \JsonSeri
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'active_time_series' => null,
-        'data_points' => null,
-        'last_received' => null,
-        'total_time_series' => null
+        'active_time_series' => 'uint64',
+        'data_points' => 'uint64',
+        'last_received' => 'uint64',
+        'total_time_series' => 'uint64'
     ];
 
     /**

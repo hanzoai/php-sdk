@@ -72,7 +72,7 @@ class AiMCPSurface implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'apps' => null,
         'names' => null,
-        'tools' => null
+        'tools' => 'int64'
     ];
 
     /**

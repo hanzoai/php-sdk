@@ -71,10 +71,10 @@ class O11yO11yQueryStats implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'bytes_scanned' => null,
-        'duration_ms' => null,
-        'rows_scanned' => null,
-        'step_intervals' => null
+        'bytes_scanned' => 'uint64',
+        'duration_ms' => 'uint64',
+        'rows_scanned' => 'uint64',
+        'step_intervals' => 'uint64'
     ];
 
     /**

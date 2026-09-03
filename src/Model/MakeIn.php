@@ -85,9 +85,9 @@ class MakeIn implements ModelInterface, ArrayAccess, \JsonSerializable
         'description' => null,
         'durable_name' => null,
         'filter_subject' => null,
-        'max_ack_pending' => null,
-        'max_deliver' => null,
-        'opt_start_seq' => null,
+        'max_ack_pending' => 'int64',
+        'max_deliver' => 'int64',
+        'opt_start_seq' => 'uint64',
         'opt_start_time' => 'date-time',
         'replay_policy' => null,
         'stream' => null

@@ -73,7 +73,7 @@ class ClearReferenceOut implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $openAPIFormats = [
         'cleared' => null,
         'key' => null,
-        'overrides' => null,
+        'overrides' => 'int64',
         'set' => null
     ];
 

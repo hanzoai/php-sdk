@@ -71,7 +71,7 @@ class Completion implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'detail' => null,
-        'kind' => null,
+        'kind' => 'int64',
         'label' => null
     ];
 

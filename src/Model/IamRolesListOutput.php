@@ -70,7 +70,7 @@ class IamRolesListOutput implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'roles' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

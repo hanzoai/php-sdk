@@ -69,8 +69,8 @@ class VerificationTally implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'by_status' => null,
-        'total' => null
+        'by_status' => 'int64',
+        'total' => 'int64'
     ];
 
     /**

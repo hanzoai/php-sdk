@@ -69,7 +69,7 @@ class GithubSearchReq implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'limit' => null,
+        'limit' => 'int64',
         'q' => null
     ];
 

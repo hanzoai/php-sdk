@@ -71,7 +71,7 @@ class PricingModelList implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'models' => null,
-        'total' => null,
+        'total' => 'int64',
         'updated' => null
     ];
 

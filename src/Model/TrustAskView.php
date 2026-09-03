@@ -80,11 +80,11 @@ class TrustAskView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created_at' => null,
-        'decided_at' => null,
+        'created_at' => 'int64',
+        'decided_at' => 'int64',
         'decided_by' => null,
         'email' => null,
-        'expires_at' => null,
+        'expires_at' => 'int64',
         'id' => null,
         'item' => null,
         'link' => null,

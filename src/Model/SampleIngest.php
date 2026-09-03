@@ -75,11 +75,11 @@ class SampleIngest implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'gpu_model' => null,
-        'gpu_util' => null,
-        'gpus' => null,
+        'gpu_util' => 'double',
+        'gpus' => 'int64',
         'host' => null,
-        'mem_free' => null,
-        'mem_used' => null,
+        'mem_free' => 'int64',
+        'mem_used' => 'int64',
         'unit' => null
     ];
 

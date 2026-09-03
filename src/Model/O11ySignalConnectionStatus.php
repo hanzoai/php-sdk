@@ -70,7 +70,7 @@ class O11ySignalConnectionStatus implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static $openAPIFormats = [
         'last_received_from' => null,
-        'last_received_ts_ms' => null
+        'last_received_ts_ms' => 'int64'
     ];
 
     /**

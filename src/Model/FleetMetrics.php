@@ -73,10 +73,10 @@ class FleetMetrics implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'at' => null,
-        'gpu_util' => null,
-        'load1' => null,
-        'mem_free' => null,
-        'mem_used' => null
+        'gpu_util' => 'double',
+        'load1' => 'double',
+        'mem_free' => 'int64',
+        'mem_used' => 'int64'
     ];
 
     /**

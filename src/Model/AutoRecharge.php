@@ -74,13 +74,13 @@ class AutoRecharge implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_cents' => null,
+        'amount_cents' => 'int64',
         'currency' => null,
         'enabled' => null,
         'last_recharged_at' => null,
         'stored' => null,
         'subject' => null,
-        'threshold_cents' => null
+        'threshold_cents' => 'int64'
     ];
 
     /**

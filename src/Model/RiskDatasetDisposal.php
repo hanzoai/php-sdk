@@ -71,8 +71,8 @@ class RiskDatasetDisposal implements ModelInterface, ArrayAccess, \JsonSerializa
       */
     protected static $openAPIFormats = [
         'dataset' => null,
-        'rows' => null,
-        'versions' => null
+        'rows' => 'int64',
+        'versions' => 'int64'
     ];
 
     /**

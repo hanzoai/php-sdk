@@ -74,11 +74,11 @@ class CampaignWrite implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'audience' => null,
-        'budget' => null,
+        'budget' => 'int64',
         'channels' => null,
         'content' => null,
         'name' => null,
-        'schedule_at' => null
+        'schedule_at' => 'int64'
     ];
 
     /**

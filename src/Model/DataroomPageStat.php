@@ -71,10 +71,10 @@ class DataroomPageStat implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'avg_duration' => null,
-        'page_number' => null,
-        'total_duration' => null,
-        'views' => null
+        'avg_duration' => 'int64',
+        'page_number' => 'int64',
+        'total_duration' => 'int64',
+        'views' => 'int64'
     ];
 
     /**

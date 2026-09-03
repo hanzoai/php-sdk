@@ -71,7 +71,7 @@ class O11yO11yLogPromoteIndex implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static $openAPIFormats = [
         'field_data_type' => null,
-        'granularity' => null,
+        'granularity' => 'int64',
         'type' => null
     ];
 

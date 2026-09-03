@@ -72,10 +72,10 @@ class O11yMetricsResponseSummary implements ModelInterface, ArrayAccess, \JsonSe
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'error_rate' => null,
-        'errors' => null,
-        'p95_ms' => null,
-        'requests' => null
+        'error_rate' => 'double',
+        'errors' => 'int64',
+        'p95_ms' => 'double',
+        'requests' => 'int64'
     ];
 
     /**

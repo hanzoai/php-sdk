@@ -72,7 +72,7 @@ class O11yO11yToken implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'access_token' => null,
-        'expires_in' => null,
+        'expires_in' => 'int64',
         'refresh_token' => null,
         'token_type' => null
     ];

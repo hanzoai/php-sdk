@@ -71,10 +71,10 @@ class InvoiceLine implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount' => null,
+        'amount' => 'int64',
         'description' => null,
-        'quantity' => null,
-        'unit_price' => null
+        'quantity' => 'int64',
+        'unit_price' => 'int64'
     ];
 
     /**

@@ -72,7 +72,7 @@ class Appearance implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'accent' => null,
         'density' => null,
-        'type' => null
+        'type' => 'double'
     ];
 
     /**

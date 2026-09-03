@@ -71,10 +71,10 @@ class O11yGettableFlamegraphTrace implements ModelInterface, ArrayAccess, \JsonS
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end_timestamp_millis' => null,
+        'end_timestamp_millis' => 'int64',
         'has_more' => null,
         'spans' => null,
-        'start_timestamp_millis' => null
+        'start_timestamp_millis' => 'int64'
     ];
 
     /**

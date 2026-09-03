@@ -73,12 +73,12 @@ class O11yO11yMetricStatsIn implements ModelInterface, ArrayAccess, \JsonSeriali
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end' => null,
+        'end' => 'int64',
         'filter' => null,
-        'limit' => null,
-        'offset' => null,
+        'limit' => 'int64',
+        'offset' => 'int64',
         'order_by' => null,
-        'start' => null
+        'start' => 'int64'
     ];
 
     /**

@@ -69,7 +69,7 @@ class BotSync implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'projected' => null,
+        'projected' => 'int64',
         'synced' => null
     ];
 

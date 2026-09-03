@@ -74,9 +74,9 @@ class TierLimits implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'allowed_models' => null,
-        'daily_credits_cents' => null,
+        'daily_credits_cents' => 'int64',
         'display_name' => null,
-        'max_agents' => null,
+        'max_agents' => 'int64',
         'name' => null,
         'unlimited_agents' => null
     ];

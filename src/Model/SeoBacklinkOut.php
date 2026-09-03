@@ -76,14 +76,14 @@ class SeoBacklinkOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'backlinks' => null,
-        'broken' => null,
+        'backlinks' => 'int64',
+        'broken' => 'int64',
         'cost' => null,
-        'domains' => null,
+        'domains' => 'int64',
         'first_seen' => null,
-        'pages' => null,
-        'rank' => null,
-        'spam' => null,
+        'pages' => 'int64',
+        'rank' => 'int64',
+        'spam' => 'int64',
         'target' => null
     ];
 

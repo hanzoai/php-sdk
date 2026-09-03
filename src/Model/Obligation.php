@@ -76,7 +76,7 @@ class Obligation implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_cents' => null,
+        'amount_cents' => 'int64',
         'as_of' => null,
         'code' => null,
         'every' => null,

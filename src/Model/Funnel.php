@@ -75,12 +75,12 @@ class Funnel implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'available' => null,
-        'orders' => null,
-        'pageviews' => null,
-        'revenue' => null,
-        'signups' => null,
-        'visitors' => null,
-        'window_days' => null
+        'orders' => 'int64',
+        'pageviews' => 'int64',
+        'revenue' => 'double',
+        'signups' => 'int64',
+        'visitors' => 'int64',
+        'window_days' => 'int64'
     ];
 
     /**

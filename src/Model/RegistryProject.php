@@ -70,8 +70,8 @@ class RegistryProject implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'images' => null,
-        'packages' => null,
+        'images' => 'int64',
+        'packages' => 'int64',
         'project' => null
     ];
 

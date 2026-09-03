@@ -75,11 +75,11 @@ class CampaignInput implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'account' => null,
-        'budget' => null,
+        'budget' => 'int64',
         'name' => null,
         'objective' => null,
         'platform' => null,
-        'spend' => null,
+        'spend' => 'int64',
         'status' => null
     ];
 

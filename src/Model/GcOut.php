@@ -72,7 +72,7 @@ class GcOut implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'maintained' => null,
         'repo' => null,
-        'size_bytes' => null
+        'size_bytes' => 'int64'
     ];
 
     /**

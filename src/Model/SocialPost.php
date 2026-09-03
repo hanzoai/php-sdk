@@ -81,14 +81,14 @@ class SocialPost implements ModelInterface, ArrayAccess, \JsonSerializable
         'account_id' => null,
         'channel' => null,
         'content' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'error' => null,
         'external_id' => null,
         'id' => null,
         'media' => null,
-        'schedule_at' => null,
+        'schedule_at' => 'int64',
         'status' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

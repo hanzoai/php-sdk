@@ -77,13 +77,13 @@ class Span implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end_line' => null,
+        'end_line' => 'int64',
         'file' => null,
         'kind' => null,
-        'line' => null,
+        'line' => 'int64',
         'repo' => null,
         'role' => null,
-        'score' => null,
+        'score' => 'double',
         'snippet' => null,
         'symbol' => null,
         'tier' => null

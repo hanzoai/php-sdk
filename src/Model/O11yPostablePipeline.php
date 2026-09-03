@@ -82,7 +82,7 @@ class O11yPostablePipeline implements ModelInterface, ArrayAccess, \JsonSerializ
         'filter' => null,
         'id' => null,
         'name' => null,
-        'order_id' => null
+        'order_id' => 'int64'
     ];
 
     /**

@@ -84,17 +84,17 @@ class RiskLineage implements ModelInterface, ArrayAccess, \JsonSerializable
         'dataset' => null,
         'digest' => null,
         'from' => null,
-        'holds' => null,
-        'oversize' => null,
+        'holds' => 'int64',
+        'oversize' => 'int64',
         'refusal' => null,
         'reproducible' => null,
         'retention' => null,
-        'rows' => null,
-        'share' => null,
+        'rows' => 'int64',
+        'share' => 'int64',
         'source' => null,
-        'subjects' => null,
+        'subjects' => 'int64',
         'to' => null,
-        'version' => null
+        'version' => 'int64'
     ];
 
     /**

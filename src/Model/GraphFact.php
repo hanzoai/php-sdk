@@ -77,7 +77,7 @@ class GraphFact implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'at' => null,
-        'confidence' => null,
+        'confidence' => 'double',
         'entity' => null,
         'evidence' => null,
         'names' => null,

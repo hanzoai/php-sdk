@@ -411,7 +411,7 @@ class Capabilities implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets media
      *
-     * @param bool|null $media Media is whether the transport renders an ATTACHMENT natively. False everywhere, and a send is not refused for it: renderText flattens each attachment to one `kind: url (mime)` line after the text rather than dropping it. A transport whose egress hands its door the raw text would drop the attachment instead, and an attachment-only send would reach the platform with nothing to say — which is why the flag and the flattening are pinned together.
+     * @param bool|null $media Media is whether the transport renders an ATTACHMENT natively. False everywhere, and a send is not refused for it: renderText flattens each attachment to one `kind: url (mime)` line after the text rather than dropping it. A transport whose egress passes the raw text straight through would drop the attachment instead, and an attachment-only send would reach the platform with nothing to say — which is why the flag and the flattening are pinned together.
      *
      * @return self
      */

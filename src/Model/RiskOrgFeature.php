@@ -76,11 +76,11 @@ class RiskOrgFeature implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'blind' => null,
-        'buckets' => null,
-        'max' => null,
-        'mean' => null,
+        'buckets' => 'int64',
+        'max' => 'double',
+        'mean' => 'double',
         'name' => null,
-        'present' => null,
+        'present' => 'int64',
         'source' => null,
         'unit' => null
     ];

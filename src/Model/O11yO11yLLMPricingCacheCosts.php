@@ -71,8 +71,8 @@ class O11yO11yLLMPricingCacheCosts implements ModelInterface, ArrayAccess, \Json
       */
     protected static $openAPIFormats = [
         'mode' => null,
-        'read' => null,
-        'write' => null
+        'read' => 'double',
+        'write' => 'double'
     ];
 
     /**

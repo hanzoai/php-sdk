@@ -78,8 +78,8 @@ class Offer implements ModelInterface, ArrayAccess, \JsonSerializable
         'currency' => null,
         'domain' => null,
         'premium' => null,
-        'price_cents' => null,
-        'renewal_price_cents' => null,
+        'price_cents' => 'int64',
+        'renewal_price_cents' => 'int64',
         'tld' => null
     ];
 

@@ -71,8 +71,8 @@ class O11yO11yTreemapEntry implements ModelInterface, ArrayAccess, \JsonSerializ
       */
     protected static $openAPIFormats = [
         'metric_name' => null,
-        'percentage' => null,
-        'total_value' => null
+        'percentage' => 'double',
+        'total_value' => 'uint64'
     ];
 
     /**

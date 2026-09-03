@@ -85,14 +85,14 @@ class RiskDataset implements ModelInterface, ArrayAccess, \JsonSerializable
         'counts' => null,
         'digest' => null,
         'name' => null,
-        'oversize' => null,
+        'oversize' => 'int64',
         'refusal' => null,
         'running' => null,
-        'share' => null,
+        'share' => 'int64',
         'spec' => null,
         'status' => null,
         'truncated' => null,
-        'version' => null
+        'version' => 'int64'
     ];
 
     /**

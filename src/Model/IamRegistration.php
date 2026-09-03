@@ -85,14 +85,14 @@ class IamRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
         'client_secret' => null,
         'display_name' => null,
         'enable_code_signin' => null,
-        'expire_in_hours' => null,
+        'expire_in_hours' => 'double',
         'grant_types' => null,
         'is_shared' => null,
         'name' => null,
         'organization' => null,
         'public' => null,
         'redirect_uris' => null,
-        'refresh_expire_in_hours' => null
+        'refresh_expire_in_hours' => 'double'
     ];
 
     /**

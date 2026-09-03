@@ -72,7 +72,7 @@ class TrustGranted implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'delivery' => null,
-        'expires_at' => null,
+        'expires_at' => 'int64',
         'link' => null,
         'state' => null
     ];

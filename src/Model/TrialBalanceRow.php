@@ -77,13 +77,13 @@ class TrialBalanceRow implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'account' => null,
-        'closing_credit' => null,
-        'closing_debit' => null,
-        'credit' => null,
-        'debit' => null,
+        'closing_credit' => 'int64',
+        'closing_debit' => 'int64',
+        'credit' => 'int64',
+        'debit' => 'int64',
         'name' => null,
-        'opening_credit' => null,
-        'opening_debit' => null,
+        'opening_credit' => 'int64',
+        'opening_debit' => 'int64',
         'type' => null
     ];
 

@@ -78,15 +78,15 @@ class O11yFlamegraphSpan implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'attributes' => null,
-        'duration_nano' => null,
+        'duration_nano' => 'uint64',
         'event' => null,
         'has_error' => null,
-        'level' => null,
+        'level' => 'int64',
         'name' => null,
         'parent_span_id' => null,
         'resource' => null,
         'span_id' => null,
-        'timestamp' => null
+        'timestamp' => 'uint64'
     ];
 
     /**

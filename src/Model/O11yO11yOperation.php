@@ -73,12 +73,12 @@ class O11yO11yOperation implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'error_count' => null,
+        'error_count' => 'uint64',
         'name' => null,
-        'num_calls' => null,
-        'p50' => null,
-        'p95' => null,
-        'p99' => null
+        'num_calls' => 'uint64',
+        'p50' => 'double',
+        'p95' => 'double',
+        'p99' => 'double'
     ];
 
     /**

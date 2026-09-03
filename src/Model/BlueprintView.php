@@ -74,7 +74,7 @@ class BlueprintView implements ModelInterface, ArrayAccess, \JsonSerializable
         'blueprint' => null,
         'brand' => null,
         'counts' => null,
-        'version' => null
+        'version' => 'int64'
     ];
 
     /**

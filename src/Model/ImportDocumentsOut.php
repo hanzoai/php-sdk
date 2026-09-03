@@ -70,7 +70,7 @@ class ImportDocumentsOut implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'formation' => null,
-        'ingested' => null
+        'ingested' => 'int64'
     ];
 
     /**

@@ -72,9 +72,9 @@ class SafeTxIn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'chain_id' => null,
+        'chain_id' => 'int64',
         'data' => null,
-        'nonce' => null,
+        'nonce' => 'int64',
         'to' => null,
         'value' => null
     ];

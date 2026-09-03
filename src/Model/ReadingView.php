@@ -87,23 +87,23 @@ class ReadingView implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'account' => null,
-        'cached_input_tokens' => null,
+        'cached_input_tokens' => 'int64',
         'confidence' => null,
-        'cost_cents' => null,
-        'cost_limit_cents' => null,
+        'cost_cents' => 'int64',
+        'cost_limit_cents' => 'int64',
         'currency' => null,
-        'input_tokens' => null,
+        'input_tokens' => 'int64',
         'lane' => null,
         'machine' => null,
-        'output_tokens' => null,
+        'output_tokens' => 'int64',
         'plan' => null,
-        'requests' => null,
+        'requests' => 'int64',
         'resets_at' => null,
         'synthetic' => null,
-        'total_tokens' => null,
-        'used_pct' => null,
+        'total_tokens' => 'int64',
+        'used_pct' => 'double',
         'window' => null,
-        'window_minutes' => null,
+        'window_minutes' => 'int32',
         'window_start' => null
     ];
 

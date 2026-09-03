@@ -73,10 +73,10 @@ class Redemption implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'code' => null,
-        'discount_cents' => null,
+        'discount_cents' => 'int64',
         'plan' => null,
-        'redeemed_at' => null,
-        'seats' => null
+        'redeemed_at' => 'int64',
+        'seats' => 'int64'
     ];
 
     /**

@@ -73,7 +73,7 @@ class NetworkView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'id' => null,
         'name' => null,
-        'nodes' => null,
+        'nodes' => 'int64',
         'status' => null
     ];
 

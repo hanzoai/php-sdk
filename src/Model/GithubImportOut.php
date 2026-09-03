@@ -69,7 +69,7 @@ class GithubImportOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'queued' => null,
+        'queued' => 'int64',
         'repos' => null
     ];
 

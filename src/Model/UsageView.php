@@ -72,7 +72,7 @@ class UsageView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'org' => null,
         'repos' => null,
-        'total_bytes' => null
+        'total_bytes' => 'int64'
     ];
 
     /**

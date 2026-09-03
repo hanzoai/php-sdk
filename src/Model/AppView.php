@@ -94,7 +94,7 @@ class AppView implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'build_type' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'current_deployment_id' => null,
         'description' => null,
         'dockerfile' => null,
@@ -108,17 +108,17 @@ class AppView implements ModelInterface, ArrayAccess, \JsonSerializable
         'namespace' => null,
         'org' => null,
         'phase' => null,
-        'port' => null,
+        'port' => 'int64',
         'project_id' => null,
-        'replicas' => null,
+        'replicas' => 'int64',
         'repo' => null,
         'secret_sync' => null,
         'secret_sync_detail' => null,
         'slug' => null,
         'source' => null,
         'status' => null,
-        'storage_gb' => null,
-        'updated_at' => null
+        'storage_gb' => 'int64',
+        'updated_at' => 'int64'
     ];
 
     /**

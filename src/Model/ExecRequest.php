@@ -78,7 +78,7 @@ class ExecRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'dir' => null,
         'id' => null,
         'stdin' => null,
-        'timeout_sec' => null
+        'timeout_sec' => 'int64'
     ];
 
     /**

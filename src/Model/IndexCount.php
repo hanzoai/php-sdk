@@ -70,7 +70,7 @@ class IndexCount implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'is_indexing' => null,
-        'number_of_documents' => null
+        'number_of_documents' => 'int64'
     ];
 
     /**

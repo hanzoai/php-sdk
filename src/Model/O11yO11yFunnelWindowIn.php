@@ -69,8 +69,8 @@ class O11yO11yFunnelWindowIn implements ModelInterface, ArrayAccess, \JsonSerial
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end_time' => null,
-        'start_time' => null
+        'end_time' => 'int64',
+        'start_time' => 'int64'
     ];
 
     /**

@@ -82,19 +82,19 @@ class AffiliateStanding implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'accrued_cents' => null,
+        'accrued_cents' => 'int64',
         'code' => null,
-        'default_rate_bps' => null,
+        'default_rate_bps' => 'int64',
         'handle' => null,
         'id' => null,
         'is_affiliate' => null,
         'link' => null,
-        'margin_bps' => null,
-        'paid_cents' => null,
+        'margin_bps' => 'int64',
+        'paid_cents' => 'int64',
         'payouts' => null,
-        'pending_cents' => null,
-        'rate_bps' => null,
-        'referred_count' => null,
+        'pending_cents' => 'int64',
+        'rate_bps' => 'int64',
+        'referred_count' => 'int64',
         'requested_code' => null,
         'status' => null
     ];

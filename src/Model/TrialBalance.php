@@ -77,8 +77,8 @@ class TrialBalance implements ModelInterface, ArrayAccess, \JsonSerializable
         'from' => null,
         'rows' => null,
         'to' => null,
-        'total_credit' => null,
-        'total_debit' => null
+        'total_credit' => 'int64',
+        'total_debit' => 'int64'
     ];
 
     /**

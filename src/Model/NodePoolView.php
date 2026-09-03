@@ -75,9 +75,9 @@ class NodePoolView implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'auto_scale' => null,
-        'count' => null,
-        'max_nodes' => null,
-        'min_nodes' => null,
+        'count' => 'int64',
+        'max_nodes' => 'int64',
+        'min_nodes' => 'int64',
         'name' => null,
         'pool_id' => null,
         'size' => null

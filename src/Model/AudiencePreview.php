@@ -75,12 +75,12 @@ class AudiencePreview implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'available' => null,
-        'count' => null,
-        'deliverable' => null,
+        'count' => 'int64',
+        'deliverable' => 'int64',
         'reason' => null,
         'sample' => null,
         'source' => null,
-        'unmatched' => null
+        'unmatched' => 'int64'
     ];
 
     /**

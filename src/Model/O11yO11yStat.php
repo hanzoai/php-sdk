@@ -70,7 +70,7 @@ class O11yO11yStat implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'time' => 'date-time',
-        'value' => null
+        'value' => 'uint64'
     ];
 
     /**

@@ -74,7 +74,7 @@ class SectionWrite implements ModelInterface, ArrayAccess, \JsonSerializable
         'data' => null,
         'id' => null,
         'kind' => null,
-        'ord' => null
+        'ord' => 'int64'
     ];
 
     /**

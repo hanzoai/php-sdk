@@ -77,12 +77,12 @@ class Promo implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'active' => null,
         'code' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'description' => null,
-        'max_redemptions' => null,
-        'percent_off' => null,
+        'max_redemptions' => 'int64',
+        'percent_off' => 'int64',
         'plans' => null,
-        'team_seat_cap' => null
+        'team_seat_cap' => 'int64'
     ];
 
     /**

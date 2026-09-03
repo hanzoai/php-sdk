@@ -75,7 +75,7 @@ class RiskLabelVocabulary implements ModelInterface, ArrayAccess, \JsonSerializa
         'dispositions' => null,
         'kinds' => null,
         'precedence' => null,
-        'retention' => null,
+        'retention' => 'int64',
         'rule' => null
     ];
 

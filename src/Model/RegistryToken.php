@@ -70,7 +70,7 @@ class RegistryToken implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'expires' => null,
+        'expires' => 'int64',
         'ref' => null,
         'token' => null
     ];

@@ -73,12 +73,12 @@ class RiskTopology implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'blend' => null,
-        'depth' => null,
+        'blend' => 'double',
+        'depth' => 'int64',
         'family' => null,
-        'review' => null,
-        'trees' => null,
-        'window' => null
+        'review' => 'double',
+        'trees' => 'int64',
+        'window' => 'int64'
     ];
 
     /**

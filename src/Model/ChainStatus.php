@@ -72,8 +72,8 @@ class ChainStatus implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'chain_id' => null,
-        'height' => null,
+        'chain_id' => 'int64',
+        'height' => 'int64',
         'id' => null,
         'live' => null,
         'name' => null

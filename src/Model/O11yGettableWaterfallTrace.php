@@ -77,15 +77,15 @@ class O11yGettableWaterfallTrace implements ModelInterface, ArrayAccess, \JsonSe
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end_timestamp_millis' => null,
+        'end_timestamp_millis' => 'uint64',
         'has_missing_spans' => null,
         'has_more' => null,
         'root_service_entry_point' => null,
         'root_service_name' => null,
         'spans' => null,
-        'start_timestamp_millis' => null,
-        'total_error_spans_count' => null,
-        'total_spans_count' => null,
+        'start_timestamp_millis' => 'uint64',
+        'total_error_spans_count' => 'uint64',
+        'total_spans_count' => 'uint64',
         'uncollapsed_spans' => null
     ];
 

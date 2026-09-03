@@ -79,16 +79,16 @@ class LLMOverview implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'available' => null,
-        'completion_tokens' => null,
-        'error_rate' => null,
-        'errors' => null,
-        'models' => null,
-        'prompt_tokens' => null,
-        'providers' => null,
-        'requests' => null,
+        'completion_tokens' => 'int64',
+        'error_rate' => 'double',
+        'errors' => 'int64',
+        'models' => 'int64',
+        'prompt_tokens' => 'int64',
+        'providers' => 'int64',
+        'requests' => 'int64',
         'source' => null,
-        'spend_cents' => null,
-        'tokens' => null
+        'spend_cents' => 'int64',
+        'tokens' => 'int64'
     ];
 
     /**

@@ -150,7 +150,7 @@ class IamProvider implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'owner' => null,
         'path_prefix' => null,
-        'port' => null,
+        'port' => 'int64',
         'provider_url' => null,
         'receiver' => null,
         'region_id' => null,

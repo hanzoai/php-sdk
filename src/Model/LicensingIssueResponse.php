@@ -75,7 +75,7 @@ class LicensingIssueResponse implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static $openAPIFormats = [
         'app_id' => null,
-        'exp' => null,
+        'exp' => 'int64',
         'features' => null,
         'fingerprint_bound' => null,
         'holder' => null,

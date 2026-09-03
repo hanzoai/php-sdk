@@ -73,12 +73,12 @@ class RiskValue implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'baseline' => null,
+        'baseline' => 'double',
         'blind' => null,
         'feature' => null,
-        'observed' => null,
+        'observed' => 'double',
         'unit' => null,
-        'x' => null
+        'x' => 'double'
     ];
 
     /**

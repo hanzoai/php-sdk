@@ -100,12 +100,12 @@ class IamInvitation implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'owner' => null,
         'phone' => null,
-        'quota' => null,
+        'quota' => 'int64',
         'signup_group' => null,
         'state' => null,
         'updated_at' => 'date-time',
         'updated_time' => null,
-        'used_count' => null,
+        'used_count' => 'int64',
         'username' => null
     ];
 

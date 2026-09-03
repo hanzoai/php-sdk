@@ -73,7 +73,7 @@ class TrustGrantView implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'email' => null,
-        'expires_at' => null,
+        'expires_at' => 'int64',
         'item' => null,
         'link' => null,
         'live' => null

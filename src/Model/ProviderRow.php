@@ -71,10 +71,10 @@ class ProviderRow implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cost_cents' => null,
+        'cost_cents' => 'int64',
         'provider' => null,
-        'requests' => null,
-        'tokens' => null
+        'requests' => 'int64',
+        'tokens' => 'int64'
     ];
 
     /**

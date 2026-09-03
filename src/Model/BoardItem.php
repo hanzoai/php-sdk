@@ -78,7 +78,7 @@ class BoardItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'project' => null,
         'status' => null,
         'title' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

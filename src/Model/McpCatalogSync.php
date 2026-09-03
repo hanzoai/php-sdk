@@ -71,10 +71,10 @@ class McpCatalogSync implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'added' => null,
+        'added' => 'int64',
         'registry' => null,
-        'total' => null,
-        'updated' => null
+        'total' => 'int64',
+        'updated' => 'int64'
     ];
 
     /**

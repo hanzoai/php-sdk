@@ -76,7 +76,7 @@ class Fusion implements ModelInterface, ArrayAccess, \JsonSerializable
         'hits' => null,
         'mode' => null,
         'status' => null,
-        'took_ms' => null
+        'took_ms' => 'int64'
     ];
 
     /**

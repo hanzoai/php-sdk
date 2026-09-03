@@ -96,7 +96,7 @@ class MCPListing implements ModelInterface, ArrayAccess, \JsonSerializable
         'remotes' => null,
         'repo' => null,
         'site' => null,
-        'synced' => null,
+        'synced' => 'int64',
         'title' => null,
         'transports' => null,
         'vendor' => null,

@@ -81,8 +81,8 @@ class Extracted implements ModelInterface, ArrayAccess, \JsonSerializable
         'line_items' => null,
         'merchant' => null,
         'note' => null,
-        'tax_cents' => null,
-        'total_cents' => null
+        'tax_cents' => 'int64',
+        'total_cents' => 'int64'
     ];
 
     /**

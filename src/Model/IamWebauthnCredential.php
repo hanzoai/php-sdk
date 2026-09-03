@@ -103,7 +103,7 @@ class IamWebauthnCredential implements ModelInterface, ArrayAccess, \JsonSeriali
         'name' => null,
         'owner' => null,
         'public_key' => null,
-        'sign_count' => null,
+        'sign_count' => 'uint32',
         'transport' => null,
         'updated_at' => 'date-time',
         'user' => null,

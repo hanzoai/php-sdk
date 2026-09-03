@@ -81,20 +81,20 @@ class CaptableOption implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cliff_years' => null,
+        'cliff_years' => 'int64',
         'equity_plan_id' => null,
         'equity_plan_name' => null,
-        'exercise_price' => null,
+        'exercise_price' => 'double',
         'expiration_date' => null,
         'grant_id' => null,
         'id' => null,
         'issue_date' => null,
-        'quantity' => null,
+        'quantity' => 'int64',
         'stakeholder_id' => null,
         'stakeholder_name' => null,
         'status' => null,
         'type' => null,
-        'vesting_years' => null
+        'vesting_years' => 'int64'
     ];
 
     /**

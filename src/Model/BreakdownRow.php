@@ -72,9 +72,9 @@ class BreakdownRow implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'key' => null,
-        'pageviews' => null,
-        'pct' => null,
-        'visitors' => null
+        'pageviews' => 'int64',
+        'pct' => 'double',
+        'visitors' => 'int64'
     ];
 
     /**

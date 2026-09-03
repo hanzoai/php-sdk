@@ -68,7 +68,7 @@ class KvAck implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'revision' => null
+        'revision' => 'uint64'
     ];
 
     /**

@@ -71,7 +71,7 @@ class Purge implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'filter' => null,
-        'keep' => null,
+        'keep' => 'uint64',
         'name' => null
     ];
 

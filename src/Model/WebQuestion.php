@@ -73,7 +73,7 @@ class WebQuestion implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'language' => null,
-        'max_sources' => null,
+        'max_sources' => 'int64',
         'mode' => null,
         'q' => null,
         'sources' => null

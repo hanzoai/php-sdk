@@ -70,7 +70,7 @@ class ScheduleInput implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'id' => null,
-        'scheduled_at' => null
+        'scheduled_at' => 'int64'
     ];
 
     /**

@@ -72,9 +72,9 @@ class BucketRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'bucket' => null,
-        'history' => null,
-        'ttl' => null,
-        'values' => null
+        'history' => 'int64',
+        'ttl' => 'int64',
+        'values' => 'uint64'
     ];
 
     /**

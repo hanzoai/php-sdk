@@ -79,7 +79,7 @@ class O11yRuleStateHistory implements ModelInterface, ArrayAccess, \JsonSerializ
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'fingerprint' => null,
+        'fingerprint' => 'uint64',
         'labels' => null,
         'overall_state' => null,
         'overall_state_changed' => null,
@@ -89,8 +89,8 @@ class O11yRuleStateHistory implements ModelInterface, ArrayAccess, \JsonSerializ
         'rule_name' => null,
         'state' => null,
         'state_changed' => null,
-        'unix_milli' => null,
-        'value' => null
+        'unix_milli' => 'int64',
+        'value' => 'double'
     ];
 
     /**

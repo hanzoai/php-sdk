@@ -70,7 +70,7 @@ class GraphVocabularyOut implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'bound' => null,
+        'bound' => 'int64',
         'relations' => null,
         'rule' => null
     ];

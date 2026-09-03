@@ -72,7 +72,7 @@ class EsignPlacement implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'id' => null,
-        'page' => null,
+        'page' => 'double',
         'recipient_id' => null,
         'type' => null
     ];

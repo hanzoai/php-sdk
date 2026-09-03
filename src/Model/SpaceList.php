@@ -70,7 +70,7 @@ class SpaceList implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'spaces' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

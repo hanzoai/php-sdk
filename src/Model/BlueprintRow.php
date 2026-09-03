@@ -70,8 +70,8 @@ class BlueprintRow implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'est_cents_per_month' => null,
-        'services' => null,
+        'est_cents_per_month' => 'int64',
+        'services' => 'int64',
         'template_id' => null
     ];
 

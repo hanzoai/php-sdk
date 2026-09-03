@@ -57,15 +57,48 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'anonymous_id' => 'string',
+        'channel' => 'string',
+        'clip' => '\Hanzo\Cloud\Model\ClipBody',
+        'currency' => 'string',
         'distinct_id' => 'string',
+        'environment' => 'string',
+        'error' => '\Hanzo\Cloud\Model\Exception',
         'event' => 'string',
+        'group_id' => 'string',
+        'group_type' => 'string',
+        'kind' => 'string',
+        'level' => 'string',
+        'library' => 'string',
+        'library_version' => 'string',
+        'log' => '\Hanzo\Cloud\Model\LogBody',
+        'message_id' => 'string',
+        'metric' => '\Hanzo\Cloud\Model\MetricBody',
+        'path' => 'string',
+        'person_id' => 'string',
+        'product' => 'string',
+        'product_id' => 'string',
         'properties' => 'array<string,mixed>',
-        'time' => 'string',
+        'quantity' => 'int',
+        'ref_code' => 'string',
+        'referrer' => 'string',
+        'release' => 'string',
+        'resource' => 'string',
+        'revenue' => 'float',
+        'service' => 'string',
+        'session_id' => 'string',
+        'signup_week' => 'string',
+        'site' => 'string',
+        'span' => '\Hanzo\Cloud\Model\SpanBody',
+        'span_id' => 'string',
+        'timestamp' => 'string',
+        'trace_id' => 'string',
         'type' => 'string',
+        'url' => 'string',
+        'utm' => '\Hanzo\Cloud\Model\UTM',
         'batch' => '\Hanzo\Cloud\Model\InsightsEvent[]',
         'events' => '\Hanzo\Cloud\Model\CaptureEvent[]',
         'distinct_id_legacy' => 'string',
-        'timestamp' => 'string',
         'uuid' => 'string'
     ];
 
@@ -77,15 +110,48 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'anonymous_id' => null,
+        'channel' => null,
+        'clip' => null,
+        'currency' => null,
         'distinct_id' => null,
+        'environment' => null,
+        'error' => null,
         'event' => null,
+        'group_id' => null,
+        'group_type' => null,
+        'kind' => null,
+        'level' => null,
+        'library' => null,
+        'library_version' => null,
+        'log' => null,
+        'message_id' => null,
+        'metric' => null,
+        'path' => null,
+        'person_id' => null,
+        'product' => null,
+        'product_id' => null,
         'properties' => null,
-        'time' => null,
+        'quantity' => null,
+        'ref_code' => null,
+        'referrer' => null,
+        'release' => null,
+        'resource' => null,
+        'revenue' => null,
+        'service' => null,
+        'session_id' => null,
+        'signup_week' => null,
+        'site' => null,
+        'span' => null,
+        'span_id' => null,
+        'timestamp' => null,
+        'trace_id' => null,
         'type' => null,
+        'url' => null,
+        'utm' => null,
         'batch' => null,
         'events' => null,
         'distinct_id_legacy' => null,
-        'timestamp' => null,
         'uuid' => null
     ];
 
@@ -95,15 +161,48 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'anonymous_id' => false,
+        'channel' => false,
+        'clip' => false,
+        'currency' => false,
         'distinct_id' => false,
+        'environment' => false,
+        'error' => false,
         'event' => false,
+        'group_id' => false,
+        'group_type' => false,
+        'kind' => false,
+        'level' => false,
+        'library' => false,
+        'library_version' => false,
+        'log' => false,
+        'message_id' => false,
+        'metric' => false,
+        'path' => false,
+        'person_id' => false,
+        'product' => false,
+        'product_id' => false,
         'properties' => false,
-        'time' => false,
+        'quantity' => false,
+        'ref_code' => false,
+        'referrer' => false,
+        'release' => false,
+        'resource' => false,
+        'revenue' => false,
+        'service' => false,
+        'session_id' => false,
+        'signup_week' => false,
+        'site' => false,
+        'span' => false,
+        'span_id' => false,
+        'timestamp' => false,
+        'trace_id' => false,
         'type' => false,
+        'url' => false,
+        'utm' => false,
         'batch' => false,
         'events' => false,
         'distinct_id_legacy' => false,
-        'timestamp' => false,
         'uuid' => false
     ];
 
@@ -193,15 +292,48 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'anonymous_id' => 'anonymousId',
+        'channel' => 'channel',
+        'clip' => 'clip',
+        'currency' => 'currency',
         'distinct_id' => 'distinctId',
+        'environment' => 'environment',
+        'error' => 'error',
         'event' => 'event',
+        'group_id' => 'groupId',
+        'group_type' => 'groupType',
+        'kind' => 'kind',
+        'level' => 'level',
+        'library' => 'library',
+        'library_version' => 'libraryVersion',
+        'log' => 'log',
+        'message_id' => 'messageId',
+        'metric' => 'metric',
+        'path' => 'path',
+        'person_id' => 'personId',
+        'product' => 'product',
+        'product_id' => 'productId',
         'properties' => 'properties',
-        'time' => 'time',
+        'quantity' => 'quantity',
+        'ref_code' => 'refCode',
+        'referrer' => 'referrer',
+        'release' => 'release',
+        'resource' => 'resource',
+        'revenue' => 'revenue',
+        'service' => 'service',
+        'session_id' => 'sessionId',
+        'signup_week' => 'signupWeek',
+        'site' => 'site',
+        'span' => 'span',
+        'span_id' => 'spanId',
+        'timestamp' => 'timestamp',
+        'trace_id' => 'traceId',
         'type' => 'type',
+        'url' => 'url',
+        'utm' => 'utm',
         'batch' => 'batch',
         'events' => 'events',
         'distinct_id_legacy' => 'distinct_id',
-        'timestamp' => 'timestamp',
         'uuid' => 'uuid'
     ];
 
@@ -211,15 +343,48 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'anonymous_id' => 'setAnonymousId',
+        'channel' => 'setChannel',
+        'clip' => 'setClip',
+        'currency' => 'setCurrency',
         'distinct_id' => 'setDistinctId',
+        'environment' => 'setEnvironment',
+        'error' => 'setError',
         'event' => 'setEvent',
+        'group_id' => 'setGroupId',
+        'group_type' => 'setGroupType',
+        'kind' => 'setKind',
+        'level' => 'setLevel',
+        'library' => 'setLibrary',
+        'library_version' => 'setLibraryVersion',
+        'log' => 'setLog',
+        'message_id' => 'setMessageId',
+        'metric' => 'setMetric',
+        'path' => 'setPath',
+        'person_id' => 'setPersonId',
+        'product' => 'setProduct',
+        'product_id' => 'setProductId',
         'properties' => 'setProperties',
-        'time' => 'setTime',
+        'quantity' => 'setQuantity',
+        'ref_code' => 'setRefCode',
+        'referrer' => 'setReferrer',
+        'release' => 'setRelease',
+        'resource' => 'setResource',
+        'revenue' => 'setRevenue',
+        'service' => 'setService',
+        'session_id' => 'setSessionId',
+        'signup_week' => 'setSignupWeek',
+        'site' => 'setSite',
+        'span' => 'setSpan',
+        'span_id' => 'setSpanId',
+        'timestamp' => 'setTimestamp',
+        'trace_id' => 'setTraceId',
         'type' => 'setType',
+        'url' => 'setUrl',
+        'utm' => 'setUtm',
         'batch' => 'setBatch',
         'events' => 'setEvents',
         'distinct_id_legacy' => 'setDistinctIdLegacy',
-        'timestamp' => 'setTimestamp',
         'uuid' => 'setUuid'
     ];
 
@@ -229,15 +394,48 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'anonymous_id' => 'getAnonymousId',
+        'channel' => 'getChannel',
+        'clip' => 'getClip',
+        'currency' => 'getCurrency',
         'distinct_id' => 'getDistinctId',
+        'environment' => 'getEnvironment',
+        'error' => 'getError',
         'event' => 'getEvent',
+        'group_id' => 'getGroupId',
+        'group_type' => 'getGroupType',
+        'kind' => 'getKind',
+        'level' => 'getLevel',
+        'library' => 'getLibrary',
+        'library_version' => 'getLibraryVersion',
+        'log' => 'getLog',
+        'message_id' => 'getMessageId',
+        'metric' => 'getMetric',
+        'path' => 'getPath',
+        'person_id' => 'getPersonId',
+        'product' => 'getProduct',
+        'product_id' => 'getProductId',
         'properties' => 'getProperties',
-        'time' => 'getTime',
+        'quantity' => 'getQuantity',
+        'ref_code' => 'getRefCode',
+        'referrer' => 'getReferrer',
+        'release' => 'getRelease',
+        'resource' => 'getResource',
+        'revenue' => 'getRevenue',
+        'service' => 'getService',
+        'session_id' => 'getSessionId',
+        'signup_week' => 'getSignupWeek',
+        'site' => 'getSite',
+        'span' => 'getSpan',
+        'span_id' => 'getSpanId',
+        'timestamp' => 'getTimestamp',
+        'trace_id' => 'getTraceId',
         'type' => 'getType',
+        'url' => 'getUrl',
+        'utm' => 'getUtm',
         'batch' => 'getBatch',
         'events' => 'getEvents',
         'distinct_id_legacy' => 'getDistinctIdLegacy',
-        'timestamp' => 'getTimestamp',
         'uuid' => 'getUuid'
     ];
 
@@ -298,15 +496,48 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('anonymous_id', $data ?? [], null);
+        $this->setIfExists('channel', $data ?? [], null);
+        $this->setIfExists('clip', $data ?? [], null);
+        $this->setIfExists('currency', $data ?? [], null);
         $this->setIfExists('distinct_id', $data ?? [], null);
+        $this->setIfExists('environment', $data ?? [], null);
+        $this->setIfExists('error', $data ?? [], null);
         $this->setIfExists('event', $data ?? [], null);
+        $this->setIfExists('group_id', $data ?? [], null);
+        $this->setIfExists('group_type', $data ?? [], null);
+        $this->setIfExists('kind', $data ?? [], null);
+        $this->setIfExists('level', $data ?? [], null);
+        $this->setIfExists('library', $data ?? [], null);
+        $this->setIfExists('library_version', $data ?? [], null);
+        $this->setIfExists('log', $data ?? [], null);
+        $this->setIfExists('message_id', $data ?? [], null);
+        $this->setIfExists('metric', $data ?? [], null);
+        $this->setIfExists('path', $data ?? [], null);
+        $this->setIfExists('person_id', $data ?? [], null);
+        $this->setIfExists('product', $data ?? [], null);
+        $this->setIfExists('product_id', $data ?? [], null);
         $this->setIfExists('properties', $data ?? [], null);
-        $this->setIfExists('time', $data ?? [], null);
+        $this->setIfExists('quantity', $data ?? [], null);
+        $this->setIfExists('ref_code', $data ?? [], null);
+        $this->setIfExists('referrer', $data ?? [], null);
+        $this->setIfExists('release', $data ?? [], null);
+        $this->setIfExists('resource', $data ?? [], null);
+        $this->setIfExists('revenue', $data ?? [], null);
+        $this->setIfExists('service', $data ?? [], null);
+        $this->setIfExists('session_id', $data ?? [], null);
+        $this->setIfExists('signup_week', $data ?? [], null);
+        $this->setIfExists('site', $data ?? [], null);
+        $this->setIfExists('span', $data ?? [], null);
+        $this->setIfExists('span_id', $data ?? [], null);
+        $this->setIfExists('timestamp', $data ?? [], null);
+        $this->setIfExists('trace_id', $data ?? [], null);
         $this->setIfExists('type', $data ?? [], null);
+        $this->setIfExists('url', $data ?? [], null);
+        $this->setIfExists('utm', $data ?? [], null);
         $this->setIfExists('batch', $data ?? [], null);
         $this->setIfExists('events', $data ?? [], null);
         $this->setIfExists('distinct_id_legacy', $data ?? [], null);
-        $this->setIfExists('timestamp', $data ?? [], null);
         $this->setIfExists('uuid', $data ?? [], null);
     }
 
@@ -353,6 +584,114 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
+     * Gets anonymous_id
+     *
+     * @return string|null
+     */
+    public function getAnonymousId()
+    {
+        return $this->container['anonymous_id'];
+    }
+
+    /**
+     * Sets anonymous_id
+     *
+     * @param string|null $anonymous_id anonymous_id
+     *
+     * @return self
+     */
+    public function setAnonymousId($anonymous_id)
+    {
+        if (is_null($anonymous_id)) {
+            throw new \InvalidArgumentException('non-nullable anonymous_id cannot be null');
+        }
+        $this->container['anonymous_id'] = $anonymous_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets channel
+     *
+     * @return string|null
+     */
+    public function getChannel()
+    {
+        return $this->container['channel'];
+    }
+
+    /**
+     * Sets channel
+     *
+     * @param string|null $channel channel
+     *
+     * @return self
+     */
+    public function setChannel($channel)
+    {
+        if (is_null($channel)) {
+            throw new \InvalidArgumentException('non-nullable channel cannot be null');
+        }
+        $this->container['channel'] = $channel;
+
+        return $this;
+    }
+
+    /**
+     * Gets clip
+     *
+     * @return \Hanzo\Cloud\Model\ClipBody|null
+     */
+    public function getClip()
+    {
+        return $this->container['clip'];
+    }
+
+    /**
+     * Sets clip
+     *
+     * @param \Hanzo\Cloud\Model\ClipBody|null $clip clip
+     *
+     * @return self
+     */
+    public function setClip($clip)
+    {
+        if (is_null($clip)) {
+            throw new \InvalidArgumentException('non-nullable clip cannot be null');
+        }
+        $this->container['clip'] = $clip;
+
+        return $this;
+    }
+
+    /**
+     * Gets currency
+     *
+     * @return string|null
+     */
+    public function getCurrency()
+    {
+        return $this->container['currency'];
+    }
+
+    /**
+     * Sets currency
+     *
+     * @param string|null $currency currency
+     *
+     * @return self
+     */
+    public function setCurrency($currency)
+    {
+        if (is_null($currency)) {
+            throw new \InvalidArgumentException('non-nullable currency cannot be null');
+        }
+        $this->container['currency'] = $currency;
+
+        return $this;
+    }
+
+    /**
      * Gets distinct_id
      *
      * @return string|null
@@ -375,6 +714,60 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable distinct_id cannot be null');
         }
         $this->container['distinct_id'] = $distinct_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets environment
+     *
+     * @return string|null
+     */
+    public function getEnvironment()
+    {
+        return $this->container['environment'];
+    }
+
+    /**
+     * Sets environment
+     *
+     * @param string|null $environment environment
+     *
+     * @return self
+     */
+    public function setEnvironment($environment)
+    {
+        if (is_null($environment)) {
+            throw new \InvalidArgumentException('non-nullable environment cannot be null');
+        }
+        $this->container['environment'] = $environment;
+
+        return $this;
+    }
+
+    /**
+     * Gets error
+     *
+     * @return \Hanzo\Cloud\Model\Exception|null
+     */
+    public function getError()
+    {
+        return $this->container['error'];
+    }
+
+    /**
+     * Sets error
+     *
+     * @param \Hanzo\Cloud\Model\Exception|null $error error
+     *
+     * @return self
+     */
+    public function setError($error)
+    {
+        if (is_null($error)) {
+            throw new \InvalidArgumentException('non-nullable error cannot be null');
+        }
+        $this->container['error'] = $error;
 
         return $this;
     }
@@ -407,6 +800,357 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets group_id
+     *
+     * @return string|null
+     */
+    public function getGroupId()
+    {
+        return $this->container['group_id'];
+    }
+
+    /**
+     * Sets group_id
+     *
+     * @param string|null $group_id group_id
+     *
+     * @return self
+     */
+    public function setGroupId($group_id)
+    {
+        if (is_null($group_id)) {
+            throw new \InvalidArgumentException('non-nullable group_id cannot be null');
+        }
+        $this->container['group_id'] = $group_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets group_type
+     *
+     * @return string|null
+     */
+    public function getGroupType()
+    {
+        return $this->container['group_type'];
+    }
+
+    /**
+     * Sets group_type
+     *
+     * @param string|null $group_type group_type
+     *
+     * @return self
+     */
+    public function setGroupType($group_type)
+    {
+        if (is_null($group_type)) {
+            throw new \InvalidArgumentException('non-nullable group_type cannot be null');
+        }
+        $this->container['group_type'] = $group_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets kind
+     *
+     * @return string|null
+     */
+    public function getKind()
+    {
+        return $this->container['kind'];
+    }
+
+    /**
+     * Sets kind
+     *
+     * @param string|null $kind kind
+     *
+     * @return self
+     */
+    public function setKind($kind)
+    {
+        if (is_null($kind)) {
+            throw new \InvalidArgumentException('non-nullable kind cannot be null');
+        }
+        $this->container['kind'] = $kind;
+
+        return $this;
+    }
+
+    /**
+     * Gets level
+     *
+     * @return string|null
+     */
+    public function getLevel()
+    {
+        return $this->container['level'];
+    }
+
+    /**
+     * Sets level
+     *
+     * @param string|null $level level
+     *
+     * @return self
+     */
+    public function setLevel($level)
+    {
+        if (is_null($level)) {
+            throw new \InvalidArgumentException('non-nullable level cannot be null');
+        }
+        $this->container['level'] = $level;
+
+        return $this;
+    }
+
+    /**
+     * Gets library
+     *
+     * @return string|null
+     */
+    public function getLibrary()
+    {
+        return $this->container['library'];
+    }
+
+    /**
+     * Sets library
+     *
+     * @param string|null $library library
+     *
+     * @return self
+     */
+    public function setLibrary($library)
+    {
+        if (is_null($library)) {
+            throw new \InvalidArgumentException('non-nullable library cannot be null');
+        }
+        $this->container['library'] = $library;
+
+        return $this;
+    }
+
+    /**
+     * Gets library_version
+     *
+     * @return string|null
+     */
+    public function getLibraryVersion()
+    {
+        return $this->container['library_version'];
+    }
+
+    /**
+     * Sets library_version
+     *
+     * @param string|null $library_version library_version
+     *
+     * @return self
+     */
+    public function setLibraryVersion($library_version)
+    {
+        if (is_null($library_version)) {
+            throw new \InvalidArgumentException('non-nullable library_version cannot be null');
+        }
+        $this->container['library_version'] = $library_version;
+
+        return $this;
+    }
+
+    /**
+     * Gets log
+     *
+     * @return \Hanzo\Cloud\Model\LogBody|null
+     */
+    public function getLog()
+    {
+        return $this->container['log'];
+    }
+
+    /**
+     * Sets log
+     *
+     * @param \Hanzo\Cloud\Model\LogBody|null $log log
+     *
+     * @return self
+     */
+    public function setLog($log)
+    {
+        if (is_null($log)) {
+            throw new \InvalidArgumentException('non-nullable log cannot be null');
+        }
+        $this->container['log'] = $log;
+
+        return $this;
+    }
+
+    /**
+     * Gets message_id
+     *
+     * @return string|null
+     */
+    public function getMessageId()
+    {
+        return $this->container['message_id'];
+    }
+
+    /**
+     * Sets message_id
+     *
+     * @param string|null $message_id message_id
+     *
+     * @return self
+     */
+    public function setMessageId($message_id)
+    {
+        if (is_null($message_id)) {
+            throw new \InvalidArgumentException('non-nullable message_id cannot be null');
+        }
+        $this->container['message_id'] = $message_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets metric
+     *
+     * @return \Hanzo\Cloud\Model\MetricBody|null
+     */
+    public function getMetric()
+    {
+        return $this->container['metric'];
+    }
+
+    /**
+     * Sets metric
+     *
+     * @param \Hanzo\Cloud\Model\MetricBody|null $metric metric
+     *
+     * @return self
+     */
+    public function setMetric($metric)
+    {
+        if (is_null($metric)) {
+            throw new \InvalidArgumentException('non-nullable metric cannot be null');
+        }
+        $this->container['metric'] = $metric;
+
+        return $this;
+    }
+
+    /**
+     * Gets path
+     *
+     * @return string|null
+     */
+    public function getPath()
+    {
+        return $this->container['path'];
+    }
+
+    /**
+     * Sets path
+     *
+     * @param string|null $path path
+     *
+     * @return self
+     */
+    public function setPath($path)
+    {
+        if (is_null($path)) {
+            throw new \InvalidArgumentException('non-nullable path cannot be null');
+        }
+        $this->container['path'] = $path;
+
+        return $this;
+    }
+
+    /**
+     * Gets person_id
+     *
+     * @return string|null
+     */
+    public function getPersonId()
+    {
+        return $this->container['person_id'];
+    }
+
+    /**
+     * Sets person_id
+     *
+     * @param string|null $person_id person_id
+     *
+     * @return self
+     */
+    public function setPersonId($person_id)
+    {
+        if (is_null($person_id)) {
+            throw new \InvalidArgumentException('non-nullable person_id cannot be null');
+        }
+        $this->container['person_id'] = $person_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets product
+     *
+     * @return string|null
+     */
+    public function getProduct()
+    {
+        return $this->container['product'];
+    }
+
+    /**
+     * Sets product
+     *
+     * @param string|null $product product
+     *
+     * @return self
+     */
+    public function setProduct($product)
+    {
+        if (is_null($product)) {
+            throw new \InvalidArgumentException('non-nullable product cannot be null');
+        }
+        $this->container['product'] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Gets product_id
+     *
+     * @return string|null
+     */
+    public function getProductId()
+    {
+        return $this->container['product_id'];
+    }
+
+    /**
+     * Sets product_id
+     *
+     * @param string|null $product_id product_id
+     *
+     * @return self
+     */
+    public function setProductId($product_id)
+    {
+        if (is_null($product_id)) {
+            throw new \InvalidArgumentException('non-nullable product_id cannot be null');
+        }
+        $this->container['product_id'] = $product_id;
+
+        return $this;
+    }
+
+    /**
      * Gets properties
      *
      * @return array<string,mixed>|null
@@ -434,28 +1178,379 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets time
+     * Gets quantity
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getTime()
+    public function getQuantity()
     {
-        return $this->container['time'];
+        return $this->container['quantity'];
     }
 
     /**
-     * Sets time
+     * Sets quantity
      *
-     * @param string|null $time time
+     * @param int|null $quantity quantity
      *
      * @return self
      */
-    public function setTime($time)
+    public function setQuantity($quantity)
     {
-        if (is_null($time)) {
-            throw new \InvalidArgumentException('non-nullable time cannot be null');
+        if (is_null($quantity)) {
+            throw new \InvalidArgumentException('non-nullable quantity cannot be null');
         }
-        $this->container['time'] = $time;
+        $this->container['quantity'] = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Gets ref_code
+     *
+     * @return string|null
+     */
+    public function getRefCode()
+    {
+        return $this->container['ref_code'];
+    }
+
+    /**
+     * Sets ref_code
+     *
+     * @param string|null $ref_code ref_code
+     *
+     * @return self
+     */
+    public function setRefCode($ref_code)
+    {
+        if (is_null($ref_code)) {
+            throw new \InvalidArgumentException('non-nullable ref_code cannot be null');
+        }
+        $this->container['ref_code'] = $ref_code;
+
+        return $this;
+    }
+
+    /**
+     * Gets referrer
+     *
+     * @return string|null
+     */
+    public function getReferrer()
+    {
+        return $this->container['referrer'];
+    }
+
+    /**
+     * Sets referrer
+     *
+     * @param string|null $referrer referrer
+     *
+     * @return self
+     */
+    public function setReferrer($referrer)
+    {
+        if (is_null($referrer)) {
+            throw new \InvalidArgumentException('non-nullable referrer cannot be null');
+        }
+        $this->container['referrer'] = $referrer;
+
+        return $this;
+    }
+
+    /**
+     * Gets release
+     *
+     * @return string|null
+     */
+    public function getRelease()
+    {
+        return $this->container['release'];
+    }
+
+    /**
+     * Sets release
+     *
+     * @param string|null $release release
+     *
+     * @return self
+     */
+    public function setRelease($release)
+    {
+        if (is_null($release)) {
+            throw new \InvalidArgumentException('non-nullable release cannot be null');
+        }
+        $this->container['release'] = $release;
+
+        return $this;
+    }
+
+    /**
+     * Gets resource
+     *
+     * @return string|null
+     */
+    public function getResource()
+    {
+        return $this->container['resource'];
+    }
+
+    /**
+     * Sets resource
+     *
+     * @param string|null $resource resource
+     *
+     * @return self
+     */
+    public function setResource($resource)
+    {
+        if (is_null($resource)) {
+            throw new \InvalidArgumentException('non-nullable resource cannot be null');
+        }
+        $this->container['resource'] = $resource;
+
+        return $this;
+    }
+
+    /**
+     * Gets revenue
+     *
+     * @return float|null
+     */
+    public function getRevenue()
+    {
+        return $this->container['revenue'];
+    }
+
+    /**
+     * Sets revenue
+     *
+     * @param float|null $revenue revenue
+     *
+     * @return self
+     */
+    public function setRevenue($revenue)
+    {
+        if (is_null($revenue)) {
+            throw new \InvalidArgumentException('non-nullable revenue cannot be null');
+        }
+        $this->container['revenue'] = $revenue;
+
+        return $this;
+    }
+
+    /**
+     * Gets service
+     *
+     * @return string|null
+     */
+    public function getService()
+    {
+        return $this->container['service'];
+    }
+
+    /**
+     * Sets service
+     *
+     * @param string|null $service service
+     *
+     * @return self
+     */
+    public function setService($service)
+    {
+        if (is_null($service)) {
+            throw new \InvalidArgumentException('non-nullable service cannot be null');
+        }
+        $this->container['service'] = $service;
+
+        return $this;
+    }
+
+    /**
+     * Gets session_id
+     *
+     * @return string|null
+     */
+    public function getSessionId()
+    {
+        return $this->container['session_id'];
+    }
+
+    /**
+     * Sets session_id
+     *
+     * @param string|null $session_id session_id
+     *
+     * @return self
+     */
+    public function setSessionId($session_id)
+    {
+        if (is_null($session_id)) {
+            throw new \InvalidArgumentException('non-nullable session_id cannot be null');
+        }
+        $this->container['session_id'] = $session_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets signup_week
+     *
+     * @return string|null
+     */
+    public function getSignupWeek()
+    {
+        return $this->container['signup_week'];
+    }
+
+    /**
+     * Sets signup_week
+     *
+     * @param string|null $signup_week signup_week
+     *
+     * @return self
+     */
+    public function setSignupWeek($signup_week)
+    {
+        if (is_null($signup_week)) {
+            throw new \InvalidArgumentException('non-nullable signup_week cannot be null');
+        }
+        $this->container['signup_week'] = $signup_week;
+
+        return $this;
+    }
+
+    /**
+     * Gets site
+     *
+     * @return string|null
+     */
+    public function getSite()
+    {
+        return $this->container['site'];
+    }
+
+    /**
+     * Sets site
+     *
+     * @param string|null $site site
+     *
+     * @return self
+     */
+    public function setSite($site)
+    {
+        if (is_null($site)) {
+            throw new \InvalidArgumentException('non-nullable site cannot be null');
+        }
+        $this->container['site'] = $site;
+
+        return $this;
+    }
+
+    /**
+     * Gets span
+     *
+     * @return \Hanzo\Cloud\Model\SpanBody|null
+     */
+    public function getSpan()
+    {
+        return $this->container['span'];
+    }
+
+    /**
+     * Sets span
+     *
+     * @param \Hanzo\Cloud\Model\SpanBody|null $span span
+     *
+     * @return self
+     */
+    public function setSpan($span)
+    {
+        if (is_null($span)) {
+            throw new \InvalidArgumentException('non-nullable span cannot be null');
+        }
+        $this->container['span'] = $span;
+
+        return $this;
+    }
+
+    /**
+     * Gets span_id
+     *
+     * @return string|null
+     */
+    public function getSpanId()
+    {
+        return $this->container['span_id'];
+    }
+
+    /**
+     * Sets span_id
+     *
+     * @param string|null $span_id span_id
+     *
+     * @return self
+     */
+    public function setSpanId($span_id)
+    {
+        if (is_null($span_id)) {
+            throw new \InvalidArgumentException('non-nullable span_id cannot be null');
+        }
+        $this->container['span_id'] = $span_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets timestamp
+     *
+     * @return string|null
+     */
+    public function getTimestamp()
+    {
+        return $this->container['timestamp'];
+    }
+
+    /**
+     * Sets timestamp
+     *
+     * @param string|null $timestamp timestamp
+     *
+     * @return self
+     */
+    public function setTimestamp($timestamp)
+    {
+        if (is_null($timestamp)) {
+            throw new \InvalidArgumentException('non-nullable timestamp cannot be null');
+        }
+        $this->container['timestamp'] = $timestamp;
+
+        return $this;
+    }
+
+    /**
+     * Gets trace_id
+     *
+     * @return string|null
+     */
+    public function getTraceId()
+    {
+        return $this->container['trace_id'];
+    }
+
+    /**
+     * Sets trace_id
+     *
+     * @param string|null $trace_id trace_id
+     *
+     * @return self
+     */
+    public function setTraceId($trace_id)
+    {
+        if (is_null($trace_id)) {
+            throw new \InvalidArgumentException('non-nullable trace_id cannot be null');
+        }
+        $this->container['trace_id'] = $trace_id;
 
         return $this;
     }
@@ -483,6 +1578,60 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable type cannot be null');
         }
         $this->container['type'] = $type;
+
+        return $this;
+    }
+
+    /**
+     * Gets url
+     *
+     * @return string|null
+     */
+    public function getUrl()
+    {
+        return $this->container['url'];
+    }
+
+    /**
+     * Sets url
+     *
+     * @param string|null $url url
+     *
+     * @return self
+     */
+    public function setUrl($url)
+    {
+        if (is_null($url)) {
+            throw new \InvalidArgumentException('non-nullable url cannot be null');
+        }
+        $this->container['url'] = $url;
+
+        return $this;
+    }
+
+    /**
+     * Gets utm
+     *
+     * @return \Hanzo\Cloud\Model\UTM|null
+     */
+    public function getUtm()
+    {
+        return $this->container['utm'];
+    }
+
+    /**
+     * Sets utm
+     *
+     * @param \Hanzo\Cloud\Model\UTM|null $utm utm
+     *
+     * @return self
+     */
+    public function setUtm($utm)
+    {
+        if (is_null($utm)) {
+            throw new \InvalidArgumentException('non-nullable utm cannot be null');
+        }
+        $this->container['utm'] = $utm;
 
         return $this;
     }
@@ -564,33 +1713,6 @@ class PostEventRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable distinct_id_legacy cannot be null');
         }
         $this->container['distinct_id_legacy'] = $distinct_id_legacy;
-
-        return $this;
-    }
-
-    /**
-     * Gets timestamp
-     *
-     * @return string|null
-     */
-    public function getTimestamp()
-    {
-        return $this->container['timestamp'];
-    }
-
-    /**
-     * Sets timestamp
-     *
-     * @param string|null $timestamp timestamp
-     *
-     * @return self
-     */
-    public function setTimestamp($timestamp)
-    {
-        if (is_null($timestamp)) {
-            throw new \InvalidArgumentException('non-nullable timestamp cannot be null');
-        }
-        $this->container['timestamp'] = $timestamp;
 
         return $this;
     }

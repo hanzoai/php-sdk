@@ -74,12 +74,12 @@ class CodeView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'clicks' => null,
+        'clicks' => 'int64',
         'code' => null,
-        'conversions' => null,
-        'created_at' => null,
+        'conversions' => 'int64',
+        'created_at' => 'int64',
         'label' => null,
-        'signups' => null,
+        'signups' => 'int64',
         'url' => null
     ];
 

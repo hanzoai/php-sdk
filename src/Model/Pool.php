@@ -77,8 +77,8 @@ class Pool implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'at' => null,
-        'count' => null,
-        'fee' => null,
+        'count' => 'int64',
+        'fee' => 'int64',
         'locked' => null,
         'token0' => null,
         'token0_price' => null,

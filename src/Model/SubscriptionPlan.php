@@ -76,7 +76,7 @@ class SubscriptionPlan implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => null,
         'interval' => null,
         'name' => null,
-        'price' => null
+        'price' => 'int64'
     ];
 
     /**

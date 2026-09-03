@@ -71,7 +71,7 @@ class O11yStatefulSetListResponse implements ModelInterface, ArrayAccess, \JsonS
       */
     protected static $openAPIFormats = [
         'records' => null,
-        'total' => null,
+        'total' => 'int64',
         'type' => null
     ];
 

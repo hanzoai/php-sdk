@@ -83,17 +83,17 @@ class AgentRunView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'actor' => null,
         'agent' => null,
-        'completion_tokens' => null,
+        'completion_tokens' => 'int64',
         'created_at' => null,
-        'duration_ms' => null,
+        'duration_ms' => 'int64',
         'error' => null,
         'id' => null,
         'input' => null,
         'model' => null,
         'output' => null,
-        'prompt_tokens' => null,
+        'prompt_tokens' => 'int64',
         'status' => null,
-        'tool_calls' => null,
+        'tool_calls' => 'int64',
         'trace_id' => null
     ];
 

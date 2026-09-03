@@ -72,11 +72,11 @@ class O11yO11yReductionStats implements ModelInterface, ArrayAccess, \JsonSerial
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'estimated_monthly_savings_usd' => null,
-        'ingested_samples' => null,
-        'ingested_series' => null,
-        'retained_samples' => null,
-        'retained_series' => null
+        'estimated_monthly_savings_usd' => 'double',
+        'ingested_samples' => 'uint64',
+        'ingested_series' => 'uint64',
+        'retained_samples' => 'uint64',
+        'retained_series' => 'uint64'
     ];
 
     /**

@@ -72,8 +72,8 @@ class RedeemResult implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'already_redeemed' => null,
-        'charge_cents' => null,
-        'discount_cents' => null,
+        'charge_cents' => 'int64',
+        'discount_cents' => 'int64',
         'redemption' => null
     ];
 

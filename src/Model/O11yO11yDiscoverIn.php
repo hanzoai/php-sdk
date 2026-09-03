@@ -78,7 +78,7 @@ class O11yO11yDiscoverIn implements ModelInterface, ArrayAccess, \JsonSerializab
         'aggregations' => null,
         'filters' => null,
         'group_by' => null,
-        'limit' => null,
+        'limit' => 'int64',
         'order_by' => null,
         'order_dir' => null,
         'period' => null,

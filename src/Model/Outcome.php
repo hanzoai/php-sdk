@@ -77,14 +77,14 @@ class Outcome implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'control' => null,
-        'converted' => null,
-        'exposed' => null,
-        'lift' => null,
-        'p_value' => null,
-        'rate' => null,
+        'converted' => 'int64',
+        'exposed' => 'int64',
+        'lift' => 'double',
+        'p_value' => 'double',
+        'rate' => 'double',
         'significant' => null,
         'variant' => null,
-        'z' => null
+        'z' => 'double'
     ];
 
     /**

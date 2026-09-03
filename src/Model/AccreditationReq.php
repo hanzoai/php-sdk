@@ -76,7 +76,7 @@ class AccreditationReq implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'basis' => null,
         'evidence_doc_id' => null,
-        'expires_at' => null,
+        'expires_at' => 'int64',
         'method' => null,
         'note' => null,
         'status' => null,

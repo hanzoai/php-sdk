@@ -76,13 +76,13 @@ class LLM implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'available' => null,
-        'completion_tokens' => null,
-        'cost_cents' => null,
-        'models' => null,
-        'prompt_tokens' => null,
-        'requests' => null,
+        'completion_tokens' => 'int64',
+        'cost_cents' => 'int64',
+        'models' => 'int64',
+        'prompt_tokens' => 'int64',
+        'requests' => 'int64',
         'source' => null,
-        'tokens' => null
+        'tokens' => 'int64'
     ];
 
     /**

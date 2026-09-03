@@ -73,12 +73,12 @@ class TrustTally implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'absent' => null,
-        'automated' => null,
-        'partial' => null,
+        'absent' => 'int64',
+        'automated' => 'int64',
+        'partial' => 'int64',
         'statement' => null,
-        'total' => null,
-        'unverified' => null
+        'total' => 'int64',
+        'unverified' => 'int64'
     ];
 
     /**

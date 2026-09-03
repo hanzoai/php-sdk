@@ -78,7 +78,7 @@ class Suggestion implements ModelInterface, ArrayAccess, \JsonSerializable
         'rationale' => null,
         'step_id' => null,
         'title' => null,
-        'unlocks' => null
+        'unlocks' => 'int64'
     ];
 
     /**

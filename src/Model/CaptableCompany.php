@@ -75,14 +75,14 @@ class CaptableCompany implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created_at' => null,
+        'created_at' => 'int64',
         'id' => null,
         'incorporation_country' => null,
         'incorporation_state' => null,
         'incorporation_type' => null,
         'name' => null,
         'public_id' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

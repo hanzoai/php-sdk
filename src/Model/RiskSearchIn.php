@@ -68,7 +68,7 @@ class RiskSearchIn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'days' => null
+        'days' => 'int64'
     ];
 
     /**

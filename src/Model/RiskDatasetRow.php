@@ -76,7 +76,7 @@ class RiskDatasetRow implements ModelInterface, ArrayAccess, \JsonSerializable
         'at' => null,
         'id' => null,
         'kind' => null,
-        'point' => null,
+        'point' => 'double',
         'split' => null,
         'subject' => null
     ];

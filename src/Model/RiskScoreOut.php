@@ -79,10 +79,10 @@ class RiskScoreOut implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'alert' => null,
         'causes' => null,
-        'cut' => null,
-        'policy' => null,
+        'cut' => 'double',
+        'policy' => 'int64',
         'refusal' => null,
-        'score' => null,
+        'score' => 'double',
         'scored' => null,
         'shadow' => null,
         'shape' => null,

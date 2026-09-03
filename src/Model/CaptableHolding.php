@@ -73,11 +73,11 @@ class CaptableHolding implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'fully_diluted' => null,
+        'fully_diluted' => 'int64',
         'name' => null,
-        'options' => null,
-        'ownership_pct' => null,
-        'shares' => null,
+        'options' => 'int64',
+        'ownership_pct' => 'double',
+        'shares' => 'int64',
         'stakeholder_id' => null
     ];
 

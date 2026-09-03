@@ -74,7 +74,7 @@ class TrailPage implements ModelInterface, ArrayAccess, \JsonSerializable
         'data' => null,
         'msg' => null,
         'status' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

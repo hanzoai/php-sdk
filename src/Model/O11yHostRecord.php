@@ -77,16 +77,16 @@ class O11yHostRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'active_host_count' => null,
-        'cpu' => null,
-        'disk_usage' => null,
+        'active_host_count' => 'int64',
+        'cpu' => 'double',
+        'disk_usage' => 'double',
         'host_name' => null,
-        'inactive_host_count' => null,
-        'load15' => null,
-        'memory' => null,
+        'inactive_host_count' => 'int64',
+        'load15' => 'double',
+        'memory' => 'double',
         'meta' => null,
         'status' => null,
-        'wait' => null
+        'wait' => 'double'
     ];
 
     /**

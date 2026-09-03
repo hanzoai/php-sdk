@@ -73,12 +73,12 @@ class SeoMetric implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'competition' => null,
-        'cpc' => null,
-        'difficulty' => null,
+        'competition' => 'double',
+        'cpc' => 'double',
+        'difficulty' => 'int64',
         'keyword' => null,
         'level' => null,
-        'volume' => null
+        'volume' => 'int64'
     ];
 
     /**

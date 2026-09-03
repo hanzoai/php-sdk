@@ -74,11 +74,11 @@ class ModelRow implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'model' => null,
-        'pct' => null,
+        'pct' => 'double',
         'provider' => null,
-        'requests' => null,
-        'spend_cents' => null,
-        'tokens' => null
+        'requests' => 'int64',
+        'spend_cents' => 'int64',
+        'tokens' => 'int64'
     ];
 
     /**

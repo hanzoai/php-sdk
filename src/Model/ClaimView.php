@@ -74,7 +74,7 @@ class ClaimView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'code' => null,
         'created' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'id' => null,
         'status' => null
     ];

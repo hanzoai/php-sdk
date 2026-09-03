@@ -79,8 +79,8 @@ class Invoice implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_due_cents' => null,
-        'amount_paid_cents' => null,
+        'amount_due_cents' => 'int64',
+        'amount_paid_cents' => 'int64',
         'created_at' => null,
         'currency' => null,
         'customer_email' => null,
@@ -89,7 +89,7 @@ class Invoice implements ModelInterface, ArrayAccess, \JsonSerializable
         'number' => null,
         'payment_ref' => null,
         'status' => null,
-        'subtotal_cents' => null,
+        'subtotal_cents' => 'int64',
         'user_id' => null
     ];
 

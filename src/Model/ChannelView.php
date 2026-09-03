@@ -82,7 +82,7 @@ class ChannelView implements ModelInterface, ArrayAccess, \JsonSerializable
         'dm_policy' => null,
         'group_policy' => null,
         'id' => null,
-        'pending_pairing' => null
+        'pending_pairing' => 'int64'
     ];
 
     /**

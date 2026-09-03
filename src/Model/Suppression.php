@@ -73,7 +73,7 @@ class Suppression implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'address' => null,
         'channel' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'reason' => null
     ];
 

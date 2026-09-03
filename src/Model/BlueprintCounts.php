@@ -72,11 +72,11 @@ class BlueprintCounts implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'principles' => null,
-        'sections' => null,
-        'steps' => null,
-        'strategies' => null,
-        'templates' => null
+        'principles' => 'int64',
+        'sections' => 'int64',
+        'steps' => 'int64',
+        'strategies' => 'int64',
+        'templates' => 'int64'
     ];
 
     /**

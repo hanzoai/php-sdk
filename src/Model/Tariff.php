@@ -75,11 +75,11 @@ class Tariff implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'currency' => null,
-        'due_now_cents' => null,
+        'due_now_cents' => 'int64',
         'jurisdiction' => null,
         'lines' => null,
         'recurring' => null,
-        'recurring_cents' => null,
+        'recurring_cents' => 'int64',
         'structure' => null
     ];
 

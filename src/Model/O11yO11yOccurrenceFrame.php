@@ -75,11 +75,11 @@ class O11yO11yOccurrenceFrame implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static $openAPIFormats = [
         'abs_path' => null,
-        'colno' => null,
+        'colno' => 'int64',
         'filename' => null,
         'function' => null,
         'in_app' => null,
-        'lineno' => null,
+        'lineno' => 'int64',
         'module' => null
     ];
 

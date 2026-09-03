@@ -73,12 +73,12 @@ class ActivityTotals implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'active_days' => null,
-        'cost_cents' => null,
-        'max_requests' => null,
-        'max_tokens' => null,
-        'requests' => null,
-        'tokens' => null
+        'active_days' => 'int64',
+        'cost_cents' => 'int64',
+        'max_requests' => 'int64',
+        'max_tokens' => 'int64',
+        'requests' => 'int64',
+        'tokens' => 'int64'
     ];
 
     /**

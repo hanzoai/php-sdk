@@ -76,11 +76,11 @@ class RiskModelFeature implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'blind' => null,
+        'blind' => 'int64',
         'citation' => null,
         'indicator' => null,
         'name' => null,
-        'neutral' => null,
+        'neutral' => 'double',
         'severity' => null,
         'typology' => null,
         'unit' => null,

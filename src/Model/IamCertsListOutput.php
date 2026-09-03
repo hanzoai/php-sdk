@@ -70,7 +70,7 @@ class IamCertsListOutput implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'certs' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

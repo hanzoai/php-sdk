@@ -73,10 +73,10 @@ class SeoDomain implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'domain' => null,
-        'keywords' => null,
-        'position' => null,
-        'traffic' => null,
-        'visibility' => null
+        'keywords' => 'int64',
+        'position' => 'double',
+        'traffic' => 'double',
+        'visibility' => 'double'
     ];
 
     /**

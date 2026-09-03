@@ -83,15 +83,15 @@ class O11yFilterAttributeValueRequest implements ModelInterface, ArrayAccess, \J
         'aggregate_attribute' => null,
         'aggregate_operator' => null,
         'data_source' => null,
-        'end_time_millis' => null,
+        'end_time_millis' => 'int64',
         'existing_filter_items' => null,
         'filter_attribute_key' => null,
         'filter_attribute_key_data_type' => null,
         'include_related' => null,
-        'limit' => null,
+        'limit' => 'int64',
         'metric_names' => null,
         'search_text' => null,
-        'start_time_millis' => null,
+        'start_time_millis' => 'int64',
         'tag_type' => null
     ];
 

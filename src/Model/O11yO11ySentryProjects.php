@@ -70,7 +70,7 @@ class O11yO11ySentryProjects implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static $openAPIFormats = [
         'items' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

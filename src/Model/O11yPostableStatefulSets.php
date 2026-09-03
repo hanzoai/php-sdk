@@ -74,13 +74,13 @@ class O11yPostableStatefulSets implements ModelInterface, ArrayAccess, \JsonSeri
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end' => null,
+        'end' => 'int64',
         'filter' => null,
         'group_by' => null,
-        'limit' => null,
-        'offset' => null,
+        'limit' => 'int64',
+        'offset' => 'int64',
         'order_by' => null,
-        'start' => null
+        'start' => 'int64'
     ];
 
     /**

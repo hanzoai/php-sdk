@@ -78,7 +78,7 @@ class Route implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => null,
         'middlewares' => null,
         'path_prefix' => null,
-        'priority' => null,
+        'priority' => 'int64',
         'service' => null,
         'tls' => null
     ];

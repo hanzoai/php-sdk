@@ -72,7 +72,7 @@ class TreeEntry implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'lang' => null,
         'path' => null,
-        'symbols' => null
+        'symbols' => 'int64'
     ];
 
     /**

@@ -76,7 +76,7 @@ class Transaction implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount' => null,
+        'amount' => 'int64',
         'created_at' => null,
         'currency' => null,
         'expires_at' => null,

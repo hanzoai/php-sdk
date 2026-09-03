@@ -69,7 +69,7 @@ class CreditEntry implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'available' => null,
+        'available' => 'int64',
         'currency' => null
     ];
 

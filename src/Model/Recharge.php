@@ -70,8 +70,8 @@ class Recharge implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'charged' => null,
-        'orgs' => null,
+        'charged' => 'int64',
+        'orgs' => 'int64',
         'results' => null
     ];
 

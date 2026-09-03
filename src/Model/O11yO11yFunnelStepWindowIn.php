@@ -71,10 +71,10 @@ class O11yO11yFunnelStepWindowIn implements ModelInterface, ArrayAccess, \JsonSe
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end_time' => null,
-        'start_time' => null,
-        'step_end' => null,
-        'step_start' => null
+        'end_time' => 'int64',
+        'start_time' => 'int64',
+        'step_end' => 'int64',
+        'step_start' => 'int64'
     ];
 
     /**

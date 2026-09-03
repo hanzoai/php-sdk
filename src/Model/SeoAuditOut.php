@@ -78,11 +78,11 @@ class SeoAuditOut implements ModelInterface, ArrayAccess, \JsonSerializable
         'checks' => null,
         'cost' => null,
         'description' => null,
-        'score' => null,
-        'status' => null,
+        'score' => 'double',
+        'status' => 'int64',
         'title' => null,
         'url' => null,
-        'words' => null
+        'words' => 'int64'
     ];
 
     /**

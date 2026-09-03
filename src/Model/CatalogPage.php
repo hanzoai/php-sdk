@@ -71,8 +71,8 @@ class CatalogPage implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'data' => null,
-        'facets' => null,
-        'total' => null
+        'facets' => 'int64',
+        'total' => 'int64'
     ];
 
     /**

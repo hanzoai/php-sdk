@@ -76,7 +76,7 @@ class RiskLabelFact implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'at' => null,
-        'confidence' => null,
+        'confidence' => 'double',
         'disposition' => null,
         'evidence' => null,
         'kind' => null,

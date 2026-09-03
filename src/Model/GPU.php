@@ -70,7 +70,7 @@ class GPU implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'memory' => null,
+        'memory' => 'int64',
         'model' => null,
         'vendor' => null
     ];

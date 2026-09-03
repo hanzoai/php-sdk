@@ -90,7 +90,7 @@ class Declared implements ModelInterface, ArrayAccess, \JsonSerializable
         'org' => null,
         'path' => null,
         'project' => null,
-        'replicas' => null,
+        'replicas' => 'int64',
         'repository' => null,
         'tag' => null
     ];

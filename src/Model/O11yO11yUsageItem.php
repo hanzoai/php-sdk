@@ -70,9 +70,9 @@ class O11yO11yUsageItem implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'count' => null,
+        'count' => 'uint64',
         'time' => 'date-time',
-        'timestamp' => null
+        'timestamp' => 'uint64'
     ];
 
     /**

@@ -74,7 +74,7 @@ class BusMessage implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'data' => null,
         'headers' => null,
-        'seq' => null,
+        'seq' => 'uint64',
         'subject' => null,
         'time' => null
     ];

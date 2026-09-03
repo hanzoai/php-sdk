@@ -86,7 +86,7 @@ class DocRow implements ModelInterface, ArrayAccess, \JsonSerializable
         'released' => null,
         'tier' => null,
         'title' => null,
-        'updated' => null
+        'updated' => 'int64'
     ];
 
     /**

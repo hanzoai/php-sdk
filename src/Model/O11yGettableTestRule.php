@@ -69,7 +69,7 @@ class O11yGettableTestRule implements ModelInterface, ArrayAccess, \JsonSerializ
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'alert_count' => null,
+        'alert_count' => 'int64',
         'message' => null
     ];
 

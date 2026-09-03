@@ -75,7 +75,7 @@ class O11yO11yAPIKey implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'created_at' => 'date-time',
-        'expires_at' => null,
+        'expires_at' => 'uint64',
         'id' => null,
         'last_observed_at' => 'date-time',
         'name' => null,

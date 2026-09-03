@@ -73,12 +73,12 @@ class AccountsTotal implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'accounts' => null,
-        'completion_tokens' => null,
-        'cost_cents' => null,
-        'prompt_tokens' => null,
-        'requests' => null,
-        'total_tokens' => null
+        'accounts' => 'int64',
+        'completion_tokens' => 'int64',
+        'cost_cents' => 'int64',
+        'prompt_tokens' => 'int64',
+        'requests' => 'int64',
+        'total_tokens' => 'int64'
     ];
 
     /**

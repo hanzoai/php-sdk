@@ -85,7 +85,7 @@ class TaxonIn implements ModelInterface, ArrayAccess, \JsonSerializable
         'icon' => null,
         'id' => null,
         'name' => null,
-        'order' => null,
+        'order' => 'int64',
         'published' => null,
         'route' => null,
         'tags' => null

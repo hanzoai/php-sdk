@@ -70,7 +70,7 @@ class TicketGrant implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'expires_in' => null,
+        'expires_in' => 'int64',
         'ticket' => null,
         'url' => null
     ];

@@ -70,7 +70,7 @@ class Usage implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cost_cents' => null,
+        'cost_cents' => 'int64',
         'series' => null,
         'status' => null
     ];

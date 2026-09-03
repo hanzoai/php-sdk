@@ -78,15 +78,15 @@ class TotalView implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'confidence' => null,
-        'cost_cents' => null,
+        'cost_cents' => 'int64',
         'provider' => null,
-        'requests' => null,
+        'requests' => 'int64',
         'scope' => null,
         'source' => null,
-        'tokens' => null,
-        'used_pct' => null,
+        'tokens' => 'int64',
+        'used_pct' => 'double',
         'window' => null,
-        'windows' => null
+        'windows' => 'int64'
     ];
 
     /**

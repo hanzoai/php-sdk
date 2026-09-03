@@ -75,12 +75,12 @@ class O11yO11yDomainsIn implements ModelInterface, ArrayAccess, \JsonSerializabl
       */
     protected static $openAPIFormats = [
         'domain' => null,
-        'end' => null,
+        'end' => 'uint64',
         'endpoint' => null,
         'filter' => null,
         'group_by' => null,
         'show_ip' => null,
-        'start' => null
+        'start' => 'uint64'
     ];
 
     /**

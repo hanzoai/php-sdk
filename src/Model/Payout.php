@@ -80,7 +80,7 @@ class Payout implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount' => null,
+        'amount' => 'int64',
         'arrival_date' => null,
         'created' => null,
         'currency' => null,

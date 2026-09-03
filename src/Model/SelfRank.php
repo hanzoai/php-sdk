@@ -76,15 +76,15 @@ class SelfRank implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cost_cents' => null,
+        'cost_cents' => 'int64',
         'handle' => null,
         'listed' => null,
-        'metric' => null,
-        'of_total' => null,
-        'rank' => null,
+        'metric' => 'int64',
+        'of_total' => 'int64',
+        'rank' => 'int64',
         'ranked' => null,
-        'requests' => null,
-        'tokens' => null
+        'requests' => 'int64',
+        'tokens' => 'int64'
     ];
 
     /**

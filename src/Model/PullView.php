@@ -84,7 +84,7 @@ class PullView implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_at' => null,
         'head' => null,
         'merged_rev' => null,
-        'number' => null,
+        'number' => 'int64',
         'repo' => null,
         'state' => null,
         'title' => null,

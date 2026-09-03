@@ -76,7 +76,7 @@ class DefRow implements ModelInterface, ArrayAccess, \JsonSerializable
         'key' => null,
         'updated_at' => null,
         'updated_by' => null,
-        'version' => null
+        'version' => 'int64'
     ];
 
     /**

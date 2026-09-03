@@ -75,8 +75,8 @@ class RiskModelValue implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'address' => null,
         'at' => null,
-        'learned' => null,
-        'sequence' => null,
+        'learned' => 'int64',
+        'sequence' => 'int64',
         'shape' => null,
         'warmed' => null
     ];

@@ -77,7 +77,7 @@ class PopulatedFlow implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created' => null,
+        'created' => 'int64',
         'external_id' => null,
         'folder_id' => null,
         'id' => null,
@@ -85,7 +85,7 @@ class PopulatedFlow implements ModelInterface, ArrayAccess, \JsonSerializable
         'project_id' => null,
         'published_version_id' => null,
         'status' => null,
-        'updated' => null,
+        'updated' => 'int64',
         'version' => null
     ];
 

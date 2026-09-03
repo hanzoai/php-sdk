@@ -74,10 +74,10 @@ class PlanInfo implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'active' => null,
-        'guest_limit' => null,
-        'guests' => null,
+        'guest_limit' => 'int64',
+        'guests' => 'int64',
         'plan' => null,
-        'seats' => null,
+        'seats' => 'int64',
         'upgrade_url' => null
     ];
 

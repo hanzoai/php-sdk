@@ -71,10 +71,10 @@ class RiskAggregates implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'bound' => null,
-        'forgotten' => null,
+        'bound' => 'int64',
+        'forgotten' => 'int64',
         'saturated' => null,
-        'subjects' => null
+        'subjects' => 'int64'
     ];
 
     /**

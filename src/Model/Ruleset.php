@@ -69,7 +69,7 @@ class Ruleset implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'rules' => null,
+        'rules' => 'int64',
         'status' => null
     ];
 

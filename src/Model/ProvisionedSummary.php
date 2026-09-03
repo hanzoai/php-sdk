@@ -74,12 +74,12 @@ class ProvisionedSummary implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created_at' => null,
+        'created_at' => 'int64',
         'host' => null,
         'id' => null,
         'kind' => null,
         'name' => null,
-        'port' => null,
+        'port' => 'int64',
         'status' => null
     ];
 

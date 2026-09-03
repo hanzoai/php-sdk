@@ -69,7 +69,7 @@ class Wrote implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'bytes' => null,
+        'bytes' => 'int64',
         'path' => null
     ];
 

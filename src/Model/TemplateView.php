@@ -80,7 +80,7 @@ class TemplateView implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => null,
         'origin' => null,
         'title' => null,
-        'version' => null
+        'version' => 'int64'
     ];
 
     /**

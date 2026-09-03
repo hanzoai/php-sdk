@@ -78,9 +78,9 @@ class GLRow implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'account' => null,
         'against' => null,
-        'credit' => null,
-        'debit' => null,
-        'id' => null,
+        'credit' => 'int64',
+        'debit' => 'int64',
+        'id' => 'int64',
         'posting_at' => null,
         'remarks' => null,
         'source_id' => null,

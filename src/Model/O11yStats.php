@@ -81,8 +81,8 @@ class O11yStats implements ModelInterface, ArrayAccess, \JsonSerializable
         'past_avg_resolution_time' => null,
         'past_avg_resolution_time_series' => null,
         'past_triggers_series' => null,
-        'total_current_triggers' => null,
-        'total_past_triggers' => null
+        'total_current_triggers' => 'uint64',
+        'total_past_triggers' => 'uint64'
     ];
 
     /**

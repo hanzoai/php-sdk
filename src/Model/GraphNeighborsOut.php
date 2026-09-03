@@ -71,8 +71,8 @@ class GraphNeighborsOut implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'bound' => null,
-        'depth' => null,
+        'bound' => 'int64',
+        'depth' => 'int64',
         'entities' => null,
         'truncated' => null
     ];

@@ -72,7 +72,7 @@ class SeoRankOut implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'cost' => null,
         'rankings' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

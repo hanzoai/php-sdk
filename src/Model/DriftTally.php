@@ -70,9 +70,9 @@ class DriftTally implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'ok' => null,
-        'red' => null,
-        'yellow' => null
+        'ok' => 'int64',
+        'red' => 'int64',
+        'yellow' => 'int64'
     ];
 
     /**

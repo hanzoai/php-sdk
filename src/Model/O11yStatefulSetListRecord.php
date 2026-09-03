@@ -78,16 +78,16 @@ class O11yStatefulSetListRecord implements ModelInterface, ArrayAccess, \JsonSer
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'available_pods' => null,
-        'cpu_limit' => null,
-        'cpu_request' => null,
-        'cpu_usage' => null,
-        'desired_pods' => null,
-        'memory_limit' => null,
-        'memory_request' => null,
-        'memory_usage' => null,
+        'available_pods' => 'int64',
+        'cpu_limit' => 'double',
+        'cpu_request' => 'double',
+        'cpu_usage' => 'double',
+        'desired_pods' => 'int64',
+        'memory_limit' => 'double',
+        'memory_request' => 'double',
+        'memory_usage' => 'double',
         'meta' => null,
-        'restarts' => null,
+        'restarts' => 'int64',
         'stateful_set_name' => null
     ];
 

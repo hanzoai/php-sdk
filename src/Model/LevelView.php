@@ -70,9 +70,9 @@ class LevelView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'downline_count' => null,
-        'level' => null,
-        'rate_bps' => null
+        'downline_count' => 'int64',
+        'level' => 'int64',
+        'rate_bps' => 'int64'
     ];
 
     /**

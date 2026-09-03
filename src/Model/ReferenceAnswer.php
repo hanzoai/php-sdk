@@ -87,7 +87,7 @@ class ReferenceAnswer implements ModelInterface, ArrayAccess, \JsonSerializable
         'key' => null,
         'matched' => null,
         'refusal' => null,
-        'score' => null,
+        'score' => 'double',
         'set' => null,
         'stale' => null,
         'value' => null,

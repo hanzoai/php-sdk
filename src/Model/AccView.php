@@ -79,16 +79,16 @@ class AccView implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'basis' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'evidence_doc_id' => null,
-        'expires_at' => null,
+        'expires_at' => 'int64',
         'id' => null,
         'method' => null,
         'note' => null,
         'reviewer_sub' => null,
         'status' => null,
         'subject_id' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

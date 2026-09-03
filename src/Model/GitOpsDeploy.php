@@ -74,7 +74,7 @@ class GitOpsDeploy implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'automated' => null,
         'deployed_at' => null,
-        'id' => null,
+        'id' => 'int64',
         'revision' => null,
         'started_at' => null
     ];

@@ -74,9 +74,9 @@ class Collected implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'balance_used_cents' => null,
-        'card_charged_cents' => null,
-        'credit_used_cents' => null,
+        'balance_used_cents' => 'int64',
+        'card_charged_cents' => 'int64',
+        'credit_used_cents' => 'int64',
         'invoice' => null,
         'paid' => null,
         'processor_ref' => null,

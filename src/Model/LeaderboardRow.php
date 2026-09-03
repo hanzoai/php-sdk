@@ -72,11 +72,11 @@ class LeaderboardRow implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'accrued_cents' => null,
+        'accrued_cents' => 'int64',
         'handle' => null,
         'is_you' => null,
-        'rank' => null,
-        'referred_count' => null
+        'rank' => 'int64',
+        'referred_count' => 'int64'
     ];
 
     /**

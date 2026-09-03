@@ -79,14 +79,14 @@ class O11yPodListRecord implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $openAPIFormats = [
         'count_by_phase' => null,
         'meta' => null,
-        'pod_cpu' => null,
-        'pod_cpu_limit' => null,
-        'pod_cpu_request' => null,
-        'pod_memory' => null,
-        'pod_memory_limit' => null,
-        'pod_memory_request' => null,
+        'pod_cpu' => 'double',
+        'pod_cpu_limit' => 'double',
+        'pod_cpu_request' => 'double',
+        'pod_memory' => 'double',
+        'pod_memory_limit' => 'double',
+        'pod_memory_request' => 'double',
         'pod_uid' => null,
-        'restart_count' => null
+        'restart_count' => 'int64'
     ];
 
     /**

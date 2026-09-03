@@ -74,8 +74,8 @@ class PairingView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'channel' => null,
         'code' => null,
-        'created_at' => null,
-        'last_seen' => null,
+        'created_at' => 'int64',
+        'last_seen' => 'int64',
         'sender' => null
     ];
 

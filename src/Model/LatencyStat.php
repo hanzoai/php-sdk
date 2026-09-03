@@ -72,9 +72,9 @@ class LatencyStat implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'available' => null,
-        'p50_ms' => null,
-        'p95_ms' => null,
-        'p99_ms' => null
+        'p50_ms' => 'double',
+        'p95_ms' => 'double',
+        'p99_ms' => 'double'
     ];
 
     /**

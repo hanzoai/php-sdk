@@ -72,7 +72,7 @@ class O11yO11yFunnelUpdateIn implements ModelInterface, ArrayAccess, \JsonSerial
     protected static $openAPIFormats = [
         'description' => null,
         'funnel_name' => null,
-        'timestamp' => null
+        'timestamp' => 'int64'
     ];
 
     /**

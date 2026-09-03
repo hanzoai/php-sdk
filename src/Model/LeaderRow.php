@@ -80,19 +80,19 @@ class LeaderRow implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'ci_high' => null,
-        'ci_low' => null,
-        'claims' => null,
-        'gap' => null,
-        'mean' => null,
-        'measured' => null,
+        'ci_high' => 'double',
+        'ci_low' => 'double',
+        'claims' => 'int64',
+        'gap' => 'double',
+        'mean' => 'double',
+        'measured' => 'double',
         'measured_at' => 'date-time',
         'model' => null,
-        'n' => null,
+        'n' => 'int64',
         'protocol' => null,
-        'published' => null,
+        'published' => 'double',
         'run' => null,
-        'spread' => null
+        'spread' => 'double'
     ];
 
     /**

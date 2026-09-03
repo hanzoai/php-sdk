@@ -73,7 +73,7 @@ class CartItemSet implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'id' => null,
         'product' => null,
-        'quantity' => null,
+        'quantity' => 'int64',
         'variant' => null
     ];
 

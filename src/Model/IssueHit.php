@@ -80,7 +80,7 @@ class IssueHit implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'assignee' => null,
         'kind' => null,
-        'number' => null,
+        'number' => 'int64',
         'priority' => null,
         'project' => null,
         'repo' => null,

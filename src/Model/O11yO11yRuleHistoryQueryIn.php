@@ -74,12 +74,12 @@ class O11yO11yRuleHistoryQueryIn implements ModelInterface, ArrayAccess, \JsonSe
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end' => null,
+        'end' => 'int64',
         'filters' => null,
-        'limit' => null,
-        'offset' => null,
+        'limit' => 'int64',
+        'offset' => 'int64',
         'order' => null,
-        'start' => null,
+        'start' => 'int64',
         'state' => null
     ];
 

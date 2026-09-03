@@ -75,7 +75,7 @@ class DatasetView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'created_at' => null,
         'description' => null,
-        'items' => null,
+        'items' => 'int64',
         'metadata' => null,
         'name' => null,
         'updated_at' => null

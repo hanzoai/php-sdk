@@ -71,7 +71,7 @@ class Suite implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'attempts' => null,
+        'attempts' => 'int64',
         'benchmarks' => null,
         'endpoint' => null,
         'model' => null

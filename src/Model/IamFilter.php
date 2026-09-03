@@ -69,7 +69,7 @@ class IamFilter implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'max_results' => null,
+        'max_results' => 'int64',
         'supported' => null
     ];
 

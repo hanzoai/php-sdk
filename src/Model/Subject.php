@@ -75,14 +75,14 @@ class Subject implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created_at' => null,
+        'created_at' => 'int64',
         'email' => null,
         'id' => null,
         'kind' => null,
         'name' => null,
         'org' => null,
         'ref' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

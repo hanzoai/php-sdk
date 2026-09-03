@@ -80,7 +80,7 @@ class Number implements ModelInterface, ArrayAccess, \JsonSerializable
         'currency' => null,
         'e164' => null,
         'id' => null,
-        'monthly' => null,
+        'monthly' => 'int64',
         'org' => null,
         'type' => null
     ];

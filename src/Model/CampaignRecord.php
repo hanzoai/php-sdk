@@ -78,15 +78,15 @@ class CampaignRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'audience' => null,
-        'budget' => null,
+        'budget' => 'int64',
         'channels' => null,
         'content' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'id' => null,
         'name' => null,
-        'schedule_at' => null,
+        'schedule_at' => 'int64',
         'status' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

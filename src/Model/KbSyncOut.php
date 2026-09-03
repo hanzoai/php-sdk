@@ -69,7 +69,7 @@ class KbSyncOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'ingested' => null,
+        'ingested' => 'int64',
         'provider' => null
     ];
 

@@ -74,8 +74,8 @@ class Recharged implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_cents' => null,
-        'balance_cents' => null,
+        'amount_cents' => 'int64',
+        'balance_cents' => 'int64',
         'charged' => null,
         'error' => null,
         'org_name' => null,

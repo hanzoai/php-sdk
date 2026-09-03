@@ -69,7 +69,7 @@ class InboxPage implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cursor' => null,
+        'cursor' => 'int64',
         'messages' => null
     ];
 

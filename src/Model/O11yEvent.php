@@ -74,7 +74,7 @@ class O11yEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'attribute_map' => null,
         'is_error' => null,
         'name' => null,
-        'time_unix_nano' => null
+        'time_unix_nano' => 'uint64'
     ];
 
     /**

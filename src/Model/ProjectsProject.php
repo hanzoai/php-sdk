@@ -96,7 +96,7 @@ class ProjectsProject implements ModelInterface, ArrayAccess, \JsonSerializable
         'analytics' => null,
         'bucket' => null,
         'cache_control' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'current_deployment_id' => null,
         'description' => null,
         'forked_from' => null,
@@ -105,7 +105,7 @@ class ProjectsProject implements ModelInterface, ArrayAccess, \JsonSerializable
         'hidden_reason' => null,
         'id' => null,
         'key' => null,
-        'last_purge_at' => null,
+        'last_purge_at' => 'int64',
         'license' => null,
         'live_url' => null,
         'name' => null,
@@ -116,7 +116,7 @@ class ProjectsProject implements ModelInterface, ArrayAccess, \JsonSerializable
         'starred' => null,
         'status' => null,
         'tags' => null,
-        'updated_at' => null,
+        'updated_at' => 'int64',
         'upstream' => null,
         'visibility' => null
     ];

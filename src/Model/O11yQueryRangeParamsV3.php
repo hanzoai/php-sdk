@@ -75,11 +75,11 @@ class O11yQueryRangeParamsV3 implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static $openAPIFormats = [
         'composite_query' => null,
-        'end' => null,
+        'end' => 'int64',
         'format_for_web' => null,
         'no_cache' => null,
-        'start' => null,
-        'step' => null,
+        'start' => 'int64',
+        'step' => 'int64',
         'variables' => null
     ];
 

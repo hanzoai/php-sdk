@@ -86,13 +86,13 @@ class O11yO11yReductionRule implements ModelInterface, ArrayAccess, \JsonSeriali
         'created_by' => null,
         'effective_from' => 'date-time',
         'id' => null,
-        'ingested_samples' => null,
-        'ingested_series' => null,
+        'ingested_samples' => 'uint64',
+        'ingested_series' => 'uint64',
         'labels' => null,
         'match_type' => null,
         'metric_name' => null,
-        'retained_samples' => null,
-        'retained_series' => null,
+        'retained_samples' => 'uint64',
+        'retained_series' => 'uint64',
         'updated_at' => 'date-time',
         'updated_by' => null
     ];

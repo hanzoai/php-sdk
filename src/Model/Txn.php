@@ -75,14 +75,14 @@ class Txn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_cents' => null,
+        'amount_cents' => 'int64',
         'category' => null,
         'category_name' => null,
         'date' => null,
         'description' => null,
         'source' => null,
         'vendor' => null,
-        'voucher_id' => null
+        'voucher_id' => 'int64'
     ];
 
     /**

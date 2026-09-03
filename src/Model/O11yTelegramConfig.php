@@ -80,12 +80,12 @@ class O11yTelegramConfig implements ModelInterface, ArrayAccess, \JsonSerializab
     protected static $openAPIFormats = [
         'notifier_config' => null,
         'api_url' => null,
-        'chat' => null,
+        'chat' => 'int64',
         'chat_file' => null,
         'disable_notifications' => null,
         'http_config' => null,
         'message' => null,
-        'message_thread_id' => null,
+        'message_thread_id' => 'int64',
         'parse_mode' => null,
         'token' => null,
         'token_file' => null

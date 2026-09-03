@@ -71,7 +71,7 @@ class O11yO11yLogAggregateBucket implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static $openAPIFormats = [
         'group_by' => null,
-        'timestamp' => null,
+        'timestamp' => 'int64',
         'value' => null
     ];
 

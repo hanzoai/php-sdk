@@ -78,15 +78,15 @@ class O11yDeploymentRecord implements ModelInterface, ArrayAccess, \JsonSerializ
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'available_pods' => null,
-        'deployment_cpu' => null,
-        'deployment_cpu_limit' => null,
-        'deployment_cpu_request' => null,
-        'deployment_memory' => null,
-        'deployment_memory_limit' => null,
-        'deployment_memory_request' => null,
+        'available_pods' => 'int64',
+        'deployment_cpu' => 'double',
+        'deployment_cpu_limit' => 'double',
+        'deployment_cpu_request' => 'double',
+        'deployment_memory' => 'double',
+        'deployment_memory_limit' => 'double',
+        'deployment_memory_request' => 'double',
         'deployment_name' => null,
-        'desired_pods' => null,
+        'desired_pods' => 'int64',
         'meta' => null,
         'pod_counts_by_phase' => null
     ];

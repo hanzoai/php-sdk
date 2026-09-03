@@ -70,7 +70,7 @@ class IamInvitationsListOutput implements ModelInterface, ArrayAccess, \JsonSeri
       */
     protected static $openAPIFormats = [
         'invitations' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

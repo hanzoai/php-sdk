@@ -74,11 +74,11 @@ class MetricRow implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'created_at' => null,
-        'current_version' => null,
+        'current_version' => 'int64',
         'last_updated_at' => null,
         'name' => null,
         'type' => null,
-        'versions' => null
+        'versions' => 'int64'
     ];
 
     /**

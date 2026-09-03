@@ -79,7 +79,7 @@ class RiskSearchReport implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'done' => null,
         'ended' => null,
-        'events' => null,
+        'events' => 'int64',
         'fitted' => null,
         'gap' => null,
         'id' => null,

@@ -74,7 +74,7 @@ class DestinationTest implements ModelInterface, ArrayAccess, \JsonSerializable
         'error' => null,
         'message' => null,
         'ok' => null,
-        'sent' => null
+        'sent' => 'int64'
     ];
 
     /**

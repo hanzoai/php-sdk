@@ -72,11 +72,11 @@ class BoardPoint implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cost_cents' => null,
-        'errors' => null,
-        'generations' => null,
+        'cost_cents' => 'int64',
+        'errors' => 'int64',
+        'generations' => 'int64',
         't' => null,
-        'total_tokens' => null
+        'total_tokens' => 'int64'
     ];
 
     /**

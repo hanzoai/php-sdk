@@ -69,7 +69,7 @@ class RenewResult implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'paid_cents' => null,
+        'paid_cents' => 'int64',
         'record' => null
     ];
 

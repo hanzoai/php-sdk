@@ -76,9 +76,9 @@ class Delivery implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'data' => null,
         'headers' => null,
-        'num_delivered' => null,
-        'num_pending' => null,
-        'sequence' => null,
+        'num_delivered' => 'int64',
+        'num_pending' => 'uint64',
+        'sequence' => 'uint64',
         'subject' => null,
         'timestamp' => 'date-time'
     ];

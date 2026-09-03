@@ -76,7 +76,7 @@ class O11yO11yApdexSettings implements ModelInterface, ArrayAccess, \JsonSeriali
         'id' => null,
         'org_id' => null,
         'service_name' => null,
-        'threshold' => null
+        'threshold' => 'double'
     ];
 
     /**

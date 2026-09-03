@@ -74,10 +74,10 @@ class InfoOut implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'jetstream' => null,
-        'max_payload' => null,
+        'max_payload' => 'int64',
         'server_id' => null,
         'server_name' => null,
-        'streams' => null,
+        'streams' => 'int64',
         'version' => null
     ];
 

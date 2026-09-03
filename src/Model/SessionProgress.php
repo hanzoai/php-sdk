@@ -75,7 +75,7 @@ class SessionProgress implements ModelInterface, ArrayAccess, \JsonSerializable
         'activity' => null,
         'at' => null,
         'estimated' => null,
-        'pct' => null,
+        'pct' => 'int64',
         'phase' => null
     ];
 

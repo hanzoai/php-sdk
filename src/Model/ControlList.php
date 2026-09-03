@@ -75,13 +75,13 @@ class ControlList implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'absent' => null,
-        'automated' => null,
+        'absent' => 'int64',
+        'automated' => 'int64',
         'controls' => null,
-        'partial' => null,
+        'partial' => 'int64',
         'statement' => null,
-        'total' => null,
-        'unverified' => null,
+        'total' => 'int64',
+        'unverified' => 'int64',
         'version' => null
     ];
 

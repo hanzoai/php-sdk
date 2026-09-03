@@ -84,7 +84,7 @@ class ProvisionResult implements ModelInterface, ArrayAccess, \JsonSerializable
         'kind' => null,
         'name' => null,
         'password' => null,
-        'port' => null,
+        'port' => 'int64',
         'status' => null,
         'username' => null
     ];

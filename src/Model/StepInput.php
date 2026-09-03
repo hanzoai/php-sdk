@@ -72,7 +72,7 @@ class StepInput implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'body' => null,
-        'delay_seconds' => null,
+        'delay_seconds' => 'int64',
         'id' => null,
         'subject' => null
     ];

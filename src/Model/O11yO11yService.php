@@ -77,15 +77,15 @@ class O11yO11yService implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'avg_duration' => null,
-        'call_rate' => null,
+        'avg_duration' => 'double',
+        'call_rate' => 'double',
         'data_warning' => null,
-        'error_rate' => null,
-        'four_xx_rate' => null,
-        'num4_xx' => null,
-        'num_calls' => null,
-        'num_errors' => null,
-        'p99' => null,
+        'error_rate' => 'double',
+        'four_xx_rate' => 'double',
+        'num4_xx' => 'uint64',
+        'num_calls' => 'uint64',
+        'num_errors' => 'uint64',
+        'p99' => 'double',
         'service_name' => null
     ];
 

@@ -85,16 +85,16 @@ class CaptableShareClass implements ModelInterface, ArrayAccess, \JsonSerializab
         'company_name' => null,
         'conversion_rights' => null,
         'id' => null,
-        'idx' => null,
-        'initial_shares_authorized' => null,
-        'liquidation_preference_multiple' => null,
+        'idx' => 'int64',
+        'initial_shares_authorized' => 'int64',
+        'liquidation_preference_multiple' => 'double',
         'name' => null,
-        'par_value' => null,
-        'participation_cap_multiple' => null,
+        'par_value' => 'double',
+        'participation_cap_multiple' => 'double',
         'prefix' => null,
-        'price_per_share' => null,
-        'seniority' => null,
-        'votes_per_share' => null
+        'price_per_share' => 'double',
+        'seniority' => 'int64',
+        'votes_per_share' => 'int64'
     ];
 
     /**

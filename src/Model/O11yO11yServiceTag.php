@@ -75,7 +75,7 @@ class O11yO11yServiceTag implements ModelInterface, ArrayAccess, \JsonSerializab
     protected static $openAPIFormats = [
         'bool_values' => null,
         'key' => null,
-        'number_values' => null,
+        'number_values' => 'double',
         'operator' => null,
         'string_values' => null,
         'tag_type' => null

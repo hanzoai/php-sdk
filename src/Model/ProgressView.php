@@ -71,10 +71,10 @@ class ProgressView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'done' => null,
+        'done' => 'int64',
         'next' => null,
-        'percent' => null,
-        'total' => null
+        'percent' => 'int64',
+        'total' => 'int64'
     ];
 
     /**

@@ -71,7 +71,7 @@ class O11yClusterListResponse implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static $openAPIFormats = [
         'records' => null,
-        'total' => null,
+        'total' => 'int64',
         'type' => null
     ];
 

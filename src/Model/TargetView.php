@@ -88,8 +88,8 @@ class TargetView implements ModelInterface, ArrayAccess, \JsonSerializable
         'label' => null,
         'metrics' => null,
         'metrics_at' => null,
-        'running' => null,
-        'sessions' => null,
+        'running' => 'int64',
+        'sessions' => 'int64',
         'spec' => null,
         'status' => null,
         'updated_at' => null

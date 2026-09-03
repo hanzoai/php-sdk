@@ -78,13 +78,13 @@ class RoutedUsage implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'account' => null,
         'billing' => null,
-        'completion_tokens' => null,
-        'cost_cents' => null,
+        'completion_tokens' => 'int64',
+        'cost_cents' => 'int64',
         'kind' => null,
-        'prompt_tokens' => null,
+        'prompt_tokens' => 'int64',
         'provider' => null,
-        'requests' => null,
-        'total_tokens' => null
+        'requests' => 'int64',
+        'total_tokens' => 'int64'
     ];
 
     /**

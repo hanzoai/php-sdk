@@ -72,11 +72,11 @@ class RoomWork implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'open' => null,
+        'open' => 'int64',
         'room' => null,
-        'status' => null,
-        'total' => null,
-        'updated' => null
+        'status' => 'int64',
+        'total' => 'int64',
+        'updated' => 'int64'
     ];
 
     /**

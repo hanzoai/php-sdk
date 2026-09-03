@@ -72,7 +72,7 @@ class NextIn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'batch' => null,
+        'batch' => 'int64',
         'expires' => null,
         'name' => null,
         'no_wait' => null,

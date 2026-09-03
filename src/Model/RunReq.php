@@ -77,12 +77,12 @@ class RunReq implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'env' => null,
-        'gpu' => null,
+        'gpu' => 'int64',
         'image' => null,
-        'max_scale' => null,
-        'min_scale' => null,
+        'max_scale' => 'int64',
+        'min_scale' => 'int64',
         'name' => null,
-        'port' => null,
+        'port' => 'int64',
         'runtime' => null,
         'shape' => null
     ];

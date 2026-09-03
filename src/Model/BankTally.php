@@ -73,12 +73,12 @@ class BankTally implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'ingested' => null,
-        'posted' => null,
-        'questions' => null,
-        'reconciled' => null,
-        'skipped' => null,
-        'transfers' => null
+        'ingested' => 'int64',
+        'posted' => 'int64',
+        'questions' => 'int64',
+        'reconciled' => 'int64',
+        'skipped' => 'int64',
+        'transfers' => 'int64'
     ];
 
     /**

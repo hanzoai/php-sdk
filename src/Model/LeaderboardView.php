@@ -88,7 +88,7 @@ class LeaderboardView implements ModelInterface, ArrayAccess, \JsonSerializable
         'source' => null,
         'start' => null,
         'subject' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

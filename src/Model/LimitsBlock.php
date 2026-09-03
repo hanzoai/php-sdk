@@ -71,9 +71,9 @@ class LimitsBlock implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'api_rate_limit' => null,
-        'max_alerts' => null,
-        'mcp_rate_limit' => null,
+        'api_rate_limit' => 'int64',
+        'max_alerts' => 'int64',
+        'mcp_rate_limit' => 'int64',
         'model_api' => null
     ];
 

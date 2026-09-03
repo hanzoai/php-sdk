@@ -71,9 +71,9 @@ class O11yO11yQueueIn implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end' => null,
-        'eval_time' => null,
-        'start' => null,
+        'end' => 'int64',
+        'eval_time' => 'int64',
+        'start' => 'int64',
         'variables' => null
     ];
 

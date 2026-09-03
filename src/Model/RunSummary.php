@@ -75,14 +75,14 @@ class RunSummary implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'avg_score' => null,
+        'avg_score' => 'double',
         'dataset' => null,
-        'items' => null,
+        'items' => 'int64',
         'judge_model' => null,
         'model' => null,
         'results' => null,
         'run_name' => null,
-        'scored' => null
+        'scored' => 'int64'
     ];
 
     /**

@@ -77,7 +77,7 @@ class O11yO11yAggregation implements ModelInterface, ArrayAccess, \JsonSerializa
     protected static $openAPIFormats = [
         'alias' => null,
         'anomaly_scores' => null,
-        'index' => null,
+        'index' => 'int64',
         'lower_bound_series' => null,
         'meta' => null,
         'predicted_series' => null,

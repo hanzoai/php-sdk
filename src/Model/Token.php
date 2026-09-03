@@ -72,7 +72,7 @@ class Token implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'at' => null,
-        'decimals' => null,
+        'decimals' => 'int64',
         'name' => null,
         'symbol' => null
     ];

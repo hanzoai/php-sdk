@@ -88,7 +88,7 @@ class O11yO11yLogPipeline implements ModelInterface, ArrayAccess, \JsonSerializa
         'filter' => null,
         'id' => null,
         'name' => null,
-        'order_id' => null,
+        'order_id' => 'int64',
         'updated_at' => 'date-time',
         'updated_by' => null
     ];

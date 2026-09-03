@@ -1,6 +1,6 @@
 <?php
 /**
- * Event
+ * IdentityIn
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * Event Class Doc Comment
+ * IdentityIn Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class Event implements ModelInterface, ArrayAccess, \JsonSerializable
+class IdentityIn implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class Event implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Event';
+    protected static $openAPIModelName = 'identityIn';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,11 +57,8 @@ class Event implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'distinct_id' => 'string',
-        'event' => 'string',
-        'properties' => 'array<string,mixed>',
-        'time' => 'string',
-        'type' => 'string'
+        'name' => 'string',
+        'roles' => 'string[]'
     ];
 
     /**
@@ -72,11 +69,8 @@ class Event implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'distinct_id' => null,
-        'event' => null,
-        'properties' => null,
-        'time' => null,
-        'type' => null
+        'name' => null,
+        'roles' => null
     ];
 
     /**
@@ -85,11 +79,8 @@ class Event implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'distinct_id' => false,
-        'event' => false,
-        'properties' => false,
-        'time' => false,
-        'type' => false
+        'name' => false,
+        'roles' => false
     ];
 
     /**
@@ -178,11 +169,8 @@ class Event implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'distinct_id' => 'distinctId',
-        'event' => 'event',
-        'properties' => 'properties',
-        'time' => 'time',
-        'type' => 'type'
+        'name' => 'name',
+        'roles' => 'roles'
     ];
 
     /**
@@ -191,11 +179,8 @@ class Event implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'distinct_id' => 'setDistinctId',
-        'event' => 'setEvent',
-        'properties' => 'setProperties',
-        'time' => 'setTime',
-        'type' => 'setType'
+        'name' => 'setName',
+        'roles' => 'setRoles'
     ];
 
     /**
@@ -204,11 +189,8 @@ class Event implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'distinct_id' => 'getDistinctId',
-        'event' => 'getEvent',
-        'properties' => 'getProperties',
-        'time' => 'getTime',
-        'type' => 'getType'
+        'name' => 'getName',
+        'roles' => 'getRoles'
     ];
 
     /**
@@ -268,11 +250,8 @@ class Event implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('distinct_id', $data ?? [], null);
-        $this->setIfExists('event', $data ?? [], null);
-        $this->setIfExists('properties', $data ?? [], null);
-        $this->setIfExists('time', $data ?? [], null);
-        $this->setIfExists('type', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
+        $this->setIfExists('roles', $data ?? [], null);
     }
 
     /**
@@ -318,136 +297,55 @@ class Event implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets distinct_id
+     * Gets name
      *
      * @return string|null
      */
-    public function getDistinctId()
+    public function getName()
     {
-        return $this->container['distinct_id'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets distinct_id
+     * Sets name
      *
-     * @param string|null $distinct_id distinct_id
+     * @param string|null $name Name is the device's name within the org — a DNS label. The fabric knows the identity as \"<name>.<org>\"; every answer here uses the caller's name.
      *
      * @return self
      */
-    public function setDistinctId($distinct_id)
+    public function setName($name)
     {
-        if (is_null($distinct_id)) {
-            throw new \InvalidArgumentException('non-nullable distinct_id cannot be null');
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
-        $this->container['distinct_id'] = $distinct_id;
+        $this->container['name'] = $name;
 
         return $this;
     }
 
     /**
-     * Gets event
+     * Gets roles
      *
-     * @return string|null
+     * @return string[]|null
      */
-    public function getEvent()
+    public function getRoles()
     {
-        return $this->container['event'];
+        return $this->container['roles'];
     }
 
     /**
-     * Sets event
+     * Sets roles
      *
-     * @param string|null $event event
+     * @param string[]|null $roles Roles are extra role attributes for the identity, each scoped to the caller's org on the way in (\"k3s-host\" is written as \"k3s-host.<org>\") so no caller can claim an attribute another tenant's policy selects. A role of the form \"<service>-host\" makes this identity a HOST of that published service — the bind policy from POST /v1/network/services selects exactly that attribute — and is refused when the org has no such service.
      *
      * @return self
      */
-    public function setEvent($event)
+    public function setRoles($roles)
     {
-        if (is_null($event)) {
-            throw new \InvalidArgumentException('non-nullable event cannot be null');
+        if (is_null($roles)) {
+            throw new \InvalidArgumentException('non-nullable roles cannot be null');
         }
-        $this->container['event'] = $event;
-
-        return $this;
-    }
-
-    /**
-     * Gets properties
-     *
-     * @return array<string,mixed>|null
-     */
-    public function getProperties()
-    {
-        return $this->container['properties'];
-    }
-
-    /**
-     * Sets properties
-     *
-     * @param array<string,mixed>|null $properties properties
-     *
-     * @return self
-     */
-    public function setProperties($properties)
-    {
-        if (is_null($properties)) {
-            throw new \InvalidArgumentException('non-nullable properties cannot be null');
-        }
-        $this->container['properties'] = $properties;
-
-        return $this;
-    }
-
-    /**
-     * Gets time
-     *
-     * @return string|null
-     */
-    public function getTime()
-    {
-        return $this->container['time'];
-    }
-
-    /**
-     * Sets time
-     *
-     * @param string|null $time time
-     *
-     * @return self
-     */
-    public function setTime($time)
-    {
-        if (is_null($time)) {
-            throw new \InvalidArgumentException('non-nullable time cannot be null');
-        }
-        $this->container['time'] = $time;
-
-        return $this;
-    }
-
-    /**
-     * Gets type
-     *
-     * @return string|null
-     */
-    public function getType()
-    {
-        return $this->container['type'];
-    }
-
-    /**
-     * Sets type
-     *
-     * @param string|null $type type
-     *
-     * @return self
-     */
-    public function setType($type)
-    {
-        if (is_null($type)) {
-            throw new \InvalidArgumentException('non-nullable type cannot be null');
-        }
-        $this->container['type'] = $type;
+        $this->container['roles'] = $roles;
 
         return $this;
     }

@@ -70,7 +70,7 @@ class BucketList implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'buckets' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

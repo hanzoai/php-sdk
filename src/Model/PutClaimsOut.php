@@ -69,7 +69,7 @@ class PutClaimsOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'recorded' => null,
+        'recorded' => 'int64',
         'rejected' => null
     ];
 

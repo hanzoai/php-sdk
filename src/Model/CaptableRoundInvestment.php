@@ -74,11 +74,11 @@ class CaptableRoundInvestment implements ModelInterface, ArrayAccess, \JsonSeria
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount' => null,
+        'amount' => 'double',
         'comments' => null,
         'date' => null,
         'id' => null,
-        'shares' => null,
+        'shares' => 'int64',
         'stakeholder_id' => null,
         'stakeholder_name' => null
     ];

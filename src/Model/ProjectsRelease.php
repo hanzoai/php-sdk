@@ -76,9 +76,9 @@ class ProjectsRelease implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'active' => null,
-        'bytes' => null,
-        'created_at' => null,
-        'objects' => null,
+        'bytes' => 'int64',
+        'created_at' => 'int64',
+        'objects' => 'int64',
         'release_id' => null,
         'slug' => null,
         'source' => null,

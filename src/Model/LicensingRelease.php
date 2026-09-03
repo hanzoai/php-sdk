@@ -83,7 +83,7 @@ class LicensingRelease implements ModelInterface, ArrayAccess, \JsonSerializable
         'artifact_ref' => null,
         'cosign_cert' => null,
         'cosign_signature' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'id' => null,
         'min_features' => null,
         'platform' => null,

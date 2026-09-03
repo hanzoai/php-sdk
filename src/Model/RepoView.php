@@ -92,7 +92,7 @@ class RepoView implements ModelInterface, ArrayAccess, \JsonSerializable
         'org' => null,
         'project' => null,
         'public' => null,
-        'size_bytes' => null,
+        'size_bytes' => 'int64',
         'ssh_url' => null,
         'updated_at' => null
     ];

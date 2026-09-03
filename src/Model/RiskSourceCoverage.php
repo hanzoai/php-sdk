@@ -70,9 +70,9 @@ class RiskSourceCoverage implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'facts' => null,
+        'facts' => 'int64',
         'source' => null,
-        'won' => null
+        'won' => 'int64'
     ];
 
     /**

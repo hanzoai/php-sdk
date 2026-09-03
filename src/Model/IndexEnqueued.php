@@ -75,7 +75,7 @@ class IndexEnqueued implements ModelInterface, ArrayAccess, \JsonSerializable
         'enqueued_at' => null,
         'index_uid' => null,
         'status' => null,
-        'task_uid' => null,
+        'task_uid' => 'int64',
         'type' => null
     ];
 

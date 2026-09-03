@@ -98,7 +98,7 @@ class BotView implements ModelInterface, ArrayAccess, \JsonSerializable
         'region' => null,
         'status' => null,
         'type' => null,
-        'vcpu' => null
+        'vcpu' => 'int64'
     ];
 
     /**

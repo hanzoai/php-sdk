@@ -82,18 +82,18 @@ class ClauseCoverage implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'automated' => null,
+        'automated' => 'int64',
         'clauses' => null,
         'edition' => null,
         'framework' => null,
-        'generated' => null,
+        'generated' => 'int64',
         'name' => null,
-        'none' => null,
+        'none' => 'int64',
         'note' => null,
-        'partial' => null,
+        'partial' => 'int64',
         'publisher' => null,
         'statement' => null,
-        'total' => null,
+        'total' => 'int64',
         'unit' => null,
         'units' => null,
         'version' => null

@@ -69,8 +69,8 @@ class Loss implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'exhausted' => null,
-        'undecodable' => null
+        'exhausted' => 'int64',
+        'undecodable' => 'int64'
     ];
 
     /**

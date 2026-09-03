@@ -72,9 +72,9 @@ class O11yTraceRow implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'duration_ms' => null,
+        'duration_ms' => 'double',
         'end' => null,
-        'num_spans' => null,
+        'num_spans' => 'int64',
         'start' => null,
         'trace_id' => null
     ];

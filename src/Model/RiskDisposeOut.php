@@ -75,12 +75,12 @@ class RiskDisposeOut implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'before' => null,
-        'disposed' => null,
-        'held' => null,
+        'disposed' => 'int64',
+        'held' => 'int64',
         'oldest' => null,
-        'remaining' => null,
-        'restored' => null,
-        'total' => null
+        'remaining' => 'int64',
+        'restored' => 'int64',
+        'total' => 'int64'
     ];
 
     /**

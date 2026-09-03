@@ -74,7 +74,7 @@ class O11yPods implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'end_time_before_retention' => null,
         'records' => null,
-        'total' => null,
+        'total' => 'int64',
         'type' => null,
         'warning' => null
     ];

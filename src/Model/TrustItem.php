@@ -84,7 +84,7 @@ class TrustItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'signed' => null,
         'summary' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

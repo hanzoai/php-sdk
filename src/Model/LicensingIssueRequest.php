@@ -78,7 +78,7 @@ class LicensingIssueRequest implements ModelInterface, ArrayAccess, \JsonSeriali
         'product' => null,
         'release' => null,
         'signals' => null,
-        'ttl_seconds' => null
+        'ttl_seconds' => 'int64'
     ];
 
     /**

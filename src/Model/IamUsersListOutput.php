@@ -69,7 +69,7 @@ class IamUsersListOutput implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'total' => null,
+        'total' => 'int64',
         'users' => null
     ];
 

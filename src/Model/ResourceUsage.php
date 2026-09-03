@@ -71,10 +71,10 @@ class ResourceUsage implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cost_cents' => null,
-        'cpu_vcpu_hours' => null,
-        'mem_gb_hours' => null,
-        'storage_io_bytes' => null
+        'cost_cents' => 'double',
+        'cpu_vcpu_hours' => 'double',
+        'mem_gb_hours' => 'double',
+        'storage_io_bytes' => 'double'
     ];
 
     /**

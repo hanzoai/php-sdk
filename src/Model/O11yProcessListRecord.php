@@ -77,9 +77,9 @@ class O11yProcessListRecord implements ModelInterface, ArrayAccess, \JsonSeriali
         'meta' => null,
         'process_cmd' => null,
         'process_cmd_line' => null,
-        'process_cpu' => null,
+        'process_cpu' => 'double',
         'process_id' => null,
-        'process_memory' => null,
+        'process_memory' => 'double',
         'process_name' => null
     ];
 

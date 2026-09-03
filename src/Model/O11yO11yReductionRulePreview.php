@@ -75,12 +75,12 @@ class O11yO11yReductionRulePreview implements ModelInterface, ArrayAccess, \Json
       */
     protected static $openAPIFormats = [
         'affected_assets' => null,
-        'current_retained_series' => null,
+        'current_retained_series' => 'uint64',
         'dropped_labels' => null,
         'effective_from' => 'date-time',
-        'ingested_series' => null,
-        'reduction_percent' => null,
-        'retained_series' => null
+        'ingested_series' => 'uint64',
+        'reduction_percent' => 'double',
+        'retained_series' => 'uint64'
     ];
 
     /**

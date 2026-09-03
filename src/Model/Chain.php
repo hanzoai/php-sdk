@@ -70,7 +70,7 @@ class Chain implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'chain_id' => null,
+        'chain_id' => 'int64',
         'id' => null,
         'name' => null
     ];

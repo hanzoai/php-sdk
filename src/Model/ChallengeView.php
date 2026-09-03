@@ -72,11 +72,11 @@ class ChallengeView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'expires_at' => null,
+        'expires_at' => 'int64',
         'message' => null,
         'nonce' => null,
-        'token_id' => null,
-        'ttl_seconds' => null
+        'token_id' => 'uint64',
+        'ttl_seconds' => 'int64'
     ];
 
     /**

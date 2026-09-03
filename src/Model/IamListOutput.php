@@ -70,7 +70,7 @@ class IamListOutput implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'audit_logs' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

@@ -71,8 +71,8 @@ class ImportCapTableOut implements ModelInterface, ArrayAccess, \JsonSerializabl
       */
     protected static $openAPIFormats = [
         'formation' => null,
-        'rows' => null,
-        'stakeholders_imported' => null
+        'rows' => 'int64',
+        'stakeholders_imported' => 'int64'
     ];
 
     /**

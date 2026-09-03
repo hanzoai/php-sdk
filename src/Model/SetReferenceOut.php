@@ -70,9 +70,9 @@ class SetReferenceOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'overrides' => null,
+        'overrides' => 'int64',
         'set' => null,
-        'written' => null
+        'written' => 'int64'
     ];
 
     /**

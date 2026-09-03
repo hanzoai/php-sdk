@@ -72,7 +72,7 @@ class O11yO11yReductionRulePreviewIn implements ModelInterface, ArrayAccess, \Js
       */
     protected static $openAPIFormats = [
         'labels' => null,
-        'lookback_ms' => null,
+        'lookback_ms' => 'int64',
         'match_type' => null,
         'metric_name' => null
     ];

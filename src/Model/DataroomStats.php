@@ -73,8 +73,8 @@ class DataroomStats implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'dataroom_id' => null,
         'links' => null,
-        'total_page_views' => null,
-        'total_views' => null
+        'total_page_views' => 'int64',
+        'total_views' => 'int64'
     ];
 
     /**

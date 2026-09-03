@@ -77,16 +77,16 @@ class Policy implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cache_paths' => null,
-        'cache_ttl_sec' => null,
+        'cache_paths' => 'int64',
+        'cache_ttl_sec' => 'int64',
         'cors_origins' => null,
         'methods' => null,
         'mode' => null,
-        'org_rpm' => null,
-        'per_ip_rpm' => null,
-        'updated_at' => null,
+        'org_rpm' => 'int64',
+        'per_ip_rpm' => 'int64',
+        'updated_at' => 'int64',
         'updated_by' => null,
-        'window_sec' => null
+        'window_sec' => 'int64'
     ];
 
     /**

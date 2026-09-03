@@ -78,7 +78,7 @@ class Upkeep implements ModelInterface, ArrayAccess, \JsonSerializable
         'jurisdiction' => null,
         'obligations' => null,
         'structure' => null,
-        'yearly_cents' => null
+        'yearly_cents' => 'int64'
     ];
 
     /**

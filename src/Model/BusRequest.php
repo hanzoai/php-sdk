@@ -74,7 +74,7 @@ class BusRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'data' => null,
         'headers' => null,
         'subject' => null,
-        'timeout_ms' => null
+        'timeout_ms' => 'int64'
     ];
 
     /**

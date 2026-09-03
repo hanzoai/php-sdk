@@ -89,24 +89,24 @@ class CampaignResults implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'ab_test' => null,
         'available' => null,
-        'cac' => null,
+        'cac' => 'double',
         'campaign_id' => null,
         'channels' => null,
-        'clicks' => null,
-        'conversions' => null,
-        'ctr' => null,
-        'cvr' => null,
+        'clicks' => 'int64',
+        'conversions' => 'int64',
+        'ctr' => 'double',
+        'cvr' => 'double',
         'end' => null,
-        'impressions' => null,
+        'impressions' => 'int64',
         'name' => null,
         'range' => null,
-        'revenue' => null,
-        'roas' => null,
+        'revenue' => 'double',
+        'roas' => 'double',
         'source' => null,
-        'spend_cents' => null,
+        'spend_cents' => 'int64',
         'start' => null,
         'status' => null,
-        'visitors' => null
+        'visitors' => 'int64'
     ];
 
     /**

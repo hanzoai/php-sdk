@@ -80,7 +80,7 @@ class ProvisionedResource implements ModelInterface, ArrayAccess, \JsonSerializa
         'id' => null,
         'kind' => null,
         'name' => null,
-        'port' => null,
+        'port' => 'int64',
         'status' => null,
         'username' => null
     ];

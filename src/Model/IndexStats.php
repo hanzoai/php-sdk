@@ -69,7 +69,7 @@ class IndexStats implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'database_size' => null,
+        'database_size' => 'int64',
         'indexes' => null
     ];
 

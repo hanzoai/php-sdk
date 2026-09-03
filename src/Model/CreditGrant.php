@@ -81,15 +81,15 @@ class CreditGrant implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'active' => null,
-        'amount_cents' => null,
+        'amount_cents' => 'int64',
         'created_at' => null,
         'currency' => null,
         'effective_at' => null,
         'expires_at' => null,
         'id' => null,
         'name' => null,
-        'priority' => null,
-        'remaining_cents' => null,
+        'priority' => 'int64',
+        'remaining_cents' => 'int64',
         'tags' => null,
         'user_id' => null,
         'voided' => null

@@ -74,13 +74,13 @@ class AffiliateEarnings implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'accrued_cents' => null,
+        'accrued_cents' => 'int64',
         'by_period' => null,
         'by_referred_org' => null,
         'is_affiliate' => null,
-        'margin_bps' => null,
-        'paid_cents' => null,
-        'pending_cents' => null
+        'margin_bps' => 'int64',
+        'paid_cents' => 'int64',
+        'pending_cents' => 'int64'
     ];
 
     /**

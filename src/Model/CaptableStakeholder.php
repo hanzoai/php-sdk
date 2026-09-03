@@ -84,7 +84,7 @@ class CaptableStakeholder implements ModelInterface, ArrayAccess, \JsonSerializa
         'city' => null,
         'company_name' => null,
         'country' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'current_relationship' => null,
         'email' => null,
         'id' => null,

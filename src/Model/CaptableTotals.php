@@ -72,11 +72,11 @@ class CaptableTotals implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'fully_diluted_shares' => null,
-        'granted_options' => null,
-        'outstanding_shares' => null,
-        'share_classes' => null,
-        'stakeholders' => null
+        'fully_diluted_shares' => 'int64',
+        'granted_options' => 'int64',
+        'outstanding_shares' => 'int64',
+        'share_classes' => 'int64',
+        'stakeholders' => 'int64'
     ];
 
     /**

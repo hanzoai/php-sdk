@@ -83,7 +83,7 @@ class PromptDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'prompt' => null,
         'tags' => null,
         'type' => null,
-        'version' => null,
+        'version' => 'int64',
         'version_history' => null
     ];
 

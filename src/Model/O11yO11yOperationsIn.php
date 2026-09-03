@@ -73,7 +73,7 @@ class O11yO11yOperationsIn implements ModelInterface, ArrayAccess, \JsonSerializ
       */
     protected static $openAPIFormats = [
         'end' => null,
-        'limit' => null,
+        'limit' => 'int64',
         'service' => null,
         'start' => null,
         'tags' => null

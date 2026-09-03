@@ -77,7 +77,7 @@ class IssueEdit implements ModelInterface, ArrayAccess, \JsonSerializable
         'assignee' => null,
         'description' => null,
         'key' => null,
-        'num' => null,
+        'num' => 'int64',
         'priority' => null,
         'status' => null,
         'title' => null

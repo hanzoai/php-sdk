@@ -78,7 +78,7 @@ class DocType implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'autoname' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'fields' => null,
         'is_single' => null,
         'is_submittable' => null,
@@ -86,7 +86,7 @@ class DocType implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'permissions' => null,
         'title_field' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

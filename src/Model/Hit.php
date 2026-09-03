@@ -78,7 +78,7 @@ class Hit implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'project' => null,
         'provider' => null,
-        'score' => null,
+        'score' => 'double',
         'title' => null,
         'url' => null
     ];

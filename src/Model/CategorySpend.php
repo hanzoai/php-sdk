@@ -71,8 +71,8 @@ class CategorySpend implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'category' => null,
-        'cents' => null,
-        'count' => null
+        'cents' => 'int64',
+        'count' => 'int64'
     ];
 
     /**

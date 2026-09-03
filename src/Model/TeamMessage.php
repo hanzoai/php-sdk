@@ -73,7 +73,7 @@ class TeamMessage implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'author' => null,
-        'created_on' => null,
+        'created_on' => 'int64',
         'id' => null,
         'room' => null,
         'text' => null

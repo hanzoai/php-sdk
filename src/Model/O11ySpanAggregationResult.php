@@ -72,7 +72,7 @@ class O11ySpanAggregationResult implements ModelInterface, ArrayAccess, \JsonSer
     protected static $openAPIFormats = [
         'aggregation' => null,
         'field' => null,
-        'value' => null
+        'value' => 'uint64'
     ];
 
     /**

@@ -76,15 +76,15 @@ class State implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'bytes' => null,
-        'consumer_count' => null,
-        'first_seq' => null,
+        'bytes' => 'uint64',
+        'consumer_count' => 'int64',
+        'first_seq' => 'uint64',
         'first_ts' => 'date-time',
-        'last_seq' => null,
+        'last_seq' => 'uint64',
         'last_ts' => 'date-time',
-        'messages' => null,
-        'num_deleted' => null,
-        'num_subjects' => null
+        'messages' => 'uint64',
+        'num_deleted' => 'int64',
+        'num_subjects' => 'uint64'
     ];
 
     /**

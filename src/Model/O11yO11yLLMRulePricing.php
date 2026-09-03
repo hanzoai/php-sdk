@@ -71,8 +71,8 @@ class O11yO11yLLMRulePricing implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static $openAPIFormats = [
         'cache' => null,
-        'input' => null,
-        'output' => null
+        'input' => 'double',
+        'output' => 'double'
     ];
 
     /**

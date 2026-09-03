@@ -81,20 +81,20 @@ class TrafficView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'blind' => null,
+        'blind' => 'int64',
         'callers' => null,
-        'ceiling' => null,
-        'denied' => null,
-        'lanes' => null,
+        'ceiling' => 'int64',
+        'denied' => 'int64',
+        'lanes' => 'int64',
         'mode' => null,
         'org' => null,
-        'refused' => null,
-        'requests' => null,
-        'screens' => null,
+        'refused' => 'int64',
+        'requests' => 'int64',
+        'screens' => 'int64',
         'strain' => null,
-        'tracked' => null,
-        'unscored' => null,
-        'window_sec' => null
+        'tracked' => 'int64',
+        'unscored' => 'int64',
+        'window_sec' => 'int64'
     ];
 
     /**

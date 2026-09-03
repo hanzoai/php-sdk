@@ -77,8 +77,8 @@ class Day implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'close' => null,
-        'count' => null,
-        'date' => null,
+        'count' => 'int64',
+        'date' => 'int64',
         'high' => null,
         'locked' => null,
         'low' => null,

@@ -71,8 +71,8 @@ class RiskAppetiteIn implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'live' => null,
-        'review' => null,
-        'sample' => null
+        'review' => 'double',
+        'sample' => 'double'
     ];
 
     /**

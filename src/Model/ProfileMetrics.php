@@ -73,8 +73,8 @@ class ProfileMetrics implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'funnel' => null,
         'launch_progress' => null,
-        'records' => null,
-        'revenue_cents' => null
+        'records' => 'int64',
+        'revenue_cents' => 'int64'
     ];
 
     /**

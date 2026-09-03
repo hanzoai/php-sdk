@@ -82,7 +82,7 @@ class O11yO11yLogPostablePipeline implements ModelInterface, ArrayAccess, \JsonS
         'filter' => null,
         'id' => null,
         'name' => null,
-        'order_id' => null
+        'order_id' => 'int64'
     ];
 
     /**

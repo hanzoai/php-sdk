@@ -74,11 +74,11 @@ class SeoRanking implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'keyword' => null,
-        'position' => null,
+        'position' => 'int64',
         'title' => null,
-        'traffic' => null,
+        'traffic' => 'double',
         'url' => null,
-        'volume' => null
+        'volume' => 'int64'
     ];
 
     /**

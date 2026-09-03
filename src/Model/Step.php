@@ -75,10 +75,10 @@ class Step implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'body' => null,
-        'created_at' => null,
-        'delay_seconds' => null,
+        'created_at' => 'int64',
+        'delay_seconds' => 'int64',
         'id' => null,
-        'idx' => null,
+        'idx' => 'int64',
         'sequence_id' => null,
         'subject' => null
     ];

@@ -79,10 +79,10 @@ class Endpoint implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'created' => null,
-        'deliveries7d' => null,
+        'deliveries7d' => 'int64',
         'description' => null,
         'events' => null,
-        'failures7d' => null,
+        'failures7d' => 'int64',
         'id' => null,
         'org' => null,
         'secret' => null,

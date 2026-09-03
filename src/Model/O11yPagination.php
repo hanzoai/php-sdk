@@ -71,10 +71,10 @@ class O11yPagination implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'page' => null,
-        'pages' => null,
-        'per_page' => null,
-        'total' => null
+        'page' => 'int64',
+        'pages' => 'int64',
+        'per_page' => 'int64',
+        'total' => 'int64'
     ];
 
     /**

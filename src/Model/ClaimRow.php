@@ -83,7 +83,7 @@ class ClaimRow implements ModelInterface, ArrayAccess, \JsonSerializable
         'origin' => null,
         'protocol' => null,
         'provider' => null,
-        'score' => null,
+        'score' => 'double',
         'source' => null
     ];
 

@@ -91,7 +91,7 @@ class AgentView implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => null,
         'model' => null,
         'name' => null,
-        'runs' => null,
+        'runs' => 'int64',
         'schedule' => null,
         'service_account_id' => null,
         'status' => null,

@@ -72,9 +72,9 @@ class O11yO11yRetentionSetIn implements ModelInterface, ArrayAccess, \JsonSerial
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cold_storage_duration_days' => null,
+        'cold_storage_duration_days' => 'int64',
         'cold_storage_volume' => null,
-        'default_ttl_days' => null,
+        'default_ttl_days' => 'int64',
         'ttl_conditions' => null,
         'type' => null
     ];

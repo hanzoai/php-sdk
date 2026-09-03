@@ -78,7 +78,7 @@ class PromptMeta implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'tags' => null,
         'type' => null,
-        'versions' => null
+        'versions' => 'int64'
     ];
 
     /**

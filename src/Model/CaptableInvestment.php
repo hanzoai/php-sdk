@@ -75,12 +75,12 @@ class CaptableInvestment implements ModelInterface, ArrayAccess, \JsonSerializab
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount' => null,
+        'amount' => 'double',
         'date' => null,
         'id' => null,
         'round_id' => null,
         'share_class_id' => null,
-        'shares' => null,
+        'shares' => 'int64',
         'stakeholder_id' => null,
         'stakeholder_name' => null
     ];

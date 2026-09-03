@@ -70,7 +70,7 @@ class FleetSummary implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'by_drift' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

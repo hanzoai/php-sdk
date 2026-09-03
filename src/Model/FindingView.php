@@ -77,10 +77,10 @@ class FindingView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created_at' => null,
+        'created_at' => 'int64',
         'fingerprint' => null,
         'id' => null,
-        'line' => null,
+        'line' => 'int64',
         'path' => null,
         'preview' => null,
         'rule_id' => null,

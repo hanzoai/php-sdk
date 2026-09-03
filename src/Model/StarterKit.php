@@ -88,10 +88,10 @@ class StarterKit implements ModelInterface, ArrayAccess, \JsonSerializable
         'framework' => null,
         'org' => null,
         'preview' => null,
-        'rating' => null,
+        'rating' => 'double',
         'slug' => null,
         'source' => null,
-        'tier' => null,
+        'tier' => 'int64',
         'title' => null,
         'use_case' => null,
         'variants' => null

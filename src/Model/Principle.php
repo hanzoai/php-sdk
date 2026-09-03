@@ -78,7 +78,7 @@ class Principle implements ModelInterface, ArrayAccess, \JsonSerializable
         'change' => null,
         'domain' => null,
         'hexagram' => null,
-        'n' => null,
+        'n' => 'int64',
         'name' => null,
         'principle' => null,
         'slug' => null,

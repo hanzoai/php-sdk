@@ -72,9 +72,9 @@ class McpCatalog implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'catalog' => null,
-        'limit' => null,
-        'offset' => null,
-        'total' => null
+        'limit' => 'int64',
+        'offset' => 'int64',
+        'total' => 'int64'
     ];
 
     /**

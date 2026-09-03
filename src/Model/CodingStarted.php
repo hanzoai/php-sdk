@@ -330,7 +330,7 @@ class CodingStarted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets branch
      *
-     * @param string|null $branch Branch is the ref the run will push its work to, and the ONLY ref it is permitted to write. It exists before the work does, so it is safe to tell somebody where to look while the run is still going.
+     * @param string|null $branch branch
      *
      * @return self
      */
@@ -357,7 +357,7 @@ class CodingStarted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets repo
      *
-     * @param string|null $repo Repo is the repository the run was admitted against, echoed back as the engine resolved it.
+     * @param string|null $repo repo
      *
      * @return self
      */
@@ -384,7 +384,7 @@ class CodingStarted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets routed
      *
-     * @param bool|null $routed Routed says the run went to one of the org's own registered machines rather than to a sandbox in our cluster. False is the ordinary case.
+     * @param bool|null $routed routed
      *
      * @return self
      */
@@ -411,7 +411,7 @@ class CodingStarted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets session_id
      *
-     * @param string|null $session_id SessionID is the run's handle: its durable record, and the id its live progress streams under at /v1/agents/sessions/{sessionId}/stream. Every later question about this run is asked with it.
+     * @param string|null $session_id session_id
      *
      * @return self
      */
@@ -438,7 +438,7 @@ class CodingStarted implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets target_id
      *
-     * @param string|null $target_id TargetID names that machine when Routed is true, and is empty otherwise.
+     * @param string|null $target_id target_id
      *
      * @return self
      */

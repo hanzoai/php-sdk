@@ -71,10 +71,10 @@ class ProductRow implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'orders' => null,
+        'orders' => 'int64',
         'product_id' => null,
-        'revenue' => null,
-        'units' => null
+        'revenue' => 'double',
+        'units' => 'int64'
     ];
 
     /**

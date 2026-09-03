@@ -71,10 +71,10 @@ class RollupAllotment implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'consumed_cents' => null,
-        'granted_cents' => null,
-        'monthly_cents' => null,
-        'remaining_cents' => null
+        'consumed_cents' => 'int64',
+        'granted_cents' => 'int64',
+        'monthly_cents' => 'int64',
+        'remaining_cents' => 'int64'
     ];
 
     /**

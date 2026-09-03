@@ -58,6 +58,7 @@ class Sandbox implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'class' => 'string',
+        'cluster' => 'string',
         'connected_at' => 'int',
         'created_at' => 'int',
         'error' => 'string',
@@ -82,14 +83,15 @@ class Sandbox implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'class' => null,
-        'connected_at' => null,
-        'created_at' => null,
+        'cluster' => null,
+        'connected_at' => 'int64',
+        'created_at' => 'int64',
         'error' => null,
-        'expires_at' => null,
+        'expires_at' => 'int64',
         'id' => null,
         'image' => null,
         'kind' => null,
-        'last_used_at' => null,
+        'last_used_at' => 'int64',
         'org' => null,
         'project' => null,
         'runtime' => null,
@@ -104,6 +106,7 @@ class Sandbox implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'class' => false,
+        'cluster' => false,
         'connected_at' => false,
         'created_at' => false,
         'error' => false,
@@ -206,6 +209,7 @@ class Sandbox implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'class' => 'class',
+        'cluster' => 'cluster',
         'connected_at' => 'connectedAt',
         'created_at' => 'createdAt',
         'error' => 'error',
@@ -228,6 +232,7 @@ class Sandbox implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'class' => 'setClass',
+        'cluster' => 'setCluster',
         'connected_at' => 'setConnectedAt',
         'created_at' => 'setCreatedAt',
         'error' => 'setError',
@@ -250,6 +255,7 @@ class Sandbox implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'class' => 'getClass',
+        'cluster' => 'getCluster',
         'connected_at' => 'getConnectedAt',
         'created_at' => 'getCreatedAt',
         'error' => 'getError',
@@ -323,6 +329,7 @@ class Sandbox implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('class', $data ?? [], null);
+        $this->setIfExists('cluster', $data ?? [], null);
         $this->setIfExists('connected_at', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('error', $data ?? [], null);
@@ -403,6 +410,33 @@ class Sandbox implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable class cannot be null');
         }
         $this->container['class'] = $class;
+
+        return $this;
+    }
+
+    /**
+     * Gets cluster
+     *
+     * @return string|null
+     */
+    public function getCluster()
+    {
+        return $this->container['cluster'];
+    }
+
+    /**
+     * Sets cluster
+     *
+     * @param string|null $cluster Cluster is the attached cluster this sandbox runs on — the fleet-local name the lease named — or empty for the home cluster. Immutable for the life of the lease, like the pod it locates: every later call into the sandbox reads it to reach the right apiserver.
+     *
+     * @return self
+     */
+    public function setCluster($cluster)
+    {
+        if (is_null($cluster)) {
+            throw new \InvalidArgumentException('non-nullable cluster cannot be null');
+        }
+        $this->container['cluster'] = $cluster;
 
         return $this;
     }

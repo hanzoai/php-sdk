@@ -77,15 +77,15 @@ class CheckView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created_at' => null,
-        'decided_at' => null,
+        'created_at' => 'int64',
+        'decided_at' => 'int64',
         'decided_by' => null,
         'id' => null,
         'kind' => null,
         'provider' => null,
         'status' => null,
         'subject_id' => null,
-        'updated_at' => null,
+        'updated_at' => 'int64',
         'verify_url' => null
     ];
 

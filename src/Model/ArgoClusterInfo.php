@@ -70,7 +70,7 @@ class ArgoClusterInfo implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'applications_count' => null,
+        'applications_count' => 'int64',
         'connection_state' => null,
         'server_version' => null
     ];

@@ -69,8 +69,8 @@ class Position implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'character' => null,
-        'line' => null
+        'character' => 'int64',
+        'line' => 'int64'
     ];
 
     /**

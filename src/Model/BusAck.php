@@ -73,7 +73,7 @@ class BusAck implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'duplicate' => null,
         'ok' => null,
-        'seq' => null,
+        'seq' => 'uint64',
         'stream' => null
     ];
 

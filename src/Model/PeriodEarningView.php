@@ -70,8 +70,8 @@ class PeriodEarningView implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'commission_cents' => null,
-        'margin_cents' => null,
+        'commission_cents' => 'int64',
+        'margin_cents' => 'int64',
         'period' => null
     ];
 

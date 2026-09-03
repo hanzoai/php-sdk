@@ -71,10 +71,10 @@ class O11yListMeta implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'limit' => null,
-        'page' => null,
-        'total_items' => null,
-        'total_pages' => null
+        'limit' => 'int64',
+        'page' => 'int64',
+        'total_items' => 'int64',
+        'total_pages' => 'int64'
     ];
 
     /**

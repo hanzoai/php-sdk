@@ -71,7 +71,7 @@ class O11yPodListResponse implements ModelInterface, ArrayAccess, \JsonSerializa
       */
     protected static $openAPIFormats = [
         'records' => null,
-        'total' => null,
+        'total' => 'int64',
         'type' => null
     ];
 

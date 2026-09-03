@@ -75,8 +75,8 @@ class O11yAvailabilityResponse implements ModelInterface, ArrayAccess, \JsonSeri
         'range' => null,
         'series' => null,
         'services' => null,
-        'total' => null,
-        'up' => null
+        'total' => 'int64',
+        'up' => 'int64'
     ];
 
     /**

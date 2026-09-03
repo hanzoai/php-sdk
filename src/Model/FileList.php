@@ -76,7 +76,7 @@ class FileList implements ModelInterface, ArrayAccess, \JsonSerializable
         'files' => null,
         'folder' => null,
         'space' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

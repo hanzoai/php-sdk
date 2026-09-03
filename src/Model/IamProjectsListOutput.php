@@ -70,7 +70,7 @@ class IamProjectsListOutput implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPIFormats = [
         'projects' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

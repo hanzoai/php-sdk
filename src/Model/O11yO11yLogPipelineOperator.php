@@ -112,7 +112,7 @@ class O11yO11yLogPipelineOperator implements ModelInterface, ArrayAccess, \JsonS
         'mapping' => null,
         'name' => null,
         'on_error' => null,
-        'order_id' => null,
+        'order_id' => 'int64',
         'output' => null,
         'overwrite_text' => null,
         'parse_from' => null,

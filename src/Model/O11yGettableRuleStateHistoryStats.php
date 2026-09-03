@@ -75,14 +75,14 @@ class O11yGettableRuleStateHistoryStats implements ModelInterface, ArrayAccess, 
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'current_avg_resolution_time' => null,
+        'current_avg_resolution_time' => 'double',
         'current_avg_resolution_time_series' => null,
         'current_triggers_series' => null,
-        'past_avg_resolution_time' => null,
+        'past_avg_resolution_time' => 'double',
         'past_avg_resolution_time_series' => null,
         'past_triggers_series' => null,
-        'total_current_triggers' => null,
-        'total_past_triggers' => null
+        'total_current_triggers' => 'uint64',
+        'total_past_triggers' => 'uint64'
     ];
 
     /**

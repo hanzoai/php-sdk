@@ -93,7 +93,7 @@ class IamInput implements ModelInterface, ArrayAccess, \JsonSerializable
         'owner' => null,
         'request_uri' => null,
         'response' => null,
-        'status_code' => null,
+        'status_code' => 'int64',
         'user' => null
     ];
 

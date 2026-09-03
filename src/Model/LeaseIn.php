@@ -58,6 +58,7 @@ class LeaseIn implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'class' => 'string',
+        'cluster' => 'string',
         'image' => 'string',
         'project' => 'string',
         'runtime' => 'string',
@@ -73,10 +74,11 @@ class LeaseIn implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'class' => null,
+        'cluster' => null,
         'image' => null,
         'project' => null,
         'runtime' => null,
-        'ttl_sec' => null
+        'ttl_sec' => 'int64'
     ];
 
     /**
@@ -86,6 +88,7 @@ class LeaseIn implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'class' => false,
+        'cluster' => false,
         'image' => false,
         'project' => false,
         'runtime' => false,
@@ -179,6 +182,7 @@ class LeaseIn implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'class' => 'class',
+        'cluster' => 'cluster',
         'image' => 'image',
         'project' => 'project',
         'runtime' => 'runtime',
@@ -192,6 +196,7 @@ class LeaseIn implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'class' => 'setClass',
+        'cluster' => 'setCluster',
         'image' => 'setImage',
         'project' => 'setProject',
         'runtime' => 'setRuntime',
@@ -205,6 +210,7 @@ class LeaseIn implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'class' => 'getClass',
+        'cluster' => 'getCluster',
         'image' => 'getImage',
         'project' => 'getProject',
         'runtime' => 'getRuntime',
@@ -269,6 +275,7 @@ class LeaseIn implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('class', $data ?? [], null);
+        $this->setIfExists('cluster', $data ?? [], null);
         $this->setIfExists('image', $data ?? [], null);
         $this->setIfExists('project', $data ?? [], null);
         $this->setIfExists('runtime', $data ?? [], null);
@@ -340,6 +347,33 @@ class LeaseIn implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable class cannot be null');
         }
         $this->container['class'] = $class;
+
+        return $this;
+    }
+
+    /**
+     * Gets cluster
+     *
+     * @return string|null
+     */
+    public function getCluster()
+    {
+        return $this->container['cluster'];
+    }
+
+    /**
+     * Sets cluster
+     *
+     * @param string|null $cluster Cluster names one of the org's attached clusters to run the sandbox on — the fleet-local name it was registered under. Empty runs on the home cluster. The named cluster must carry the sandbox namespace and the gvisor runtime class; a name the org has not attached is 404.
+     *
+     * @return self
+     */
+    public function setCluster($cluster)
+    {
+        if (is_null($cluster)) {
+            throw new \InvalidArgumentException('non-nullable cluster cannot be null');
+        }
+        $this->container['cluster'] = $cluster;
 
         return $this;
     }

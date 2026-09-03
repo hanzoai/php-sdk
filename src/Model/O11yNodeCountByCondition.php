@@ -70,9 +70,9 @@ class O11yNodeCountByCondition implements ModelInterface, ArrayAccess, \JsonSeri
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'not_ready' => null,
-        'ready' => null,
-        'unknown' => null
+        'not_ready' => 'int64',
+        'ready' => 'int64',
+        'unknown' => 'int64'
     ];
 
     /**

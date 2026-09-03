@@ -75,8 +75,8 @@ class IamCartItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'display_name' => null,
         'name' => null,
         'owner' => null,
-        'price' => null,
-        'quantity' => null
+        'price' => 'double',
+        'quantity' => 'int64'
     ];
 
     /**

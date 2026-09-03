@@ -70,7 +70,7 @@ class BuildOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'bytes' => null,
+        'bytes' => 'int64',
         'generated' => null,
         'plugin' => null
     ];

@@ -78,11 +78,11 @@ class RiskBand implements ModelInterface, ArrayAccess, \JsonSerializable
         'day' => 'date-time',
         'dim' => null,
         'kind' => null,
-        'n' => null,
-        'orgs' => null,
-        'q10' => null,
-        'q50' => null,
-        'q90' => null
+        'n' => 'uint64',
+        'orgs' => 'uint32',
+        'q10' => 'double',
+        'q50' => 'double',
+        'q90' => 'double'
     ];
 
     /**

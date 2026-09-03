@@ -73,11 +73,11 @@ class TreasuryReport implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'accrued_cents' => null,
-        'by_program_cents' => null,
-        'paid_cents' => null,
+        'accrued_cents' => 'int64',
+        'by_program_cents' => 'int64',
+        'paid_cents' => 'int64',
         'policy' => null,
-        'reserve_cents' => null,
+        'reserve_cents' => 'int64',
         'solvent_for_payout' => null
     ];
 

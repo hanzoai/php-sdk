@@ -72,7 +72,7 @@ class UsageAnalyticsGrant implements ModelInterface, ArrayAccess, \JsonSerializa
     protected static $openAPIFormats = [
         'datastore' => null,
         'export' => null,
-        'retention_days' => null
+        'retention_days' => 'int64'
     ];
 
     /**

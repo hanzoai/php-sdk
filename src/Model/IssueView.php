@@ -86,23 +86,23 @@ class IssueView implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'assignee' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'description' => null,
-        'due_at' => null,
+        'due_at' => 'int64',
         'ext_ref' => null,
         'id' => null,
         'identifier' => null,
         'kind' => null,
         'labels' => null,
-        'number' => null,
+        'number' => 'int64',
         'priority' => null,
         'project_key' => null,
         'repo' => null,
         'source' => null,
-        'start_at' => null,
+        'start_at' => 'int64',
         'status' => null,
         'title' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

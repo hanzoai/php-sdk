@@ -74,9 +74,9 @@ class FileItem implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'etag' => null,
         'is_folder' => null,
-        'modified_at' => null,
+        'modified_at' => 'int64',
         'name' => null,
-        'size' => null
+        'size' => 'int64'
     ];
 
     /**

@@ -72,7 +72,7 @@ class O11yO11yTrace implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'count' => null,
+        'count' => 'uint64',
         'first_seen' => 'date-time',
         'last_seen' => 'date-time',
         'message' => null,

@@ -71,8 +71,8 @@ class Provenance implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'backend' => null,
-        'rank' => null,
-        'score' => null
+        'rank' => 'int64',
+        'score' => 'double'
     ];
 
     /**
@@ -316,7 +316,7 @@ class Provenance implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets backend
      *
-     * @param string|null $backend Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic) or \"code\" (the org's repositories). It is the same name that leg reports itself under in Fusion.Backends, so a hit can be traced to a status.
+     * @param string|null $backend Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic), \"code\" (the org's repositories) or \"rerank\" (the cross-encoder pass, whose Score is the relevance it assigned). It is the same name that leg reports itself under in Fusion.Backends, so a hit can be traced to a status.
      *
      * @return self
      */

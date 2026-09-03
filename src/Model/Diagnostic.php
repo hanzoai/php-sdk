@@ -75,7 +75,7 @@ class Diagnostic implements ModelInterface, ArrayAccess, \JsonSerializable
         'code' => null,
         'message' => null,
         'range' => null,
-        'severity' => null,
+        'severity' => 'int64',
         'source' => null
     ];
 

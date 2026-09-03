@@ -70,7 +70,7 @@ class O11yO11yMetricAttributes implements ModelInterface, ArrayAccess, \JsonSeri
       */
     protected static $openAPIFormats = [
         'attributes' => null,
-        'total_keys' => null
+        'total_keys' => 'int64'
     ];
 
     /**

@@ -76,14 +76,14 @@ class ScanView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created_at' => null,
-        'critical' => null,
-        'files' => null,
-        'findings' => null,
-        'high' => null,
+        'created_at' => 'int64',
+        'critical' => 'int64',
+        'files' => 'int64',
+        'findings' => 'int64',
+        'high' => 'int64',
         'id' => null,
-        'low' => null,
-        'medium' => null,
+        'low' => 'int64',
+        'medium' => 'int64',
         'project' => null
     ];
 

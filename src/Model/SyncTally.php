@@ -69,8 +69,8 @@ class SyncTally implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'live' => null,
-        'sandbox' => null
+        'live' => 'int64',
+        'sandbox' => 'int64'
     ];
 
     /**

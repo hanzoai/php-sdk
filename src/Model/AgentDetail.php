@@ -95,7 +95,7 @@ class AgentDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'model' => null,
         'name' => null,
         'recent_runs' => null,
-        'runs' => null,
+        'runs' => 'int64',
         'schedule' => null,
         'service_account_id' => null,
         'status' => null,

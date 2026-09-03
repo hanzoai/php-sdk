@@ -73,12 +73,12 @@ class Audience implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'created_at' => null,
+        'created_at' => 'int64',
         'event' => null,
         'id' => null,
         'name' => null,
-        'updated_at' => null,
-        'window_days' => null
+        'updated_at' => 'int64',
+        'window_days' => 'int64'
     ];
 
     /**

@@ -72,7 +72,7 @@ class SearchIn implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'doctypes' => null,
-        'limit' => null,
+        'limit' => 'int64',
         'project' => null,
         'query' => null
     ];

@@ -69,8 +69,8 @@ class SharePolicy implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'revenue_share_bps' => null,
-        'updated_at' => null
+        'revenue_share_bps' => 'int64',
+        'updated_at' => 'int64'
     ];
 
     /**

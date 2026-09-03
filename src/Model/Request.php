@@ -76,9 +76,9 @@ class Request implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'doctypes' => null,
         'index' => null,
-        'limit' => null,
+        'limit' => 'int64',
         'mode' => null,
-        'offset' => null,
+        'offset' => 'int64',
         'project' => null,
         'query' => null
     ];

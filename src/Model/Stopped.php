@@ -68,7 +68,7 @@ class Stopped implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'stopped' => null
+        'stopped' => 'int64'
     ];
 
     /**

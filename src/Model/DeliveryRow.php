@@ -76,13 +76,13 @@ class DeliveryRow implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'attempt' => null,
+        'attempt' => 'int64',
         'created' => null,
         'delivery' => null,
-        'duration_ms' => null,
+        'duration_ms' => 'int64',
         'endpoint' => null,
         'error' => null,
-        'http_status' => null,
+        'http_status' => 'int64',
         'status' => null,
         'subject' => null
     ];

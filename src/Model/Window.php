@@ -72,11 +72,11 @@ class Window implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'limit' => null,
-        'remaining' => null,
+        'limit' => 'int64',
+        'remaining' => 'int64',
         'resets' => null,
         'span' => null,
-        'used' => null
+        'used' => 'int64'
     ];
 
     /**

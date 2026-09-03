@@ -72,7 +72,7 @@ class O11yRuleStateTimeline implements ModelInterface, ArrayAccess, \JsonSeriali
     protected static $openAPIFormats = [
         'items' => null,
         'labels' => null,
-        'total' => null
+        'total' => 'uint64'
     ];
 
     /**

@@ -72,7 +72,7 @@ class DriveList implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'drives' => null,
         'space' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

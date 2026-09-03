@@ -68,7 +68,7 @@ class O11yO11yRetry implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'delay' => null
+        'delay' => 'int64'
     ];
 
     /**

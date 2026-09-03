@@ -70,7 +70,7 @@ class PrefsView implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'prefs' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

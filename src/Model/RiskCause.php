@@ -77,16 +77,16 @@ class RiskCause implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'baseline' => null,
+        'baseline' => 'double',
         'citation' => null,
         'feature' => null,
         'indicator' => null,
-        'observed' => null,
+        'observed' => 'double',
         'severity' => null,
-        'share' => null,
+        'share' => 'double',
         'typology' => null,
         'unit' => null,
-        'without' => null
+        'without' => 'double'
     ];
 
     /**

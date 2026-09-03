@@ -71,10 +71,10 @@ class EnrollResult implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'already_enrolled' => null,
-        'enrolled' => null,
+        'already_enrolled' => 'int64',
+        'enrolled' => 'int64',
         'enrollment_id' => null,
-        'resolved' => null
+        'resolved' => 'int64'
     ];
 
     /**

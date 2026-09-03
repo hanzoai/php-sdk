@@ -74,8 +74,8 @@ class ScoreConfigReq implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'categories' => null,
         'data_type' => null,
-        'max_value' => null,
-        'min_value' => null,
+        'max_value' => 'double',
+        'min_value' => 'double',
         'name' => null
     ];
 

@@ -73,11 +73,11 @@ class Allowance implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'limit' => null,
+        'limit' => 'int64',
         'plan' => null,
-        'resets' => null,
+        'resets' => 'int64',
         'spent' => null,
-        'used' => null,
+        'used' => 'int64',
         'window' => null
     ];
 

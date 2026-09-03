@@ -75,11 +75,11 @@ class O11yO11yRetentionOut implements ModelInterface, ArrayAccess, \JsonSerializ
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cold_storage_ttl_days' => null,
+        'cold_storage_ttl_days' => 'int64',
         'cold_storage_volume' => null,
-        'default_ttl_days' => null,
-        'expected_logs_move_ttl_duration_hrs' => null,
-        'expected_logs_ttl_duration_hrs' => null,
+        'default_ttl_days' => 'int64',
+        'expected_logs_move_ttl_duration_hrs' => 'int64',
+        'expected_logs_ttl_duration_hrs' => 'int64',
         'status' => null,
         'ttl_conditions' => null,
         'version' => null

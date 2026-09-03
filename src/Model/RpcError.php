@@ -69,7 +69,7 @@ class RpcError implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'code' => null,
+        'code' => 'int64',
         'message' => null
     ];
 

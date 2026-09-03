@@ -76,15 +76,15 @@ class IndexResult implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'chunks' => null,
-        'files' => null,
-        'indexed' => null,
-        'pruned' => null,
+        'chunks' => 'int64',
+        'files' => 'int64',
+        'indexed' => 'int64',
+        'pruned' => 'int64',
         'repo' => null,
         'semantic' => null,
-        'skipped' => null,
-        'symbols' => null,
-        'vectors' => null
+        'skipped' => 'int64',
+        'symbols' => 'int64',
+        'vectors' => 'int64'
     ];
 
     /**

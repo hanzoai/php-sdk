@@ -74,7 +74,7 @@ class O11yO11yListError implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'exception_count' => null,
+        'exception_count' => 'uint64',
         'exception_message' => null,
         'exception_type' => null,
         'first_seen' => 'date-time',

@@ -71,8 +71,8 @@ class O11yAvailabilityPoint implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPIFormats = [
         't' => null,
-        'total' => null,
-        'up' => null
+        'total' => 'int64',
+        'up' => 'int64'
     ];
 
     /**

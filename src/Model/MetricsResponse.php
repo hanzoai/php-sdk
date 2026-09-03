@@ -84,22 +84,22 @@ class MetricsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'arr' => null,
-        'burn' => null,
-        'cash' => null,
-        'cogs' => null,
-        'deferred_revenue' => null,
+        'arr' => 'int64',
+        'burn' => 'int64',
+        'cash' => 'int64',
+        'cogs' => 'int64',
+        'deferred_revenue' => 'int64',
         'figures' => null,
         'from' => null,
-        'gross_margin_bps' => null,
-        'gross_profit' => null,
-        'monthly_burn' => null,
-        'months' => null,
-        'mrr' => null,
-        'net_income' => null,
+        'gross_margin_bps' => 'int64',
+        'gross_profit' => 'int64',
+        'monthly_burn' => 'int64',
+        'months' => 'int64',
+        'mrr' => 'int64',
+        'net_income' => 'int64',
         'period' => null,
-        'revenue' => null,
-        'runway_months' => null,
+        'revenue' => 'int64',
+        'runway_months' => 'int64',
         'to' => null
     ];
 

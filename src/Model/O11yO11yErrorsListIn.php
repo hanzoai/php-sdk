@@ -78,8 +78,8 @@ class O11yO11yErrorsListIn implements ModelInterface, ArrayAccess, \JsonSerializ
     protected static $openAPIFormats = [
         'end' => null,
         'exception_type' => null,
-        'limit' => null,
-        'offset' => null,
+        'limit' => 'int64',
+        'offset' => 'int64',
         'order' => null,
         'order_param' => null,
         'service_name' => null,

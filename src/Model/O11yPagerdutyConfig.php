@@ -103,7 +103,7 @@ class O11yPagerdutyConfig implements ModelInterface, ArrayAccess, \JsonSerializa
         'service_key_file' => null,
         'severity' => null,
         'source' => null,
-        'timeout' => null,
+        'timeout' => 'int64',
         'url' => null
     ];
 

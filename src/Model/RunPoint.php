@@ -73,10 +73,10 @@ class RunPoint implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'at' => 'date-time',
-        'delta' => null,
-        'n' => null,
+        'delta' => 'double',
+        'n' => 'int64',
         'run' => null,
-        'score' => null
+        'score' => 'double'
     ];
 
     /**

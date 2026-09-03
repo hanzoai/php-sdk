@@ -79,7 +79,7 @@ class Recording implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => null,
         'object' => null,
         'room' => null,
-        'started' => null,
+        'started' => 'int64',
         'status' => null
     ];
 

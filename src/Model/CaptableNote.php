@@ -78,11 +78,11 @@ class CaptableNote implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'capital' => null,
-        'conversion_cap' => null,
-        'discount_rate' => null,
+        'capital' => 'double',
+        'conversion_cap' => 'double',
+        'discount_rate' => 'double',
         'id' => null,
-        'interest_rate' => null,
+        'interest_rate' => 'double',
         'issue_date' => null,
         'public_id' => null,
         'stakeholder_id' => null,

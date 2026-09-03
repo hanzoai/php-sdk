@@ -69,7 +69,7 @@ class LineItem implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_cents' => null,
+        'amount_cents' => 'int64',
         'description' => null
     ];
 

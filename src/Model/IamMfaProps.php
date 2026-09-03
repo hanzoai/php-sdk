@@ -76,7 +76,7 @@ class IamMfaProps implements ModelInterface, ArrayAccess, \JsonSerializable
         'country_code' => null,
         'enabled' => null,
         'is_preferred' => null,
-        'mfa_remember_in_hours' => null,
+        'mfa_remember_in_hours' => 'int64',
         'mfa_type' => null,
         'url' => null
     ];

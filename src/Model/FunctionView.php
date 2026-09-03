@@ -83,22 +83,22 @@ class FunctionView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'avg_duration_ms' => null,
+        'avg_duration_ms' => 'double',
         'created_at' => null,
         'endpoint' => null,
-        'env_count' => null,
+        'env_count' => 'int64',
         'environment' => null,
-        'errors7d' => null,
+        'errors7d' => 'int64',
         'image' => null,
-        'invocations7d' => null,
+        'invocations7d' => 'int64',
         'last_deployed_at' => null,
         'memory_limit' => null,
         'name' => null,
         'namespace' => null,
         'status' => null,
-        'success_rate' => null,
+        'success_rate' => 'double',
         'target' => null,
-        'timeout_sec' => null
+        'timeout_sec' => 'int64'
     ];
 
     /**

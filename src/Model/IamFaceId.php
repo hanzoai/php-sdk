@@ -70,7 +70,7 @@ class IamFaceId implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'face_id_data' => null,
+        'face_id_data' => 'double',
         'image_url' => null,
         'name' => null
     ];

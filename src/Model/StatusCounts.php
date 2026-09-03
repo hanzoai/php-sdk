@@ -70,9 +70,9 @@ class StatusCounts implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'qualified' => null,
-        'signup' => null,
-        'total' => null
+        'qualified' => 'int64',
+        'signup' => 'int64',
+        'total' => 'int64'
     ];
 
     /**

@@ -78,10 +78,10 @@ class CaptableEquityPlan implements ModelInterface, ArrayAccess, \JsonSerializab
     protected static $openAPIFormats = [
         'board_approval_date' => null,
         'comments' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'default_cancellaton_behavior' => null,
         'id' => null,
-        'initial_shares_reserved' => null,
+        'initial_shares_reserved' => 'int64',
         'name' => null,
         'plan_effective_date' => null,
         'share_class_id' => null

@@ -74,7 +74,7 @@ class DeployRecord implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'created' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'deploy_id' => null,
         'reason' => null,
         'recorded' => null,

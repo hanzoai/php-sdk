@@ -77,14 +77,14 @@ class Spend implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'available' => null,
-        'available_cents' => null,
-        'balance_cents' => null,
+        'available_cents' => 'int64',
+        'balance_cents' => 'int64',
         'by_category' => null,
-        'mtd_cents' => null,
-        'overage_cents' => null,
+        'mtd_cents' => 'int64',
+        'overage_cents' => 'int64',
         'series' => null,
         'source' => null,
-        'total_cents' => null
+        'total_cents' => 'int64'
     ];
 
     /**

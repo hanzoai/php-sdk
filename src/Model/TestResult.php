@@ -72,9 +72,9 @@ class TestResult implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'delivered' => null,
-        'duration_ms' => null,
+        'duration_ms' => 'int64',
         'error' => null,
-        'http_status' => null
+        'http_status' => 'int64'
     ];
 
     /**

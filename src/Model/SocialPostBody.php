@@ -75,7 +75,7 @@ class SocialPostBody implements ModelInterface, ArrayAccess, \JsonSerializable
         'channel' => null,
         'content' => null,
         'media' => null,
-        'schedule_at' => null,
+        'schedule_at' => 'int64',
         'status' => null
     ];
 

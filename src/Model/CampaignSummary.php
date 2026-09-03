@@ -71,10 +71,10 @@ class CampaignSummary implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'budget' => null,
-        'campaigns' => null,
+        'budget' => 'int64',
+        'campaigns' => 'int64',
         'channels' => null,
-        'live' => null
+        'live' => 'int64'
     ];
 
     /**

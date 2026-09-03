@@ -75,14 +75,14 @@ class O11yO11yLLMUser implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'completion_tokens' => null,
+        'completion_tokens' => 'int64',
         'id' => null,
-        'observations' => null,
-        'prompt_tokens' => null,
-        'sessions' => null,
-        'total_cost' => null,
-        'total_tokens' => null,
-        'traces' => null
+        'observations' => 'int64',
+        'prompt_tokens' => 'int64',
+        'sessions' => 'int64',
+        'total_cost' => 'double',
+        'total_tokens' => 'int64',
+        'traces' => 'int64'
     ];
 
     /**

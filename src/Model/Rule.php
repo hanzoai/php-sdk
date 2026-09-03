@@ -72,7 +72,7 @@ class Rule implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'category' => null,
         'pattern' => null,
-        'priority' => null
+        'priority' => 'int64'
     ];
 
     /**

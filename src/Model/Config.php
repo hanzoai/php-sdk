@@ -77,11 +77,11 @@ class Config implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'max_age' => null,
-        'max_bytes' => null,
-        'max_msg_size' => null,
-        'max_msgs' => null,
+        'max_bytes' => 'int64',
+        'max_msg_size' => 'int32',
+        'max_msgs' => 'int64',
         'name' => null,
-        'num_replicas' => null,
+        'num_replicas' => 'int64',
         'retention' => null,
         'storage' => null,
         'subjects' => null

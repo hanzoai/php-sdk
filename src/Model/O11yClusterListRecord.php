@@ -74,10 +74,10 @@ class O11yClusterListRecord implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPIFormats = [
         'cluster_uid' => null,
-        'cpu_allocatable' => null,
-        'cpu_usage' => null,
-        'memory_allocatable' => null,
-        'memory_usage' => null,
+        'cpu_allocatable' => 'double',
+        'cpu_usage' => 'double',
+        'memory_allocatable' => 'double',
+        'memory_usage' => 'double',
         'meta' => null
     ];
 

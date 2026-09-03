@@ -84,7 +84,7 @@ class ScoreReq implements ModelInterface, ArrayAccess, \JsonSerializable
         'run_name' => null,
         'string_value' => null,
         'trace_id' => null,
-        'value' => null
+        'value' => 'double'
     ];
 
     /**

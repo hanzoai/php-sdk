@@ -77,10 +77,10 @@ class PnL implements ModelInterface, ArrayAccess, \JsonSerializable
         'expense' => null,
         'from' => null,
         'income' => null,
-        'net_income' => null,
+        'net_income' => 'int64',
         'to' => null,
-        'total_expense' => null,
-        'total_income' => null
+        'total_expense' => 'int64',
+        'total_income' => 'int64'
     ];
 
     /**

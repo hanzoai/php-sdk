@@ -71,8 +71,8 @@ class RateCard implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'basis' => null,
-        'micro_usd_per_gb_hour' => null,
-        'micro_usd_per_vcpu_hour' => null
+        'micro_usd_per_gb_hour' => 'int64',
+        'micro_usd_per_vcpu_hour' => 'int64'
     ];
 
     /**

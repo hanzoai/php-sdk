@@ -75,7 +75,7 @@ class Section implements ModelInterface, ArrayAccess, \JsonSerializable
         'detail' => null,
         'enabled' => null,
         'id' => null,
-        'order' => null,
+        'order' => 'int64',
         'title' => null
     ];
 

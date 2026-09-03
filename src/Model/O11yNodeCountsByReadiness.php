@@ -69,8 +69,8 @@ class O11yNodeCountsByReadiness implements ModelInterface, ArrayAccess, \JsonSer
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'not_ready' => null,
-        'ready' => null
+        'not_ready' => 'int64',
+        'ready' => 'int64'
     ];
 
     /**

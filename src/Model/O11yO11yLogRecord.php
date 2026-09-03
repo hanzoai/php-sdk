@@ -81,17 +81,17 @@ class O11yO11yLogRecord implements ModelInterface, ArrayAccess, \JsonSerializabl
       */
     protected static $openAPIFormats = [
         'attributes_bool' => null,
-        'attributes_float' => null,
-        'attributes_int' => null,
+        'attributes_float' => 'double',
+        'attributes_int' => 'int64',
         'attributes_string' => null,
         'body' => null,
         'id' => null,
         'resources_string' => null,
-        'severity_number' => null,
+        'severity_number' => 'uint8',
         'severity_text' => null,
         'span_id' => null,
-        'timestamp' => null,
-        'trace_flags' => null,
+        'timestamp' => 'uint64',
+        'trace_flags' => 'uint32',
         'trace_id' => null
     ];
 

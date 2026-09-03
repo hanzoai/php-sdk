@@ -73,11 +73,11 @@ class InvocationView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'duration_ms' => null,
+        'duration_ms' => 'int64',
         'id' => null,
         'method' => null,
         'status' => null,
-        'status_code' => null,
+        'status_code' => 'int64',
         'time' => null
     ];
 

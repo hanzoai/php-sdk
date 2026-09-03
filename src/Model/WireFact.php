@@ -81,7 +81,7 @@ class WireFact implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'at' => null,
         'by' => null,
-        'confidence' => null,
+        'confidence' => 'double',
         'entity' => null,
         'evidence' => null,
         'id' => null,

@@ -73,8 +73,8 @@ class SeoCompetitorIn implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'keywords' => null,
         'language' => null,
-        'limit' => null,
-        'location' => null
+        'limit' => 'int64',
+        'location' => 'int64'
     ];
 
     /**

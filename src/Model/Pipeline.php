@@ -82,7 +82,7 @@ class Pipeline implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'behind' => null,
+        'behind' => 'int64',
         'built' => null,
         'declared' => null,
         'drift' => null,
@@ -92,11 +92,11 @@ class Pipeline implements ModelInterface, ArrayAccess, \JsonSerializable
         'namespace' => null,
         'org' => null,
         'pinned_at' => 'date-time',
-        'ready' => null,
+        'ready' => 'int64',
         'repo' => null,
         'running' => null,
         'since' => 'date-time',
-        'want' => null
+        'want' => 'int64'
     ];
 
     /**

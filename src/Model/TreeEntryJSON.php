@@ -75,7 +75,7 @@ class TreeEntryJSON implements ModelInterface, ArrayAccess, \JsonSerializable
         'mode' => null,
         'name' => null,
         'path' => null,
-        'size' => null,
+        'size' => 'int64',
         'type' => null
     ];
 

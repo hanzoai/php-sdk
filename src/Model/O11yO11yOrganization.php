@@ -78,7 +78,7 @@ class O11yO11yOrganization implements ModelInterface, ArrayAccess, \JsonSerializ
         'created_at' => 'date-time',
         'display_name' => null,
         'id' => null,
-        'key' => null,
+        'key' => 'uint32',
         'name' => null,
         'updated_at' => 'date-time'
     ];

@@ -71,7 +71,7 @@ class O11yNamespaceListResponse implements ModelInterface, ArrayAccess, \JsonSer
       */
     protected static $openAPIFormats = [
         'records' => null,
-        'total' => null,
+        'total' => 'int64',
         'type' => null
     ];
 

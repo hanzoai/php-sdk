@@ -78,7 +78,7 @@ class RiskEvent implements ModelInterface, ArrayAccess, \JsonSerializable
         'device' => null,
         'id' => null,
         'kind' => null,
-        'nano' => null,
+        'nano' => 'int64',
         'peer' => null,
         'subject' => null
     ];

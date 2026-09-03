@@ -72,7 +72,7 @@ class LicensingRevocationEntry implements ModelInterface, ArrayAccess, \JsonSeri
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'at' => null,
+        'at' => 'int64',
         'by' => null,
         'reason' => null,
         'scope' => null,

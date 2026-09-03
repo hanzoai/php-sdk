@@ -69,7 +69,7 @@ class O11yO11yAPIKeyCreateIn implements ModelInterface, ArrayAccess, \JsonSerial
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'expires_at' => null,
+        'expires_at' => 'uint64',
         'name' => null
     ];
 

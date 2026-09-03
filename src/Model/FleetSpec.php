@@ -74,10 +74,10 @@ class FleetSpec implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'arch' => null,
-        'cpus' => null,
+        'cpus' => 'int64',
         'gpu_model' => null,
-        'gpus' => null,
-        'memory' => null,
+        'gpus' => 'int64',
+        'memory' => 'int64',
         'os' => null
     ];
 

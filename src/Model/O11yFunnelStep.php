@@ -86,7 +86,7 @@ class O11yFunnelStep implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'service_name' => null,
         'span_name' => null,
-        'step_order' => null
+        'step_order' => 'int64'
     ];
 
     /**

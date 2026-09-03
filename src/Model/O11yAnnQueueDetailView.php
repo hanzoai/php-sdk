@@ -76,13 +76,13 @@ class O11yAnnQueueDetailView implements ModelInterface, ArrayAccess, \JsonSerial
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'completed_count' => null,
+        'completed_count' => 'int64',
         'created_at' => null,
         'description' => null,
         'id' => null,
         'items' => null,
         'name' => null,
-        'pending_count' => null,
+        'pending_count' => 'int64',
         'score_config_ids' => null,
         'updated_at' => null
     ];

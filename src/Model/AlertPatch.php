@@ -79,11 +79,11 @@ class AlertPatch implements ModelInterface, ArrayAccess, \JsonSerializable
         'enforce' => null,
         'id' => null,
         'project' => null,
-        'rate_limit_rpm' => null,
+        'rate_limit_rpm' => 'int64',
         'service' => null,
-        'soft_pct' => null,
+        'soft_pct' => 'int64',
         'subject' => null,
-        'threshold' => null,
+        'threshold' => 'int64',
         'title' => null
     ];
 

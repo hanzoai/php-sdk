@@ -74,9 +74,9 @@ class Genesis implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'at' => null,
-        'block' => null,
-        'chain_id' => null,
+        'at' => 'int64',
+        'block' => 'uint64',
+        'chain_id' => 'int64',
         'note' => null,
         'root' => null,
         'status' => null,

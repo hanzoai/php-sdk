@@ -75,7 +75,7 @@ class Benchmark implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'axis' => null,
         'id' => null,
-        'items' => null,
+        'items' => 'int64',
         'native' => null,
         'source' => null,
         'title' => null

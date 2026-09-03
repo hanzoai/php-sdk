@@ -77,7 +77,7 @@ class Preset implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => null,
         'note' => null,
         'owner' => null,
-        'panel' => null,
+        'panel' => 'int64',
         'rank' => null
     ];
 

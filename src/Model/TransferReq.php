@@ -72,7 +72,7 @@ class TransferReq implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'auth_code' => null,
         'domain' => null,
-        'years' => null
+        'years' => 'int64'
     ];
 
     /**

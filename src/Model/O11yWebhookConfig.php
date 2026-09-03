@@ -75,8 +75,8 @@ class O11yWebhookConfig implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $openAPIFormats = [
         'notifier_config' => null,
         'http_config' => null,
-        'max_alerts' => null,
-        'timeout' => null,
+        'max_alerts' => 'uint64',
+        'timeout' => 'int64',
         'url' => null,
         'url_file' => null
     ];

@@ -80,7 +80,7 @@ class UsageAnalyticsView implements ModelInterface, ArrayAccess, \JsonSerializab
         'plan' => null,
         'providers' => null,
         'range' => null,
-        'retention_days' => null,
+        'retention_days' => 'int64',
         'scope' => null,
         'start' => null
     ];

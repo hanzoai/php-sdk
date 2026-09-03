@@ -77,7 +77,7 @@ class ConnectorView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'account' => null,
         'configured' => null,
-        'doc_count' => null,
+        'doc_count' => 'int64',
         'error' => null,
         'kind' => null,
         'last_sync' => null,

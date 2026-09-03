@@ -70,9 +70,9 @@ class O11yO11yPercentiles implements ModelInterface, ArrayAccess, \JsonSerializa
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'p50' => null,
-        'p90' => null,
-        'p99' => null
+        'p50' => 'double',
+        'p90' => 'double',
+        'p99' => 'double'
     ];
 
     /**

@@ -77,8 +77,8 @@ class ScoreConfigView implements ModelInterface, ArrayAccess, \JsonSerializable
         'categories' => null,
         'created_at' => null,
         'data_type' => null,
-        'max_value' => null,
-        'min_value' => null,
+        'max_value' => 'double',
+        'min_value' => 'double',
         'name' => null,
         'updated_at' => null
     ];

@@ -80,15 +80,15 @@ class EsignField implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'custom_text' => null,
         'field_meta' => null,
-        'height' => null,
+        'height' => 'double',
         'id' => null,
         'inserted' => null,
-        'page' => null,
-        'position_x' => null,
-        'position_y' => null,
+        'page' => 'double',
+        'position_x' => 'double',
+        'position_y' => 'double',
         'recipient_id' => null,
         'type' => null,
-        'width' => null
+        'width' => 'double'
     ];
 
     /**

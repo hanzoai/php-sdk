@@ -76,7 +76,7 @@ class HelpArticleCard implements ModelInterface, ArrayAccess, \JsonSerializable
         'excerpt' => null,
         'slug' => null,
         'title' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

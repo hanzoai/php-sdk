@@ -76,15 +76,15 @@ class ReconcileReport implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'declared' => null,
-        'failed' => null,
+        'declared' => 'int64',
+        'failed' => 'int64',
         'instance' => null,
         'prune' => null,
-        'pruned' => null,
+        'pruned' => 'int64',
         'results' => null,
         'revision' => null,
         'source' => null,
-        'synced' => null
+        'synced' => 'int64'
     ];
 
     /**

@@ -73,10 +73,10 @@ class IamListResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'resources' => null,
-        'items_per_page' => null,
+        'items_per_page' => 'int64',
         'schemas' => null,
-        'start_index' => null,
-        'total_results' => null
+        'start_index' => 'int64',
+        'total_results' => 'int64'
     ];
 
     /**

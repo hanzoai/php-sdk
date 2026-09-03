@@ -70,7 +70,7 @@ class SeriesPoint implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         't' => null,
-        'v' => null
+        'v' => 'int64'
     ];
 
     /**

@@ -71,7 +71,7 @@ class CreateClusterReqNodePool implements ModelInterface, ArrayAccess, \JsonSeri
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'count' => null,
+        'count' => 'int64',
         'name' => null,
         'size' => null
     ];

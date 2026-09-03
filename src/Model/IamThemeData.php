@@ -72,7 +72,7 @@ class IamThemeData implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'border_radius' => null,
+        'border_radius' => 'int64',
         'color_primary' => null,
         'is_compact' => null,
         'is_enabled' => null,

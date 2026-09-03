@@ -71,7 +71,7 @@ class O11yDeploymentListResponse implements ModelInterface, ArrayAccess, \JsonSe
       */
     protected static $openAPIFormats = [
         'records' => null,
-        'total' => null,
+        'total' => 'int64',
         'type' => null
     ];
 

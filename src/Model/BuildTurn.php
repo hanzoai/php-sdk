@@ -80,7 +80,7 @@ class BuildTurn implements ModelInterface, ArrayAccess, \JsonSerializable
         'commit' => null,
         'kind' => null,
         'subject' => null,
-        'turn' => null
+        'turn' => 'int64'
     ];
 
     /**

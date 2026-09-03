@@ -72,11 +72,11 @@ class O11yPodCountsByPhase implements ModelInterface, ArrayAccess, \JsonSerializ
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'failed' => null,
-        'pending' => null,
-        'running' => null,
-        'succeeded' => null,
-        'unknown' => null
+        'failed' => 'int64',
+        'pending' => 'int64',
+        'running' => 'int64',
+        'succeeded' => 'int64',
+        'unknown' => 'int64'
     ];
 
     /**

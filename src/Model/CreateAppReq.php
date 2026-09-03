@@ -90,13 +90,13 @@ class CreateAppReq implements ModelInterface, ArrayAccess, \JsonSerializable
         'environment' => null,
         'image' => null,
         'name' => null,
-        'port' => null,
+        'port' => 'int64',
         'project' => null,
-        'replicas' => null,
+        'replicas' => 'int64',
         'repo' => null,
         'slug' => null,
         'source' => null,
-        'storage_gb' => null
+        'storage_gb' => 'int64'
     ];
 
     /**

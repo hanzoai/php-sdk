@@ -76,7 +76,7 @@ class ChannelMetric implements ModelInterface, ArrayAccess, \JsonSerializable
         'external_id' => null,
         'kind' => null,
         'platform' => null,
-        'spend_cents' => null,
+        'spend_cents' => 'int64',
         'spend_error' => null,
         'status' => null
     ];

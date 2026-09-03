@@ -74,7 +74,7 @@ class CaptableTransferred implements ModelInterface, ArrayAccess, \JsonSerializa
         'message' => null,
         'new_share_id' => null,
         'success' => null,
-        'transferred' => null
+        'transferred' => 'int64'
     ];
 
     /**

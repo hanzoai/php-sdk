@@ -77,7 +77,7 @@ class MCPServer implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'auth_header' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'has_secret' => null,
         'id' => null,
         'listing' => null,

@@ -87,7 +87,7 @@ class O11yO11yErrorIssue implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'assignee' => null,
-        'count' => null,
+        'count' => 'int64',
         'created_at' => 'date-time',
         'culprit' => null,
         'environment' => null,

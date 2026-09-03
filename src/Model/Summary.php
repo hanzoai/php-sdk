@@ -70,9 +70,9 @@ class Summary implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'calls' => null,
-        'messages' => null,
-        'numbers' => null
+        'calls' => 'int64',
+        'messages' => 'int64',
+        'numbers' => 'int64'
     ];
 
     /**

@@ -73,9 +73,9 @@ class Analysis implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'alpha' => null,
+        'alpha' => 'double',
         'experiment' => null,
-        'exposed_total' => null,
+        'exposed_total' => 'int64',
         'metric' => null,
         'results' => null,
         'winner' => null

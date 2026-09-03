@@ -73,7 +73,7 @@ class ReferenceReceipt implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'as_of' => null,
-        'keys' => null,
+        'keys' => 'int64',
         'refusal' => null,
         'source' => null,
         'version' => null

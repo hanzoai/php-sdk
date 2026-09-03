@@ -72,7 +72,7 @@ class O11yO11yDashboardListForUser implements ModelInterface, ArrayAccess, \Json
     protected static $openAPIFormats = [
         'dashboards' => null,
         'tags' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

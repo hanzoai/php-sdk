@@ -73,12 +73,12 @@ class O11yO11ySpanPercentileIn implements ModelInterface, ArrayAccess, \JsonSeri
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end' => null,
+        'end' => 'uint64',
         'name' => null,
         'resource_attributes' => null,
         'service_name' => null,
-        'span_duration' => null,
-        'start' => null
+        'span_duration' => 'int64',
+        'start' => 'uint64'
     ];
 
     /**

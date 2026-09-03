@@ -81,7 +81,7 @@ class RouteCandidate implements ModelInterface, ArrayAccess, \JsonSerializable
         'account' => null,
         'available' => null,
         'billing' => null,
-        'headroom_pct' => null,
+        'headroom_pct' => 'double',
         'host' => null,
         'kind' => null,
         'link_id' => null,

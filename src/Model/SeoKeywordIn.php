@@ -72,7 +72,7 @@ class SeoKeywordIn implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'keywords' => null,
         'language' => null,
-        'location' => null
+        'location' => 'int64'
     ];
 
     /**

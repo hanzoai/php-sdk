@@ -74,11 +74,11 @@ class AuthorRepo implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'badge_markdown' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'method' => null,
         'repo_url' => null,
         'verified' => null,
-        'verified_at' => null
+        'verified_at' => 'int64'
     ];
 
     /**

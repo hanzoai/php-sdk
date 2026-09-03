@@ -80,7 +80,7 @@ class GpuJob implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'attempt' => null,
+        'attempt' => 'int64',
         'close_time' => null,
         'failure_cause' => null,
         'gpu' => null,

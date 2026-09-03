@@ -75,7 +75,7 @@ class O11yStatusResult implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'checked_at' => null,
         'deployments' => null,
-        'latency_ms' => null,
+        'latency_ms' => 'int64',
         'product' => null,
         'source' => null,
         'up' => null

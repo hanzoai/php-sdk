@@ -73,8 +73,8 @@ class ProjectView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'applications' => null,
-        'created_at' => null,
+        'applications' => 'int64',
+        'created_at' => 'int64',
         'description' => null,
         'name' => null,
         'org' => null,

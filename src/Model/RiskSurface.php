@@ -73,11 +73,11 @@ class RiskSurface implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'folded' => null,
+        'folded' => 'int64',
         'gap' => null,
-        'refused' => null,
-        'replayed' => null,
-        'rolled' => null,
+        'refused' => 'int64',
+        'replayed' => 'int64',
+        'rolled' => 'int64',
         'window' => null
     ];
 

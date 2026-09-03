@@ -68,7 +68,7 @@ class PurgeOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'purged' => null
+        'purged' => 'uint64'
     ];
 
     /**

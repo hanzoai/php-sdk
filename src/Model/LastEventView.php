@@ -76,7 +76,7 @@ class LastEventView implements ModelInterface, ArrayAccess, \JsonSerializable
         'at' => null,
         'kind' => null,
         'preview' => null,
-        'seq' => null
+        'seq' => 'int64'
     ];
 
     /**

@@ -81,7 +81,7 @@ class O11yHostListResponse implements ModelInterface, ArrayAccess, \JsonSerializ
         'node_names' => null,
         'records' => null,
         'sent_any_host_metrics_data' => null,
-        'total' => null,
+        'total' => 'int64',
         'type' => null
     ];
 

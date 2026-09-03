@@ -80,9 +80,9 @@ class BalanceSheet implements ModelInterface, ArrayAccess, \JsonSerializable
         'balanced' => null,
         'equity' => null,
         'liabilities' => null,
-        'total_assets' => null,
-        'total_equity' => null,
-        'total_liabilities' => null
+        'total_assets' => 'int64',
+        'total_equity' => 'int64',
+        'total_liabilities' => 'int64'
     ];
 
     /**

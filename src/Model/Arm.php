@@ -74,7 +74,7 @@ class Arm implements ModelInterface, ArrayAccess, \JsonSerializable
         'control' => null,
         'key' => null,
         'payload' => null,
-        'weight' => null
+        'weight' => 'double'
     ];
 
     /**

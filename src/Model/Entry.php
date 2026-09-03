@@ -99,7 +99,7 @@ class Entry implements ModelInterface, ArrayAccess, \JsonSerializable
         'origin' => null,
         'repo' => null,
         'scope' => null,
-        'stars' => null,
+        'stars' => 'int64',
         'template' => null,
         'title' => null,
         'updated' => null,

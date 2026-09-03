@@ -70,7 +70,7 @@ class CsrfResp implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'csrf_token' => null,
-        'expires_in' => null
+        'expires_in' => 'int64'
     ];
 
     /**

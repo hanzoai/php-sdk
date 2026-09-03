@@ -73,7 +73,7 @@ class TrustCoverage implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'controls' => null,
         'frameworks' => null,
-        'generated' => null,
+        'generated' => 'int64',
         'version' => null
     ];
 

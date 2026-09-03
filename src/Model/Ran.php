@@ -70,7 +70,7 @@ class Ran implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'exit_code' => null,
+        'exit_code' => 'int64',
         'stderr' => null,
         'stdout' => null
     ];

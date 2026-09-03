@@ -70,7 +70,7 @@ class Backend implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'url' => null,
-        'weight' => null
+        'weight' => 'int64'
     ];
 
     /**

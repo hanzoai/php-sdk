@@ -80,13 +80,13 @@ class CaptableShare implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'capital_contribution' => null,
+        'capital_contribution' => 'double',
         'certificate_id' => null,
         'company_legends' => null,
         'id' => null,
         'issue_date' => null,
-        'price_per_share' => null,
-        'quantity' => null,
+        'price_per_share' => 'double',
+        'quantity' => 'int64',
         'share_class_id' => null,
         'share_class_name' => null,
         'share_class_type' => null,

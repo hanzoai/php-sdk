@@ -71,8 +71,8 @@ class Leg implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'account' => null,
-        'credit' => null,
-        'debit' => null
+        'credit' => 'int64',
+        'debit' => 'int64'
     ];
 
     /**

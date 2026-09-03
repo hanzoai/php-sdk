@@ -79,8 +79,8 @@ class InboxView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'account' => null,
         'channel' => null,
-        'created_at' => null,
-        'id' => null,
+        'created_at' => 'int64',
+        'id' => 'int64',
         'reply_to' => null,
         'room_id' => null,
         'room_kind' => null,

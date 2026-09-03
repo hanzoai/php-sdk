@@ -74,7 +74,7 @@ class O11ySpanMapperSource implements ModelInterface, ArrayAccess, \JsonSerializ
         'context' => null,
         'key' => null,
         'operation' => null,
-        'priority' => null
+        'priority' => 'int64'
     ];
 
     /**

@@ -70,7 +70,7 @@ class O11yO11yMetricStats implements ModelInterface, ArrayAccess, \JsonSerializa
       */
     protected static $openAPIFormats = [
         'metrics' => null,
-        'total' => null
+        'total' => 'uint64'
     ];
 
     /**

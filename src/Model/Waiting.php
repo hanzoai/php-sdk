@@ -80,7 +80,7 @@ class Waiting implements ModelInterface, ArrayAccess, \JsonSerializable
         'kyc_status' => null,
         'name' => null,
         'org' => null,
-        'since' => null
+        'since' => 'int64'
     ];
 
     /**

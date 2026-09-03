@@ -83,10 +83,10 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'bucket' => null,
-        'bytes' => null,
+        'bytes' => 'int64',
         'commit' => null,
-        'created_at' => null,
-        'files' => null,
+        'created_at' => 'int64',
+        'files' => 'int64',
         'id' => null,
         'live_url' => null,
         'message' => null,
@@ -94,9 +94,9 @@ class ProjectsDeployment implements ModelInterface, ArrayAccess, \JsonSerializab
         'project_id' => null,
         'source' => null,
         'status' => null,
-        'updated_at' => null,
+        'updated_at' => 'int64',
         'upload' => null,
-        'version' => null
+        'version' => 'int64'
     ];
 
     /**

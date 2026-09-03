@@ -72,7 +72,7 @@ class WebEngine implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'name' => null,
         'outcome' => null,
-        'results' => null
+        'results' => 'int64'
     ];
 
     /**

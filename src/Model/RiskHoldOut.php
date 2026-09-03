@@ -71,10 +71,10 @@ class RiskHoldOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'changed' => null,
-        'held' => null,
+        'changed' => 'int64',
+        'held' => 'int64',
         'hold' => null,
-        'missing' => null
+        'missing' => 'int64'
     ];
 
     /**

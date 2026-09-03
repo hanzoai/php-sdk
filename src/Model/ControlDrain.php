@@ -70,7 +70,7 @@ class ControlDrain implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'commands' => null,
-        'cursor' => null
+        'cursor' => 'int64'
     ];
 
     /**

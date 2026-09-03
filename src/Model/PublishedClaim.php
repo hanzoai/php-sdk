@@ -77,7 +77,7 @@ class PublishedClaim implements ModelInterface, ArrayAccess, \JsonSerializable
         'model' => null,
         'protocol' => null,
         'provider' => null,
-        'score' => null,
+        'score' => 'double',
         'source' => null
     ];
 

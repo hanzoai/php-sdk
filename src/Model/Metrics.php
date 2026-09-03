@@ -74,13 +74,13 @@ class Metrics implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'at' => null,
-        'gpu_util' => null,
-        'load1' => null,
-        'load5' => null,
-        'load15' => null,
-        'mem_free' => null,
-        'mem_used' => null
+        'at' => 'int64',
+        'gpu_util' => 'double',
+        'load1' => 'double',
+        'load5' => 'double',
+        'load15' => 'double',
+        'mem_free' => 'int64',
+        'mem_used' => 'int64'
     ];
 
     /**

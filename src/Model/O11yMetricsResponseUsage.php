@@ -72,10 +72,10 @@ class O11yMetricsResponseUsage implements ModelInterface, ArrayAccess, \JsonSeri
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'calls' => null,
-        'cost_cents' => null,
+        'calls' => 'int64',
+        'cost_cents' => 'int64',
         'series' => null,
-        'tokens' => null
+        'tokens' => 'int64'
     ];
 
     /**

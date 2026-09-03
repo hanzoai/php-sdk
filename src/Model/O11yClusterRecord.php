@@ -75,10 +75,10 @@ class O11yClusterRecord implements ModelInterface, ArrayAccess, \JsonSerializabl
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'cluster_cpu' => null,
-        'cluster_cpu_allocatable' => null,
-        'cluster_memory' => null,
-        'cluster_memory_allocatable' => null,
+        'cluster_cpu' => 'double',
+        'cluster_cpu_allocatable' => 'double',
+        'cluster_memory' => 'double',
+        'cluster_memory_allocatable' => 'double',
         'cluster_name' => null,
         'meta' => null,
         'node_counts_by_readiness' => null,

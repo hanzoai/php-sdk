@@ -92,7 +92,7 @@ class O11yO11yLLMScore implements ModelInterface, ArrayAccess, \JsonSerializable
         'timestamp' => 'date-time',
         'trace_id' => null,
         'updated_at' => 'date-time',
-        'value' => null
+        'value' => 'double'
     ];
 
     /**

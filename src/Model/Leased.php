@@ -58,6 +58,7 @@ class Leased implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'class' => 'string',
+        'cluster' => 'string',
         'id' => 'string',
         'runtime' => 'string',
         'status' => 'string',
@@ -73,6 +74,7 @@ class Leased implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'class' => null,
+        'cluster' => null,
         'id' => null,
         'runtime' => null,
         'status' => null,
@@ -86,6 +88,7 @@ class Leased implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'class' => false,
+        'cluster' => false,
         'id' => false,
         'runtime' => false,
         'status' => false,
@@ -179,6 +182,7 @@ class Leased implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'class' => 'class',
+        'cluster' => 'cluster',
         'id' => 'id',
         'runtime' => 'runtime',
         'status' => 'status',
@@ -192,6 +196,7 @@ class Leased implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'class' => 'setClass',
+        'cluster' => 'setCluster',
         'id' => 'setId',
         'runtime' => 'setRuntime',
         'status' => 'setStatus',
@@ -205,6 +210,7 @@ class Leased implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'class' => 'getClass',
+        'cluster' => 'getCluster',
         'id' => 'getId',
         'runtime' => 'getRuntime',
         'status' => 'getStatus',
@@ -269,6 +275,7 @@ class Leased implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('class', $data ?? [], null);
+        $this->setIfExists('cluster', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('runtime', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
@@ -340,6 +347,33 @@ class Leased implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable class cannot be null');
         }
         $this->container['class'] = $class;
+
+        return $this;
+    }
+
+    /**
+     * Gets cluster
+     *
+     * @return string|null
+     */
+    public function getCluster()
+    {
+        return $this->container['cluster'];
+    }
+
+    /**
+     * Sets cluster
+     *
+     * @param string|null $cluster Cluster is the attached cluster this sandbox runs on, when one was named. Empty is the home cluster.
+     *
+     * @return self
+     */
+    public function setCluster($cluster)
+    {
+        if (is_null($cluster)) {
+            throw new \InvalidArgumentException('non-nullable cluster cannot be null');
+        }
+        $this->container['cluster'] = $cluster;
 
         return $this;
     }

@@ -72,8 +72,8 @@ class AnalyzeQuery implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'alpha' => null,
-        'days' => null,
+        'alpha' => 'double',
+        'days' => 'int64',
         'end' => null,
         'id' => null,
         'start' => null

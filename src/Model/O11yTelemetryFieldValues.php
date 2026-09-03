@@ -72,7 +72,7 @@ class O11yTelemetryFieldValues implements ModelInterface, ArrayAccess, \JsonSeri
       */
     protected static $openAPIFormats = [
         'bool_values' => null,
-        'number_values' => null,
+        'number_values' => 'double',
         'related_values' => null,
         'string_values' => null
     ];

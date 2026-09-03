@@ -75,7 +75,7 @@ class ItemResult implements ModelInterface, ArrayAccess, \JsonSerializable
         'error' => null,
         'item_id' => null,
         'output' => null,
-        'score' => null,
+        'score' => 'double',
         'trace_id' => null
     ];
 

@@ -72,7 +72,7 @@ class VersionView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'created_at' => null,
         'type' => null,
-        'version' => null
+        'version' => 'int64'
     ];
 
     /**

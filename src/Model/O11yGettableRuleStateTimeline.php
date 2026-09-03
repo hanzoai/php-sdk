@@ -72,7 +72,7 @@ class O11yGettableRuleStateTimeline implements ModelInterface, ArrayAccess, \Jso
     protected static $openAPIFormats = [
         'items' => null,
         'next_cursor' => null,
-        'total' => null
+        'total' => 'uint64'
     ];
 
     /**

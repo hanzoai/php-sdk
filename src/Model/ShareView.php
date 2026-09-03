@@ -74,7 +74,7 @@ class ShareView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'backend' => null,
         'backend_mode' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'token' => null,
         'url' => null
     ];

@@ -72,7 +72,7 @@ class UsageRepo implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'name' => null,
         'project' => null,
-        'size_bytes' => null
+        'size_bytes' => 'int64'
     ];
 
     /**

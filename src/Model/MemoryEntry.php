@@ -82,7 +82,7 @@ class MemoryEntry implements ModelInterface, ArrayAccess, \JsonSerializable
         'target' => null,
         'text' => null,
         'tier' => null,
-        'updated_at' => null
+        'updated_at' => 'int64'
     ];
 
     /**

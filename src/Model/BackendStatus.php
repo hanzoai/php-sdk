@@ -73,10 +73,10 @@ class BackendStatus implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'error' => null,
-        'hits' => null,
+        'hits' => 'int64',
         'name' => null,
         'status' => null,
-        'took_ms' => null
+        'took_ms' => 'int64'
     ];
 
     /**
@@ -384,7 +384,7 @@ class BackendStatus implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name Name is which leg this reports: \"index\", the lexical store, \"vector\", the semantic one, or \"code\", the org's own repositories. Match.Backend uses the same three names.
+     * @param string|null $name Name is which leg this reports: \"index\", the lexical store, \"vector\", the semantic one, \"code\", the org's own repositories, or \"rerank\", the relevance pass over the fused window. Match.Backend uses the same names.
      *
      * @return self
      */

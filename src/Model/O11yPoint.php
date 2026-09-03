@@ -70,7 +70,7 @@ class O11yPoint implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         't' => null,
-        'v' => null
+        'v' => 'double'
     ];
 
     /**

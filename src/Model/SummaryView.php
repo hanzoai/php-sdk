@@ -69,8 +69,8 @@ class SummaryView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'doctypes' => null,
-        'documents' => null
+        'doctypes' => 'int64',
+        'documents' => 'int64'
     ];
 
     /**

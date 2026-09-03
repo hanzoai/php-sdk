@@ -77,7 +77,7 @@ class ActivityRow implements ModelInterface, ArrayAccess, \JsonSerializable
         'actor' => null,
         'at' => null,
         'detail' => null,
-        'id' => null,
+        'id' => 'int64',
         'key' => null
     ];
 

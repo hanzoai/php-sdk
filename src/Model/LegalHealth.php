@@ -70,7 +70,7 @@ class LegalHealth implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'status' => null,
-        'templates' => null
+        'templates' => 'int64'
     ];
 
     /**

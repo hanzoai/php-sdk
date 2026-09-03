@@ -77,7 +77,7 @@ class BankTxnRow implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'amount_cents' => null,
+        'amount_cents' => 'int64',
         'connector' => null,
         'currency' => null,
         'description' => null,

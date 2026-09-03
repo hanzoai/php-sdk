@@ -75,7 +75,7 @@ class Executions implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'fetched_at' => 'date-time',
         'orgs' => null,
-        'repos' => null,
+        'repos' => 'int64',
         'runs' => null,
         'source_err' => null,
         'stale' => null

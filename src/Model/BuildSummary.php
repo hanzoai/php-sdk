@@ -86,7 +86,7 @@ class BuildSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'started_at' => null,
         'status' => null,
         'title' => null,
-        'turns' => null
+        'turns' => 'int64'
     ];
 
     /**

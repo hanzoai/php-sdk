@@ -76,9 +76,9 @@ class ProjectsComplete implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'bytes' => null,
+        'bytes' => 'int64',
         'commit' => null,
-        'files' => null,
+        'files' => 'int64',
         'id' => null,
         'keys' => null,
         'live_url' => null,

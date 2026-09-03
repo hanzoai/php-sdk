@@ -75,8 +75,8 @@ class ObjectItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'etag' => null,
         'is_dir' => null,
         'key' => null,
-        'last_modified' => null,
-        'size' => null
+        'last_modified' => 'int64',
+        'size' => 'int64'
     ];
 
     /**

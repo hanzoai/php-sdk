@@ -69,8 +69,8 @@ class Sequences implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'consumer_seq' => null,
-        'stream_seq' => null
+        'consumer_seq' => 'uint64',
+        'stream_seq' => 'uint64'
     ];
 
     /**

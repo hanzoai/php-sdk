@@ -76,15 +76,15 @@ class BoardTotals implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'completion_tokens' => null,
-        'cost_cents' => null,
-        'errors' => null,
-        'generations' => null,
-        'models' => null,
-        'prompt_tokens' => null,
-        'success_rate' => null,
-        'total_tokens' => null,
-        'users' => null
+        'completion_tokens' => 'int64',
+        'cost_cents' => 'int64',
+        'errors' => 'int64',
+        'generations' => 'int64',
+        'models' => 'int64',
+        'prompt_tokens' => 'int64',
+        'success_rate' => 'double',
+        'total_tokens' => 'int64',
+        'users' => 'int64'
     ];
 
     /**

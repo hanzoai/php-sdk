@@ -70,8 +70,8 @@ class O11yGettableRuleStateWindow implements ModelInterface, ArrayAccess, \JsonS
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'end' => null,
-        'start' => null,
+        'end' => 'int64',
+        'start' => 'int64',
         'state' => null
     ];
 

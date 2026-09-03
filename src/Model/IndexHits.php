@@ -73,11 +73,11 @@ class IndexHits implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'estimated_total_hits' => null,
+        'estimated_total_hits' => 'int64',
         'hits' => null,
-        'limit' => null,
-        'offset' => null,
-        'processing_time_ms' => null,
+        'limit' => 'int64',
+        'offset' => 'int64',
+        'processing_time_ms' => 'int64',
         'query' => null
     ];
 

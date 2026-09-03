@@ -78,17 +78,17 @@ class O11yDaemonSetListRecord implements ModelInterface, ArrayAccess, \JsonSeria
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'available_nodes' => null,
-        'cpu_limit' => null,
-        'cpu_request' => null,
-        'cpu_usage' => null,
+        'available_nodes' => 'int64',
+        'cpu_limit' => 'double',
+        'cpu_request' => 'double',
+        'cpu_usage' => 'double',
         'daemon_set_name' => null,
-        'desired_nodes' => null,
-        'memory_limit' => null,
-        'memory_request' => null,
-        'memory_usage' => null,
+        'desired_nodes' => 'int64',
+        'memory_limit' => 'double',
+        'memory_request' => 'double',
+        'memory_usage' => 'double',
         'meta' => null,
-        'restarts' => null
+        'restarts' => 'int64'
     ];
 
     /**

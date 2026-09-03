@@ -77,7 +77,7 @@ class LicensingPubkeyView implements ModelInterface, ArrayAccess, \JsonSerializa
         'keys' => null,
         'provider' => null,
         'public_key' => null,
-        'schema' => null,
+        'schema' => 'uint8',
         'token_format' => null
     ];
 

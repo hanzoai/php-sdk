@@ -71,9 +71,9 @@ class O11yTracesOut implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'count' => null,
-        'limit' => null,
-        'since_sec' => null,
+        'count' => 'int64',
+        'limit' => 'int64',
+        'since_sec' => 'int64',
         'traces' => null
     ];
 

@@ -81,10 +81,10 @@ class IngressStatus implements ModelInterface, ArrayAccess, \JsonSerializable
         'edge_enabled' => null,
         'http_addr' => null,
         'https_addr' => null,
-        'live_hosts' => null,
+        'live_hosts' => 'int64',
         'proxy' => null,
         'role' => null,
-        'tls_hosts' => null
+        'tls_hosts' => 'int64'
     ];
 
     /**

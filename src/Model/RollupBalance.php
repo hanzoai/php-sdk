@@ -70,9 +70,9 @@ class RollupBalance implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'available_cents' => null,
-        'balance_cents' => null,
-        'holds_cents' => null
+        'available_cents' => 'int64',
+        'balance_cents' => 'int64',
+        'holds_cents' => 'int64'
     ];
 
     /**

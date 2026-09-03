@@ -71,10 +71,10 @@ class AdSummary implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'active' => null,
-        'budget' => null,
-        'campaigns' => null,
-        'spend' => null
+        'active' => 'int64',
+        'budget' => 'int64',
+        'campaigns' => 'int64',
+        'spend' => 'int64'
     ];
 
     /**

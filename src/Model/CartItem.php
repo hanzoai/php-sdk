@@ -78,8 +78,8 @@ class CartItem implements ModelInterface, ArrayAccess, \JsonSerializable
         'id' => null,
         'kind' => null,
         'name' => null,
-        'price_cents' => null,
-        'quantity' => null,
+        'price_cents' => 'int64',
+        'quantity' => 'int64',
         'sku' => null
     ];
 

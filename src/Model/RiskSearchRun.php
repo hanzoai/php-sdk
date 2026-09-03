@@ -70,8 +70,8 @@ class RiskSearchRun implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'candidates' => null,
-        'events' => null,
+        'candidates' => 'int64',
+        'events' => 'int64',
         'id' => null
     ];
 

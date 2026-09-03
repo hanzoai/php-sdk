@@ -72,9 +72,9 @@ class O11yO11yMetricPoint implements ModelInterface, ArrayAccess, \JsonSerializa
       */
     protected static $openAPIFormats = [
         'partial' => null,
-        'timestamp' => null,
-        'value' => null,
-        'values' => null
+        'timestamp' => 'int64',
+        'value' => 'double',
+        'values' => 'double'
     ];
 
     /**

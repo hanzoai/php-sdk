@@ -74,7 +74,7 @@ class RunRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'dataset' => null,
         'judge' => null,
-        'limit' => null,
+        'limit' => 'int64',
         'model' => null,
         'run_name' => null
     ];

@@ -76,7 +76,7 @@ class O11yO11yFunnelStepsUpdateIn implements ModelInterface, ArrayAccess, \JsonS
         'funnel_id' => null,
         'funnel_name' => null,
         'steps' => null,
-        'timestamp' => null
+        'timestamp' => 'int64'
     ];
 
     /**

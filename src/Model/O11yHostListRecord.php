@@ -76,13 +76,13 @@ class O11yHostListRecord implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'active' => null,
-        'cpu' => null,
+        'cpu' => 'double',
         'host_name' => null,
-        'load15' => null,
-        'memory' => null,
+        'load15' => 'double',
+        'memory' => 'double',
         'meta' => null,
         'os' => null,
-        'wait' => null
+        'wait' => 'double'
     ];
 
     /**

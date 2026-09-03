@@ -76,10 +76,10 @@ class O11yNodeListRecord implements ModelInterface, ArrayAccess, \JsonSerializab
     protected static $openAPIFormats = [
         'count_by_condition' => null,
         'meta' => null,
-        'node_cpu_allocatable' => null,
-        'node_cpu_usage' => null,
-        'node_memory_allocatable' => null,
-        'node_memory_usage' => null,
+        'node_cpu_allocatable' => 'double',
+        'node_cpu_usage' => 'double',
+        'node_memory_allocatable' => 'double',
+        'node_memory_usage' => 'double',
         'node_uid' => null
     ];
 

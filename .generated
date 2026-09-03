@@ -648,6 +648,7 @@ src/Model/EnrollReq.php
 src/Model/EnrollResult.php
 src/Model/Enrollment.php
 src/Model/EnrollmentList.php
+src/Model/EnrollmentView.php
 src/Model/Enrolment.php
 src/Model/EntitlementsView.php
 src/Model/Entry.php
@@ -686,7 +687,6 @@ src/Model/EvaluateIn.php
 src/Model/EvaluatorList.php
 src/Model/EvaluatorReq.php
 src/Model/EvaluatorView.php
-src/Model/Event.php
 src/Model/EventIn.php
 src/Model/EventList.php
 src/Model/EventView.php
@@ -963,6 +963,9 @@ src/Model/IamWorkspace.php
 src/Model/IamWorkspacesDeleteOutput.php
 src/Model/IamWorkspacesInput.php
 src/Model/IamWorkspacesListOutput.php
+src/Model/IdentityIn.php
+src/Model/IdentityList.php
+src/Model/IdentityView.php
 src/Model/ImageOrigin.php
 src/Model/ImageView.php
 src/Model/ImportCapTableIn.php
@@ -1025,6 +1028,7 @@ src/Model/ItemView.php
 src/Model/JobCancel.php
 src/Model/JobCanceled.php
 src/Model/JobList.php
+src/Model/JoinFailure.php
 src/Model/JourneyStep.php
 src/Model/JudgeSpec.php
 src/Model/KbAuthorizeOut.php
@@ -1096,6 +1100,7 @@ src/Model/LinkList.php
 src/Model/LinkMint.php
 src/Model/LinkView.php
 src/Model/ListOut.php
+src/Model/Listed.php
 src/Model/Listing.php
 src/Model/ListingPage.php
 src/Model/Liveness.php
@@ -2162,11 +2167,13 @@ src/Model/ProvisionRequest.php
 src/Model/ProvisionResult.php
 src/Model/ProvisionedResource.php
 src/Model/ProvisionedSummary.php
+src/Model/PublicRooms.php
 src/Model/PublishInput.php
 src/Model/PublishKitIn.php
 src/Model/PublishReq.php
 src/Model/PublishResult.php
 src/Model/PublishedClaim.php
+src/Model/PublishedView.php
 src/Model/PullList.php
 src/Model/PullView.php
 src/Model/Purge.php
@@ -2242,6 +2249,7 @@ src/Model/RegistryProjectList.php
 src/Model/RegistryStatus.php
 src/Model/RegistryTagList.php
 src/Model/RegistryToken.php
+src/Model/ReindexOut.php
 src/Model/ReleaseBoard.php
 src/Model/ReleaseRow.php
 src/Model/Remark.php
@@ -2426,6 +2434,7 @@ src/Model/SeriesLine.php
 src/Model/SeriesPoint.php
 src/Model/Service.php
 src/Model/ServiceDetail.php
+src/Model/ServiceIn.php
 src/Model/ServicePort.php
 src/Model/Session.php
 src/Model/SessionDetail.php
@@ -2451,6 +2460,7 @@ src/Model/Skill.php
 src/Model/SkillDeleted.php
 src/Model/SkillIn.php
 src/Model/SkillWritten.php
+src/Model/SlackJoinOut.php
 src/Model/SlotView.php
 src/Model/SocialAccount.php
 src/Model/SocialAccountBody.php
@@ -2686,5 +2696,4 @@ src/Model/WorldWire.php
 src/Model/WriteIn.php
 src/Model/Written.php
 src/Model/Wrote.php
-src/Model/ZapProcReq.php
 src/ObjectSerializer.php

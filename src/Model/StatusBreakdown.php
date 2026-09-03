@@ -70,9 +70,9 @@ class StatusBreakdown implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'error' => null,
-        'success' => null,
-        'timeout' => null
+        'error' => 'int64',
+        'success' => 'int64',
+        'timeout' => 'int64'
     ];
 
     /**

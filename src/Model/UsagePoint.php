@@ -71,10 +71,10 @@ class UsagePoint implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'requests' => null,
-        'spend_cents' => null,
+        'requests' => 'int64',
+        'spend_cents' => 'int64',
         't' => null,
-        'tokens' => null
+        'tokens' => 'int64'
     ];
 
     /**

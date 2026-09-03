@@ -88,7 +88,7 @@ class O11yO11yLogPipelines implements ModelInterface, ArrayAccess, \JsonSerializ
         'created_by' => null,
         'created_by_name' => null,
         'deploy_result' => null,
-        'deploy_sequence' => null,
+        'deploy_sequence' => 'int64',
         'deploy_status' => null,
         'element_type' => null,
         'history' => null,
@@ -98,7 +98,7 @@ class O11yO11yLogPipelines implements ModelInterface, ArrayAccess, \JsonSerializ
         'pipelines' => null,
         'updated_at' => 'date-time',
         'updated_by' => null,
-        'version' => null
+        'version' => 'int64'
     ];
 
     /**

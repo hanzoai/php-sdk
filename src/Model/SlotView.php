@@ -81,15 +81,15 @@ class SlotView implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'bls_pubkey' => null,
         'cr_name' => null,
-        'created_at' => null,
+        'created_at' => 'int64',
         'namespace' => null,
         'network' => null,
         'node_id' => null,
         'node_status' => null,
         'registration' => null,
-        'slot' => null,
-        'token_id' => null,
-        'updated_at' => null,
+        'slot' => 'uint64',
+        'token_id' => 'uint64',
+        'updated_at' => 'int64',
         'wallet' => null
     ];
 

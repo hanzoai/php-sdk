@@ -88,7 +88,7 @@ class Definition implements ModelInterface, ArrayAccess, \JsonSerializable
         'namespace' => null,
         'runtime' => null,
         'target' => null,
-        'timeout_sec' => null
+        'timeout_sec' => 'int64'
     ];
 
     /**

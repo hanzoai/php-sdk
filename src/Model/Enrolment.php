@@ -79,7 +79,7 @@ class Enrolment implements ModelInterface, ArrayAccess, \JsonSerializable
         'created' => null,
         'github_login' => null,
         'id' => null,
-        'share_bps' => null,
+        'share_bps' => 'int64',
         'status' => null,
         'verified' => null,
         'verify_code' => null,

@@ -69,7 +69,7 @@ class OrgEarningView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'commission_cents' => null,
+        'commission_cents' => 'int64',
         'referred_org' => null
     ];
 

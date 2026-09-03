@@ -70,8 +70,8 @@ class IamBulk implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'max_operations' => null,
-        'max_payload_size' => null,
+        'max_operations' => 'int64',
+        'max_payload_size' => 'int64',
         'supported' => null
     ];
 

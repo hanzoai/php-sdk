@@ -70,7 +70,7 @@ class PickOut implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'consumers' => null,
-        'total' => null
+        'total' => 'int64'
     ];
 
     /**

@@ -75,7 +75,7 @@ class O11yO11yFieldSetting implements ModelInterface, ArrayAccess, \JsonSerializ
     protected static $openAPIFormats = [
         'data_type' => null,
         'index' => null,
-        'index_granularity' => null,
+        'index_granularity' => 'int64',
         'name' => null,
         'selected' => null,
         'type' => null
