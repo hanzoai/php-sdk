@@ -10407,7 +10407,7 @@ class GitApi
     /**
      * Operation postGitWebhook
      *
-     * Retired — forge pushes build via platform.hanzo.ai
+     * Retired — push-to-deploy has no inbound webhook
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitWebhook'] to see the possible values for this operation
      *
@@ -10423,7 +10423,7 @@ class GitApi
     /**
      * Operation postGitWebhookWithHttpInfo
      *
-     * Retired — forge pushes build via platform.hanzo.ai
+     * Retired — push-to-deploy has no inbound webhook
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitWebhook'] to see the possible values for this operation
      *
@@ -10471,7 +10471,7 @@ class GitApi
     /**
      * Operation postGitWebhookAsync
      *
-     * Retired — forge pushes build via platform.hanzo.ai
+     * Retired — push-to-deploy has no inbound webhook
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitWebhook'] to see the possible values for this operation
      *
@@ -10491,7 +10491,7 @@ class GitApi
     /**
      * Operation postGitWebhookAsyncWithHttpInfo
      *
-     * Retired — forge pushes build via platform.hanzo.ai
+     * Retired — push-to-deploy has no inbound webhook
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postGitWebhook'] to see the possible values for this operation
      *

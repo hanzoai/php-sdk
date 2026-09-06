@@ -460,7 +460,7 @@ class ClusterView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets doks_cluster_id
      *
-     * @param string|null $doks_cluster_id DoksClusterID is the provider's own id for the cluster, and the value the /v1/visor/k8s/clusters/:id routes take. Empty for a BYO cluster: an attached kubeconfig was never provisioned, so there is no provider id to state.
+     * @param string|null $doks_cluster_id DoksClusterID is the provider's own id for the cluster, and the value the /v1/compute/k8s/clusters/:id routes take. Empty for a BYO cluster: an attached kubeconfig was never provisioned, so there is no provider id to state.
      *
      * @return self
      */
@@ -568,7 +568,7 @@ class ClusterView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets node_pools
      *
-     * @param \Hanzo\Cloud\Model\NodePoolView[]|null $node_pools NodePools is the authoritative node inventory — every pool, each with its own size and count. It is empty in two cases that are not \"no pools\": a row from the /v1/visor/k8s/clusters LIST, which is deliberately lightweight and whose :id detail carries them, and a BYO cluster, whose pools were never read.
+     * @param \Hanzo\Cloud\Model\NodePoolView[]|null $node_pools NodePools is the authoritative node inventory — every pool, each with its own size and count. It is empty in two cases that are not \"no pools\": a row from the /v1/compute/k8s/clusters LIST, which is deliberately lightweight and whose :id detail carries them, and a BYO cluster, whose pools were never read.
      *
      * @return self
      */

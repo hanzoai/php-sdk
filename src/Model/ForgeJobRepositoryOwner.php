@@ -1,6 +1,6 @@
 <?php
 /**
- * Push
+ * ForgeJobRepositoryOwner
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * Push Class Doc Comment
+ * ForgeJobRepositoryOwner Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class Push implements ModelInterface, ArrayAccess, \JsonSerializable
+class ForgeJobRepositoryOwner implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class Push implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'push';
+    protected static $openAPIModelName = 'forgeJob_repository_owner';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,11 +57,8 @@ class Push implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'after' => 'string',
-        'before' => 'string',
-        'pusher' => '\Hanzo\Cloud\Model\PushPusher',
-        'ref' => 'string',
-        'repository' => '\Hanzo\Cloud\Model\PushRepository'
+        'login' => 'string',
+        'username' => 'string'
     ];
 
     /**
@@ -72,11 +69,8 @@ class Push implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'after' => null,
-        'before' => null,
-        'pusher' => null,
-        'ref' => null,
-        'repository' => null
+        'login' => null,
+        'username' => null
     ];
 
     /**
@@ -85,11 +79,8 @@ class Push implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'after' => false,
-        'before' => false,
-        'pusher' => false,
-        'ref' => false,
-        'repository' => false
+        'login' => false,
+        'username' => false
     ];
 
     /**
@@ -178,11 +169,8 @@ class Push implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'after' => 'after',
-        'before' => 'before',
-        'pusher' => 'pusher',
-        'ref' => 'ref',
-        'repository' => 'repository'
+        'login' => 'login',
+        'username' => 'username'
     ];
 
     /**
@@ -191,11 +179,8 @@ class Push implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'after' => 'setAfter',
-        'before' => 'setBefore',
-        'pusher' => 'setPusher',
-        'ref' => 'setRef',
-        'repository' => 'setRepository'
+        'login' => 'setLogin',
+        'username' => 'setUsername'
     ];
 
     /**
@@ -204,11 +189,8 @@ class Push implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'after' => 'getAfter',
-        'before' => 'getBefore',
-        'pusher' => 'getPusher',
-        'ref' => 'getRef',
-        'repository' => 'getRepository'
+        'login' => 'getLogin',
+        'username' => 'getUsername'
     ];
 
     /**
@@ -268,11 +250,8 @@ class Push implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('after', $data ?? [], null);
-        $this->setIfExists('before', $data ?? [], null);
-        $this->setIfExists('pusher', $data ?? [], null);
-        $this->setIfExists('ref', $data ?? [], null);
-        $this->setIfExists('repository', $data ?? [], null);
+        $this->setIfExists('login', $data ?? [], null);
+        $this->setIfExists('username', $data ?? [], null);
     }
 
     /**
@@ -318,136 +297,55 @@ class Push implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets after
+     * Gets login
      *
      * @return string|null
      */
-    public function getAfter()
+    public function getLogin()
     {
-        return $this->container['after'];
+        return $this->container['login'];
     }
 
     /**
-     * Sets after
+     * Sets login
      *
-     * @param string|null $after after
+     * @param string|null $login login
      *
      * @return self
      */
-    public function setAfter($after)
+    public function setLogin($login)
     {
-        if (is_null($after)) {
-            throw new \InvalidArgumentException('non-nullable after cannot be null');
+        if (is_null($login)) {
+            throw new \InvalidArgumentException('non-nullable login cannot be null');
         }
-        $this->container['after'] = $after;
+        $this->container['login'] = $login;
 
         return $this;
     }
 
     /**
-     * Gets before
+     * Gets username
      *
      * @return string|null
      */
-    public function getBefore()
+    public function getUsername()
     {
-        return $this->container['before'];
+        return $this->container['username'];
     }
 
     /**
-     * Sets before
+     * Sets username
      *
-     * @param string|null $before before
+     * @param string|null $username username
      *
      * @return self
      */
-    public function setBefore($before)
+    public function setUsername($username)
     {
-        if (is_null($before)) {
-            throw new \InvalidArgumentException('non-nullable before cannot be null');
+        if (is_null($username)) {
+            throw new \InvalidArgumentException('non-nullable username cannot be null');
         }
-        $this->container['before'] = $before;
-
-        return $this;
-    }
-
-    /**
-     * Gets pusher
-     *
-     * @return \Hanzo\Cloud\Model\PushPusher|null
-     */
-    public function getPusher()
-    {
-        return $this->container['pusher'];
-    }
-
-    /**
-     * Sets pusher
-     *
-     * @param \Hanzo\Cloud\Model\PushPusher|null $pusher pusher
-     *
-     * @return self
-     */
-    public function setPusher($pusher)
-    {
-        if (is_null($pusher)) {
-            throw new \InvalidArgumentException('non-nullable pusher cannot be null');
-        }
-        $this->container['pusher'] = $pusher;
-
-        return $this;
-    }
-
-    /**
-     * Gets ref
-     *
-     * @return string|null
-     */
-    public function getRef()
-    {
-        return $this->container['ref'];
-    }
-
-    /**
-     * Sets ref
-     *
-     * @param string|null $ref ref
-     *
-     * @return self
-     */
-    public function setRef($ref)
-    {
-        if (is_null($ref)) {
-            throw new \InvalidArgumentException('non-nullable ref cannot be null');
-        }
-        $this->container['ref'] = $ref;
-
-        return $this;
-    }
-
-    /**
-     * Gets repository
-     *
-     * @return \Hanzo\Cloud\Model\PushRepository|null
-     */
-    public function getRepository()
-    {
-        return $this->container['repository'];
-    }
-
-    /**
-     * Sets repository
-     *
-     * @param \Hanzo\Cloud\Model\PushRepository|null $repository repository
-     *
-     * @return self
-     */
-    public function setRepository($repository)
-    {
-        if (is_null($repository)) {
-            throw new \InvalidArgumentException('non-nullable repository cannot be null');
-        }
-        $this->container['repository'] = $repository;
+        $this->container['username'] = $username;
 
         return $this;
     }

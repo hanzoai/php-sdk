@@ -60,8 +60,8 @@ class Metrics implements ModelInterface, ArrayAccess, \JsonSerializable
         'at' => 'int',
         'gpu_util' => 'float',
         'load1' => 'float',
-        'load5' => 'float',
         'load15' => 'float',
+        'load5' => 'float',
         'mem_free' => 'int',
         'mem_used' => 'int'
     ];
@@ -77,8 +77,8 @@ class Metrics implements ModelInterface, ArrayAccess, \JsonSerializable
         'at' => 'int64',
         'gpu_util' => 'double',
         'load1' => 'double',
-        'load5' => 'double',
         'load15' => 'double',
+        'load5' => 'double',
         'mem_free' => 'int64',
         'mem_used' => 'int64'
     ];
@@ -92,8 +92,8 @@ class Metrics implements ModelInterface, ArrayAccess, \JsonSerializable
         'at' => false,
         'gpu_util' => false,
         'load1' => false,
-        'load5' => false,
         'load15' => false,
+        'load5' => false,
         'mem_free' => false,
         'mem_used' => false
     ];
@@ -187,8 +187,8 @@ class Metrics implements ModelInterface, ArrayAccess, \JsonSerializable
         'at' => 'at',
         'gpu_util' => 'gpuUtil',
         'load1' => 'load1',
-        'load5' => 'load5',
         'load15' => 'load15',
+        'load5' => 'load5',
         'mem_free' => 'memFree',
         'mem_used' => 'memUsed'
     ];
@@ -202,8 +202,8 @@ class Metrics implements ModelInterface, ArrayAccess, \JsonSerializable
         'at' => 'setAt',
         'gpu_util' => 'setGpuUtil',
         'load1' => 'setLoad1',
-        'load5' => 'setLoad5',
         'load15' => 'setLoad15',
+        'load5' => 'setLoad5',
         'mem_free' => 'setMemFree',
         'mem_used' => 'setMemUsed'
     ];
@@ -217,8 +217,8 @@ class Metrics implements ModelInterface, ArrayAccess, \JsonSerializable
         'at' => 'getAt',
         'gpu_util' => 'getGpuUtil',
         'load1' => 'getLoad1',
-        'load5' => 'getLoad5',
         'load15' => 'getLoad15',
+        'load5' => 'getLoad5',
         'mem_free' => 'getMemFree',
         'mem_used' => 'getMemUsed'
     ];
@@ -283,8 +283,8 @@ class Metrics implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('at', $data ?? [], null);
         $this->setIfExists('gpu_util', $data ?? [], null);
         $this->setIfExists('load1', $data ?? [], null);
-        $this->setIfExists('load5', $data ?? [], null);
         $this->setIfExists('load15', $data ?? [], null);
+        $this->setIfExists('load5', $data ?? [], null);
         $this->setIfExists('mem_free', $data ?? [], null);
         $this->setIfExists('mem_used', $data ?? [], null);
     }
@@ -413,33 +413,6 @@ class Metrics implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets load5
-     *
-     * @return float|null
-     */
-    public function getLoad5()
-    {
-        return $this->container['load5'];
-    }
-
-    /**
-     * Sets load5
-     *
-     * @param float|null $load5 Load5 is the same figure averaged over five minutes.
-     *
-     * @return self
-     */
-    public function setLoad5($load5)
-    {
-        if (is_null($load5)) {
-            throw new \InvalidArgumentException('non-nullable load5 cannot be null');
-        }
-        $this->container['load5'] = $load5;
-
-        return $this;
-    }
-
-    /**
      * Gets load15
      *
      * @return float|null
@@ -462,6 +435,33 @@ class Metrics implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable load15 cannot be null');
         }
         $this->container['load15'] = $load15;
+
+        return $this;
+    }
+
+    /**
+     * Gets load5
+     *
+     * @return float|null
+     */
+    public function getLoad5()
+    {
+        return $this->container['load5'];
+    }
+
+    /**
+     * Sets load5
+     *
+     * @param float|null $load5 Load5 is the same figure averaged over five minutes.
+     *
+     * @return self
+     */
+    public function setLoad5($load5)
+    {
+        if (is_null($load5)) {
+            throw new \InvalidArgumentException('non-nullable load5 cannot be null');
+        }
+        $this->container['load5'] = $load5;
 
         return $this;
     }

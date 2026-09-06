@@ -57,6 +57,8 @@ class MachineView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
+        'agent' => 'string',
+        'binding' => '\Hanzo\Cloud\Model\AgentBinding',
         'created_time' => 'string',
         'gpu' => 'string',
         'id' => 'string',
@@ -81,6 +83,8 @@ class MachineView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'agent' => null,
+        'binding' => null,
         'created_time' => null,
         'gpu' => null,
         'id' => null,
@@ -103,6 +107,8 @@ class MachineView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'agent' => false,
+        'binding' => false,
         'created_time' => false,
         'gpu' => false,
         'id' => false,
@@ -205,6 +211,8 @@ class MachineView implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
+        'agent' => 'agent',
+        'binding' => 'binding',
         'created_time' => 'createdTime',
         'gpu' => 'gpu',
         'id' => 'id',
@@ -227,6 +235,8 @@ class MachineView implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
+        'agent' => 'setAgent',
+        'binding' => 'setBinding',
         'created_time' => 'setCreatedTime',
         'gpu' => 'setGpu',
         'id' => 'setId',
@@ -249,6 +259,8 @@ class MachineView implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
+        'agent' => 'getAgent',
+        'binding' => 'getBinding',
         'created_time' => 'getCreatedTime',
         'gpu' => 'getGpu',
         'id' => 'getId',
@@ -322,6 +334,8 @@ class MachineView implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('agent', $data ?? [], null);
+        $this->setIfExists('binding', $data ?? [], null);
         $this->setIfExists('created_time', $data ?? [], null);
         $this->setIfExists('gpu', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
@@ -379,6 +393,60 @@ class MachineView implements ModelInterface, ArrayAccess, \JsonSerializable
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets agent
+     *
+     * @return string|null
+     */
+    public function getAgent()
+    {
+        return $this->container['agent'];
+    }
+
+    /**
+     * Sets agent
+     *
+     * @param string|null $agent Agent is the cloud Agent this machine runs, lifted out of the binding so a list reads without following one. Empty means nothing is bound — for a kind=bot machine that means it costs money and answers nothing.
+     *
+     * @return self
+     */
+    public function setAgent($agent)
+    {
+        if (is_null($agent)) {
+            throw new \InvalidArgumentException('non-nullable agent cannot be null');
+        }
+        $this->container['agent'] = $agent;
+
+        return $this;
+    }
+
+    /**
+     * Gets binding
+     *
+     * @return \Hanzo\Cloud\Model\AgentBinding|null
+     */
+    public function getBinding()
+    {
+        return $this->container['binding'];
+    }
+
+    /**
+     * Sets binding
+     *
+     * @param \Hanzo\Cloud\Model\AgentBinding|null $binding Binding is the record joining this machine to that agent, carrying vm's own reconciled status and its reason. Absent means no runtime is bound, which is also what a stopped bot looks like: stopping unbinds and leaves the machine running.
+     *
+     * @return self
+     */
+    public function setBinding($binding)
+    {
+        if (is_null($binding)) {
+            throw new \InvalidArgumentException('non-nullable binding cannot be null');
+        }
+        $this->container['binding'] = $binding;
+
+        return $this;
+    }
 
     /**
      * Gets created_time
@@ -447,7 +515,7 @@ class MachineView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id ID addresses this machine on the /v1/visor/machines/:id routes: the org-scoped NAME Visor keys a machine by, falling back to the provider id for a machine that has no name. A BYO machine's is the id it dialed in under.
+     * @param string|null $id ID addresses this machine on the /v1/compute/machines/:id routes: the org-scoped NAME Visor keys a machine by, falling back to the provider id for a machine that has no name. A BYO machine's is the id it dialed in under.
      *
      * @return self
      */
@@ -501,7 +569,7 @@ class MachineView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets mem
      *
-     * @param string|null $mem Mem is system RAM rendered for a human (\"8 GB\"), not a number to compute with. Empty when the provider's figure is ambiguous, or when the only figure available is a GPU slug's gb — that is VRAM, and reporting it as system RAM would be a fabrication. A BYO machine's RAM is on /v1/visor/fleet/workers.
+     * @param string|null $mem Mem is system RAM rendered for a human (\"8 GB\"), not a number to compute with. Empty when the provider's figure is ambiguous, or when the only figure available is a GPU slug's gb — that is VRAM, and reporting it as system RAM would be a fabrication. A BYO machine's RAM is on /v1/compute/fleet/workers.
      *
      * @return self
      */
@@ -744,7 +812,7 @@ class MachineView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets vcpu
      *
-     * @param int|null $vcpu Vcpu is logical cores — the provider's own cpuSize when that is a clean integer, else the count read out of the size slug (4 from \"s-4vcpu-8gb\"). ABSENT, never 0, when neither says. A BYO machine leaves it absent here; its real core count is on GET /v1/visor/fleet/workers.
+     * @param int|null $vcpu Vcpu is logical cores — the provider's own cpuSize when that is a clean integer, else the count read out of the size slug (4 from \"s-4vcpu-8gb\"). ABSENT, never 0, when neither says. A BYO machine leaves it absent here; its real core count is on GET /v1/compute/fleet/workers.
      *
      * @return self
      */

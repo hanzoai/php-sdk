@@ -92,6 +92,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_time' => 'string',
         'currency' => 'string',
         'custom' => 'string',
+        'custom10' => 'string',
         'custom2' => 'string',
         'custom3' => 'string',
         'custom4' => 'string',
@@ -100,7 +101,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom7' => 'string',
         'custom8' => 'string',
         'custom9' => 'string',
-        'custom10' => 'string',
         'dailymotion' => 'string',
         'deezer' => 'string',
         'deleted' => 'bool',
@@ -286,6 +286,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_time' => null,
         'currency' => null,
         'custom' => null,
+        'custom10' => null,
         'custom2' => null,
         'custom3' => null,
         'custom4' => null,
@@ -294,7 +295,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom7' => null,
         'custom8' => null,
         'custom9' => null,
-        'custom10' => null,
         'dailymotion' => null,
         'deezer' => null,
         'deleted' => null,
@@ -478,6 +478,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_time' => false,
         'currency' => false,
         'custom' => false,
+        'custom10' => false,
         'custom2' => false,
         'custom3' => false,
         'custom4' => false,
@@ -486,7 +487,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom7' => false,
         'custom8' => false,
         'custom9' => false,
-        'custom10' => false,
         'dailymotion' => false,
         'deezer' => false,
         'deleted' => false,
@@ -750,6 +750,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_time' => 'createdTime',
         'currency' => 'currency',
         'custom' => 'custom',
+        'custom10' => 'custom10',
         'custom2' => 'custom2',
         'custom3' => 'custom3',
         'custom4' => 'custom4',
@@ -758,7 +759,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom7' => 'custom7',
         'custom8' => 'custom8',
         'custom9' => 'custom9',
-        'custom10' => 'custom10',
         'dailymotion' => 'dailymotion',
         'deezer' => 'deezer',
         'deleted' => 'deleted',
@@ -942,6 +942,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_time' => 'setCreatedTime',
         'currency' => 'setCurrency',
         'custom' => 'setCustom',
+        'custom10' => 'setCustom10',
         'custom2' => 'setCustom2',
         'custom3' => 'setCustom3',
         'custom4' => 'setCustom4',
@@ -950,7 +951,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom7' => 'setCustom7',
         'custom8' => 'setCustom8',
         'custom9' => 'setCustom9',
-        'custom10' => 'setCustom10',
         'dailymotion' => 'setDailymotion',
         'deezer' => 'setDeezer',
         'deleted' => 'setDeleted',
@@ -1134,6 +1134,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'created_time' => 'getCreatedTime',
         'currency' => 'getCurrency',
         'custom' => 'getCustom',
+        'custom10' => 'getCustom10',
         'custom2' => 'getCustom2',
         'custom3' => 'getCustom3',
         'custom4' => 'getCustom4',
@@ -1142,7 +1143,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         'custom7' => 'getCustom7',
         'custom8' => 'getCustom8',
         'custom9' => 'getCustom9',
-        'custom10' => 'getCustom10',
         'dailymotion' => 'getDailymotion',
         'deezer' => 'getDeezer',
         'deleted' => 'getDeleted',
@@ -1377,6 +1377,7 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('created_time', $data ?? [], null);
         $this->setIfExists('currency', $data ?? [], null);
         $this->setIfExists('custom', $data ?? [], null);
+        $this->setIfExists('custom10', $data ?? [], null);
         $this->setIfExists('custom2', $data ?? [], null);
         $this->setIfExists('custom3', $data ?? [], null);
         $this->setIfExists('custom4', $data ?? [], null);
@@ -1385,7 +1386,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('custom7', $data ?? [], null);
         $this->setIfExists('custom8', $data ?? [], null);
         $this->setIfExists('custom9', $data ?? [], null);
-        $this->setIfExists('custom10', $data ?? [], null);
         $this->setIfExists('dailymotion', $data ?? [], null);
         $this->setIfExists('deezer', $data ?? [], null);
         $this->setIfExists('deleted', $data ?? [], null);
@@ -2516,6 +2516,33 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets custom10
+     *
+     * @return string|null
+     */
+    public function getCustom10()
+    {
+        return $this->container['custom10'];
+    }
+
+    /**
+     * Sets custom10
+     *
+     * @param string|null $custom10 custom10
+     *
+     * @return self
+     */
+    public function setCustom10($custom10)
+    {
+        if (is_null($custom10)) {
+            throw new \InvalidArgumentException('non-nullable custom10 cannot be null');
+        }
+        $this->container['custom10'] = $custom10;
+
+        return $this;
+    }
+
+    /**
      * Gets custom2
      *
      * @return string|null
@@ -2727,33 +2754,6 @@ class IamUser implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable custom9 cannot be null');
         }
         $this->container['custom9'] = $custom9;
-
-        return $this;
-    }
-
-    /**
-     * Gets custom10
-     *
-     * @return string|null
-     */
-    public function getCustom10()
-    {
-        return $this->container['custom10'];
-    }
-
-    /**
-     * Sets custom10
-     *
-     * @param string|null $custom10 custom10
-     *
-     * @return self
-     */
-    public function setCustom10($custom10)
-    {
-        if (is_null($custom10)) {
-            throw new \InvalidArgumentException('non-nullable custom10 cannot be null');
-        }
-        $this->container['custom10'] = $custom10;
 
         return $this;
     }

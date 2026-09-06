@@ -1,6 +1,6 @@
 <?php
 /**
- * ToolsApi
+ * ToolApi
  * PHP version 8.1
  *
  * @category Class
@@ -43,14 +43,14 @@ use Hanzo\Cloud\HeaderSelector;
 use Hanzo\Cloud\ObjectSerializer;
 
 /**
- * ToolsApi Class Doc Comment
+ * ToolApi Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class ToolsApi
+class ToolApi
 {
     /**
      * @var ClientInterface
@@ -74,61 +74,61 @@ class ToolsApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
-        'deleteToolsMcpServersById' => [
+        'deleteToolMcpServersById' => [
             'application/json',
         ],
-        'deleteToolsPluginsAuthoredById' => [
+        'deleteToolPluginsAuthoredById' => [
             'application/json',
         ],
-        'deleteToolsSkillsById' => [
+        'deleteToolSkillsById' => [
             'application/json',
         ],
-        'getTools' => [
+        'getTool' => [
             'application/json',
         ],
-        'getToolsActivation' => [
+        'getToolActivation' => [
             'application/json',
         ],
-        'getToolsCatalog' => [
+        'getToolCatalog' => [
             'application/json',
         ],
-        'getToolsCatalogById' => [
+        'getToolCatalogById' => [
             'application/json',
         ],
-        'getToolsMcpServers' => [
+        'getToolMcpServers' => [
             'application/json',
         ],
-        'getToolsPlugins' => [
+        'getToolPlugins' => [
             'application/json',
         ],
-        'getToolsPluginsAuthored' => [
+        'getToolPluginsAuthored' => [
             'application/json',
         ],
-        'getToolsSkills' => [
+        'getToolSkills' => [
             'application/json',
         ],
-        'getToolsSkillsAuthored' => [
+        'getToolSkillsAuthored' => [
             'application/json',
         ],
-        'patchToolsCatalogById' => [
+        'patchToolCatalogById' => [
             'application/json',
         ],
-        'postToolsCall' => [
+        'postToolCall' => [
             'application/json',
         ],
-        'postToolsCatalogSync' => [
+        'postToolCatalogSync' => [
             'application/json',
         ],
-        'postToolsMcpServers' => [
+        'postToolMcpServers' => [
             'application/json',
         ],
-        'postToolsPluginsBuild' => [
+        'postToolPluginsBuild' => [
             'application/json',
         ],
-        'postToolsSkills' => [
+        'postToolSkills' => [
             'application/json',
         ],
-        'putToolsActivation' => [
+        'putToolActivation' => [
             'application/json',
         ],
     ];
@@ -180,37 +180,37 @@ class ToolsApi
     }
 
     /**
-     * Operation deleteToolsMcpServersById
+     * Operation deleteToolMcpServersById
      *
      * Deregisters one of the caller org&#39;s external MCP servers, so its tools leave the registry.
      *
      * @param  string $id ID is the server to deregister, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsMcpServersById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolMcpServersById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function deleteToolsMcpServersById($id, string $contentType = self::contentTypes['deleteToolsMcpServersById'][0])
+    public function deleteToolMcpServersById($id, string $contentType = self::contentTypes['deleteToolMcpServersById'][0])
     {
-        $this->deleteToolsMcpServersByIdWithHttpInfo($id, $contentType);
+        $this->deleteToolMcpServersByIdWithHttpInfo($id, $contentType);
     }
 
     /**
-     * Operation deleteToolsMcpServersByIdWithHttpInfo
+     * Operation deleteToolMcpServersByIdWithHttpInfo
      *
      * Deregisters one of the caller org&#39;s external MCP servers, so its tools leave the registry.
      *
      * @param  string $id ID is the server to deregister, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsMcpServersById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolMcpServersById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteToolsMcpServersByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolsMcpServersById'][0])
+    public function deleteToolMcpServersByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolMcpServersById'][0])
     {
-        $request = $this->deleteToolsMcpServersByIdRequest($id, $contentType);
+        $request = $this->deleteToolMcpServersByIdRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -246,19 +246,19 @@ class ToolsApi
     }
 
     /**
-     * Operation deleteToolsMcpServersByIdAsync
+     * Operation deleteToolMcpServersByIdAsync
      *
      * Deregisters one of the caller org&#39;s external MCP servers, so its tools leave the registry.
      *
      * @param  string $id ID is the server to deregister, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsMcpServersById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolMcpServersById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteToolsMcpServersByIdAsync($id, string $contentType = self::contentTypes['deleteToolsMcpServersById'][0])
+    public function deleteToolMcpServersByIdAsync($id, string $contentType = self::contentTypes['deleteToolMcpServersById'][0])
     {
-        return $this->deleteToolsMcpServersByIdAsyncWithHttpInfo($id, $contentType)
+        return $this->deleteToolMcpServersByIdAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -267,20 +267,20 @@ class ToolsApi
     }
 
     /**
-     * Operation deleteToolsMcpServersByIdAsyncWithHttpInfo
+     * Operation deleteToolMcpServersByIdAsyncWithHttpInfo
      *
      * Deregisters one of the caller org&#39;s external MCP servers, so its tools leave the registry.
      *
      * @param  string $id ID is the server to deregister, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsMcpServersById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolMcpServersById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteToolsMcpServersByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolsMcpServersById'][0])
+    public function deleteToolMcpServersByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolMcpServersById'][0])
     {
         $returnType = '';
-        $request = $this->deleteToolsMcpServersByIdRequest($id, $contentType);
+        $request = $this->deleteToolMcpServersByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -306,26 +306,26 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'deleteToolsMcpServersById'
+     * Create request for operation 'deleteToolMcpServersById'
      *
      * @param  string $id ID is the server to deregister, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsMcpServersById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolMcpServersById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteToolsMcpServersByIdRequest($id, string $contentType = self::contentTypes['deleteToolsMcpServersById'][0])
+    public function deleteToolMcpServersByIdRequest($id, string $contentType = self::contentTypes['deleteToolMcpServersById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling deleteToolsMcpServersById'
+                'Missing the required parameter $id when calling deleteToolMcpServersById'
             );
         }
 
 
-        $resourcePath = '/v1/tools/mcp/servers/{id}';
+        $resourcePath = '/v1/tool/mcp/servers/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -402,38 +402,38 @@ class ToolsApi
     }
 
     /**
-     * Operation deleteToolsPluginsAuthoredById
+     * Operation deleteToolPluginsAuthoredById
      *
      * Removes one of the caller org&#39;s built plugins, so the runtime can no longer load it.
      *
      * @param  string $id ID is the plugin to remove, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsPluginsAuthoredById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolPluginsAuthoredById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PluginDeleted
      */
-    public function deleteToolsPluginsAuthoredById($id, string $contentType = self::contentTypes['deleteToolsPluginsAuthoredById'][0])
+    public function deleteToolPluginsAuthoredById($id, string $contentType = self::contentTypes['deleteToolPluginsAuthoredById'][0])
     {
-        list($response) = $this->deleteToolsPluginsAuthoredByIdWithHttpInfo($id, $contentType);
+        list($response) = $this->deleteToolPluginsAuthoredByIdWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation deleteToolsPluginsAuthoredByIdWithHttpInfo
+     * Operation deleteToolPluginsAuthoredByIdWithHttpInfo
      *
      * Removes one of the caller org&#39;s built plugins, so the runtime can no longer load it.
      *
      * @param  string $id ID is the plugin to remove, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsPluginsAuthoredById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolPluginsAuthoredById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PluginDeleted, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteToolsPluginsAuthoredByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolsPluginsAuthoredById'][0])
+    public function deleteToolPluginsAuthoredByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolPluginsAuthoredById'][0])
     {
-        $request = $this->deleteToolsPluginsAuthoredByIdRequest($id, $contentType);
+        $request = $this->deleteToolPluginsAuthoredByIdRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -505,19 +505,19 @@ class ToolsApi
     }
 
     /**
-     * Operation deleteToolsPluginsAuthoredByIdAsync
+     * Operation deleteToolPluginsAuthoredByIdAsync
      *
      * Removes one of the caller org&#39;s built plugins, so the runtime can no longer load it.
      *
      * @param  string $id ID is the plugin to remove, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsPluginsAuthoredById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolPluginsAuthoredById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteToolsPluginsAuthoredByIdAsync($id, string $contentType = self::contentTypes['deleteToolsPluginsAuthoredById'][0])
+    public function deleteToolPluginsAuthoredByIdAsync($id, string $contentType = self::contentTypes['deleteToolPluginsAuthoredById'][0])
     {
-        return $this->deleteToolsPluginsAuthoredByIdAsyncWithHttpInfo($id, $contentType)
+        return $this->deleteToolPluginsAuthoredByIdAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -526,20 +526,20 @@ class ToolsApi
     }
 
     /**
-     * Operation deleteToolsPluginsAuthoredByIdAsyncWithHttpInfo
+     * Operation deleteToolPluginsAuthoredByIdAsyncWithHttpInfo
      *
      * Removes one of the caller org&#39;s built plugins, so the runtime can no longer load it.
      *
      * @param  string $id ID is the plugin to remove, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsPluginsAuthoredById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolPluginsAuthoredById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteToolsPluginsAuthoredByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolsPluginsAuthoredById'][0])
+    public function deleteToolPluginsAuthoredByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolPluginsAuthoredById'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PluginDeleted';
-        $request = $this->deleteToolsPluginsAuthoredByIdRequest($id, $contentType);
+        $request = $this->deleteToolPluginsAuthoredByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -578,26 +578,26 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'deleteToolsPluginsAuthoredById'
+     * Create request for operation 'deleteToolPluginsAuthoredById'
      *
      * @param  string $id ID is the plugin to remove, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsPluginsAuthoredById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolPluginsAuthoredById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteToolsPluginsAuthoredByIdRequest($id, string $contentType = self::contentTypes['deleteToolsPluginsAuthoredById'][0])
+    public function deleteToolPluginsAuthoredByIdRequest($id, string $contentType = self::contentTypes['deleteToolPluginsAuthoredById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling deleteToolsPluginsAuthoredById'
+                'Missing the required parameter $id when calling deleteToolPluginsAuthoredById'
             );
         }
 
 
-        $resourcePath = '/v1/tools/plugins/authored/{id}';
+        $resourcePath = '/v1/tool/plugins/authored/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -674,38 +674,38 @@ class ToolsApi
     }
 
     /**
-     * Operation deleteToolsSkillsById
+     * Operation deleteToolSkillsById
      *
      * Removes one of the caller org&#39;s authored skills.
      *
      * @param  string $id ID is the skill to remove, from the path. It is the skill&#39;s name. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsSkillsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolSkillsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\SkillDeleted
      */
-    public function deleteToolsSkillsById($id, string $contentType = self::contentTypes['deleteToolsSkillsById'][0])
+    public function deleteToolSkillsById($id, string $contentType = self::contentTypes['deleteToolSkillsById'][0])
     {
-        list($response) = $this->deleteToolsSkillsByIdWithHttpInfo($id, $contentType);
+        list($response) = $this->deleteToolSkillsByIdWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation deleteToolsSkillsByIdWithHttpInfo
+     * Operation deleteToolSkillsByIdWithHttpInfo
      *
      * Removes one of the caller org&#39;s authored skills.
      *
      * @param  string $id ID is the skill to remove, from the path. It is the skill&#39;s name. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsSkillsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolSkillsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\SkillDeleted, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteToolsSkillsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolsSkillsById'][0])
+    public function deleteToolSkillsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolSkillsById'][0])
     {
-        $request = $this->deleteToolsSkillsByIdRequest($id, $contentType);
+        $request = $this->deleteToolSkillsByIdRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -777,19 +777,19 @@ class ToolsApi
     }
 
     /**
-     * Operation deleteToolsSkillsByIdAsync
+     * Operation deleteToolSkillsByIdAsync
      *
      * Removes one of the caller org&#39;s authored skills.
      *
      * @param  string $id ID is the skill to remove, from the path. It is the skill&#39;s name. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsSkillsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolSkillsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteToolsSkillsByIdAsync($id, string $contentType = self::contentTypes['deleteToolsSkillsById'][0])
+    public function deleteToolSkillsByIdAsync($id, string $contentType = self::contentTypes['deleteToolSkillsById'][0])
     {
-        return $this->deleteToolsSkillsByIdAsyncWithHttpInfo($id, $contentType)
+        return $this->deleteToolSkillsByIdAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -798,20 +798,20 @@ class ToolsApi
     }
 
     /**
-     * Operation deleteToolsSkillsByIdAsyncWithHttpInfo
+     * Operation deleteToolSkillsByIdAsyncWithHttpInfo
      *
      * Removes one of the caller org&#39;s authored skills.
      *
      * @param  string $id ID is the skill to remove, from the path. It is the skill&#39;s name. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsSkillsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolSkillsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteToolsSkillsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolsSkillsById'][0])
+    public function deleteToolSkillsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteToolSkillsById'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\SkillDeleted';
-        $request = $this->deleteToolsSkillsByIdRequest($id, $contentType);
+        $request = $this->deleteToolSkillsByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -850,26 +850,26 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'deleteToolsSkillsById'
+     * Create request for operation 'deleteToolSkillsById'
      *
      * @param  string $id ID is the skill to remove, from the path. It is the skill&#39;s name. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolsSkillsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteToolSkillsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteToolsSkillsByIdRequest($id, string $contentType = self::contentTypes['deleteToolsSkillsById'][0])
+    public function deleteToolSkillsByIdRequest($id, string $contentType = self::contentTypes['deleteToolSkillsById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling deleteToolsSkillsById'
+                'Missing the required parameter $id when calling deleteToolSkillsById'
             );
         }
 
 
-        $resourcePath = '/v1/tools/skills/{id}';
+        $resourcePath = '/v1/tool/skills/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -946,40 +946,40 @@ class ToolsApi
     }
 
     /**
-     * Operation getTools
+     * Operation getTool
      *
      * Lists every tool the caller&#39;s org and project can reach, from every source, each flagged with whether it is activated.
      *
      * @param  string|null $source Source keeps only tools from one source — connector, function, zap-service, agent, skill or mcp. Empty keeps every source. (optional)
      * @param  string|null $activated Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTools'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTool'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ToolList
      */
-    public function getTools($source = null, $activated = null, string $contentType = self::contentTypes['getTools'][0])
+    public function getTool($source = null, $activated = null, string $contentType = self::contentTypes['getTool'][0])
     {
-        list($response) = $this->getToolsWithHttpInfo($source, $activated, $contentType);
+        list($response) = $this->getToolWithHttpInfo($source, $activated, $contentType);
         return $response;
     }
 
     /**
-     * Operation getToolsWithHttpInfo
+     * Operation getToolWithHttpInfo
      *
      * Lists every tool the caller&#39;s org and project can reach, from every source, each flagged with whether it is activated.
      *
      * @param  string|null $source Source keeps only tools from one source — connector, function, zap-service, agent, skill or mcp. Empty keeps every source. (optional)
      * @param  string|null $activated Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTools'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTool'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ToolList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getToolsWithHttpInfo($source = null, $activated = null, string $contentType = self::contentTypes['getTools'][0])
+    public function getToolWithHttpInfo($source = null, $activated = null, string $contentType = self::contentTypes['getTool'][0])
     {
-        $request = $this->getToolsRequest($source, $activated, $contentType);
+        $request = $this->getToolRequest($source, $activated, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1051,20 +1051,20 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsAsync
+     * Operation getToolAsync
      *
      * Lists every tool the caller&#39;s org and project can reach, from every source, each flagged with whether it is activated.
      *
      * @param  string|null $source Source keeps only tools from one source — connector, function, zap-service, agent, skill or mcp. Empty keeps every source. (optional)
      * @param  string|null $activated Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTools'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTool'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsAsync($source = null, $activated = null, string $contentType = self::contentTypes['getTools'][0])
+    public function getToolAsync($source = null, $activated = null, string $contentType = self::contentTypes['getTool'][0])
     {
-        return $this->getToolsAsyncWithHttpInfo($source, $activated, $contentType)
+        return $this->getToolAsyncWithHttpInfo($source, $activated, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1073,21 +1073,21 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsAsyncWithHttpInfo
+     * Operation getToolAsyncWithHttpInfo
      *
      * Lists every tool the caller&#39;s org and project can reach, from every source, each flagged with whether it is activated.
      *
      * @param  string|null $source Source keeps only tools from one source — connector, function, zap-service, agent, skill or mcp. Empty keeps every source. (optional)
      * @param  string|null $activated Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTools'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTool'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsAsyncWithHttpInfo($source = null, $activated = null, string $contentType = self::contentTypes['getTools'][0])
+    public function getToolAsyncWithHttpInfo($source = null, $activated = null, string $contentType = self::contentTypes['getTool'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ToolList';
-        $request = $this->getToolsRequest($source, $activated, $contentType);
+        $request = $this->getToolRequest($source, $activated, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1126,22 +1126,22 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'getTools'
+     * Create request for operation 'getTool'
      *
      * @param  string|null $source Source keeps only tools from one source — connector, function, zap-service, agent, skill or mcp. Empty keeps every source. (optional)
      * @param  string|null $activated Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTools'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getTool'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getToolsRequest($source = null, $activated = null, string $contentType = self::contentTypes['getTools'][0])
+    public function getToolRequest($source = null, $activated = null, string $contentType = self::contentTypes['getTool'][0])
     {
 
 
 
 
-        $resourcePath = '/v1/tools';
+        $resourcePath = '/v1/tool';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1228,36 +1228,36 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsActivation
+     * Operation getToolActivation
      *
      * Reports which tools are switched on for the caller&#39;s org and project.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsActivation'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolActivation'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ActivationSet
      */
-    public function getToolsActivation(string $contentType = self::contentTypes['getToolsActivation'][0])
+    public function getToolActivation(string $contentType = self::contentTypes['getToolActivation'][0])
     {
-        list($response) = $this->getToolsActivationWithHttpInfo($contentType);
+        list($response) = $this->getToolActivationWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getToolsActivationWithHttpInfo
+     * Operation getToolActivationWithHttpInfo
      *
      * Reports which tools are switched on for the caller&#39;s org and project.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsActivation'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolActivation'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ActivationSet, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getToolsActivationWithHttpInfo(string $contentType = self::contentTypes['getToolsActivation'][0])
+    public function getToolActivationWithHttpInfo(string $contentType = self::contentTypes['getToolActivation'][0])
     {
-        $request = $this->getToolsActivationRequest($contentType);
+        $request = $this->getToolActivationRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1329,18 +1329,18 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsActivationAsync
+     * Operation getToolActivationAsync
      *
      * Reports which tools are switched on for the caller&#39;s org and project.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsActivation'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolActivation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsActivationAsync(string $contentType = self::contentTypes['getToolsActivation'][0])
+    public function getToolActivationAsync(string $contentType = self::contentTypes['getToolActivation'][0])
     {
-        return $this->getToolsActivationAsyncWithHttpInfo($contentType)
+        return $this->getToolActivationAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1349,19 +1349,19 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsActivationAsyncWithHttpInfo
+     * Operation getToolActivationAsyncWithHttpInfo
      *
      * Reports which tools are switched on for the caller&#39;s org and project.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsActivation'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolActivation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsActivationAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolsActivation'][0])
+    public function getToolActivationAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolActivation'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ActivationSet';
-        $request = $this->getToolsActivationRequest($contentType);
+        $request = $this->getToolActivationRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1400,18 +1400,18 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'getToolsActivation'
+     * Create request for operation 'getToolActivation'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsActivation'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolActivation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getToolsActivationRequest(string $contentType = self::contentTypes['getToolsActivation'][0])
+    public function getToolActivationRequest(string $contentType = self::contentTypes['getToolActivation'][0])
     {
 
 
-        $resourcePath = '/v1/tools/activation';
+        $resourcePath = '/v1/tool/activation';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1480,7 +1480,7 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsCatalog
+     * Operation getToolCatalog
      *
      * Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
      *
@@ -1489,20 +1489,20 @@ class ToolsApi
      * @param  string|null $official Official keeps only the vendors&#39; OWN servers — not third-party copies of them — and only when it is exactly the string \&quot;true\&quot;. (optional)
      * @param  int|null $limit Limit bounds the page: default 50, maximum 200. A value that is not a positive integer reads as the default. (optional)
      * @param  int|null $offset Offset skips that many listings. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsCatalog'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolCatalog'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\McpCatalog
      */
-    public function getToolsCatalog($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolsCatalog'][0])
+    public function getToolCatalog($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolCatalog'][0])
     {
-        list($response) = $this->getToolsCatalogWithHttpInfo($q, $featured, $official, $limit, $offset, $contentType);
+        list($response) = $this->getToolCatalogWithHttpInfo($q, $featured, $official, $limit, $offset, $contentType);
         return $response;
     }
 
     /**
-     * Operation getToolsCatalogWithHttpInfo
+     * Operation getToolCatalogWithHttpInfo
      *
      * Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
      *
@@ -1511,15 +1511,15 @@ class ToolsApi
      * @param  string|null $official Official keeps only the vendors&#39; OWN servers — not third-party copies of them — and only when it is exactly the string \&quot;true\&quot;. (optional)
      * @param  int|null $limit Limit bounds the page: default 50, maximum 200. A value that is not a positive integer reads as the default. (optional)
      * @param  int|null $offset Offset skips that many listings. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsCatalog'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolCatalog'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\McpCatalog, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getToolsCatalogWithHttpInfo($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolsCatalog'][0])
+    public function getToolCatalogWithHttpInfo($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolCatalog'][0])
     {
-        $request = $this->getToolsCatalogRequest($q, $featured, $official, $limit, $offset, $contentType);
+        $request = $this->getToolCatalogRequest($q, $featured, $official, $limit, $offset, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1591,7 +1591,7 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsCatalogAsync
+     * Operation getToolCatalogAsync
      *
      * Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
      *
@@ -1600,14 +1600,14 @@ class ToolsApi
      * @param  string|null $official Official keeps only the vendors&#39; OWN servers — not third-party copies of them — and only when it is exactly the string \&quot;true\&quot;. (optional)
      * @param  int|null $limit Limit bounds the page: default 50, maximum 200. A value that is not a positive integer reads as the default. (optional)
      * @param  int|null $offset Offset skips that many listings. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsCatalog'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolCatalog'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsCatalogAsync($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolsCatalog'][0])
+    public function getToolCatalogAsync($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolCatalog'][0])
     {
-        return $this->getToolsCatalogAsyncWithHttpInfo($q, $featured, $official, $limit, $offset, $contentType)
+        return $this->getToolCatalogAsyncWithHttpInfo($q, $featured, $official, $limit, $offset, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1616,7 +1616,7 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsCatalogAsyncWithHttpInfo
+     * Operation getToolCatalogAsyncWithHttpInfo
      *
      * Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
      *
@@ -1625,15 +1625,15 @@ class ToolsApi
      * @param  string|null $official Official keeps only the vendors&#39; OWN servers — not third-party copies of them — and only when it is exactly the string \&quot;true\&quot;. (optional)
      * @param  int|null $limit Limit bounds the page: default 50, maximum 200. A value that is not a positive integer reads as the default. (optional)
      * @param  int|null $offset Offset skips that many listings. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsCatalog'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolCatalog'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsCatalogAsyncWithHttpInfo($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolsCatalog'][0])
+    public function getToolCatalogAsyncWithHttpInfo($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolCatalog'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\McpCatalog';
-        $request = $this->getToolsCatalogRequest($q, $featured, $official, $limit, $offset, $contentType);
+        $request = $this->getToolCatalogRequest($q, $featured, $official, $limit, $offset, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1672,19 +1672,19 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'getToolsCatalog'
+     * Create request for operation 'getToolCatalog'
      *
      * @param  string|null $q Q matches the name, title or description, case-insensitively. (optional)
      * @param  string|null $featured Featured keeps only the listings we put on the front of the shelf, and only when it is exactly the string \&quot;true\&quot;. (optional)
      * @param  string|null $official Official keeps only the vendors&#39; OWN servers — not third-party copies of them — and only when it is exactly the string \&quot;true\&quot;. (optional)
      * @param  int|null $limit Limit bounds the page: default 50, maximum 200. A value that is not a positive integer reads as the default. (optional)
      * @param  int|null $offset Offset skips that many listings. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsCatalog'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolCatalog'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getToolsCatalogRequest($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolsCatalog'][0])
+    public function getToolCatalogRequest($q = null, $featured = null, $official = null, $limit = null, $offset = null, string $contentType = self::contentTypes['getToolCatalog'][0])
     {
 
 
@@ -1693,7 +1693,7 @@ class ToolsApi
 
 
 
-        $resourcePath = '/v1/tools/catalog';
+        $resourcePath = '/v1/tool/catalog';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1807,38 +1807,38 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsCatalogById
+     * Operation getToolCatalogById
      *
      * Returns one catalog entry in full: the publisher&#39;s description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
      *
      * @param  string $id ID is the listing, from the path. It is the publisher&#39;s reverse-DNS name with its one slash written as an underscore — \&quot;com.stripe_mcp\&quot;. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsCatalogById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolCatalogById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\MCPListing
      */
-    public function getToolsCatalogById($id, string $contentType = self::contentTypes['getToolsCatalogById'][0])
+    public function getToolCatalogById($id, string $contentType = self::contentTypes['getToolCatalogById'][0])
     {
-        list($response) = $this->getToolsCatalogByIdWithHttpInfo($id, $contentType);
+        list($response) = $this->getToolCatalogByIdWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getToolsCatalogByIdWithHttpInfo
+     * Operation getToolCatalogByIdWithHttpInfo
      *
      * Returns one catalog entry in full: the publisher&#39;s description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
      *
      * @param  string $id ID is the listing, from the path. It is the publisher&#39;s reverse-DNS name with its one slash written as an underscore — \&quot;com.stripe_mcp\&quot;. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsCatalogById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolCatalogById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\MCPListing, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getToolsCatalogByIdWithHttpInfo($id, string $contentType = self::contentTypes['getToolsCatalogById'][0])
+    public function getToolCatalogByIdWithHttpInfo($id, string $contentType = self::contentTypes['getToolCatalogById'][0])
     {
-        $request = $this->getToolsCatalogByIdRequest($id, $contentType);
+        $request = $this->getToolCatalogByIdRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1910,19 +1910,19 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsCatalogByIdAsync
+     * Operation getToolCatalogByIdAsync
      *
      * Returns one catalog entry in full: the publisher&#39;s description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
      *
      * @param  string $id ID is the listing, from the path. It is the publisher&#39;s reverse-DNS name with its one slash written as an underscore — \&quot;com.stripe_mcp\&quot;. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsCatalogById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolCatalogById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsCatalogByIdAsync($id, string $contentType = self::contentTypes['getToolsCatalogById'][0])
+    public function getToolCatalogByIdAsync($id, string $contentType = self::contentTypes['getToolCatalogById'][0])
     {
-        return $this->getToolsCatalogByIdAsyncWithHttpInfo($id, $contentType)
+        return $this->getToolCatalogByIdAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1931,20 +1931,20 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsCatalogByIdAsyncWithHttpInfo
+     * Operation getToolCatalogByIdAsyncWithHttpInfo
      *
      * Returns one catalog entry in full: the publisher&#39;s description, its repository and site, every package form with the runtime that launches it, and every hosted endpoint.
      *
      * @param  string $id ID is the listing, from the path. It is the publisher&#39;s reverse-DNS name with its one slash written as an underscore — \&quot;com.stripe_mcp\&quot;. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsCatalogById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolCatalogById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsCatalogByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getToolsCatalogById'][0])
+    public function getToolCatalogByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getToolCatalogById'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\MCPListing';
-        $request = $this->getToolsCatalogByIdRequest($id, $contentType);
+        $request = $this->getToolCatalogByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1983,26 +1983,26 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'getToolsCatalogById'
+     * Create request for operation 'getToolCatalogById'
      *
      * @param  string $id ID is the listing, from the path. It is the publisher&#39;s reverse-DNS name with its one slash written as an underscore — \&quot;com.stripe_mcp\&quot;. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsCatalogById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolCatalogById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getToolsCatalogByIdRequest($id, string $contentType = self::contentTypes['getToolsCatalogById'][0])
+    public function getToolCatalogByIdRequest($id, string $contentType = self::contentTypes['getToolCatalogById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling getToolsCatalogById'
+                'Missing the required parameter $id when calling getToolCatalogById'
             );
         }
 
 
-        $resourcePath = '/v1/tools/catalog/{id}';
+        $resourcePath = '/v1/tool/catalog/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2079,36 +2079,36 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsMcpServers
+     * Operation getToolMcpServers
      *
      * Lists the external MCP servers the caller&#39;s org has registered.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsMcpServers'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolMcpServers'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\McpServerList
      */
-    public function getToolsMcpServers(string $contentType = self::contentTypes['getToolsMcpServers'][0])
+    public function getToolMcpServers(string $contentType = self::contentTypes['getToolMcpServers'][0])
     {
-        list($response) = $this->getToolsMcpServersWithHttpInfo($contentType);
+        list($response) = $this->getToolMcpServersWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getToolsMcpServersWithHttpInfo
+     * Operation getToolMcpServersWithHttpInfo
      *
      * Lists the external MCP servers the caller&#39;s org has registered.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsMcpServers'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolMcpServers'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\McpServerList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getToolsMcpServersWithHttpInfo(string $contentType = self::contentTypes['getToolsMcpServers'][0])
+    public function getToolMcpServersWithHttpInfo(string $contentType = self::contentTypes['getToolMcpServers'][0])
     {
-        $request = $this->getToolsMcpServersRequest($contentType);
+        $request = $this->getToolMcpServersRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2180,18 +2180,18 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsMcpServersAsync
+     * Operation getToolMcpServersAsync
      *
      * Lists the external MCP servers the caller&#39;s org has registered.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsMcpServers'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolMcpServers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsMcpServersAsync(string $contentType = self::contentTypes['getToolsMcpServers'][0])
+    public function getToolMcpServersAsync(string $contentType = self::contentTypes['getToolMcpServers'][0])
     {
-        return $this->getToolsMcpServersAsyncWithHttpInfo($contentType)
+        return $this->getToolMcpServersAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2200,19 +2200,19 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsMcpServersAsyncWithHttpInfo
+     * Operation getToolMcpServersAsyncWithHttpInfo
      *
      * Lists the external MCP servers the caller&#39;s org has registered.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsMcpServers'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolMcpServers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsMcpServersAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolsMcpServers'][0])
+    public function getToolMcpServersAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolMcpServers'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\McpServerList';
-        $request = $this->getToolsMcpServersRequest($contentType);
+        $request = $this->getToolMcpServersRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2251,18 +2251,18 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'getToolsMcpServers'
+     * Create request for operation 'getToolMcpServers'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsMcpServers'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolMcpServers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getToolsMcpServersRequest(string $contentType = self::contentTypes['getToolsMcpServers'][0])
+    public function getToolMcpServersRequest(string $contentType = self::contentTypes['getToolMcpServers'][0])
     {
 
 
-        $resourcePath = '/v1/tools/mcp/servers';
+        $resourcePath = '/v1/tool/mcp/servers';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2331,38 +2331,38 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsPlugins
+     * Operation getToolPlugins
      *
      * Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
      *
      * @param  string|null $all All includes the configured-but-disabled subsystems too, but only when it is exactly the string \&quot;true\&quot;. Otherwise only the running ones are reported. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsPlugins'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolPlugins'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\PluginMountList
      */
-    public function getToolsPlugins($all = null, string $contentType = self::contentTypes['getToolsPlugins'][0])
+    public function getToolPlugins($all = null, string $contentType = self::contentTypes['getToolPlugins'][0])
     {
-        list($response) = $this->getToolsPluginsWithHttpInfo($all, $contentType);
+        list($response) = $this->getToolPluginsWithHttpInfo($all, $contentType);
         return $response;
     }
 
     /**
-     * Operation getToolsPluginsWithHttpInfo
+     * Operation getToolPluginsWithHttpInfo
      *
      * Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
      *
      * @param  string|null $all All includes the configured-but-disabled subsystems too, but only when it is exactly the string \&quot;true\&quot;. Otherwise only the running ones are reported. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsPlugins'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolPlugins'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\PluginMountList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getToolsPluginsWithHttpInfo($all = null, string $contentType = self::contentTypes['getToolsPlugins'][0])
+    public function getToolPluginsWithHttpInfo($all = null, string $contentType = self::contentTypes['getToolPlugins'][0])
     {
-        $request = $this->getToolsPluginsRequest($all, $contentType);
+        $request = $this->getToolPluginsRequest($all, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2434,19 +2434,19 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsPluginsAsync
+     * Operation getToolPluginsAsync
      *
      * Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
      *
      * @param  string|null $all All includes the configured-but-disabled subsystems too, but only when it is exactly the string \&quot;true\&quot;. Otherwise only the running ones are reported. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsPlugins'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolPlugins'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsPluginsAsync($all = null, string $contentType = self::contentTypes['getToolsPlugins'][0])
+    public function getToolPluginsAsync($all = null, string $contentType = self::contentTypes['getToolPlugins'][0])
     {
-        return $this->getToolsPluginsAsyncWithHttpInfo($all, $contentType)
+        return $this->getToolPluginsAsyncWithHttpInfo($all, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2455,20 +2455,20 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsPluginsAsyncWithHttpInfo
+     * Operation getToolPluginsAsyncWithHttpInfo
      *
      * Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
      *
      * @param  string|null $all All includes the configured-but-disabled subsystems too, but only when it is exactly the string \&quot;true\&quot;. Otherwise only the running ones are reported. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsPlugins'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolPlugins'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsPluginsAsyncWithHttpInfo($all = null, string $contentType = self::contentTypes['getToolsPlugins'][0])
+    public function getToolPluginsAsyncWithHttpInfo($all = null, string $contentType = self::contentTypes['getToolPlugins'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\PluginMountList';
-        $request = $this->getToolsPluginsRequest($all, $contentType);
+        $request = $this->getToolPluginsRequest($all, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2507,20 +2507,20 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'getToolsPlugins'
+     * Create request for operation 'getToolPlugins'
      *
      * @param  string|null $all All includes the configured-but-disabled subsystems too, but only when it is exactly the string \&quot;true\&quot;. Otherwise only the running ones are reported. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsPlugins'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolPlugins'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getToolsPluginsRequest($all = null, string $contentType = self::contentTypes['getToolsPlugins'][0])
+    public function getToolPluginsRequest($all = null, string $contentType = self::contentTypes['getToolPlugins'][0])
     {
 
 
 
-        $resourcePath = '/v1/tools/plugins';
+        $resourcePath = '/v1/tool/plugins';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2598,36 +2598,36 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsPluginsAuthored
+     * Operation getToolPluginsAuthored
      *
      * Lists the plugins the caller&#39;s org BUILT, newest first, each with the TypeScript as authored.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsPluginsAuthored'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolPluginsAuthored'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\AuthoredPluginList
      */
-    public function getToolsPluginsAuthored(string $contentType = self::contentTypes['getToolsPluginsAuthored'][0])
+    public function getToolPluginsAuthored(string $contentType = self::contentTypes['getToolPluginsAuthored'][0])
     {
-        list($response) = $this->getToolsPluginsAuthoredWithHttpInfo($contentType);
+        list($response) = $this->getToolPluginsAuthoredWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getToolsPluginsAuthoredWithHttpInfo
+     * Operation getToolPluginsAuthoredWithHttpInfo
      *
      * Lists the plugins the caller&#39;s org BUILT, newest first, each with the TypeScript as authored.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsPluginsAuthored'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolPluginsAuthored'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\AuthoredPluginList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getToolsPluginsAuthoredWithHttpInfo(string $contentType = self::contentTypes['getToolsPluginsAuthored'][0])
+    public function getToolPluginsAuthoredWithHttpInfo(string $contentType = self::contentTypes['getToolPluginsAuthored'][0])
     {
-        $request = $this->getToolsPluginsAuthoredRequest($contentType);
+        $request = $this->getToolPluginsAuthoredRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2699,18 +2699,18 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsPluginsAuthoredAsync
+     * Operation getToolPluginsAuthoredAsync
      *
      * Lists the plugins the caller&#39;s org BUILT, newest first, each with the TypeScript as authored.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsPluginsAuthored'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolPluginsAuthored'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsPluginsAuthoredAsync(string $contentType = self::contentTypes['getToolsPluginsAuthored'][0])
+    public function getToolPluginsAuthoredAsync(string $contentType = self::contentTypes['getToolPluginsAuthored'][0])
     {
-        return $this->getToolsPluginsAuthoredAsyncWithHttpInfo($contentType)
+        return $this->getToolPluginsAuthoredAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2719,19 +2719,19 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsPluginsAuthoredAsyncWithHttpInfo
+     * Operation getToolPluginsAuthoredAsyncWithHttpInfo
      *
      * Lists the plugins the caller&#39;s org BUILT, newest first, each with the TypeScript as authored.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsPluginsAuthored'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolPluginsAuthored'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsPluginsAuthoredAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolsPluginsAuthored'][0])
+    public function getToolPluginsAuthoredAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolPluginsAuthored'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\AuthoredPluginList';
-        $request = $this->getToolsPluginsAuthoredRequest($contentType);
+        $request = $this->getToolPluginsAuthoredRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2770,18 +2770,18 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'getToolsPluginsAuthored'
+     * Create request for operation 'getToolPluginsAuthored'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsPluginsAuthored'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolPluginsAuthored'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getToolsPluginsAuthoredRequest(string $contentType = self::contentTypes['getToolsPluginsAuthored'][0])
+    public function getToolPluginsAuthoredRequest(string $contentType = self::contentTypes['getToolPluginsAuthored'][0])
     {
 
 
-        $resourcePath = '/v1/tools/plugins/authored';
+        $resourcePath = '/v1/tool/plugins/authored';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2850,38 +2850,38 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsSkills
+     * Operation getToolSkills
      *
      * Lists the skills the caller&#39;s org can reach — the brand&#39;s embedded catalogue plus the org&#39;s own authored ones — with each one&#39;s activation flag.
      *
      * @param  string|null $activated Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsSkills'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolSkills'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\SourceToolList
      */
-    public function getToolsSkills($activated = null, string $contentType = self::contentTypes['getToolsSkills'][0])
+    public function getToolSkills($activated = null, string $contentType = self::contentTypes['getToolSkills'][0])
     {
-        list($response) = $this->getToolsSkillsWithHttpInfo($activated, $contentType);
+        list($response) = $this->getToolSkillsWithHttpInfo($activated, $contentType);
         return $response;
     }
 
     /**
-     * Operation getToolsSkillsWithHttpInfo
+     * Operation getToolSkillsWithHttpInfo
      *
      * Lists the skills the caller&#39;s org can reach — the brand&#39;s embedded catalogue plus the org&#39;s own authored ones — with each one&#39;s activation flag.
      *
      * @param  string|null $activated Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsSkills'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolSkills'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\SourceToolList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getToolsSkillsWithHttpInfo($activated = null, string $contentType = self::contentTypes['getToolsSkills'][0])
+    public function getToolSkillsWithHttpInfo($activated = null, string $contentType = self::contentTypes['getToolSkills'][0])
     {
-        $request = $this->getToolsSkillsRequest($activated, $contentType);
+        $request = $this->getToolSkillsRequest($activated, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2953,19 +2953,19 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsSkillsAsync
+     * Operation getToolSkillsAsync
      *
      * Lists the skills the caller&#39;s org can reach — the brand&#39;s embedded catalogue plus the org&#39;s own authored ones — with each one&#39;s activation flag.
      *
      * @param  string|null $activated Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsSkills'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolSkills'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsSkillsAsync($activated = null, string $contentType = self::contentTypes['getToolsSkills'][0])
+    public function getToolSkillsAsync($activated = null, string $contentType = self::contentTypes['getToolSkills'][0])
     {
-        return $this->getToolsSkillsAsyncWithHttpInfo($activated, $contentType)
+        return $this->getToolSkillsAsyncWithHttpInfo($activated, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2974,20 +2974,20 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsSkillsAsyncWithHttpInfo
+     * Operation getToolSkillsAsyncWithHttpInfo
      *
      * Lists the skills the caller&#39;s org can reach — the brand&#39;s embedded catalogue plus the org&#39;s own authored ones — with each one&#39;s activation flag.
      *
      * @param  string|null $activated Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsSkills'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolSkills'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsSkillsAsyncWithHttpInfo($activated = null, string $contentType = self::contentTypes['getToolsSkills'][0])
+    public function getToolSkillsAsyncWithHttpInfo($activated = null, string $contentType = self::contentTypes['getToolSkills'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\SourceToolList';
-        $request = $this->getToolsSkillsRequest($activated, $contentType);
+        $request = $this->getToolSkillsRequest($activated, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3026,20 +3026,20 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'getToolsSkills'
+     * Create request for operation 'getToolSkills'
      *
      * @param  string|null $activated Activated keeps only the tools activated for the caller&#39;s org and project, and only when it is exactly the string \&quot;true\&quot;. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsSkills'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolSkills'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getToolsSkillsRequest($activated = null, string $contentType = self::contentTypes['getToolsSkills'][0])
+    public function getToolSkillsRequest($activated = null, string $contentType = self::contentTypes['getToolSkills'][0])
     {
 
 
 
-        $resourcePath = '/v1/tools/skills';
+        $resourcePath = '/v1/tool/skills';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3117,36 +3117,36 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsSkillsAuthored
+     * Operation getToolSkillsAuthored
      *
      * Lists the caller org&#39;s OWN skills with their SKILL.md bodies.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsSkillsAuthored'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolSkillsAuthored'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\AuthoredSkillList
      */
-    public function getToolsSkillsAuthored(string $contentType = self::contentTypes['getToolsSkillsAuthored'][0])
+    public function getToolSkillsAuthored(string $contentType = self::contentTypes['getToolSkillsAuthored'][0])
     {
-        list($response) = $this->getToolsSkillsAuthoredWithHttpInfo($contentType);
+        list($response) = $this->getToolSkillsAuthoredWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getToolsSkillsAuthoredWithHttpInfo
+     * Operation getToolSkillsAuthoredWithHttpInfo
      *
      * Lists the caller org&#39;s OWN skills with their SKILL.md bodies.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsSkillsAuthored'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolSkillsAuthored'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\AuthoredSkillList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getToolsSkillsAuthoredWithHttpInfo(string $contentType = self::contentTypes['getToolsSkillsAuthored'][0])
+    public function getToolSkillsAuthoredWithHttpInfo(string $contentType = self::contentTypes['getToolSkillsAuthored'][0])
     {
-        $request = $this->getToolsSkillsAuthoredRequest($contentType);
+        $request = $this->getToolSkillsAuthoredRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3218,18 +3218,18 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsSkillsAuthoredAsync
+     * Operation getToolSkillsAuthoredAsync
      *
      * Lists the caller org&#39;s OWN skills with their SKILL.md bodies.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsSkillsAuthored'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolSkillsAuthored'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsSkillsAuthoredAsync(string $contentType = self::contentTypes['getToolsSkillsAuthored'][0])
+    public function getToolSkillsAuthoredAsync(string $contentType = self::contentTypes['getToolSkillsAuthored'][0])
     {
-        return $this->getToolsSkillsAuthoredAsyncWithHttpInfo($contentType)
+        return $this->getToolSkillsAuthoredAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3238,19 +3238,19 @@ class ToolsApi
     }
 
     /**
-     * Operation getToolsSkillsAuthoredAsyncWithHttpInfo
+     * Operation getToolSkillsAuthoredAsyncWithHttpInfo
      *
      * Lists the caller org&#39;s OWN skills with their SKILL.md bodies.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsSkillsAuthored'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolSkillsAuthored'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getToolsSkillsAuthoredAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolsSkillsAuthored'][0])
+    public function getToolSkillsAuthoredAsyncWithHttpInfo(string $contentType = self::contentTypes['getToolSkillsAuthored'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\AuthoredSkillList';
-        $request = $this->getToolsSkillsAuthoredRequest($contentType);
+        $request = $this->getToolSkillsAuthoredRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3289,18 +3289,18 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'getToolsSkillsAuthored'
+     * Create request for operation 'getToolSkillsAuthored'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolsSkillsAuthored'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getToolSkillsAuthored'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getToolsSkillsAuthoredRequest(string $contentType = self::contentTypes['getToolsSkillsAuthored'][0])
+    public function getToolSkillsAuthoredRequest(string $contentType = self::contentTypes['getToolSkillsAuthored'][0])
     {
 
 
-        $resourcePath = '/v1/tools/skills/authored';
+        $resourcePath = '/v1/tool/skills/authored';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3369,40 +3369,40 @@ class ToolsApi
     }
 
     /**
-     * Operation patchToolsCatalogById
+     * Operation patchToolCatalogById
      *
      * Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
      *
      * @param  string $id ID is the listing to curate, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CurateReq $curate_req curate_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolsCatalogById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolCatalogById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\MCPListing
      */
-    public function patchToolsCatalogById($id, $curate_req, string $contentType = self::contentTypes['patchToolsCatalogById'][0])
+    public function patchToolCatalogById($id, $curate_req, string $contentType = self::contentTypes['patchToolCatalogById'][0])
     {
-        list($response) = $this->patchToolsCatalogByIdWithHttpInfo($id, $curate_req, $contentType);
+        list($response) = $this->patchToolCatalogByIdWithHttpInfo($id, $curate_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation patchToolsCatalogByIdWithHttpInfo
+     * Operation patchToolCatalogByIdWithHttpInfo
      *
      * Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
      *
      * @param  string $id ID is the listing to curate, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CurateReq $curate_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolsCatalogById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolCatalogById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\MCPListing, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchToolsCatalogByIdWithHttpInfo($id, $curate_req, string $contentType = self::contentTypes['patchToolsCatalogById'][0])
+    public function patchToolCatalogByIdWithHttpInfo($id, $curate_req, string $contentType = self::contentTypes['patchToolCatalogById'][0])
     {
-        $request = $this->patchToolsCatalogByIdRequest($id, $curate_req, $contentType);
+        $request = $this->patchToolCatalogByIdRequest($id, $curate_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3474,20 +3474,20 @@ class ToolsApi
     }
 
     /**
-     * Operation patchToolsCatalogByIdAsync
+     * Operation patchToolCatalogByIdAsync
      *
      * Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
      *
      * @param  string $id ID is the listing to curate, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CurateReq $curate_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolsCatalogById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolCatalogById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchToolsCatalogByIdAsync($id, $curate_req, string $contentType = self::contentTypes['patchToolsCatalogById'][0])
+    public function patchToolCatalogByIdAsync($id, $curate_req, string $contentType = self::contentTypes['patchToolCatalogById'][0])
     {
-        return $this->patchToolsCatalogByIdAsyncWithHttpInfo($id, $curate_req, $contentType)
+        return $this->patchToolCatalogByIdAsyncWithHttpInfo($id, $curate_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3496,21 +3496,21 @@ class ToolsApi
     }
 
     /**
-     * Operation patchToolsCatalogByIdAsyncWithHttpInfo
+     * Operation patchToolCatalogByIdAsyncWithHttpInfo
      *
      * Sets what WE say about one catalog entry — hidden, featured, official, logo — and answers with the stored listing.
      *
      * @param  string $id ID is the listing to curate, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CurateReq $curate_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolsCatalogById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolCatalogById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchToolsCatalogByIdAsyncWithHttpInfo($id, $curate_req, string $contentType = self::contentTypes['patchToolsCatalogById'][0])
+    public function patchToolCatalogByIdAsyncWithHttpInfo($id, $curate_req, string $contentType = self::contentTypes['patchToolCatalogById'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\MCPListing';
-        $request = $this->patchToolsCatalogByIdRequest($id, $curate_req, $contentType);
+        $request = $this->patchToolCatalogByIdRequest($id, $curate_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3549,34 +3549,34 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'patchToolsCatalogById'
+     * Create request for operation 'patchToolCatalogById'
      *
      * @param  string $id ID is the listing to curate, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CurateReq $curate_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolsCatalogById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchToolCatalogById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchToolsCatalogByIdRequest($id, $curate_req, string $contentType = self::contentTypes['patchToolsCatalogById'][0])
+    public function patchToolCatalogByIdRequest($id, $curate_req, string $contentType = self::contentTypes['patchToolCatalogById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling patchToolsCatalogById'
+                'Missing the required parameter $id when calling patchToolCatalogById'
             );
         }
 
         // verify the required parameter 'curate_req' is set
         if ($curate_req === null || (is_array($curate_req) && count($curate_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $curate_req when calling patchToolsCatalogById'
+                'Missing the required parameter $curate_req when calling patchToolCatalogById'
             );
         }
 
 
-        $resourcePath = '/v1/tools/catalog/{id}';
+        $resourcePath = '/v1/tool/catalog/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3660,38 +3660,38 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsCall
+     * Operation postToolCall
      *
      * Runs one of the caller&#39;s activated tools and answers with its output.
      *
      * @param  \Hanzo\Cloud\Model\ToolCall $tool_call tool_call (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsCall'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ToolResult
      */
-    public function postToolsCall($tool_call, string $contentType = self::contentTypes['postToolsCall'][0])
+    public function postToolCall($tool_call, string $contentType = self::contentTypes['postToolCall'][0])
     {
-        list($response) = $this->postToolsCallWithHttpInfo($tool_call, $contentType);
+        list($response) = $this->postToolCallWithHttpInfo($tool_call, $contentType);
         return $response;
     }
 
     /**
-     * Operation postToolsCallWithHttpInfo
+     * Operation postToolCallWithHttpInfo
      *
      * Runs one of the caller&#39;s activated tools and answers with its output.
      *
      * @param  \Hanzo\Cloud\Model\ToolCall $tool_call (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsCall'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ToolResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postToolsCallWithHttpInfo($tool_call, string $contentType = self::contentTypes['postToolsCall'][0])
+    public function postToolCallWithHttpInfo($tool_call, string $contentType = self::contentTypes['postToolCall'][0])
     {
-        $request = $this->postToolsCallRequest($tool_call, $contentType);
+        $request = $this->postToolCallRequest($tool_call, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3763,19 +3763,19 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsCallAsync
+     * Operation postToolCallAsync
      *
      * Runs one of the caller&#39;s activated tools and answers with its output.
      *
      * @param  \Hanzo\Cloud\Model\ToolCall $tool_call (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsCall'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolsCallAsync($tool_call, string $contentType = self::contentTypes['postToolsCall'][0])
+    public function postToolCallAsync($tool_call, string $contentType = self::contentTypes['postToolCall'][0])
     {
-        return $this->postToolsCallAsyncWithHttpInfo($tool_call, $contentType)
+        return $this->postToolCallAsyncWithHttpInfo($tool_call, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3784,20 +3784,20 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsCallAsyncWithHttpInfo
+     * Operation postToolCallAsyncWithHttpInfo
      *
      * Runs one of the caller&#39;s activated tools and answers with its output.
      *
      * @param  \Hanzo\Cloud\Model\ToolCall $tool_call (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsCall'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolsCallAsyncWithHttpInfo($tool_call, string $contentType = self::contentTypes['postToolsCall'][0])
+    public function postToolCallAsyncWithHttpInfo($tool_call, string $contentType = self::contentTypes['postToolCall'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ToolResult';
-        $request = $this->postToolsCallRequest($tool_call, $contentType);
+        $request = $this->postToolCallRequest($tool_call, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3836,26 +3836,26 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'postToolsCall'
+     * Create request for operation 'postToolCall'
      *
      * @param  \Hanzo\Cloud\Model\ToolCall $tool_call (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsCall'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postToolsCallRequest($tool_call, string $contentType = self::contentTypes['postToolsCall'][0])
+    public function postToolCallRequest($tool_call, string $contentType = self::contentTypes['postToolCall'][0])
     {
 
         // verify the required parameter 'tool_call' is set
         if ($tool_call === null || (is_array($tool_call) && count($tool_call) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $tool_call when calling postToolsCall'
+                'Missing the required parameter $tool_call when calling postToolCall'
             );
         }
 
 
-        $resourcePath = '/v1/tools/call';
+        $resourcePath = '/v1/tool/call';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3931,36 +3931,36 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsCatalogSync
+     * Operation postToolCatalogSync
      *
      * Pulls the public MCP registry into our canonical copy and reports what changed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsCatalogSync'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCatalogSync'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\McpCatalogSync
      */
-    public function postToolsCatalogSync(string $contentType = self::contentTypes['postToolsCatalogSync'][0])
+    public function postToolCatalogSync(string $contentType = self::contentTypes['postToolCatalogSync'][0])
     {
-        list($response) = $this->postToolsCatalogSyncWithHttpInfo($contentType);
+        list($response) = $this->postToolCatalogSyncWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation postToolsCatalogSyncWithHttpInfo
+     * Operation postToolCatalogSyncWithHttpInfo
      *
      * Pulls the public MCP registry into our canonical copy and reports what changed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsCatalogSync'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCatalogSync'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\McpCatalogSync, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postToolsCatalogSyncWithHttpInfo(string $contentType = self::contentTypes['postToolsCatalogSync'][0])
+    public function postToolCatalogSyncWithHttpInfo(string $contentType = self::contentTypes['postToolCatalogSync'][0])
     {
-        $request = $this->postToolsCatalogSyncRequest($contentType);
+        $request = $this->postToolCatalogSyncRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4032,18 +4032,18 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsCatalogSyncAsync
+     * Operation postToolCatalogSyncAsync
      *
      * Pulls the public MCP registry into our canonical copy and reports what changed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsCatalogSync'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCatalogSync'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolsCatalogSyncAsync(string $contentType = self::contentTypes['postToolsCatalogSync'][0])
+    public function postToolCatalogSyncAsync(string $contentType = self::contentTypes['postToolCatalogSync'][0])
     {
-        return $this->postToolsCatalogSyncAsyncWithHttpInfo($contentType)
+        return $this->postToolCatalogSyncAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4052,19 +4052,19 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsCatalogSyncAsyncWithHttpInfo
+     * Operation postToolCatalogSyncAsyncWithHttpInfo
      *
      * Pulls the public MCP registry into our canonical copy and reports what changed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsCatalogSync'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCatalogSync'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolsCatalogSyncAsyncWithHttpInfo(string $contentType = self::contentTypes['postToolsCatalogSync'][0])
+    public function postToolCatalogSyncAsyncWithHttpInfo(string $contentType = self::contentTypes['postToolCatalogSync'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\McpCatalogSync';
-        $request = $this->postToolsCatalogSyncRequest($contentType);
+        $request = $this->postToolCatalogSyncRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4103,18 +4103,18 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'postToolsCatalogSync'
+     * Create request for operation 'postToolCatalogSync'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsCatalogSync'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolCatalogSync'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postToolsCatalogSyncRequest(string $contentType = self::contentTypes['postToolsCatalogSync'][0])
+    public function postToolCatalogSyncRequest(string $contentType = self::contentTypes['postToolCatalogSync'][0])
     {
 
 
-        $resourcePath = '/v1/tools/catalog/sync';
+        $resourcePath = '/v1/tool/catalog/sync';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4183,38 +4183,38 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsMcpServers
+     * Operation postToolMcpServers
      *
      * Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
      *
      * @param  \Hanzo\Cloud\Model\CreateServerReq $create_server_req create_server_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsMcpServers'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolMcpServers'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\MCPServer
      */
-    public function postToolsMcpServers($create_server_req, string $contentType = self::contentTypes['postToolsMcpServers'][0])
+    public function postToolMcpServers($create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
     {
-        list($response) = $this->postToolsMcpServersWithHttpInfo($create_server_req, $contentType);
+        list($response) = $this->postToolMcpServersWithHttpInfo($create_server_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation postToolsMcpServersWithHttpInfo
+     * Operation postToolMcpServersWithHttpInfo
      *
      * Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
      *
      * @param  \Hanzo\Cloud\Model\CreateServerReq $create_server_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsMcpServers'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolMcpServers'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\MCPServer, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postToolsMcpServersWithHttpInfo($create_server_req, string $contentType = self::contentTypes['postToolsMcpServers'][0])
+    public function postToolMcpServersWithHttpInfo($create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
     {
-        $request = $this->postToolsMcpServersRequest($create_server_req, $contentType);
+        $request = $this->postToolMcpServersRequest($create_server_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4286,19 +4286,19 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsMcpServersAsync
+     * Operation postToolMcpServersAsync
      *
      * Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
      *
      * @param  \Hanzo\Cloud\Model\CreateServerReq $create_server_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsMcpServers'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolMcpServers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolsMcpServersAsync($create_server_req, string $contentType = self::contentTypes['postToolsMcpServers'][0])
+    public function postToolMcpServersAsync($create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
     {
-        return $this->postToolsMcpServersAsyncWithHttpInfo($create_server_req, $contentType)
+        return $this->postToolMcpServersAsyncWithHttpInfo($create_server_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4307,20 +4307,20 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsMcpServersAsyncWithHttpInfo
+     * Operation postToolMcpServersAsyncWithHttpInfo
      *
      * Gives the caller&#39;s org one more external MCP server, so its tools join the org&#39;s tool plane and the fleet&#39;s MCP server.
      *
      * @param  \Hanzo\Cloud\Model\CreateServerReq $create_server_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsMcpServers'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolMcpServers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolsMcpServersAsyncWithHttpInfo($create_server_req, string $contentType = self::contentTypes['postToolsMcpServers'][0])
+    public function postToolMcpServersAsyncWithHttpInfo($create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\MCPServer';
-        $request = $this->postToolsMcpServersRequest($create_server_req, $contentType);
+        $request = $this->postToolMcpServersRequest($create_server_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4359,26 +4359,26 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'postToolsMcpServers'
+     * Create request for operation 'postToolMcpServers'
      *
      * @param  \Hanzo\Cloud\Model\CreateServerReq $create_server_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsMcpServers'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolMcpServers'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postToolsMcpServersRequest($create_server_req, string $contentType = self::contentTypes['postToolsMcpServers'][0])
+    public function postToolMcpServersRequest($create_server_req, string $contentType = self::contentTypes['postToolMcpServers'][0])
     {
 
         // verify the required parameter 'create_server_req' is set
         if ($create_server_req === null || (is_array($create_server_req) && count($create_server_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_server_req when calling postToolsMcpServers'
+                'Missing the required parameter $create_server_req when calling postToolMcpServers'
             );
         }
 
 
-        $resourcePath = '/v1/tools/mcp/servers';
+        $resourcePath = '/v1/tool/mcp/servers';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4454,38 +4454,38 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsPluginsBuild
+     * Operation postToolPluginsBuild
      *
      * Builds and stores one plugin for the caller&#39;s org.
      *
      * @param  \Hanzo\Cloud\Model\BuildRequest $build_request build_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsPluginsBuild'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolPluginsBuild'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\BuildOut
      */
-    public function postToolsPluginsBuild($build_request, string $contentType = self::contentTypes['postToolsPluginsBuild'][0])
+    public function postToolPluginsBuild($build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
     {
-        list($response) = $this->postToolsPluginsBuildWithHttpInfo($build_request, $contentType);
+        list($response) = $this->postToolPluginsBuildWithHttpInfo($build_request, $contentType);
         return $response;
     }
 
     /**
-     * Operation postToolsPluginsBuildWithHttpInfo
+     * Operation postToolPluginsBuildWithHttpInfo
      *
      * Builds and stores one plugin for the caller&#39;s org.
      *
      * @param  \Hanzo\Cloud\Model\BuildRequest $build_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsPluginsBuild'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolPluginsBuild'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\BuildOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postToolsPluginsBuildWithHttpInfo($build_request, string $contentType = self::contentTypes['postToolsPluginsBuild'][0])
+    public function postToolPluginsBuildWithHttpInfo($build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
     {
-        $request = $this->postToolsPluginsBuildRequest($build_request, $contentType);
+        $request = $this->postToolPluginsBuildRequest($build_request, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4557,19 +4557,19 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsPluginsBuildAsync
+     * Operation postToolPluginsBuildAsync
      *
      * Builds and stores one plugin for the caller&#39;s org.
      *
      * @param  \Hanzo\Cloud\Model\BuildRequest $build_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsPluginsBuild'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolPluginsBuild'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolsPluginsBuildAsync($build_request, string $contentType = self::contentTypes['postToolsPluginsBuild'][0])
+    public function postToolPluginsBuildAsync($build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
     {
-        return $this->postToolsPluginsBuildAsyncWithHttpInfo($build_request, $contentType)
+        return $this->postToolPluginsBuildAsyncWithHttpInfo($build_request, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4578,20 +4578,20 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsPluginsBuildAsyncWithHttpInfo
+     * Operation postToolPluginsBuildAsyncWithHttpInfo
      *
      * Builds and stores one plugin for the caller&#39;s org.
      *
      * @param  \Hanzo\Cloud\Model\BuildRequest $build_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsPluginsBuild'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolPluginsBuild'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolsPluginsBuildAsyncWithHttpInfo($build_request, string $contentType = self::contentTypes['postToolsPluginsBuild'][0])
+    public function postToolPluginsBuildAsyncWithHttpInfo($build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\BuildOut';
-        $request = $this->postToolsPluginsBuildRequest($build_request, $contentType);
+        $request = $this->postToolPluginsBuildRequest($build_request, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4630,26 +4630,26 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'postToolsPluginsBuild'
+     * Create request for operation 'postToolPluginsBuild'
      *
      * @param  \Hanzo\Cloud\Model\BuildRequest $build_request (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsPluginsBuild'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolPluginsBuild'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postToolsPluginsBuildRequest($build_request, string $contentType = self::contentTypes['postToolsPluginsBuild'][0])
+    public function postToolPluginsBuildRequest($build_request, string $contentType = self::contentTypes['postToolPluginsBuild'][0])
     {
 
         // verify the required parameter 'build_request' is set
         if ($build_request === null || (is_array($build_request) && count($build_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $build_request when calling postToolsPluginsBuild'
+                'Missing the required parameter $build_request when calling postToolPluginsBuild'
             );
         }
 
 
-        $resourcePath = '/v1/tools/plugins/build';
+        $resourcePath = '/v1/tool/plugins/build';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4725,38 +4725,38 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsSkills
+     * Operation postToolSkills
      *
      * Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
      *
      * @param  \Hanzo\Cloud\Model\SkillIn $skill_in skill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsSkills'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolSkills'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\SkillWritten
      */
-    public function postToolsSkills($skill_in, string $contentType = self::contentTypes['postToolsSkills'][0])
+    public function postToolSkills($skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
     {
-        list($response) = $this->postToolsSkillsWithHttpInfo($skill_in, $contentType);
+        list($response) = $this->postToolSkillsWithHttpInfo($skill_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postToolsSkillsWithHttpInfo
+     * Operation postToolSkillsWithHttpInfo
      *
      * Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
      *
      * @param  \Hanzo\Cloud\Model\SkillIn $skill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsSkills'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolSkills'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\SkillWritten, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postToolsSkillsWithHttpInfo($skill_in, string $contentType = self::contentTypes['postToolsSkills'][0])
+    public function postToolSkillsWithHttpInfo($skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
     {
-        $request = $this->postToolsSkillsRequest($skill_in, $contentType);
+        $request = $this->postToolSkillsRequest($skill_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4828,19 +4828,19 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsSkillsAsync
+     * Operation postToolSkillsAsync
      *
      * Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
      *
      * @param  \Hanzo\Cloud\Model\SkillIn $skill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsSkills'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolSkills'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolsSkillsAsync($skill_in, string $contentType = self::contentTypes['postToolsSkills'][0])
+    public function postToolSkillsAsync($skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
     {
-        return $this->postToolsSkillsAsyncWithHttpInfo($skill_in, $contentType)
+        return $this->postToolSkillsAsyncWithHttpInfo($skill_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4849,20 +4849,20 @@ class ToolsApi
     }
 
     /**
-     * Operation postToolsSkillsAsyncWithHttpInfo
+     * Operation postToolSkillsAsyncWithHttpInfo
      *
      * Adds or revises one of the caller org&#39;s own skills, and answers 201 with the stored record.
      *
      * @param  \Hanzo\Cloud\Model\SkillIn $skill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsSkills'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolSkills'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postToolsSkillsAsyncWithHttpInfo($skill_in, string $contentType = self::contentTypes['postToolsSkills'][0])
+    public function postToolSkillsAsyncWithHttpInfo($skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\SkillWritten';
-        $request = $this->postToolsSkillsRequest($skill_in, $contentType);
+        $request = $this->postToolSkillsRequest($skill_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4901,26 +4901,26 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'postToolsSkills'
+     * Create request for operation 'postToolSkills'
      *
      * @param  \Hanzo\Cloud\Model\SkillIn $skill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolsSkills'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postToolSkills'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postToolsSkillsRequest($skill_in, string $contentType = self::contentTypes['postToolsSkills'][0])
+    public function postToolSkillsRequest($skill_in, string $contentType = self::contentTypes['postToolSkills'][0])
     {
 
         // verify the required parameter 'skill_in' is set
         if ($skill_in === null || (is_array($skill_in) && count($skill_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $skill_in when calling postToolsSkills'
+                'Missing the required parameter $skill_in when calling postToolSkills'
             );
         }
 
 
-        $resourcePath = '/v1/tools/skills';
+        $resourcePath = '/v1/tool/skills';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4996,38 +4996,38 @@ class ToolsApi
     }
 
     /**
-     * Operation putToolsActivation
+     * Operation putToolActivation
      *
      * Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
      *
      * @param  \Hanzo\Cloud\Model\ActivationReq $activation_req activation_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolsActivation'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolActivation'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ActivationSet
      */
-    public function putToolsActivation($activation_req, string $contentType = self::contentTypes['putToolsActivation'][0])
+    public function putToolActivation($activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
     {
-        list($response) = $this->putToolsActivationWithHttpInfo($activation_req, $contentType);
+        list($response) = $this->putToolActivationWithHttpInfo($activation_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation putToolsActivationWithHttpInfo
+     * Operation putToolActivationWithHttpInfo
      *
      * Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
      *
      * @param  \Hanzo\Cloud\Model\ActivationReq $activation_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolsActivation'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolActivation'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ActivationSet, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putToolsActivationWithHttpInfo($activation_req, string $contentType = self::contentTypes['putToolsActivation'][0])
+    public function putToolActivationWithHttpInfo($activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
     {
-        $request = $this->putToolsActivationRequest($activation_req, $contentType);
+        $request = $this->putToolActivationRequest($activation_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5099,19 +5099,19 @@ class ToolsApi
     }
 
     /**
-     * Operation putToolsActivationAsync
+     * Operation putToolActivationAsync
      *
      * Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
      *
      * @param  \Hanzo\Cloud\Model\ActivationReq $activation_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolsActivation'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolActivation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putToolsActivationAsync($activation_req, string $contentType = self::contentTypes['putToolsActivation'][0])
+    public function putToolActivationAsync($activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
     {
-        return $this->putToolsActivationAsyncWithHttpInfo($activation_req, $contentType)
+        return $this->putToolActivationAsyncWithHttpInfo($activation_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5120,20 +5120,20 @@ class ToolsApi
     }
 
     /**
-     * Operation putToolsActivationAsyncWithHttpInfo
+     * Operation putToolActivationAsyncWithHttpInfo
      *
      * Switches tools on and off for the caller&#39;s org and project, and answers with the resulting activated set.
      *
      * @param  \Hanzo\Cloud\Model\ActivationReq $activation_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolsActivation'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolActivation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putToolsActivationAsyncWithHttpInfo($activation_req, string $contentType = self::contentTypes['putToolsActivation'][0])
+    public function putToolActivationAsyncWithHttpInfo($activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ActivationSet';
-        $request = $this->putToolsActivationRequest($activation_req, $contentType);
+        $request = $this->putToolActivationRequest($activation_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5172,26 +5172,26 @@ class ToolsApi
     }
 
     /**
-     * Create request for operation 'putToolsActivation'
+     * Create request for operation 'putToolActivation'
      *
      * @param  \Hanzo\Cloud\Model\ActivationReq $activation_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolsActivation'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putToolActivation'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putToolsActivationRequest($activation_req, string $contentType = self::contentTypes['putToolsActivation'][0])
+    public function putToolActivationRequest($activation_req, string $contentType = self::contentTypes['putToolActivation'][0])
     {
 
         // verify the required parameter 'activation_req' is set
         if ($activation_req === null || (is_array($activation_req) && count($activation_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $activation_req when calling putToolsActivation'
+                'Missing the required parameter $activation_req when calling putToolActivation'
             );
         }
 
 
-        $resourcePath = '/v1/tools/activation';
+        $resourcePath = '/v1/tool/activation';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

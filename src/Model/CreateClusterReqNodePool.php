@@ -35,7 +35,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * CreateClusterReqNodePool Class Doc Comment
  *
  * @category Class
- * @description NodePool is the ONE pool the cluster is born with — a cluster with no nodes runs nothing, so it is not optional. More pools are added afterwards through POST /v1/visor/clusters/:clusterId/pools.
+ * @description NodePool is the ONE pool the cluster is born with — a cluster with no nodes runs nothing, so it is not optional. More pools are added afterwards through POST /v1/compute/clusters/:clusterId/pools.
  * @package  Hanzo\Cloud
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

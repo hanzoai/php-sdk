@@ -49,7 +49,7 @@ class BotMember implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'botMember';
+    protected static $openAPIModelName = 'BotMember';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -330,7 +330,7 @@ class BotMember implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets active
      *
-     * @param bool|null $active Active is whether the agent projects as a LIVE space member, derived from its registry status: empty, \"active\" and \"ready\" are live, anything else (archived/retired) is not. An inactive bot drops out of the Team list while its past authorship survives.
+     * @param bool|null $active Active is whether the agent projects as a LIVE space member, derived from its registry status: empty, \"active\" and \"ready\" are live, anything else (archived/retired) is not. An inactive bot drops out of the roster while its past authorship survives.
      *
      * @return self
      */
@@ -357,7 +357,7 @@ class BotMember implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id the agent id
+     * @param string|null $id ID is the agent id.
      *
      * @return self
      */
@@ -384,7 +384,7 @@ class BotMember implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name display name
+     * @param string|null $name Name is the display name.
      *
      * @return self
      */
@@ -411,7 +411,7 @@ class BotMember implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets person_ref
      *
-     * @param string|null $person_ref the projected Person _id
+     * @param string|null $person_ref PersonRef is the projected Person _id.
      *
      * @return self
      */
@@ -438,7 +438,7 @@ class BotMember implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets user_id
      *
-     * @param string|null $user_id derived member account uuid (personUuid)
+     * @param string|null $user_id UserID is the derived member account uuid (personUuid).
      *
      * @return self
      */

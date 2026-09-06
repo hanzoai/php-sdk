@@ -1,6 +1,6 @@
 <?php
 /**
- * IntegrationsApi
+ * IntegrationApi
  * PHP version 8.1
  *
  * @category Class
@@ -43,14 +43,14 @@ use Hanzo\Cloud\HeaderSelector;
 use Hanzo\Cloud\ObjectSerializer;
 
 /**
- * IntegrationsApi Class Doc Comment
+ * IntegrationApi Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class IntegrationsApi
+class IntegrationApi
 {
     /**
      * @var ClientInterface
@@ -74,169 +74,172 @@ class IntegrationsApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
-        'deleteIntegrationsConnectorsById' => [
+        'deleteIntegrationConnectorsById' => [
             'application/json',
         ],
-        'deleteIntegrationsGithubReposByRepoPages' => [
+        'deleteIntegrationGithubReposByRepoPages' => [
             'application/json',
         ],
-        'getIntegrations' => [
+        'getIntegration' => [
             'application/json',
         ],
-        'getIntegrationsByProvider' => [
+        'getIntegrationByProvider' => [
             'application/json',
         ],
-        'getIntegrationsByProviderCallback' => [
+        'getIntegrationByProviderCallback' => [
             'application/json',
         ],
-        'getIntegrationsConnectors' => [
+        'getIntegrationConnectors' => [
             'application/json',
         ],
-        'getIntegrationsConnectorsByIdToken' => [
+        'getIntegrationConnectorsByIdToken' => [
             'application/json',
         ],
-        'getIntegrationsConnectorsProviders' => [
+        'getIntegrationConnectorsProviders' => [
             'application/json',
         ],
-        'getIntegrationsDiscordLink' => [
+        'getIntegrationDiscordLink' => [
             'application/json',
         ],
-        'getIntegrationsDiscordLinkCallback' => [
+        'getIntegrationDiscordLinkCallback' => [
             'application/json',
         ],
-        'getIntegrationsDiscordLinkDiscord' => [
+        'getIntegrationDiscordLinkDiscord' => [
             'application/json',
         ],
-        'getIntegrationsGithubInstallations' => [
+        'getIntegrationGithubInstallations' => [
             'application/json',
         ],
-        'getIntegrationsGithubRepos' => [
+        'getIntegrationGithubRepos' => [
             'application/json',
         ],
-        'getIntegrationsGithubReposByRepoPages' => [
+        'getIntegrationGithubReposByRepoPages' => [
             'application/json',
         ],
-        'getIntegrationsGitlabProjects' => [
+        'getIntegrationGitlabProjects' => [
             'application/json',
         ],
-        'getIntegrationsSlackInstall' => [
+        'getIntegrationSlackInstall' => [
             'application/json',
         ],
-        'getIntegrationsSlackLink' => [
+        'getIntegrationSlackLink' => [
             'application/json',
         ],
-        'getIntegrationsSlackLinkCallback' => [
+        'getIntegrationSlackLinkCallback' => [
             'application/json',
         ],
-        'getIntegrationsSlackLinkSlack' => [
+        'getIntegrationSlackLinkSlack' => [
             'application/json',
         ],
-        'getIntegrationsTeamsLink' => [
+        'getIntegrationTeamsLink' => [
             'application/json',
         ],
-        'getIntegrationsTeamsLinkAad' => [
+        'getIntegrationTeamsLinkAad' => [
             'application/json',
         ],
-        'getIntegrationsTeamsLinkCallback' => [
+        'getIntegrationTeamsLinkCallback' => [
             'application/json',
         ],
-        'getIntegrationsTelegramLink' => [
+        'getIntegrationTelegramLink' => [
             'application/json',
         ],
-        'getIntegrationsTelegramLinkAuth' => [
+        'getIntegrationTelegramLinkAuth' => [
             'application/json',
         ],
-        'getIntegrationsTelegramLinkCallback' => [
+        'getIntegrationTelegramLinkCallback' => [
             'application/json',
         ],
-        'getIntegrationsWhatsappWebhook' => [
+        'getIntegrationWhatsappWebhook' => [
             'application/json',
         ],
-        'postIntegrationsByProviderConnect' => [
+        'postIntegrationByProviderConnect' => [
             'application/json',
         ],
-        'postIntegrationsByProviderDisconnect' => [
+        'postIntegrationByProviderDisconnect' => [
             'application/json',
         ],
-        'postIntegrationsByProviderVerify' => [
+        'postIntegrationByProviderVerify' => [
             'application/json',
         ],
-        'postIntegrationsConnectorsByIdRefresh' => [
+        'postIntegrationConnectorsByIdRefresh' => [
             'application/json',
         ],
-        'postIntegrationsConnectorsByProviderCredential' => [
+        'postIntegrationConnectorsByProviderCredential' => [
             'application/json',
         ],
-        'postIntegrationsConnectorsByProviderDevice' => [
+        'postIntegrationConnectorsByProviderDevice' => [
             'application/json',
         ],
-        'postIntegrationsConnectorsByProviderDeviceByFlowPoll' => [
+        'postIntegrationConnectorsByProviderDeviceByFlowPoll' => [
             'application/json',
         ],
-        'postIntegrationsDiscordInteractions' => [
+        'postIntegrationDiscordInteractions' => [
             'application/json',
         ],
-        'postIntegrationsGithubClaim' => [
+        'postIntegrationForgeWebhook' => [
             'application/json',
         ],
-        'postIntegrationsGithubFork' => [
+        'postIntegrationGithubClaim' => [
             'application/json',
         ],
-        'postIntegrationsGithubIssuesBackfill' => [
+        'postIntegrationGithubFork' => [
             'application/json',
         ],
-        'postIntegrationsGithubReposByRepoPages' => [
+        'postIntegrationGithubIssuesBackfill' => [
             'application/json',
         ],
-        'postIntegrationsGithubReposByRepoPagesBuilds' => [
+        'postIntegrationGithubReposByRepoPages' => [
             'application/json',
         ],
-        'postIntegrationsGithubReposImport' => [
+        'postIntegrationGithubReposByRepoPagesBuilds' => [
             'application/json',
         ],
-        'postIntegrationsGithubSearch' => [
+        'postIntegrationGithubReposImport' => [
             'application/json',
         ],
-        'postIntegrationsGithubWebhook' => [
+        'postIntegrationGithubSearch' => [
             'application/json',
         ],
-        'postIntegrationsLinearClaim' => [
+        'postIntegrationGithubWebhook' => [
             'application/json',
         ],
-        'postIntegrationsLinearComments' => [
+        'postIntegrationLinearClaim' => [
             'application/json',
         ],
-        'postIntegrationsLinearIssuesBackfill' => [
+        'postIntegrationLinearComments' => [
             'application/json',
         ],
-        'postIntegrationsLinearWebhook' => [
+        'postIntegrationLinearIssuesBackfill' => [
             'application/json',
         ],
-        'postIntegrationsOpenrouterWebhook' => [
+        'postIntegrationLinearWebhook' => [
             'application/json',
         ],
-        'postIntegrationsSlackCommands' => [
+        'postIntegrationOpenrouterWebhook' => [
             'application/json',
         ],
-        'postIntegrationsSlackEvents' => [
+        'postIntegrationSlackCommands' => [
             'application/json',
         ],
-        'postIntegrationsSlackJoin' => [
+        'postIntegrationSlackEvents' => [
             'application/json',
         ],
-        'postIntegrationsTeamsEvents' => [
+        'postIntegrationSlackJoin' => [
             'application/json',
         ],
-        'postIntegrationsTelegramConnect' => [
+        'postIntegrationTeamsEvents' => [
             'application/json',
         ],
-        'postIntegrationsTelegramWebhook' => [
+        'postIntegrationTelegramConnect' => [
             'application/json',
         ],
-        'postIntegrationsWhatsappWebhook' => [
+        'postIntegrationTelegramWebhook' => [
             'application/json',
         ],
-        'putIntegrationsGithubReposByRepoPages' => [
+        'postIntegrationWhatsappWebhook' => [
+            'application/json',
+        ],
+        'putIntegrationGithubReposByRepoPages' => [
             'application/json',
         ],
     ];
@@ -288,38 +291,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation deleteIntegrationsConnectorsById
+     * Operation deleteIntegrationConnectorsById
      *
      * Forgets a connector: every custodied secret, then the row.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationsConnectorsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationConnectorsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\DisconnectOut
      */
-    public function deleteIntegrationsConnectorsById($id, string $contentType = self::contentTypes['deleteIntegrationsConnectorsById'][0])
+    public function deleteIntegrationConnectorsById($id, string $contentType = self::contentTypes['deleteIntegrationConnectorsById'][0])
     {
-        list($response) = $this->deleteIntegrationsConnectorsByIdWithHttpInfo($id, $contentType);
+        list($response) = $this->deleteIntegrationConnectorsByIdWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation deleteIntegrationsConnectorsByIdWithHttpInfo
+     * Operation deleteIntegrationConnectorsByIdWithHttpInfo
      *
      * Forgets a connector: every custodied secret, then the row.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationsConnectorsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationConnectorsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\DisconnectOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteIntegrationsConnectorsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteIntegrationsConnectorsById'][0])
+    public function deleteIntegrationConnectorsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteIntegrationConnectorsById'][0])
     {
-        $request = $this->deleteIntegrationsConnectorsByIdRequest($id, $contentType);
+        $request = $this->deleteIntegrationConnectorsByIdRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -391,19 +394,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation deleteIntegrationsConnectorsByIdAsync
+     * Operation deleteIntegrationConnectorsByIdAsync
      *
      * Forgets a connector: every custodied secret, then the row.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationsConnectorsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationConnectorsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteIntegrationsConnectorsByIdAsync($id, string $contentType = self::contentTypes['deleteIntegrationsConnectorsById'][0])
+    public function deleteIntegrationConnectorsByIdAsync($id, string $contentType = self::contentTypes['deleteIntegrationConnectorsById'][0])
     {
-        return $this->deleteIntegrationsConnectorsByIdAsyncWithHttpInfo($id, $contentType)
+        return $this->deleteIntegrationConnectorsByIdAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -412,20 +415,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation deleteIntegrationsConnectorsByIdAsyncWithHttpInfo
+     * Operation deleteIntegrationConnectorsByIdAsyncWithHttpInfo
      *
      * Forgets a connector: every custodied secret, then the row.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationsConnectorsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationConnectorsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteIntegrationsConnectorsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteIntegrationsConnectorsById'][0])
+    public function deleteIntegrationConnectorsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteIntegrationConnectorsById'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\DisconnectOut';
-        $request = $this->deleteIntegrationsConnectorsByIdRequest($id, $contentType);
+        $request = $this->deleteIntegrationConnectorsByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -464,26 +467,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'deleteIntegrationsConnectorsById'
+     * Create request for operation 'deleteIntegrationConnectorsById'
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationsConnectorsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationConnectorsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteIntegrationsConnectorsByIdRequest($id, string $contentType = self::contentTypes['deleteIntegrationsConnectorsById'][0])
+    public function deleteIntegrationConnectorsByIdRequest($id, string $contentType = self::contentTypes['deleteIntegrationConnectorsById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling deleteIntegrationsConnectorsById'
+                'Missing the required parameter $id when calling deleteIntegrationConnectorsById'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/connectors/{id}';
+        $resourcePath = '/v1/integration/connectors/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -560,38 +563,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation deleteIntegrationsGithubReposByRepoPages
+     * Operation deleteIntegrationGithubReposByRepoPages
      *
      * Deletes the repo&#39;s Pages site.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubPagesDisabledOut
      */
-    public function deleteIntegrationsGithubReposByRepoPages($repo, string $contentType = self::contentTypes['deleteIntegrationsGithubReposByRepoPages'][0])
+    public function deleteIntegrationGithubReposByRepoPages($repo, string $contentType = self::contentTypes['deleteIntegrationGithubReposByRepoPages'][0])
     {
-        list($response) = $this->deleteIntegrationsGithubReposByRepoPagesWithHttpInfo($repo, $contentType);
+        list($response) = $this->deleteIntegrationGithubReposByRepoPagesWithHttpInfo($repo, $contentType);
         return $response;
     }
 
     /**
-     * Operation deleteIntegrationsGithubReposByRepoPagesWithHttpInfo
+     * Operation deleteIntegrationGithubReposByRepoPagesWithHttpInfo
      *
      * Deletes the repo&#39;s Pages site.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubPagesDisabledOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteIntegrationsGithubReposByRepoPagesWithHttpInfo($repo, string $contentType = self::contentTypes['deleteIntegrationsGithubReposByRepoPages'][0])
+    public function deleteIntegrationGithubReposByRepoPagesWithHttpInfo($repo, string $contentType = self::contentTypes['deleteIntegrationGithubReposByRepoPages'][0])
     {
-        $request = $this->deleteIntegrationsGithubReposByRepoPagesRequest($repo, $contentType);
+        $request = $this->deleteIntegrationGithubReposByRepoPagesRequest($repo, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -663,19 +666,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation deleteIntegrationsGithubReposByRepoPagesAsync
+     * Operation deleteIntegrationGithubReposByRepoPagesAsync
      *
      * Deletes the repo&#39;s Pages site.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteIntegrationsGithubReposByRepoPagesAsync($repo, string $contentType = self::contentTypes['deleteIntegrationsGithubReposByRepoPages'][0])
+    public function deleteIntegrationGithubReposByRepoPagesAsync($repo, string $contentType = self::contentTypes['deleteIntegrationGithubReposByRepoPages'][0])
     {
-        return $this->deleteIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo($repo, $contentType)
+        return $this->deleteIntegrationGithubReposByRepoPagesAsyncWithHttpInfo($repo, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -684,20 +687,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation deleteIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo
+     * Operation deleteIntegrationGithubReposByRepoPagesAsyncWithHttpInfo
      *
      * Deletes the repo&#39;s Pages site.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo($repo, string $contentType = self::contentTypes['deleteIntegrationsGithubReposByRepoPages'][0])
+    public function deleteIntegrationGithubReposByRepoPagesAsyncWithHttpInfo($repo, string $contentType = self::contentTypes['deleteIntegrationGithubReposByRepoPages'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubPagesDisabledOut';
-        $request = $this->deleteIntegrationsGithubReposByRepoPagesRequest($repo, $contentType);
+        $request = $this->deleteIntegrationGithubReposByRepoPagesRequest($repo, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -736,26 +739,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'deleteIntegrationsGithubReposByRepoPages'
+     * Create request for operation 'deleteIntegrationGithubReposByRepoPages'
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteIntegrationsGithubReposByRepoPagesRequest($repo, string $contentType = self::contentTypes['deleteIntegrationsGithubReposByRepoPages'][0])
+    public function deleteIntegrationGithubReposByRepoPagesRequest($repo, string $contentType = self::contentTypes['deleteIntegrationGithubReposByRepoPages'][0])
     {
 
         // verify the required parameter 'repo' is set
         if ($repo === null || (is_array($repo) && count($repo) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $repo when calling deleteIntegrationsGithubReposByRepoPages'
+                'Missing the required parameter $repo when calling deleteIntegrationGithubReposByRepoPages'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/github/repos/{repo}/pages';
+        $resourcePath = '/v1/integration/github/repos/{repo}/pages';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -832,36 +835,36 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrations
+     * Operation getIntegration
      *
      * Returns every registered integration provider together with THIS org&#39;s connection status for it — the catalog the console&#39;s Integrations page renders.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegration'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ListOut
      */
-    public function getIntegrations(string $contentType = self::contentTypes['getIntegrations'][0])
+    public function getIntegration(string $contentType = self::contentTypes['getIntegration'][0])
     {
-        list($response) = $this->getIntegrationsWithHttpInfo($contentType);
+        list($response) = $this->getIntegrationWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getIntegrationsWithHttpInfo
+     * Operation getIntegrationWithHttpInfo
      *
      * Returns every registered integration provider together with THIS org&#39;s connection status for it — the catalog the console&#39;s Integrations page renders.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegration'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ListOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsWithHttpInfo(string $contentType = self::contentTypes['getIntegrations'][0])
+    public function getIntegrationWithHttpInfo(string $contentType = self::contentTypes['getIntegration'][0])
     {
-        $request = $this->getIntegrationsRequest($contentType);
+        $request = $this->getIntegrationRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -933,18 +936,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsAsync
+     * Operation getIntegrationAsync
      *
      * Returns every registered integration provider together with THIS org&#39;s connection status for it — the catalog the console&#39;s Integrations page renders.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegration'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsAsync(string $contentType = self::contentTypes['getIntegrations'][0])
+    public function getIntegrationAsync(string $contentType = self::contentTypes['getIntegration'][0])
     {
-        return $this->getIntegrationsAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -953,19 +956,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsAsyncWithHttpInfo
+     * Operation getIntegrationAsyncWithHttpInfo
      *
      * Returns every registered integration provider together with THIS org&#39;s connection status for it — the catalog the console&#39;s Integrations page renders.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegration'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrations'][0])
+    public function getIntegrationAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegration'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ListOut';
-        $request = $this->getIntegrationsRequest($contentType);
+        $request = $this->getIntegrationRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1004,18 +1007,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrations'
+     * Create request for operation 'getIntegration'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegration'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsRequest(string $contentType = self::contentTypes['getIntegrations'][0])
+    public function getIntegrationRequest(string $contentType = self::contentTypes['getIntegration'][0])
     {
 
 
-        $resourcePath = '/v1/integrations';
+        $resourcePath = '/v1/integration';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1084,38 +1087,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsByProvider
+     * Operation getIntegrationByProvider
      *
      * Returns ONE provider with this org&#39;s connection status — the same view list carries, for a single id.
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsByProvider'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationByProvider'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ProviderView
      */
-    public function getIntegrationsByProvider($provider, string $contentType = self::contentTypes['getIntegrationsByProvider'][0])
+    public function getIntegrationByProvider($provider, string $contentType = self::contentTypes['getIntegrationByProvider'][0])
     {
-        list($response) = $this->getIntegrationsByProviderWithHttpInfo($provider, $contentType);
+        list($response) = $this->getIntegrationByProviderWithHttpInfo($provider, $contentType);
         return $response;
     }
 
     /**
-     * Operation getIntegrationsByProviderWithHttpInfo
+     * Operation getIntegrationByProviderWithHttpInfo
      *
      * Returns ONE provider with this org&#39;s connection status — the same view list carries, for a single id.
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsByProvider'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationByProvider'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ProviderView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsByProviderWithHttpInfo($provider, string $contentType = self::contentTypes['getIntegrationsByProvider'][0])
+    public function getIntegrationByProviderWithHttpInfo($provider, string $contentType = self::contentTypes['getIntegrationByProvider'][0])
     {
-        $request = $this->getIntegrationsByProviderRequest($provider, $contentType);
+        $request = $this->getIntegrationByProviderRequest($provider, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1187,19 +1190,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsByProviderAsync
+     * Operation getIntegrationByProviderAsync
      *
      * Returns ONE provider with this org&#39;s connection status — the same view list carries, for a single id.
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsByProvider'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationByProvider'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsByProviderAsync($provider, string $contentType = self::contentTypes['getIntegrationsByProvider'][0])
+    public function getIntegrationByProviderAsync($provider, string $contentType = self::contentTypes['getIntegrationByProvider'][0])
     {
-        return $this->getIntegrationsByProviderAsyncWithHttpInfo($provider, $contentType)
+        return $this->getIntegrationByProviderAsyncWithHttpInfo($provider, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1208,20 +1211,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsByProviderAsyncWithHttpInfo
+     * Operation getIntegrationByProviderAsyncWithHttpInfo
      *
      * Returns ONE provider with this org&#39;s connection status — the same view list carries, for a single id.
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsByProvider'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationByProvider'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsByProviderAsyncWithHttpInfo($provider, string $contentType = self::contentTypes['getIntegrationsByProvider'][0])
+    public function getIntegrationByProviderAsyncWithHttpInfo($provider, string $contentType = self::contentTypes['getIntegrationByProvider'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ProviderView';
-        $request = $this->getIntegrationsByProviderRequest($provider, $contentType);
+        $request = $this->getIntegrationByProviderRequest($provider, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1260,26 +1263,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsByProvider'
+     * Create request for operation 'getIntegrationByProvider'
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsByProvider'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationByProvider'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsByProviderRequest($provider, string $contentType = self::contentTypes['getIntegrationsByProvider'][0])
+    public function getIntegrationByProviderRequest($provider, string $contentType = self::contentTypes['getIntegrationByProvider'][0])
     {
 
         // verify the required parameter 'provider' is set
         if ($provider === null || (is_array($provider) && count($provider) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provider when calling getIntegrationsByProvider'
+                'Missing the required parameter $provider when calling getIntegrationByProvider'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/{provider}';
+        $resourcePath = '/v1/integration/{provider}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1356,37 +1359,37 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsByProviderCallback
+     * Operation getIntegrationByProviderCallback
      *
      * OAuth return for any connector
      *
      * @param  string $provider provider (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsByProviderCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationByProviderCallback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsByProviderCallback($provider, string $contentType = self::contentTypes['getIntegrationsByProviderCallback'][0])
+    public function getIntegrationByProviderCallback($provider, string $contentType = self::contentTypes['getIntegrationByProviderCallback'][0])
     {
-        $this->getIntegrationsByProviderCallbackWithHttpInfo($provider, $contentType);
+        $this->getIntegrationByProviderCallbackWithHttpInfo($provider, $contentType);
     }
 
     /**
-     * Operation getIntegrationsByProviderCallbackWithHttpInfo
+     * Operation getIntegrationByProviderCallbackWithHttpInfo
      *
      * OAuth return for any connector
      *
      * @param  string $provider (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsByProviderCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationByProviderCallback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsByProviderCallbackWithHttpInfo($provider, string $contentType = self::contentTypes['getIntegrationsByProviderCallback'][0])
+    public function getIntegrationByProviderCallbackWithHttpInfo($provider, string $contentType = self::contentTypes['getIntegrationByProviderCallback'][0])
     {
-        $request = $this->getIntegrationsByProviderCallbackRequest($provider, $contentType);
+        $request = $this->getIntegrationByProviderCallbackRequest($provider, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1422,19 +1425,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsByProviderCallbackAsync
+     * Operation getIntegrationByProviderCallbackAsync
      *
      * OAuth return for any connector
      *
      * @param  string $provider (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsByProviderCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationByProviderCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsByProviderCallbackAsync($provider, string $contentType = self::contentTypes['getIntegrationsByProviderCallback'][0])
+    public function getIntegrationByProviderCallbackAsync($provider, string $contentType = self::contentTypes['getIntegrationByProviderCallback'][0])
     {
-        return $this->getIntegrationsByProviderCallbackAsyncWithHttpInfo($provider, $contentType)
+        return $this->getIntegrationByProviderCallbackAsyncWithHttpInfo($provider, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1443,20 +1446,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsByProviderCallbackAsyncWithHttpInfo
+     * Operation getIntegrationByProviderCallbackAsyncWithHttpInfo
      *
      * OAuth return for any connector
      *
      * @param  string $provider (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsByProviderCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationByProviderCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsByProviderCallbackAsyncWithHttpInfo($provider, string $contentType = self::contentTypes['getIntegrationsByProviderCallback'][0])
+    public function getIntegrationByProviderCallbackAsyncWithHttpInfo($provider, string $contentType = self::contentTypes['getIntegrationByProviderCallback'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsByProviderCallbackRequest($provider, $contentType);
+        $request = $this->getIntegrationByProviderCallbackRequest($provider, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1482,26 +1485,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsByProviderCallback'
+     * Create request for operation 'getIntegrationByProviderCallback'
      *
      * @param  string $provider (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsByProviderCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationByProviderCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsByProviderCallbackRequest($provider, string $contentType = self::contentTypes['getIntegrationsByProviderCallback'][0])
+    public function getIntegrationByProviderCallbackRequest($provider, string $contentType = self::contentTypes['getIntegrationByProviderCallback'][0])
     {
 
         // verify the required parameter 'provider' is set
         if ($provider === null || (is_array($provider) && count($provider) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provider when calling getIntegrationsByProviderCallback'
+                'Missing the required parameter $provider when calling getIntegrationByProviderCallback'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/{provider}/callback';
+        $resourcePath = '/v1/integration/{provider}/callback';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1578,36 +1581,36 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsConnectors
+     * Operation getIntegrationConnectors
      *
      * Lists the caller&#39;s OWN connectors across every provider — the set &#x60;hanzo connector ls&#x60; prints.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectors'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ConnectorsOut
      */
-    public function getIntegrationsConnectors(string $contentType = self::contentTypes['getIntegrationsConnectors'][0])
+    public function getIntegrationConnectors(string $contentType = self::contentTypes['getIntegrationConnectors'][0])
     {
-        list($response) = $this->getIntegrationsConnectorsWithHttpInfo($contentType);
+        list($response) = $this->getIntegrationConnectorsWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getIntegrationsConnectorsWithHttpInfo
+     * Operation getIntegrationConnectorsWithHttpInfo
      *
      * Lists the caller&#39;s OWN connectors across every provider — the set &#x60;hanzo connector ls&#x60; prints.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectors'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectors'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ConnectorsOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsConnectorsWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsConnectors'][0])
+    public function getIntegrationConnectorsWithHttpInfo(string $contentType = self::contentTypes['getIntegrationConnectors'][0])
     {
-        $request = $this->getIntegrationsConnectorsRequest($contentType);
+        $request = $this->getIntegrationConnectorsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1679,18 +1682,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsConnectorsAsync
+     * Operation getIntegrationConnectorsAsync
      *
      * Lists the caller&#39;s OWN connectors across every provider — the set &#x60;hanzo connector ls&#x60; prints.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectors'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsConnectorsAsync(string $contentType = self::contentTypes['getIntegrationsConnectors'][0])
+    public function getIntegrationConnectorsAsync(string $contentType = self::contentTypes['getIntegrationConnectors'][0])
     {
-        return $this->getIntegrationsConnectorsAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationConnectorsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1699,19 +1702,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsConnectorsAsyncWithHttpInfo
+     * Operation getIntegrationConnectorsAsyncWithHttpInfo
      *
      * Lists the caller&#39;s OWN connectors across every provider — the set &#x60;hanzo connector ls&#x60; prints.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectors'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsConnectorsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsConnectors'][0])
+    public function getIntegrationConnectorsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationConnectors'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ConnectorsOut';
-        $request = $this->getIntegrationsConnectorsRequest($contentType);
+        $request = $this->getIntegrationConnectorsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1750,18 +1753,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsConnectors'
+     * Create request for operation 'getIntegrationConnectors'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectors'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectors'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsConnectorsRequest(string $contentType = self::contentTypes['getIntegrationsConnectors'][0])
+    public function getIntegrationConnectorsRequest(string $contentType = self::contentTypes['getIntegrationConnectors'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/connectors';
+        $resourcePath = '/v1/integration/connectors';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1830,38 +1833,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsConnectorsByIdToken
+     * Operation getIntegrationConnectorsByIdToken
      *
      * Hands the custodied access token to its owner — the ONE place custody exits.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectorsByIdToken'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectorsByIdToken'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ConnectorTokenOut
      */
-    public function getIntegrationsConnectorsByIdToken($id, string $contentType = self::contentTypes['getIntegrationsConnectorsByIdToken'][0])
+    public function getIntegrationConnectorsByIdToken($id, string $contentType = self::contentTypes['getIntegrationConnectorsByIdToken'][0])
     {
-        list($response) = $this->getIntegrationsConnectorsByIdTokenWithHttpInfo($id, $contentType);
+        list($response) = $this->getIntegrationConnectorsByIdTokenWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getIntegrationsConnectorsByIdTokenWithHttpInfo
+     * Operation getIntegrationConnectorsByIdTokenWithHttpInfo
      *
      * Hands the custodied access token to its owner — the ONE place custody exits.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectorsByIdToken'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectorsByIdToken'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ConnectorTokenOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsConnectorsByIdTokenWithHttpInfo($id, string $contentType = self::contentTypes['getIntegrationsConnectorsByIdToken'][0])
+    public function getIntegrationConnectorsByIdTokenWithHttpInfo($id, string $contentType = self::contentTypes['getIntegrationConnectorsByIdToken'][0])
     {
-        $request = $this->getIntegrationsConnectorsByIdTokenRequest($id, $contentType);
+        $request = $this->getIntegrationConnectorsByIdTokenRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1933,19 +1936,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsConnectorsByIdTokenAsync
+     * Operation getIntegrationConnectorsByIdTokenAsync
      *
      * Hands the custodied access token to its owner — the ONE place custody exits.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectorsByIdToken'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectorsByIdToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsConnectorsByIdTokenAsync($id, string $contentType = self::contentTypes['getIntegrationsConnectorsByIdToken'][0])
+    public function getIntegrationConnectorsByIdTokenAsync($id, string $contentType = self::contentTypes['getIntegrationConnectorsByIdToken'][0])
     {
-        return $this->getIntegrationsConnectorsByIdTokenAsyncWithHttpInfo($id, $contentType)
+        return $this->getIntegrationConnectorsByIdTokenAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1954,20 +1957,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsConnectorsByIdTokenAsyncWithHttpInfo
+     * Operation getIntegrationConnectorsByIdTokenAsyncWithHttpInfo
      *
      * Hands the custodied access token to its owner — the ONE place custody exits.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectorsByIdToken'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectorsByIdToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsConnectorsByIdTokenAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getIntegrationsConnectorsByIdToken'][0])
+    public function getIntegrationConnectorsByIdTokenAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getIntegrationConnectorsByIdToken'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ConnectorTokenOut';
-        $request = $this->getIntegrationsConnectorsByIdTokenRequest($id, $contentType);
+        $request = $this->getIntegrationConnectorsByIdTokenRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2006,26 +2009,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsConnectorsByIdToken'
+     * Create request for operation 'getIntegrationConnectorsByIdToken'
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectorsByIdToken'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectorsByIdToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsConnectorsByIdTokenRequest($id, string $contentType = self::contentTypes['getIntegrationsConnectorsByIdToken'][0])
+    public function getIntegrationConnectorsByIdTokenRequest($id, string $contentType = self::contentTypes['getIntegrationConnectorsByIdToken'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling getIntegrationsConnectorsByIdToken'
+                'Missing the required parameter $id when calling getIntegrationConnectorsByIdToken'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/connectors/{id}/token';
+        $resourcePath = '/v1/integration/connectors/{id}/token';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2102,36 +2105,36 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsConnectorsProviders
+     * Operation getIntegrationConnectorsProviders
      *
      * Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectorsProviders'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectorsProviders'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ConnectorProvidersOut
      */
-    public function getIntegrationsConnectorsProviders(string $contentType = self::contentTypes['getIntegrationsConnectorsProviders'][0])
+    public function getIntegrationConnectorsProviders(string $contentType = self::contentTypes['getIntegrationConnectorsProviders'][0])
     {
-        list($response) = $this->getIntegrationsConnectorsProvidersWithHttpInfo($contentType);
+        list($response) = $this->getIntegrationConnectorsProvidersWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getIntegrationsConnectorsProvidersWithHttpInfo
+     * Operation getIntegrationConnectorsProvidersWithHttpInfo
      *
      * Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectorsProviders'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectorsProviders'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ConnectorProvidersOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsConnectorsProvidersWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsConnectorsProviders'][0])
+    public function getIntegrationConnectorsProvidersWithHttpInfo(string $contentType = self::contentTypes['getIntegrationConnectorsProviders'][0])
     {
-        $request = $this->getIntegrationsConnectorsProvidersRequest($contentType);
+        $request = $this->getIntegrationConnectorsProvidersRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2203,18 +2206,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsConnectorsProvidersAsync
+     * Operation getIntegrationConnectorsProvidersAsync
      *
      * Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectorsProviders'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectorsProviders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsConnectorsProvidersAsync(string $contentType = self::contentTypes['getIntegrationsConnectorsProviders'][0])
+    public function getIntegrationConnectorsProvidersAsync(string $contentType = self::contentTypes['getIntegrationConnectorsProviders'][0])
     {
-        return $this->getIntegrationsConnectorsProvidersAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationConnectorsProvidersAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2223,19 +2226,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsConnectorsProvidersAsyncWithHttpInfo
+     * Operation getIntegrationConnectorsProvidersAsyncWithHttpInfo
      *
      * Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectorsProviders'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectorsProviders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsConnectorsProvidersAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsConnectorsProviders'][0])
+    public function getIntegrationConnectorsProvidersAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationConnectorsProviders'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ConnectorProvidersOut';
-        $request = $this->getIntegrationsConnectorsProvidersRequest($contentType);
+        $request = $this->getIntegrationConnectorsProvidersRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2274,18 +2277,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsConnectorsProviders'
+     * Create request for operation 'getIntegrationConnectorsProviders'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsConnectorsProviders'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationConnectorsProviders'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsConnectorsProvidersRequest(string $contentType = self::contentTypes['getIntegrationsConnectorsProviders'][0])
+    public function getIntegrationConnectorsProvidersRequest(string $contentType = self::contentTypes['getIntegrationConnectorsProviders'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/connectors/providers';
+        $resourcePath = '/v1/integration/connectors/providers';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2354,35 +2357,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsDiscordLink
+     * Operation getIntegrationDiscordLink
      *
      * Begin linking a Hanzo account from Discord
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsDiscordLink(string $contentType = self::contentTypes['getIntegrationsDiscordLink'][0])
+    public function getIntegrationDiscordLink(string $contentType = self::contentTypes['getIntegrationDiscordLink'][0])
     {
-        $this->getIntegrationsDiscordLinkWithHttpInfo($contentType);
+        $this->getIntegrationDiscordLinkWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsDiscordLinkWithHttpInfo
+     * Operation getIntegrationDiscordLinkWithHttpInfo
      *
      * Begin linking a Hanzo account from Discord
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsDiscordLinkWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsDiscordLink'][0])
+    public function getIntegrationDiscordLinkWithHttpInfo(string $contentType = self::contentTypes['getIntegrationDiscordLink'][0])
     {
-        $request = $this->getIntegrationsDiscordLinkRequest($contentType);
+        $request = $this->getIntegrationDiscordLinkRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2418,18 +2421,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsDiscordLinkAsync
+     * Operation getIntegrationDiscordLinkAsync
      *
      * Begin linking a Hanzo account from Discord
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsDiscordLinkAsync(string $contentType = self::contentTypes['getIntegrationsDiscordLink'][0])
+    public function getIntegrationDiscordLinkAsync(string $contentType = self::contentTypes['getIntegrationDiscordLink'][0])
     {
-        return $this->getIntegrationsDiscordLinkAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationDiscordLinkAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2438,19 +2441,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsDiscordLinkAsyncWithHttpInfo
+     * Operation getIntegrationDiscordLinkAsyncWithHttpInfo
      *
      * Begin linking a Hanzo account from Discord
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsDiscordLinkAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsDiscordLink'][0])
+    public function getIntegrationDiscordLinkAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationDiscordLink'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsDiscordLinkRequest($contentType);
+        $request = $this->getIntegrationDiscordLinkRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2476,18 +2479,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsDiscordLink'
+     * Create request for operation 'getIntegrationDiscordLink'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsDiscordLinkRequest(string $contentType = self::contentTypes['getIntegrationsDiscordLink'][0])
+    public function getIntegrationDiscordLinkRequest(string $contentType = self::contentTypes['getIntegrationDiscordLink'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/discord/link';
+        $resourcePath = '/v1/integration/discord/link';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2556,35 +2559,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsDiscordLinkCallback
+     * Operation getIntegrationDiscordLinkCallback
      *
      * Complete the Discord account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLinkCallback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsDiscordLinkCallback(string $contentType = self::contentTypes['getIntegrationsDiscordLinkCallback'][0])
+    public function getIntegrationDiscordLinkCallback(string $contentType = self::contentTypes['getIntegrationDiscordLinkCallback'][0])
     {
-        $this->getIntegrationsDiscordLinkCallbackWithHttpInfo($contentType);
+        $this->getIntegrationDiscordLinkCallbackWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsDiscordLinkCallbackWithHttpInfo
+     * Operation getIntegrationDiscordLinkCallbackWithHttpInfo
      *
      * Complete the Discord account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLinkCallback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsDiscordLinkCallbackWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsDiscordLinkCallback'][0])
+    public function getIntegrationDiscordLinkCallbackWithHttpInfo(string $contentType = self::contentTypes['getIntegrationDiscordLinkCallback'][0])
     {
-        $request = $this->getIntegrationsDiscordLinkCallbackRequest($contentType);
+        $request = $this->getIntegrationDiscordLinkCallbackRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2620,18 +2623,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsDiscordLinkCallbackAsync
+     * Operation getIntegrationDiscordLinkCallbackAsync
      *
      * Complete the Discord account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsDiscordLinkCallbackAsync(string $contentType = self::contentTypes['getIntegrationsDiscordLinkCallback'][0])
+    public function getIntegrationDiscordLinkCallbackAsync(string $contentType = self::contentTypes['getIntegrationDiscordLinkCallback'][0])
     {
-        return $this->getIntegrationsDiscordLinkCallbackAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationDiscordLinkCallbackAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2640,19 +2643,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsDiscordLinkCallbackAsyncWithHttpInfo
+     * Operation getIntegrationDiscordLinkCallbackAsyncWithHttpInfo
      *
      * Complete the Discord account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsDiscordLinkCallbackAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsDiscordLinkCallback'][0])
+    public function getIntegrationDiscordLinkCallbackAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationDiscordLinkCallback'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsDiscordLinkCallbackRequest($contentType);
+        $request = $this->getIntegrationDiscordLinkCallbackRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2678,18 +2681,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsDiscordLinkCallback'
+     * Create request for operation 'getIntegrationDiscordLinkCallback'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsDiscordLinkCallbackRequest(string $contentType = self::contentTypes['getIntegrationsDiscordLinkCallback'][0])
+    public function getIntegrationDiscordLinkCallbackRequest(string $contentType = self::contentTypes['getIntegrationDiscordLinkCallback'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/discord/link/callback';
+        $resourcePath = '/v1/integration/discord/link/callback';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2758,35 +2761,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsDiscordLinkDiscord
+     * Operation getIntegrationDiscordLinkDiscord
      *
      * Discord sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLinkDiscord'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLinkDiscord'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsDiscordLinkDiscord(string $contentType = self::contentTypes['getIntegrationsDiscordLinkDiscord'][0])
+    public function getIntegrationDiscordLinkDiscord(string $contentType = self::contentTypes['getIntegrationDiscordLinkDiscord'][0])
     {
-        $this->getIntegrationsDiscordLinkDiscordWithHttpInfo($contentType);
+        $this->getIntegrationDiscordLinkDiscordWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsDiscordLinkDiscordWithHttpInfo
+     * Operation getIntegrationDiscordLinkDiscordWithHttpInfo
      *
      * Discord sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLinkDiscord'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLinkDiscord'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsDiscordLinkDiscordWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsDiscordLinkDiscord'][0])
+    public function getIntegrationDiscordLinkDiscordWithHttpInfo(string $contentType = self::contentTypes['getIntegrationDiscordLinkDiscord'][0])
     {
-        $request = $this->getIntegrationsDiscordLinkDiscordRequest($contentType);
+        $request = $this->getIntegrationDiscordLinkDiscordRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2822,18 +2825,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsDiscordLinkDiscordAsync
+     * Operation getIntegrationDiscordLinkDiscordAsync
      *
      * Discord sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLinkDiscord'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLinkDiscord'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsDiscordLinkDiscordAsync(string $contentType = self::contentTypes['getIntegrationsDiscordLinkDiscord'][0])
+    public function getIntegrationDiscordLinkDiscordAsync(string $contentType = self::contentTypes['getIntegrationDiscordLinkDiscord'][0])
     {
-        return $this->getIntegrationsDiscordLinkDiscordAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationDiscordLinkDiscordAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2842,19 +2845,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsDiscordLinkDiscordAsyncWithHttpInfo
+     * Operation getIntegrationDiscordLinkDiscordAsyncWithHttpInfo
      *
      * Discord sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLinkDiscord'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLinkDiscord'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsDiscordLinkDiscordAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsDiscordLinkDiscord'][0])
+    public function getIntegrationDiscordLinkDiscordAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationDiscordLinkDiscord'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsDiscordLinkDiscordRequest($contentType);
+        $request = $this->getIntegrationDiscordLinkDiscordRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2880,18 +2883,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsDiscordLinkDiscord'
+     * Create request for operation 'getIntegrationDiscordLinkDiscord'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsDiscordLinkDiscord'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationDiscordLinkDiscord'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsDiscordLinkDiscordRequest(string $contentType = self::contentTypes['getIntegrationsDiscordLinkDiscord'][0])
+    public function getIntegrationDiscordLinkDiscordRequest(string $contentType = self::contentTypes['getIntegrationDiscordLinkDiscord'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/discord/link/discord';
+        $resourcePath = '/v1/integration/discord/link/discord';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2960,36 +2963,36 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGithubInstallations
+     * Operation getIntegrationGithubInstallations
      *
      * Lists the GitHub accounts the caller may see the App installed on, each confirmed against the App&#39;s own list, plus where to add another.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubInstallations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubInstallations'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubInstallationsOut
      */
-    public function getIntegrationsGithubInstallations(string $contentType = self::contentTypes['getIntegrationsGithubInstallations'][0])
+    public function getIntegrationGithubInstallations(string $contentType = self::contentTypes['getIntegrationGithubInstallations'][0])
     {
-        list($response) = $this->getIntegrationsGithubInstallationsWithHttpInfo($contentType);
+        list($response) = $this->getIntegrationGithubInstallationsWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getIntegrationsGithubInstallationsWithHttpInfo
+     * Operation getIntegrationGithubInstallationsWithHttpInfo
      *
      * Lists the GitHub accounts the caller may see the App installed on, each confirmed against the App&#39;s own list, plus where to add another.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubInstallations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubInstallations'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubInstallationsOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsGithubInstallationsWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsGithubInstallations'][0])
+    public function getIntegrationGithubInstallationsWithHttpInfo(string $contentType = self::contentTypes['getIntegrationGithubInstallations'][0])
     {
-        $request = $this->getIntegrationsGithubInstallationsRequest($contentType);
+        $request = $this->getIntegrationGithubInstallationsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3061,18 +3064,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGithubInstallationsAsync
+     * Operation getIntegrationGithubInstallationsAsync
      *
      * Lists the GitHub accounts the caller may see the App installed on, each confirmed against the App&#39;s own list, plus where to add another.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubInstallations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubInstallations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsGithubInstallationsAsync(string $contentType = self::contentTypes['getIntegrationsGithubInstallations'][0])
+    public function getIntegrationGithubInstallationsAsync(string $contentType = self::contentTypes['getIntegrationGithubInstallations'][0])
     {
-        return $this->getIntegrationsGithubInstallationsAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationGithubInstallationsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3081,19 +3084,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGithubInstallationsAsyncWithHttpInfo
+     * Operation getIntegrationGithubInstallationsAsyncWithHttpInfo
      *
      * Lists the GitHub accounts the caller may see the App installed on, each confirmed against the App&#39;s own list, plus where to add another.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubInstallations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubInstallations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsGithubInstallationsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsGithubInstallations'][0])
+    public function getIntegrationGithubInstallationsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationGithubInstallations'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubInstallationsOut';
-        $request = $this->getIntegrationsGithubInstallationsRequest($contentType);
+        $request = $this->getIntegrationGithubInstallationsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3132,18 +3135,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsGithubInstallations'
+     * Create request for operation 'getIntegrationGithubInstallations'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubInstallations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubInstallations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsGithubInstallationsRequest(string $contentType = self::contentTypes['getIntegrationsGithubInstallations'][0])
+    public function getIntegrationGithubInstallationsRequest(string $contentType = self::contentTypes['getIntegrationGithubInstallations'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/github/installations';
+        $resourcePath = '/v1/integration/github/installations';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3212,36 +3215,36 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGithubRepos
+     * Operation getIntegrationGithubRepos
      *
      * Lists the org&#39;s granted GitHub repositories, each annotated with its native import + sync status from the git object plane.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubRepos'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubRepos'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubReposOut
      */
-    public function getIntegrationsGithubRepos(string $contentType = self::contentTypes['getIntegrationsGithubRepos'][0])
+    public function getIntegrationGithubRepos(string $contentType = self::contentTypes['getIntegrationGithubRepos'][0])
     {
-        list($response) = $this->getIntegrationsGithubReposWithHttpInfo($contentType);
+        list($response) = $this->getIntegrationGithubReposWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getIntegrationsGithubReposWithHttpInfo
+     * Operation getIntegrationGithubReposWithHttpInfo
      *
      * Lists the org&#39;s granted GitHub repositories, each annotated with its native import + sync status from the git object plane.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubRepos'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubRepos'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubReposOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsGithubReposWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsGithubRepos'][0])
+    public function getIntegrationGithubReposWithHttpInfo(string $contentType = self::contentTypes['getIntegrationGithubRepos'][0])
     {
-        $request = $this->getIntegrationsGithubReposRequest($contentType);
+        $request = $this->getIntegrationGithubReposRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3313,18 +3316,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGithubReposAsync
+     * Operation getIntegrationGithubReposAsync
      *
      * Lists the org&#39;s granted GitHub repositories, each annotated with its native import + sync status from the git object plane.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubRepos'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubRepos'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsGithubReposAsync(string $contentType = self::contentTypes['getIntegrationsGithubRepos'][0])
+    public function getIntegrationGithubReposAsync(string $contentType = self::contentTypes['getIntegrationGithubRepos'][0])
     {
-        return $this->getIntegrationsGithubReposAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationGithubReposAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3333,19 +3336,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGithubReposAsyncWithHttpInfo
+     * Operation getIntegrationGithubReposAsyncWithHttpInfo
      *
      * Lists the org&#39;s granted GitHub repositories, each annotated with its native import + sync status from the git object plane.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubRepos'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubRepos'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsGithubReposAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsGithubRepos'][0])
+    public function getIntegrationGithubReposAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationGithubRepos'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubReposOut';
-        $request = $this->getIntegrationsGithubReposRequest($contentType);
+        $request = $this->getIntegrationGithubReposRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3384,18 +3387,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsGithubRepos'
+     * Create request for operation 'getIntegrationGithubRepos'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubRepos'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubRepos'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsGithubReposRequest(string $contentType = self::contentTypes['getIntegrationsGithubRepos'][0])
+    public function getIntegrationGithubReposRequest(string $contentType = self::contentTypes['getIntegrationGithubRepos'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/github/repos';
+        $resourcePath = '/v1/integration/github/repos';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3464,38 +3467,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGithubReposByRepoPages
+     * Operation getIntegrationGithubReposByRepoPages
      *
      * Returns the repo&#39;s Pages status, live URL, custom domain and build source.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubPagesView
      */
-    public function getIntegrationsGithubReposByRepoPages($repo, string $contentType = self::contentTypes['getIntegrationsGithubReposByRepoPages'][0])
+    public function getIntegrationGithubReposByRepoPages($repo, string $contentType = self::contentTypes['getIntegrationGithubReposByRepoPages'][0])
     {
-        list($response) = $this->getIntegrationsGithubReposByRepoPagesWithHttpInfo($repo, $contentType);
+        list($response) = $this->getIntegrationGithubReposByRepoPagesWithHttpInfo($repo, $contentType);
         return $response;
     }
 
     /**
-     * Operation getIntegrationsGithubReposByRepoPagesWithHttpInfo
+     * Operation getIntegrationGithubReposByRepoPagesWithHttpInfo
      *
      * Returns the repo&#39;s Pages status, live URL, custom domain and build source.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubPagesView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsGithubReposByRepoPagesWithHttpInfo($repo, string $contentType = self::contentTypes['getIntegrationsGithubReposByRepoPages'][0])
+    public function getIntegrationGithubReposByRepoPagesWithHttpInfo($repo, string $contentType = self::contentTypes['getIntegrationGithubReposByRepoPages'][0])
     {
-        $request = $this->getIntegrationsGithubReposByRepoPagesRequest($repo, $contentType);
+        $request = $this->getIntegrationGithubReposByRepoPagesRequest($repo, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3567,19 +3570,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGithubReposByRepoPagesAsync
+     * Operation getIntegrationGithubReposByRepoPagesAsync
      *
      * Returns the repo&#39;s Pages status, live URL, custom domain and build source.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsGithubReposByRepoPagesAsync($repo, string $contentType = self::contentTypes['getIntegrationsGithubReposByRepoPages'][0])
+    public function getIntegrationGithubReposByRepoPagesAsync($repo, string $contentType = self::contentTypes['getIntegrationGithubReposByRepoPages'][0])
     {
-        return $this->getIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo($repo, $contentType)
+        return $this->getIntegrationGithubReposByRepoPagesAsyncWithHttpInfo($repo, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3588,20 +3591,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo
+     * Operation getIntegrationGithubReposByRepoPagesAsyncWithHttpInfo
      *
      * Returns the repo&#39;s Pages status, live URL, custom domain and build source.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo($repo, string $contentType = self::contentTypes['getIntegrationsGithubReposByRepoPages'][0])
+    public function getIntegrationGithubReposByRepoPagesAsyncWithHttpInfo($repo, string $contentType = self::contentTypes['getIntegrationGithubReposByRepoPages'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubPagesView';
-        $request = $this->getIntegrationsGithubReposByRepoPagesRequest($repo, $contentType);
+        $request = $this->getIntegrationGithubReposByRepoPagesRequest($repo, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3640,26 +3643,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsGithubReposByRepoPages'
+     * Create request for operation 'getIntegrationGithubReposByRepoPages'
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsGithubReposByRepoPagesRequest($repo, string $contentType = self::contentTypes['getIntegrationsGithubReposByRepoPages'][0])
+    public function getIntegrationGithubReposByRepoPagesRequest($repo, string $contentType = self::contentTypes['getIntegrationGithubReposByRepoPages'][0])
     {
 
         // verify the required parameter 'repo' is set
         if ($repo === null || (is_array($repo) && count($repo) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $repo when calling getIntegrationsGithubReposByRepoPages'
+                'Missing the required parameter $repo when calling getIntegrationGithubReposByRepoPages'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/github/repos/{repo}/pages';
+        $resourcePath = '/v1/integration/github/repos/{repo}/pages';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3736,36 +3739,36 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGitlabProjects
+     * Operation getIntegrationGitlabProjects
      *
      * Lists the projects the org&#39;s GitLab connection can reach — membership projects, most recently active first.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGitlabProjects'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGitlabProjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GitlabProjectsOut
      */
-    public function getIntegrationsGitlabProjects(string $contentType = self::contentTypes['getIntegrationsGitlabProjects'][0])
+    public function getIntegrationGitlabProjects(string $contentType = self::contentTypes['getIntegrationGitlabProjects'][0])
     {
-        list($response) = $this->getIntegrationsGitlabProjectsWithHttpInfo($contentType);
+        list($response) = $this->getIntegrationGitlabProjectsWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getIntegrationsGitlabProjectsWithHttpInfo
+     * Operation getIntegrationGitlabProjectsWithHttpInfo
      *
      * Lists the projects the org&#39;s GitLab connection can reach — membership projects, most recently active first.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGitlabProjects'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGitlabProjects'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GitlabProjectsOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsGitlabProjectsWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsGitlabProjects'][0])
+    public function getIntegrationGitlabProjectsWithHttpInfo(string $contentType = self::contentTypes['getIntegrationGitlabProjects'][0])
     {
-        $request = $this->getIntegrationsGitlabProjectsRequest($contentType);
+        $request = $this->getIntegrationGitlabProjectsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3837,18 +3840,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGitlabProjectsAsync
+     * Operation getIntegrationGitlabProjectsAsync
      *
      * Lists the projects the org&#39;s GitLab connection can reach — membership projects, most recently active first.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGitlabProjects'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGitlabProjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsGitlabProjectsAsync(string $contentType = self::contentTypes['getIntegrationsGitlabProjects'][0])
+    public function getIntegrationGitlabProjectsAsync(string $contentType = self::contentTypes['getIntegrationGitlabProjects'][0])
     {
-        return $this->getIntegrationsGitlabProjectsAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationGitlabProjectsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3857,19 +3860,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsGitlabProjectsAsyncWithHttpInfo
+     * Operation getIntegrationGitlabProjectsAsyncWithHttpInfo
      *
      * Lists the projects the org&#39;s GitLab connection can reach — membership projects, most recently active first.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGitlabProjects'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGitlabProjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsGitlabProjectsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsGitlabProjects'][0])
+    public function getIntegrationGitlabProjectsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationGitlabProjects'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GitlabProjectsOut';
-        $request = $this->getIntegrationsGitlabProjectsRequest($contentType);
+        $request = $this->getIntegrationGitlabProjectsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3908,18 +3911,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsGitlabProjects'
+     * Create request for operation 'getIntegrationGitlabProjects'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsGitlabProjects'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationGitlabProjects'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsGitlabProjectsRequest(string $contentType = self::contentTypes['getIntegrationsGitlabProjects'][0])
+    public function getIntegrationGitlabProjectsRequest(string $contentType = self::contentTypes['getIntegrationGitlabProjects'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/gitlab/projects';
+        $resourcePath = '/v1/integration/gitlab/projects';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3988,35 +3991,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackInstall
+     * Operation getIntegrationSlackInstall
      *
      * Install the Hanzo app into a Slack workspace
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackInstall'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackInstall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsSlackInstall(string $contentType = self::contentTypes['getIntegrationsSlackInstall'][0])
+    public function getIntegrationSlackInstall(string $contentType = self::contentTypes['getIntegrationSlackInstall'][0])
     {
-        $this->getIntegrationsSlackInstallWithHttpInfo($contentType);
+        $this->getIntegrationSlackInstallWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsSlackInstallWithHttpInfo
+     * Operation getIntegrationSlackInstallWithHttpInfo
      *
      * Install the Hanzo app into a Slack workspace
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackInstall'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackInstall'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsSlackInstallWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsSlackInstall'][0])
+    public function getIntegrationSlackInstallWithHttpInfo(string $contentType = self::contentTypes['getIntegrationSlackInstall'][0])
     {
-        $request = $this->getIntegrationsSlackInstallRequest($contentType);
+        $request = $this->getIntegrationSlackInstallRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4052,18 +4055,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackInstallAsync
+     * Operation getIntegrationSlackInstallAsync
      *
      * Install the Hanzo app into a Slack workspace
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackInstall'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackInstall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsSlackInstallAsync(string $contentType = self::contentTypes['getIntegrationsSlackInstall'][0])
+    public function getIntegrationSlackInstallAsync(string $contentType = self::contentTypes['getIntegrationSlackInstall'][0])
     {
-        return $this->getIntegrationsSlackInstallAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationSlackInstallAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4072,19 +4075,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackInstallAsyncWithHttpInfo
+     * Operation getIntegrationSlackInstallAsyncWithHttpInfo
      *
      * Install the Hanzo app into a Slack workspace
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackInstall'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackInstall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsSlackInstallAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsSlackInstall'][0])
+    public function getIntegrationSlackInstallAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationSlackInstall'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsSlackInstallRequest($contentType);
+        $request = $this->getIntegrationSlackInstallRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4110,18 +4113,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsSlackInstall'
+     * Create request for operation 'getIntegrationSlackInstall'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackInstall'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackInstall'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsSlackInstallRequest(string $contentType = self::contentTypes['getIntegrationsSlackInstall'][0])
+    public function getIntegrationSlackInstallRequest(string $contentType = self::contentTypes['getIntegrationSlackInstall'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/slack/install';
+        $resourcePath = '/v1/integration/slack/install';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4190,35 +4193,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackLink
+     * Operation getIntegrationSlackLink
      *
      * Begin linking a Hanzo account from Slack
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsSlackLink(string $contentType = self::contentTypes['getIntegrationsSlackLink'][0])
+    public function getIntegrationSlackLink(string $contentType = self::contentTypes['getIntegrationSlackLink'][0])
     {
-        $this->getIntegrationsSlackLinkWithHttpInfo($contentType);
+        $this->getIntegrationSlackLinkWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsSlackLinkWithHttpInfo
+     * Operation getIntegrationSlackLinkWithHttpInfo
      *
      * Begin linking a Hanzo account from Slack
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsSlackLinkWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsSlackLink'][0])
+    public function getIntegrationSlackLinkWithHttpInfo(string $contentType = self::contentTypes['getIntegrationSlackLink'][0])
     {
-        $request = $this->getIntegrationsSlackLinkRequest($contentType);
+        $request = $this->getIntegrationSlackLinkRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4254,18 +4257,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackLinkAsync
+     * Operation getIntegrationSlackLinkAsync
      *
      * Begin linking a Hanzo account from Slack
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsSlackLinkAsync(string $contentType = self::contentTypes['getIntegrationsSlackLink'][0])
+    public function getIntegrationSlackLinkAsync(string $contentType = self::contentTypes['getIntegrationSlackLink'][0])
     {
-        return $this->getIntegrationsSlackLinkAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationSlackLinkAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4274,19 +4277,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackLinkAsyncWithHttpInfo
+     * Operation getIntegrationSlackLinkAsyncWithHttpInfo
      *
      * Begin linking a Hanzo account from Slack
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsSlackLinkAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsSlackLink'][0])
+    public function getIntegrationSlackLinkAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationSlackLink'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsSlackLinkRequest($contentType);
+        $request = $this->getIntegrationSlackLinkRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4312,18 +4315,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsSlackLink'
+     * Create request for operation 'getIntegrationSlackLink'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsSlackLinkRequest(string $contentType = self::contentTypes['getIntegrationsSlackLink'][0])
+    public function getIntegrationSlackLinkRequest(string $contentType = self::contentTypes['getIntegrationSlackLink'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/slack/link';
+        $resourcePath = '/v1/integration/slack/link';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4392,35 +4395,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackLinkCallback
+     * Operation getIntegrationSlackLinkCallback
      *
      * Complete the Slack account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLinkCallback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsSlackLinkCallback(string $contentType = self::contentTypes['getIntegrationsSlackLinkCallback'][0])
+    public function getIntegrationSlackLinkCallback(string $contentType = self::contentTypes['getIntegrationSlackLinkCallback'][0])
     {
-        $this->getIntegrationsSlackLinkCallbackWithHttpInfo($contentType);
+        $this->getIntegrationSlackLinkCallbackWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsSlackLinkCallbackWithHttpInfo
+     * Operation getIntegrationSlackLinkCallbackWithHttpInfo
      *
      * Complete the Slack account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLinkCallback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsSlackLinkCallbackWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsSlackLinkCallback'][0])
+    public function getIntegrationSlackLinkCallbackWithHttpInfo(string $contentType = self::contentTypes['getIntegrationSlackLinkCallback'][0])
     {
-        $request = $this->getIntegrationsSlackLinkCallbackRequest($contentType);
+        $request = $this->getIntegrationSlackLinkCallbackRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4456,18 +4459,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackLinkCallbackAsync
+     * Operation getIntegrationSlackLinkCallbackAsync
      *
      * Complete the Slack account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsSlackLinkCallbackAsync(string $contentType = self::contentTypes['getIntegrationsSlackLinkCallback'][0])
+    public function getIntegrationSlackLinkCallbackAsync(string $contentType = self::contentTypes['getIntegrationSlackLinkCallback'][0])
     {
-        return $this->getIntegrationsSlackLinkCallbackAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationSlackLinkCallbackAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4476,19 +4479,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackLinkCallbackAsyncWithHttpInfo
+     * Operation getIntegrationSlackLinkCallbackAsyncWithHttpInfo
      *
      * Complete the Slack account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsSlackLinkCallbackAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsSlackLinkCallback'][0])
+    public function getIntegrationSlackLinkCallbackAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationSlackLinkCallback'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsSlackLinkCallbackRequest($contentType);
+        $request = $this->getIntegrationSlackLinkCallbackRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4514,18 +4517,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsSlackLinkCallback'
+     * Create request for operation 'getIntegrationSlackLinkCallback'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsSlackLinkCallbackRequest(string $contentType = self::contentTypes['getIntegrationsSlackLinkCallback'][0])
+    public function getIntegrationSlackLinkCallbackRequest(string $contentType = self::contentTypes['getIntegrationSlackLinkCallback'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/slack/link/callback';
+        $resourcePath = '/v1/integration/slack/link/callback';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4594,35 +4597,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackLinkSlack
+     * Operation getIntegrationSlackLinkSlack
      *
      * Slack sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLinkSlack'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLinkSlack'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsSlackLinkSlack(string $contentType = self::contentTypes['getIntegrationsSlackLinkSlack'][0])
+    public function getIntegrationSlackLinkSlack(string $contentType = self::contentTypes['getIntegrationSlackLinkSlack'][0])
     {
-        $this->getIntegrationsSlackLinkSlackWithHttpInfo($contentType);
+        $this->getIntegrationSlackLinkSlackWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsSlackLinkSlackWithHttpInfo
+     * Operation getIntegrationSlackLinkSlackWithHttpInfo
      *
      * Slack sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLinkSlack'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLinkSlack'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsSlackLinkSlackWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsSlackLinkSlack'][0])
+    public function getIntegrationSlackLinkSlackWithHttpInfo(string $contentType = self::contentTypes['getIntegrationSlackLinkSlack'][0])
     {
-        $request = $this->getIntegrationsSlackLinkSlackRequest($contentType);
+        $request = $this->getIntegrationSlackLinkSlackRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4658,18 +4661,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackLinkSlackAsync
+     * Operation getIntegrationSlackLinkSlackAsync
      *
      * Slack sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLinkSlack'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLinkSlack'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsSlackLinkSlackAsync(string $contentType = self::contentTypes['getIntegrationsSlackLinkSlack'][0])
+    public function getIntegrationSlackLinkSlackAsync(string $contentType = self::contentTypes['getIntegrationSlackLinkSlack'][0])
     {
-        return $this->getIntegrationsSlackLinkSlackAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationSlackLinkSlackAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4678,19 +4681,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsSlackLinkSlackAsyncWithHttpInfo
+     * Operation getIntegrationSlackLinkSlackAsyncWithHttpInfo
      *
      * Slack sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLinkSlack'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLinkSlack'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsSlackLinkSlackAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsSlackLinkSlack'][0])
+    public function getIntegrationSlackLinkSlackAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationSlackLinkSlack'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsSlackLinkSlackRequest($contentType);
+        $request = $this->getIntegrationSlackLinkSlackRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4716,18 +4719,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsSlackLinkSlack'
+     * Create request for operation 'getIntegrationSlackLinkSlack'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsSlackLinkSlack'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationSlackLinkSlack'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsSlackLinkSlackRequest(string $contentType = self::contentTypes['getIntegrationsSlackLinkSlack'][0])
+    public function getIntegrationSlackLinkSlackRequest(string $contentType = self::contentTypes['getIntegrationSlackLinkSlack'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/slack/link/slack';
+        $resourcePath = '/v1/integration/slack/link/slack';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4796,35 +4799,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTeamsLink
+     * Operation getIntegrationTeamsLink
      *
      * Begin linking a Hanzo account from Teams
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsTeamsLink(string $contentType = self::contentTypes['getIntegrationsTeamsLink'][0])
+    public function getIntegrationTeamsLink(string $contentType = self::contentTypes['getIntegrationTeamsLink'][0])
     {
-        $this->getIntegrationsTeamsLinkWithHttpInfo($contentType);
+        $this->getIntegrationTeamsLinkWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsTeamsLinkWithHttpInfo
+     * Operation getIntegrationTeamsLinkWithHttpInfo
      *
      * Begin linking a Hanzo account from Teams
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsTeamsLinkWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTeamsLink'][0])
+    public function getIntegrationTeamsLinkWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTeamsLink'][0])
     {
-        $request = $this->getIntegrationsTeamsLinkRequest($contentType);
+        $request = $this->getIntegrationTeamsLinkRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4860,18 +4863,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTeamsLinkAsync
+     * Operation getIntegrationTeamsLinkAsync
      *
      * Begin linking a Hanzo account from Teams
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTeamsLinkAsync(string $contentType = self::contentTypes['getIntegrationsTeamsLink'][0])
+    public function getIntegrationTeamsLinkAsync(string $contentType = self::contentTypes['getIntegrationTeamsLink'][0])
     {
-        return $this->getIntegrationsTeamsLinkAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationTeamsLinkAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4880,19 +4883,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTeamsLinkAsyncWithHttpInfo
+     * Operation getIntegrationTeamsLinkAsyncWithHttpInfo
      *
      * Begin linking a Hanzo account from Teams
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTeamsLinkAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTeamsLink'][0])
+    public function getIntegrationTeamsLinkAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTeamsLink'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsTeamsLinkRequest($contentType);
+        $request = $this->getIntegrationTeamsLinkRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4918,18 +4921,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsTeamsLink'
+     * Create request for operation 'getIntegrationTeamsLink'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsTeamsLinkRequest(string $contentType = self::contentTypes['getIntegrationsTeamsLink'][0])
+    public function getIntegrationTeamsLinkRequest(string $contentType = self::contentTypes['getIntegrationTeamsLink'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/teams/link';
+        $resourcePath = '/v1/integration/teams/link';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4998,35 +5001,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTeamsLinkAad
+     * Operation getIntegrationTeamsLinkAad
      *
      * Microsoft sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLinkAad'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLinkAad'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsTeamsLinkAad(string $contentType = self::contentTypes['getIntegrationsTeamsLinkAad'][0])
+    public function getIntegrationTeamsLinkAad(string $contentType = self::contentTypes['getIntegrationTeamsLinkAad'][0])
     {
-        $this->getIntegrationsTeamsLinkAadWithHttpInfo($contentType);
+        $this->getIntegrationTeamsLinkAadWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsTeamsLinkAadWithHttpInfo
+     * Operation getIntegrationTeamsLinkAadWithHttpInfo
      *
      * Microsoft sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLinkAad'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLinkAad'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsTeamsLinkAadWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTeamsLinkAad'][0])
+    public function getIntegrationTeamsLinkAadWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTeamsLinkAad'][0])
     {
-        $request = $this->getIntegrationsTeamsLinkAadRequest($contentType);
+        $request = $this->getIntegrationTeamsLinkAadRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5062,18 +5065,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTeamsLinkAadAsync
+     * Operation getIntegrationTeamsLinkAadAsync
      *
      * Microsoft sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLinkAad'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLinkAad'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTeamsLinkAadAsync(string $contentType = self::contentTypes['getIntegrationsTeamsLinkAad'][0])
+    public function getIntegrationTeamsLinkAadAsync(string $contentType = self::contentTypes['getIntegrationTeamsLinkAad'][0])
     {
-        return $this->getIntegrationsTeamsLinkAadAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationTeamsLinkAadAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5082,19 +5085,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTeamsLinkAadAsyncWithHttpInfo
+     * Operation getIntegrationTeamsLinkAadAsyncWithHttpInfo
      *
      * Microsoft sign-in return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLinkAad'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLinkAad'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTeamsLinkAadAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTeamsLinkAad'][0])
+    public function getIntegrationTeamsLinkAadAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTeamsLinkAad'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsTeamsLinkAadRequest($contentType);
+        $request = $this->getIntegrationTeamsLinkAadRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5120,18 +5123,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsTeamsLinkAad'
+     * Create request for operation 'getIntegrationTeamsLinkAad'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLinkAad'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLinkAad'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsTeamsLinkAadRequest(string $contentType = self::contentTypes['getIntegrationsTeamsLinkAad'][0])
+    public function getIntegrationTeamsLinkAadRequest(string $contentType = self::contentTypes['getIntegrationTeamsLinkAad'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/teams/link/aad';
+        $resourcePath = '/v1/integration/teams/link/aad';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5200,35 +5203,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTeamsLinkCallback
+     * Operation getIntegrationTeamsLinkCallback
      *
      * Complete the Teams account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLinkCallback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsTeamsLinkCallback(string $contentType = self::contentTypes['getIntegrationsTeamsLinkCallback'][0])
+    public function getIntegrationTeamsLinkCallback(string $contentType = self::contentTypes['getIntegrationTeamsLinkCallback'][0])
     {
-        $this->getIntegrationsTeamsLinkCallbackWithHttpInfo($contentType);
+        $this->getIntegrationTeamsLinkCallbackWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsTeamsLinkCallbackWithHttpInfo
+     * Operation getIntegrationTeamsLinkCallbackWithHttpInfo
      *
      * Complete the Teams account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLinkCallback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsTeamsLinkCallbackWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTeamsLinkCallback'][0])
+    public function getIntegrationTeamsLinkCallbackWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTeamsLinkCallback'][0])
     {
-        $request = $this->getIntegrationsTeamsLinkCallbackRequest($contentType);
+        $request = $this->getIntegrationTeamsLinkCallbackRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5264,18 +5267,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTeamsLinkCallbackAsync
+     * Operation getIntegrationTeamsLinkCallbackAsync
      *
      * Complete the Teams account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTeamsLinkCallbackAsync(string $contentType = self::contentTypes['getIntegrationsTeamsLinkCallback'][0])
+    public function getIntegrationTeamsLinkCallbackAsync(string $contentType = self::contentTypes['getIntegrationTeamsLinkCallback'][0])
     {
-        return $this->getIntegrationsTeamsLinkCallbackAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationTeamsLinkCallbackAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5284,19 +5287,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTeamsLinkCallbackAsyncWithHttpInfo
+     * Operation getIntegrationTeamsLinkCallbackAsyncWithHttpInfo
      *
      * Complete the Teams account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTeamsLinkCallbackAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTeamsLinkCallback'][0])
+    public function getIntegrationTeamsLinkCallbackAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTeamsLinkCallback'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsTeamsLinkCallbackRequest($contentType);
+        $request = $this->getIntegrationTeamsLinkCallbackRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5322,18 +5325,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsTeamsLinkCallback'
+     * Create request for operation 'getIntegrationTeamsLinkCallback'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTeamsLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTeamsLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsTeamsLinkCallbackRequest(string $contentType = self::contentTypes['getIntegrationsTeamsLinkCallback'][0])
+    public function getIntegrationTeamsLinkCallbackRequest(string $contentType = self::contentTypes['getIntegrationTeamsLinkCallback'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/teams/link/callback';
+        $resourcePath = '/v1/integration/teams/link/callback';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5402,35 +5405,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTelegramLink
+     * Operation getIntegrationTelegramLink
      *
      * Begin linking a Hanzo account from Telegram
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsTelegramLink(string $contentType = self::contentTypes['getIntegrationsTelegramLink'][0])
+    public function getIntegrationTelegramLink(string $contentType = self::contentTypes['getIntegrationTelegramLink'][0])
     {
-        $this->getIntegrationsTelegramLinkWithHttpInfo($contentType);
+        $this->getIntegrationTelegramLinkWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsTelegramLinkWithHttpInfo
+     * Operation getIntegrationTelegramLinkWithHttpInfo
      *
      * Begin linking a Hanzo account from Telegram
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLink'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsTelegramLinkWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTelegramLink'][0])
+    public function getIntegrationTelegramLinkWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTelegramLink'][0])
     {
-        $request = $this->getIntegrationsTelegramLinkRequest($contentType);
+        $request = $this->getIntegrationTelegramLinkRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5466,18 +5469,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTelegramLinkAsync
+     * Operation getIntegrationTelegramLinkAsync
      *
      * Begin linking a Hanzo account from Telegram
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTelegramLinkAsync(string $contentType = self::contentTypes['getIntegrationsTelegramLink'][0])
+    public function getIntegrationTelegramLinkAsync(string $contentType = self::contentTypes['getIntegrationTelegramLink'][0])
     {
-        return $this->getIntegrationsTelegramLinkAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationTelegramLinkAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5486,19 +5489,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTelegramLinkAsyncWithHttpInfo
+     * Operation getIntegrationTelegramLinkAsyncWithHttpInfo
      *
      * Begin linking a Hanzo account from Telegram
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTelegramLinkAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTelegramLink'][0])
+    public function getIntegrationTelegramLinkAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTelegramLink'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsTelegramLinkRequest($contentType);
+        $request = $this->getIntegrationTelegramLinkRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5524,18 +5527,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsTelegramLink'
+     * Create request for operation 'getIntegrationTelegramLink'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLink'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLink'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsTelegramLinkRequest(string $contentType = self::contentTypes['getIntegrationsTelegramLink'][0])
+    public function getIntegrationTelegramLinkRequest(string $contentType = self::contentTypes['getIntegrationTelegramLink'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/telegram/link';
+        $resourcePath = '/v1/integration/telegram/link';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5604,35 +5607,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTelegramLinkAuth
+     * Operation getIntegrationTelegramLinkAuth
      *
      * Telegram Login Widget return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLinkAuth'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLinkAuth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsTelegramLinkAuth(string $contentType = self::contentTypes['getIntegrationsTelegramLinkAuth'][0])
+    public function getIntegrationTelegramLinkAuth(string $contentType = self::contentTypes['getIntegrationTelegramLinkAuth'][0])
     {
-        $this->getIntegrationsTelegramLinkAuthWithHttpInfo($contentType);
+        $this->getIntegrationTelegramLinkAuthWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsTelegramLinkAuthWithHttpInfo
+     * Operation getIntegrationTelegramLinkAuthWithHttpInfo
      *
      * Telegram Login Widget return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLinkAuth'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLinkAuth'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsTelegramLinkAuthWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTelegramLinkAuth'][0])
+    public function getIntegrationTelegramLinkAuthWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTelegramLinkAuth'][0])
     {
-        $request = $this->getIntegrationsTelegramLinkAuthRequest($contentType);
+        $request = $this->getIntegrationTelegramLinkAuthRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5668,18 +5671,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTelegramLinkAuthAsync
+     * Operation getIntegrationTelegramLinkAuthAsync
      *
      * Telegram Login Widget return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLinkAuth'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLinkAuth'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTelegramLinkAuthAsync(string $contentType = self::contentTypes['getIntegrationsTelegramLinkAuth'][0])
+    public function getIntegrationTelegramLinkAuthAsync(string $contentType = self::contentTypes['getIntegrationTelegramLinkAuth'][0])
     {
-        return $this->getIntegrationsTelegramLinkAuthAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationTelegramLinkAuthAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5688,19 +5691,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTelegramLinkAuthAsyncWithHttpInfo
+     * Operation getIntegrationTelegramLinkAuthAsyncWithHttpInfo
      *
      * Telegram Login Widget return leg
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLinkAuth'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLinkAuth'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTelegramLinkAuthAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTelegramLinkAuth'][0])
+    public function getIntegrationTelegramLinkAuthAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTelegramLinkAuth'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsTelegramLinkAuthRequest($contentType);
+        $request = $this->getIntegrationTelegramLinkAuthRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5726,18 +5729,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsTelegramLinkAuth'
+     * Create request for operation 'getIntegrationTelegramLinkAuth'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLinkAuth'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLinkAuth'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsTelegramLinkAuthRequest(string $contentType = self::contentTypes['getIntegrationsTelegramLinkAuth'][0])
+    public function getIntegrationTelegramLinkAuthRequest(string $contentType = self::contentTypes['getIntegrationTelegramLinkAuth'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/telegram/link/auth';
+        $resourcePath = '/v1/integration/telegram/link/auth';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5806,35 +5809,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTelegramLinkCallback
+     * Operation getIntegrationTelegramLinkCallback
      *
      * Complete the Telegram account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLinkCallback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsTelegramLinkCallback(string $contentType = self::contentTypes['getIntegrationsTelegramLinkCallback'][0])
+    public function getIntegrationTelegramLinkCallback(string $contentType = self::contentTypes['getIntegrationTelegramLinkCallback'][0])
     {
-        $this->getIntegrationsTelegramLinkCallbackWithHttpInfo($contentType);
+        $this->getIntegrationTelegramLinkCallbackWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsTelegramLinkCallbackWithHttpInfo
+     * Operation getIntegrationTelegramLinkCallbackWithHttpInfo
      *
      * Complete the Telegram account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLinkCallback'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsTelegramLinkCallbackWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTelegramLinkCallback'][0])
+    public function getIntegrationTelegramLinkCallbackWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTelegramLinkCallback'][0])
     {
-        $request = $this->getIntegrationsTelegramLinkCallbackRequest($contentType);
+        $request = $this->getIntegrationTelegramLinkCallbackRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5870,18 +5873,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTelegramLinkCallbackAsync
+     * Operation getIntegrationTelegramLinkCallbackAsync
      *
      * Complete the Telegram account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTelegramLinkCallbackAsync(string $contentType = self::contentTypes['getIntegrationsTelegramLinkCallback'][0])
+    public function getIntegrationTelegramLinkCallbackAsync(string $contentType = self::contentTypes['getIntegrationTelegramLinkCallback'][0])
     {
-        return $this->getIntegrationsTelegramLinkCallbackAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationTelegramLinkCallbackAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5890,19 +5893,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsTelegramLinkCallbackAsyncWithHttpInfo
+     * Operation getIntegrationTelegramLinkCallbackAsyncWithHttpInfo
      *
      * Complete the Telegram account link
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsTelegramLinkCallbackAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsTelegramLinkCallback'][0])
+    public function getIntegrationTelegramLinkCallbackAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationTelegramLinkCallback'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsTelegramLinkCallbackRequest($contentType);
+        $request = $this->getIntegrationTelegramLinkCallbackRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5928,18 +5931,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsTelegramLinkCallback'
+     * Create request for operation 'getIntegrationTelegramLinkCallback'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsTelegramLinkCallback'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationTelegramLinkCallback'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsTelegramLinkCallbackRequest(string $contentType = self::contentTypes['getIntegrationsTelegramLinkCallback'][0])
+    public function getIntegrationTelegramLinkCallbackRequest(string $contentType = self::contentTypes['getIntegrationTelegramLinkCallback'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/telegram/link/callback';
+        $resourcePath = '/v1/integration/telegram/link/callback';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6008,35 +6011,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsWhatsappWebhook
+     * Operation getIntegrationWhatsappWebhook
      *
      * WhatsApp Cloud API subscription challenge
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsWhatsappWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationWhatsappWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getIntegrationsWhatsappWebhook(string $contentType = self::contentTypes['getIntegrationsWhatsappWebhook'][0])
+    public function getIntegrationWhatsappWebhook(string $contentType = self::contentTypes['getIntegrationWhatsappWebhook'][0])
     {
-        $this->getIntegrationsWhatsappWebhookWithHttpInfo($contentType);
+        $this->getIntegrationWhatsappWebhookWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getIntegrationsWhatsappWebhookWithHttpInfo
+     * Operation getIntegrationWhatsappWebhookWithHttpInfo
      *
      * WhatsApp Cloud API subscription challenge
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsWhatsappWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationWhatsappWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getIntegrationsWhatsappWebhookWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsWhatsappWebhook'][0])
+    public function getIntegrationWhatsappWebhookWithHttpInfo(string $contentType = self::contentTypes['getIntegrationWhatsappWebhook'][0])
     {
-        $request = $this->getIntegrationsWhatsappWebhookRequest($contentType);
+        $request = $this->getIntegrationWhatsappWebhookRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6072,18 +6075,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsWhatsappWebhookAsync
+     * Operation getIntegrationWhatsappWebhookAsync
      *
      * WhatsApp Cloud API subscription challenge
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsWhatsappWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationWhatsappWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsWhatsappWebhookAsync(string $contentType = self::contentTypes['getIntegrationsWhatsappWebhook'][0])
+    public function getIntegrationWhatsappWebhookAsync(string $contentType = self::contentTypes['getIntegrationWhatsappWebhook'][0])
     {
-        return $this->getIntegrationsWhatsappWebhookAsyncWithHttpInfo($contentType)
+        return $this->getIntegrationWhatsappWebhookAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6092,19 +6095,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation getIntegrationsWhatsappWebhookAsyncWithHttpInfo
+     * Operation getIntegrationWhatsappWebhookAsyncWithHttpInfo
      *
      * WhatsApp Cloud API subscription challenge
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsWhatsappWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationWhatsappWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getIntegrationsWhatsappWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationsWhatsappWebhook'][0])
+    public function getIntegrationWhatsappWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['getIntegrationWhatsappWebhook'][0])
     {
         $returnType = '';
-        $request = $this->getIntegrationsWhatsappWebhookRequest($contentType);
+        $request = $this->getIntegrationWhatsappWebhookRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6130,18 +6133,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'getIntegrationsWhatsappWebhook'
+     * Create request for operation 'getIntegrationWhatsappWebhook'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationsWhatsappWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getIntegrationWhatsappWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getIntegrationsWhatsappWebhookRequest(string $contentType = self::contentTypes['getIntegrationsWhatsappWebhook'][0])
+    public function getIntegrationWhatsappWebhookRequest(string $contentType = self::contentTypes['getIntegrationWhatsappWebhook'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/whatsapp/webhook';
+        $resourcePath = '/v1/integration/whatsapp/webhook';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6210,40 +6213,40 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsByProviderConnect
+     * Operation postIntegrationByProviderConnect
      *
      * Acquires the org&#39;s credential for one provider.
      *
      * @param  string $provider Provider is the connector&#39;s registry id, from the :provider path segment. (required)
      * @param  \Hanzo\Cloud\Model\ConnectIn $connect_in connect_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderConnect'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderConnect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ConnectOut
      */
-    public function postIntegrationsByProviderConnect($provider, $connect_in, string $contentType = self::contentTypes['postIntegrationsByProviderConnect'][0])
+    public function postIntegrationByProviderConnect($provider, $connect_in, string $contentType = self::contentTypes['postIntegrationByProviderConnect'][0])
     {
-        list($response) = $this->postIntegrationsByProviderConnectWithHttpInfo($provider, $connect_in, $contentType);
+        list($response) = $this->postIntegrationByProviderConnectWithHttpInfo($provider, $connect_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsByProviderConnectWithHttpInfo
+     * Operation postIntegrationByProviderConnectWithHttpInfo
      *
      * Acquires the org&#39;s credential for one provider.
      *
      * @param  string $provider Provider is the connector&#39;s registry id, from the :provider path segment. (required)
      * @param  \Hanzo\Cloud\Model\ConnectIn $connect_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderConnect'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderConnect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ConnectOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsByProviderConnectWithHttpInfo($provider, $connect_in, string $contentType = self::contentTypes['postIntegrationsByProviderConnect'][0])
+    public function postIntegrationByProviderConnectWithHttpInfo($provider, $connect_in, string $contentType = self::contentTypes['postIntegrationByProviderConnect'][0])
     {
-        $request = $this->postIntegrationsByProviderConnectRequest($provider, $connect_in, $contentType);
+        $request = $this->postIntegrationByProviderConnectRequest($provider, $connect_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6315,20 +6318,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsByProviderConnectAsync
+     * Operation postIntegrationByProviderConnectAsync
      *
      * Acquires the org&#39;s credential for one provider.
      *
      * @param  string $provider Provider is the connector&#39;s registry id, from the :provider path segment. (required)
      * @param  \Hanzo\Cloud\Model\ConnectIn $connect_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderConnect'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderConnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsByProviderConnectAsync($provider, $connect_in, string $contentType = self::contentTypes['postIntegrationsByProviderConnect'][0])
+    public function postIntegrationByProviderConnectAsync($provider, $connect_in, string $contentType = self::contentTypes['postIntegrationByProviderConnect'][0])
     {
-        return $this->postIntegrationsByProviderConnectAsyncWithHttpInfo($provider, $connect_in, $contentType)
+        return $this->postIntegrationByProviderConnectAsyncWithHttpInfo($provider, $connect_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6337,21 +6340,21 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsByProviderConnectAsyncWithHttpInfo
+     * Operation postIntegrationByProviderConnectAsyncWithHttpInfo
      *
      * Acquires the org&#39;s credential for one provider.
      *
      * @param  string $provider Provider is the connector&#39;s registry id, from the :provider path segment. (required)
      * @param  \Hanzo\Cloud\Model\ConnectIn $connect_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderConnect'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderConnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsByProviderConnectAsyncWithHttpInfo($provider, $connect_in, string $contentType = self::contentTypes['postIntegrationsByProviderConnect'][0])
+    public function postIntegrationByProviderConnectAsyncWithHttpInfo($provider, $connect_in, string $contentType = self::contentTypes['postIntegrationByProviderConnect'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ConnectOut';
-        $request = $this->postIntegrationsByProviderConnectRequest($provider, $connect_in, $contentType);
+        $request = $this->postIntegrationByProviderConnectRequest($provider, $connect_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6390,34 +6393,34 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsByProviderConnect'
+     * Create request for operation 'postIntegrationByProviderConnect'
      *
      * @param  string $provider Provider is the connector&#39;s registry id, from the :provider path segment. (required)
      * @param  \Hanzo\Cloud\Model\ConnectIn $connect_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderConnect'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderConnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsByProviderConnectRequest($provider, $connect_in, string $contentType = self::contentTypes['postIntegrationsByProviderConnect'][0])
+    public function postIntegrationByProviderConnectRequest($provider, $connect_in, string $contentType = self::contentTypes['postIntegrationByProviderConnect'][0])
     {
 
         // verify the required parameter 'provider' is set
         if ($provider === null || (is_array($provider) && count($provider) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provider when calling postIntegrationsByProviderConnect'
+                'Missing the required parameter $provider when calling postIntegrationByProviderConnect'
             );
         }
 
         // verify the required parameter 'connect_in' is set
         if ($connect_in === null || (is_array($connect_in) && count($connect_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $connect_in when calling postIntegrationsByProviderConnect'
+                'Missing the required parameter $connect_in when calling postIntegrationByProviderConnect'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/{provider}/connect';
+        $resourcePath = '/v1/integration/{provider}/connect';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6501,38 +6504,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsByProviderDisconnect
+     * Operation postIntegrationByProviderDisconnect
      *
      * Revokes (best-effort) and forgets an org&#39;s connection: it deletes every custodied KMS secret and the connection row.
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderDisconnect'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderDisconnect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\DisconnectOut
      */
-    public function postIntegrationsByProviderDisconnect($provider, string $contentType = self::contentTypes['postIntegrationsByProviderDisconnect'][0])
+    public function postIntegrationByProviderDisconnect($provider, string $contentType = self::contentTypes['postIntegrationByProviderDisconnect'][0])
     {
-        list($response) = $this->postIntegrationsByProviderDisconnectWithHttpInfo($provider, $contentType);
+        list($response) = $this->postIntegrationByProviderDisconnectWithHttpInfo($provider, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsByProviderDisconnectWithHttpInfo
+     * Operation postIntegrationByProviderDisconnectWithHttpInfo
      *
      * Revokes (best-effort) and forgets an org&#39;s connection: it deletes every custodied KMS secret and the connection row.
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderDisconnect'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderDisconnect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\DisconnectOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsByProviderDisconnectWithHttpInfo($provider, string $contentType = self::contentTypes['postIntegrationsByProviderDisconnect'][0])
+    public function postIntegrationByProviderDisconnectWithHttpInfo($provider, string $contentType = self::contentTypes['postIntegrationByProviderDisconnect'][0])
     {
-        $request = $this->postIntegrationsByProviderDisconnectRequest($provider, $contentType);
+        $request = $this->postIntegrationByProviderDisconnectRequest($provider, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6604,19 +6607,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsByProviderDisconnectAsync
+     * Operation postIntegrationByProviderDisconnectAsync
      *
      * Revokes (best-effort) and forgets an org&#39;s connection: it deletes every custodied KMS secret and the connection row.
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderDisconnect'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderDisconnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsByProviderDisconnectAsync($provider, string $contentType = self::contentTypes['postIntegrationsByProviderDisconnect'][0])
+    public function postIntegrationByProviderDisconnectAsync($provider, string $contentType = self::contentTypes['postIntegrationByProviderDisconnect'][0])
     {
-        return $this->postIntegrationsByProviderDisconnectAsyncWithHttpInfo($provider, $contentType)
+        return $this->postIntegrationByProviderDisconnectAsyncWithHttpInfo($provider, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6625,20 +6628,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsByProviderDisconnectAsyncWithHttpInfo
+     * Operation postIntegrationByProviderDisconnectAsyncWithHttpInfo
      *
      * Revokes (best-effort) and forgets an org&#39;s connection: it deletes every custodied KMS secret and the connection row.
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderDisconnect'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderDisconnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsByProviderDisconnectAsyncWithHttpInfo($provider, string $contentType = self::contentTypes['postIntegrationsByProviderDisconnect'][0])
+    public function postIntegrationByProviderDisconnectAsyncWithHttpInfo($provider, string $contentType = self::contentTypes['postIntegrationByProviderDisconnect'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\DisconnectOut';
-        $request = $this->postIntegrationsByProviderDisconnectRequest($provider, $contentType);
+        $request = $this->postIntegrationByProviderDisconnectRequest($provider, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6677,26 +6680,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsByProviderDisconnect'
+     * Create request for operation 'postIntegrationByProviderDisconnect'
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderDisconnect'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderDisconnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsByProviderDisconnectRequest($provider, string $contentType = self::contentTypes['postIntegrationsByProviderDisconnect'][0])
+    public function postIntegrationByProviderDisconnectRequest($provider, string $contentType = self::contentTypes['postIntegrationByProviderDisconnect'][0])
     {
 
         // verify the required parameter 'provider' is set
         if ($provider === null || (is_array($provider) && count($provider) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provider when calling postIntegrationsByProviderDisconnect'
+                'Missing the required parameter $provider when calling postIntegrationByProviderDisconnect'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/{provider}/disconnect';
+        $resourcePath = '/v1/integration/{provider}/disconnect';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6773,38 +6776,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsByProviderVerify
+     * Operation postIntegrationByProviderVerify
      *
      * Re-checks a CONNECTED apikey connector&#39;s stored credential against the provider, live (&#x60;hanzo connector verify&#x60;).
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderVerify'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderVerify'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\VerifyOut
      */
-    public function postIntegrationsByProviderVerify($provider, string $contentType = self::contentTypes['postIntegrationsByProviderVerify'][0])
+    public function postIntegrationByProviderVerify($provider, string $contentType = self::contentTypes['postIntegrationByProviderVerify'][0])
     {
-        list($response) = $this->postIntegrationsByProviderVerifyWithHttpInfo($provider, $contentType);
+        list($response) = $this->postIntegrationByProviderVerifyWithHttpInfo($provider, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsByProviderVerifyWithHttpInfo
+     * Operation postIntegrationByProviderVerifyWithHttpInfo
      *
      * Re-checks a CONNECTED apikey connector&#39;s stored credential against the provider, live (&#x60;hanzo connector verify&#x60;).
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderVerify'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderVerify'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\VerifyOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsByProviderVerifyWithHttpInfo($provider, string $contentType = self::contentTypes['postIntegrationsByProviderVerify'][0])
+    public function postIntegrationByProviderVerifyWithHttpInfo($provider, string $contentType = self::contentTypes['postIntegrationByProviderVerify'][0])
     {
-        $request = $this->postIntegrationsByProviderVerifyRequest($provider, $contentType);
+        $request = $this->postIntegrationByProviderVerifyRequest($provider, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6876,19 +6879,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsByProviderVerifyAsync
+     * Operation postIntegrationByProviderVerifyAsync
      *
      * Re-checks a CONNECTED apikey connector&#39;s stored credential against the provider, live (&#x60;hanzo connector verify&#x60;).
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderVerify'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderVerify'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsByProviderVerifyAsync($provider, string $contentType = self::contentTypes['postIntegrationsByProviderVerify'][0])
+    public function postIntegrationByProviderVerifyAsync($provider, string $contentType = self::contentTypes['postIntegrationByProviderVerify'][0])
     {
-        return $this->postIntegrationsByProviderVerifyAsyncWithHttpInfo($provider, $contentType)
+        return $this->postIntegrationByProviderVerifyAsyncWithHttpInfo($provider, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6897,20 +6900,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsByProviderVerifyAsyncWithHttpInfo
+     * Operation postIntegrationByProviderVerifyAsyncWithHttpInfo
      *
      * Re-checks a CONNECTED apikey connector&#39;s stored credential against the provider, live (&#x60;hanzo connector verify&#x60;).
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderVerify'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderVerify'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsByProviderVerifyAsyncWithHttpInfo($provider, string $contentType = self::contentTypes['postIntegrationsByProviderVerify'][0])
+    public function postIntegrationByProviderVerifyAsyncWithHttpInfo($provider, string $contentType = self::contentTypes['postIntegrationByProviderVerify'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\VerifyOut';
-        $request = $this->postIntegrationsByProviderVerifyRequest($provider, $contentType);
+        $request = $this->postIntegrationByProviderVerifyRequest($provider, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6949,26 +6952,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsByProviderVerify'
+     * Create request for operation 'postIntegrationByProviderVerify'
      *
-     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsByProviderVerify'] to see the possible values for this operation
+     * @param  string $provider Provider is the registry id of the connector — \&quot;slack\&quot;, \&quot;github\&quot;, \&quot;cloudflare\&quot;. Unknown ids are 404, as are the user-plane (/v1/integration/connectors) providers, which this surface never resolves. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationByProviderVerify'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsByProviderVerifyRequest($provider, string $contentType = self::contentTypes['postIntegrationsByProviderVerify'][0])
+    public function postIntegrationByProviderVerifyRequest($provider, string $contentType = self::contentTypes['postIntegrationByProviderVerify'][0])
     {
 
         // verify the required parameter 'provider' is set
         if ($provider === null || (is_array($provider) && count($provider) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provider when calling postIntegrationsByProviderVerify'
+                'Missing the required parameter $provider when calling postIntegrationByProviderVerify'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/{provider}/verify';
+        $resourcePath = '/v1/integration/{provider}/verify';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7045,38 +7048,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByIdRefresh
+     * Operation postIntegrationConnectorsByIdRefresh
      *
      * Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByIdRefresh'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByIdRefresh'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\RefreshOut
      */
-    public function postIntegrationsConnectorsByIdRefresh($id, string $contentType = self::contentTypes['postIntegrationsConnectorsByIdRefresh'][0])
+    public function postIntegrationConnectorsByIdRefresh($id, string $contentType = self::contentTypes['postIntegrationConnectorsByIdRefresh'][0])
     {
-        list($response) = $this->postIntegrationsConnectorsByIdRefreshWithHttpInfo($id, $contentType);
+        list($response) = $this->postIntegrationConnectorsByIdRefreshWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsConnectorsByIdRefreshWithHttpInfo
+     * Operation postIntegrationConnectorsByIdRefreshWithHttpInfo
      *
      * Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByIdRefresh'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByIdRefresh'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\RefreshOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsConnectorsByIdRefreshWithHttpInfo($id, string $contentType = self::contentTypes['postIntegrationsConnectorsByIdRefresh'][0])
+    public function postIntegrationConnectorsByIdRefreshWithHttpInfo($id, string $contentType = self::contentTypes['postIntegrationConnectorsByIdRefresh'][0])
     {
-        $request = $this->postIntegrationsConnectorsByIdRefreshRequest($id, $contentType);
+        $request = $this->postIntegrationConnectorsByIdRefreshRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7148,19 +7151,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByIdRefreshAsync
+     * Operation postIntegrationConnectorsByIdRefreshAsync
      *
      * Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByIdRefresh'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByIdRefresh'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsConnectorsByIdRefreshAsync($id, string $contentType = self::contentTypes['postIntegrationsConnectorsByIdRefresh'][0])
+    public function postIntegrationConnectorsByIdRefreshAsync($id, string $contentType = self::contentTypes['postIntegrationConnectorsByIdRefresh'][0])
     {
-        return $this->postIntegrationsConnectorsByIdRefreshAsyncWithHttpInfo($id, $contentType)
+        return $this->postIntegrationConnectorsByIdRefreshAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7169,20 +7172,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByIdRefreshAsyncWithHttpInfo
+     * Operation postIntegrationConnectorsByIdRefreshAsyncWithHttpInfo
      *
      * Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByIdRefresh'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByIdRefresh'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsConnectorsByIdRefreshAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postIntegrationsConnectorsByIdRefresh'][0])
+    public function postIntegrationConnectorsByIdRefreshAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postIntegrationConnectorsByIdRefresh'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\RefreshOut';
-        $request = $this->postIntegrationsConnectorsByIdRefreshRequest($id, $contentType);
+        $request = $this->postIntegrationConnectorsByIdRefreshRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7221,26 +7224,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsConnectorsByIdRefresh'
+     * Create request for operation 'postIntegrationConnectorsByIdRefresh'
      *
      * @param  string $id ID is the connector id, provider + \&quot;:\&quot; + label (\&quot;openai:default\&quot;) — the auth-profile-id shape. Another user&#39;s id is simply no row, so 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByIdRefresh'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByIdRefresh'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsConnectorsByIdRefreshRequest($id, string $contentType = self::contentTypes['postIntegrationsConnectorsByIdRefresh'][0])
+    public function postIntegrationConnectorsByIdRefreshRequest($id, string $contentType = self::contentTypes['postIntegrationConnectorsByIdRefresh'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postIntegrationsConnectorsByIdRefresh'
+                'Missing the required parameter $id when calling postIntegrationConnectorsByIdRefresh'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/connectors/{id}/refresh';
+        $resourcePath = '/v1/integration/connectors/{id}/refresh';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7317,40 +7320,40 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderCredential
+     * Operation postIntegrationConnectorsByProviderCredential
      *
      * Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI&#39;s local PKCE (Adopt).
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CredentialIn $credential_in credential_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderCredential'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderCredential'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\CredentialOut
      */
-    public function postIntegrationsConnectorsByProviderCredential($provider, $credential_in, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderCredential'][0])
+    public function postIntegrationConnectorsByProviderCredential($provider, $credential_in, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderCredential'][0])
     {
-        list($response) = $this->postIntegrationsConnectorsByProviderCredentialWithHttpInfo($provider, $credential_in, $contentType);
+        list($response) = $this->postIntegrationConnectorsByProviderCredentialWithHttpInfo($provider, $credential_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderCredentialWithHttpInfo
+     * Operation postIntegrationConnectorsByProviderCredentialWithHttpInfo
      *
      * Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI&#39;s local PKCE (Adopt).
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CredentialIn $credential_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderCredential'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderCredential'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\CredentialOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsConnectorsByProviderCredentialWithHttpInfo($provider, $credential_in, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderCredential'][0])
+    public function postIntegrationConnectorsByProviderCredentialWithHttpInfo($provider, $credential_in, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderCredential'][0])
     {
-        $request = $this->postIntegrationsConnectorsByProviderCredentialRequest($provider, $credential_in, $contentType);
+        $request = $this->postIntegrationConnectorsByProviderCredentialRequest($provider, $credential_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7422,20 +7425,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderCredentialAsync
+     * Operation postIntegrationConnectorsByProviderCredentialAsync
      *
      * Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI&#39;s local PKCE (Adopt).
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CredentialIn $credential_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderCredential'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderCredential'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsConnectorsByProviderCredentialAsync($provider, $credential_in, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderCredential'][0])
+    public function postIntegrationConnectorsByProviderCredentialAsync($provider, $credential_in, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderCredential'][0])
     {
-        return $this->postIntegrationsConnectorsByProviderCredentialAsyncWithHttpInfo($provider, $credential_in, $contentType)
+        return $this->postIntegrationConnectorsByProviderCredentialAsyncWithHttpInfo($provider, $credential_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7444,21 +7447,21 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderCredentialAsyncWithHttpInfo
+     * Operation postIntegrationConnectorsByProviderCredentialAsyncWithHttpInfo
      *
      * Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI&#39;s local PKCE (Adopt).
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CredentialIn $credential_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderCredential'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderCredential'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsConnectorsByProviderCredentialAsyncWithHttpInfo($provider, $credential_in, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderCredential'][0])
+    public function postIntegrationConnectorsByProviderCredentialAsyncWithHttpInfo($provider, $credential_in, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderCredential'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\CredentialOut';
-        $request = $this->postIntegrationsConnectorsByProviderCredentialRequest($provider, $credential_in, $contentType);
+        $request = $this->postIntegrationConnectorsByProviderCredentialRequest($provider, $credential_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7497,34 +7500,34 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsConnectorsByProviderCredential'
+     * Create request for operation 'postIntegrationConnectorsByProviderCredential'
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  \Hanzo\Cloud\Model\CredentialIn $credential_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderCredential'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderCredential'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsConnectorsByProviderCredentialRequest($provider, $credential_in, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderCredential'][0])
+    public function postIntegrationConnectorsByProviderCredentialRequest($provider, $credential_in, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderCredential'][0])
     {
 
         // verify the required parameter 'provider' is set
         if ($provider === null || (is_array($provider) && count($provider) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provider when calling postIntegrationsConnectorsByProviderCredential'
+                'Missing the required parameter $provider when calling postIntegrationConnectorsByProviderCredential'
             );
         }
 
         // verify the required parameter 'credential_in' is set
         if ($credential_in === null || (is_array($credential_in) && count($credential_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $credential_in when calling postIntegrationsConnectorsByProviderCredential'
+                'Missing the required parameter $credential_in when calling postIntegrationConnectorsByProviderCredential'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/connectors/{provider}/credential';
+        $resourcePath = '/v1/integration/connectors/{provider}/credential';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7608,40 +7611,40 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderDevice
+     * Operation postIntegrationConnectorsByProviderDevice
      *
      * Begins a device sign-in and returns the code to show the user plus how to poll for completion.
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  \Hanzo\Cloud\Model\DeviceStartIn $device_start_in device_start_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderDevice'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderDevice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\DeviceStartOut
      */
-    public function postIntegrationsConnectorsByProviderDevice($provider, $device_start_in, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderDevice'][0])
+    public function postIntegrationConnectorsByProviderDevice($provider, $device_start_in, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderDevice'][0])
     {
-        list($response) = $this->postIntegrationsConnectorsByProviderDeviceWithHttpInfo($provider, $device_start_in, $contentType);
+        list($response) = $this->postIntegrationConnectorsByProviderDeviceWithHttpInfo($provider, $device_start_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderDeviceWithHttpInfo
+     * Operation postIntegrationConnectorsByProviderDeviceWithHttpInfo
      *
      * Begins a device sign-in and returns the code to show the user plus how to poll for completion.
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  \Hanzo\Cloud\Model\DeviceStartIn $device_start_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderDevice'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderDevice'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\DeviceStartOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsConnectorsByProviderDeviceWithHttpInfo($provider, $device_start_in, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderDevice'][0])
+    public function postIntegrationConnectorsByProviderDeviceWithHttpInfo($provider, $device_start_in, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderDevice'][0])
     {
-        $request = $this->postIntegrationsConnectorsByProviderDeviceRequest($provider, $device_start_in, $contentType);
+        $request = $this->postIntegrationConnectorsByProviderDeviceRequest($provider, $device_start_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7713,20 +7716,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderDeviceAsync
+     * Operation postIntegrationConnectorsByProviderDeviceAsync
      *
      * Begins a device sign-in and returns the code to show the user plus how to poll for completion.
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  \Hanzo\Cloud\Model\DeviceStartIn $device_start_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderDevice'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderDevice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsConnectorsByProviderDeviceAsync($provider, $device_start_in, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderDevice'][0])
+    public function postIntegrationConnectorsByProviderDeviceAsync($provider, $device_start_in, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderDevice'][0])
     {
-        return $this->postIntegrationsConnectorsByProviderDeviceAsyncWithHttpInfo($provider, $device_start_in, $contentType)
+        return $this->postIntegrationConnectorsByProviderDeviceAsyncWithHttpInfo($provider, $device_start_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7735,21 +7738,21 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderDeviceAsyncWithHttpInfo
+     * Operation postIntegrationConnectorsByProviderDeviceAsyncWithHttpInfo
      *
      * Begins a device sign-in and returns the code to show the user plus how to poll for completion.
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  \Hanzo\Cloud\Model\DeviceStartIn $device_start_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderDevice'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderDevice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsConnectorsByProviderDeviceAsyncWithHttpInfo($provider, $device_start_in, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderDevice'][0])
+    public function postIntegrationConnectorsByProviderDeviceAsyncWithHttpInfo($provider, $device_start_in, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderDevice'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\DeviceStartOut';
-        $request = $this->postIntegrationsConnectorsByProviderDeviceRequest($provider, $device_start_in, $contentType);
+        $request = $this->postIntegrationConnectorsByProviderDeviceRequest($provider, $device_start_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7788,34 +7791,34 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsConnectorsByProviderDevice'
+     * Create request for operation 'postIntegrationConnectorsByProviderDevice'
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  \Hanzo\Cloud\Model\DeviceStartIn $device_start_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderDevice'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderDevice'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsConnectorsByProviderDeviceRequest($provider, $device_start_in, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderDevice'][0])
+    public function postIntegrationConnectorsByProviderDeviceRequest($provider, $device_start_in, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderDevice'][0])
     {
 
         // verify the required parameter 'provider' is set
         if ($provider === null || (is_array($provider) && count($provider) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provider when calling postIntegrationsConnectorsByProviderDevice'
+                'Missing the required parameter $provider when calling postIntegrationConnectorsByProviderDevice'
             );
         }
 
         // verify the required parameter 'device_start_in' is set
         if ($device_start_in === null || (is_array($device_start_in) && count($device_start_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $device_start_in when calling postIntegrationsConnectorsByProviderDevice'
+                'Missing the required parameter $device_start_in when calling postIntegrationConnectorsByProviderDevice'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/connectors/{provider}/device';
+        $resourcePath = '/v1/integration/connectors/{provider}/device';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7899,40 +7902,40 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderDeviceByFlowPoll
+     * Operation postIntegrationConnectorsByProviderDeviceByFlowPoll
      *
      * Advances a device sign-in.
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  string $flow Flow is the id deviceStartOut returned. Expired or another user&#39;s flow is indistinguishable from an unknown one: 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderDeviceByFlowPoll'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderDeviceByFlowPoll'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\DevicePollOut
      */
-    public function postIntegrationsConnectorsByProviderDeviceByFlowPoll($provider, $flow, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderDeviceByFlowPoll'][0])
+    public function postIntegrationConnectorsByProviderDeviceByFlowPoll($provider, $flow, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderDeviceByFlowPoll'][0])
     {
-        list($response) = $this->postIntegrationsConnectorsByProviderDeviceByFlowPollWithHttpInfo($provider, $flow, $contentType);
+        list($response) = $this->postIntegrationConnectorsByProviderDeviceByFlowPollWithHttpInfo($provider, $flow, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderDeviceByFlowPollWithHttpInfo
+     * Operation postIntegrationConnectorsByProviderDeviceByFlowPollWithHttpInfo
      *
      * Advances a device sign-in.
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  string $flow Flow is the id deviceStartOut returned. Expired or another user&#39;s flow is indistinguishable from an unknown one: 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderDeviceByFlowPoll'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderDeviceByFlowPoll'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\DevicePollOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsConnectorsByProviderDeviceByFlowPollWithHttpInfo($provider, $flow, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderDeviceByFlowPoll'][0])
+    public function postIntegrationConnectorsByProviderDeviceByFlowPollWithHttpInfo($provider, $flow, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderDeviceByFlowPoll'][0])
     {
-        $request = $this->postIntegrationsConnectorsByProviderDeviceByFlowPollRequest($provider, $flow, $contentType);
+        $request = $this->postIntegrationConnectorsByProviderDeviceByFlowPollRequest($provider, $flow, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8004,20 +8007,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderDeviceByFlowPollAsync
+     * Operation postIntegrationConnectorsByProviderDeviceByFlowPollAsync
      *
      * Advances a device sign-in.
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  string $flow Flow is the id deviceStartOut returned. Expired or another user&#39;s flow is indistinguishable from an unknown one: 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderDeviceByFlowPoll'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderDeviceByFlowPoll'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsConnectorsByProviderDeviceByFlowPollAsync($provider, $flow, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderDeviceByFlowPoll'][0])
+    public function postIntegrationConnectorsByProviderDeviceByFlowPollAsync($provider, $flow, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderDeviceByFlowPoll'][0])
     {
-        return $this->postIntegrationsConnectorsByProviderDeviceByFlowPollAsyncWithHttpInfo($provider, $flow, $contentType)
+        return $this->postIntegrationConnectorsByProviderDeviceByFlowPollAsyncWithHttpInfo($provider, $flow, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8026,21 +8029,21 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsConnectorsByProviderDeviceByFlowPollAsyncWithHttpInfo
+     * Operation postIntegrationConnectorsByProviderDeviceByFlowPollAsyncWithHttpInfo
      *
      * Advances a device sign-in.
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  string $flow Flow is the id deviceStartOut returned. Expired or another user&#39;s flow is indistinguishable from an unknown one: 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderDeviceByFlowPoll'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderDeviceByFlowPoll'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsConnectorsByProviderDeviceByFlowPollAsyncWithHttpInfo($provider, $flow, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderDeviceByFlowPoll'][0])
+    public function postIntegrationConnectorsByProviderDeviceByFlowPollAsyncWithHttpInfo($provider, $flow, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderDeviceByFlowPoll'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\DevicePollOut';
-        $request = $this->postIntegrationsConnectorsByProviderDeviceByFlowPollRequest($provider, $flow, $contentType);
+        $request = $this->postIntegrationConnectorsByProviderDeviceByFlowPollRequest($provider, $flow, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8079,34 +8082,34 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsConnectorsByProviderDeviceByFlowPoll'
+     * Create request for operation 'postIntegrationConnectorsByProviderDeviceByFlowPoll'
      *
      * @param  string $provider Provider is the user-scoped provider&#39;s registry id, from the path. (required)
      * @param  string $flow Flow is the id deviceStartOut returned. Expired or another user&#39;s flow is indistinguishable from an unknown one: 404. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsConnectorsByProviderDeviceByFlowPoll'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationConnectorsByProviderDeviceByFlowPoll'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsConnectorsByProviderDeviceByFlowPollRequest($provider, $flow, string $contentType = self::contentTypes['postIntegrationsConnectorsByProviderDeviceByFlowPoll'][0])
+    public function postIntegrationConnectorsByProviderDeviceByFlowPollRequest($provider, $flow, string $contentType = self::contentTypes['postIntegrationConnectorsByProviderDeviceByFlowPoll'][0])
     {
 
         // verify the required parameter 'provider' is set
         if ($provider === null || (is_array($provider) && count($provider) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $provider when calling postIntegrationsConnectorsByProviderDeviceByFlowPoll'
+                'Missing the required parameter $provider when calling postIntegrationConnectorsByProviderDeviceByFlowPoll'
             );
         }
 
         // verify the required parameter 'flow' is set
         if ($flow === null || (is_array($flow) && count($flow) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $flow when calling postIntegrationsConnectorsByProviderDeviceByFlowPoll'
+                'Missing the required parameter $flow when calling postIntegrationConnectorsByProviderDeviceByFlowPoll'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/connectors/{provider}/device/{flow}/poll';
+        $resourcePath = '/v1/integration/connectors/{provider}/device/{flow}/poll';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8191,35 +8194,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsDiscordInteractions
+     * Operation postIntegrationDiscordInteractions
      *
      * Discord interactions endpoint
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsDiscordInteractions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationDiscordInteractions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postIntegrationsDiscordInteractions(string $contentType = self::contentTypes['postIntegrationsDiscordInteractions'][0])
+    public function postIntegrationDiscordInteractions(string $contentType = self::contentTypes['postIntegrationDiscordInteractions'][0])
     {
-        $this->postIntegrationsDiscordInteractionsWithHttpInfo($contentType);
+        $this->postIntegrationDiscordInteractionsWithHttpInfo($contentType);
     }
 
     /**
-     * Operation postIntegrationsDiscordInteractionsWithHttpInfo
+     * Operation postIntegrationDiscordInteractionsWithHttpInfo
      *
      * Discord interactions endpoint
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsDiscordInteractions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationDiscordInteractions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsDiscordInteractionsWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsDiscordInteractions'][0])
+    public function postIntegrationDiscordInteractionsWithHttpInfo(string $contentType = self::contentTypes['postIntegrationDiscordInteractions'][0])
     {
-        $request = $this->postIntegrationsDiscordInteractionsRequest($contentType);
+        $request = $this->postIntegrationDiscordInteractionsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8255,18 +8258,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsDiscordInteractionsAsync
+     * Operation postIntegrationDiscordInteractionsAsync
      *
      * Discord interactions endpoint
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsDiscordInteractions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationDiscordInteractions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsDiscordInteractionsAsync(string $contentType = self::contentTypes['postIntegrationsDiscordInteractions'][0])
+    public function postIntegrationDiscordInteractionsAsync(string $contentType = self::contentTypes['postIntegrationDiscordInteractions'][0])
     {
-        return $this->postIntegrationsDiscordInteractionsAsyncWithHttpInfo($contentType)
+        return $this->postIntegrationDiscordInteractionsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8275,19 +8278,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsDiscordInteractionsAsyncWithHttpInfo
+     * Operation postIntegrationDiscordInteractionsAsyncWithHttpInfo
      *
      * Discord interactions endpoint
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsDiscordInteractions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationDiscordInteractions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsDiscordInteractionsAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsDiscordInteractions'][0])
+    public function postIntegrationDiscordInteractionsAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationDiscordInteractions'][0])
     {
         $returnType = '';
-        $request = $this->postIntegrationsDiscordInteractionsRequest($contentType);
+        $request = $this->postIntegrationDiscordInteractionsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8313,18 +8316,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsDiscordInteractions'
+     * Create request for operation 'postIntegrationDiscordInteractions'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsDiscordInteractions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationDiscordInteractions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsDiscordInteractionsRequest(string $contentType = self::contentTypes['postIntegrationsDiscordInteractions'][0])
+    public function postIntegrationDiscordInteractionsRequest(string $contentType = self::contentTypes['postIntegrationDiscordInteractions'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/discord/interactions';
+        $resourcePath = '/v1/integration/discord/interactions';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8393,38 +8396,306 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubClaim
+     * Operation postIntegrationForgeWebhook
+     *
+     * Forge workflow_job webhook
+     *
+     * @param  \Hanzo\Cloud\Model\ForgeJob|null $forge_job forge_job (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationForgeWebhook'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\ForgeLaunched
+     */
+    public function postIntegrationForgeWebhook($forge_job = null, string $contentType = self::contentTypes['postIntegrationForgeWebhook'][0])
+    {
+        list($response) = $this->postIntegrationForgeWebhookWithHttpInfo($forge_job, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postIntegrationForgeWebhookWithHttpInfo
+     *
+     * Forge workflow_job webhook
+     *
+     * @param  \Hanzo\Cloud\Model\ForgeJob|null $forge_job (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationForgeWebhook'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\ForgeLaunched, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postIntegrationForgeWebhookWithHttpInfo($forge_job = null, string $contentType = self::contentTypes['postIntegrationForgeWebhook'][0])
+    {
+        $request = $this->postIntegrationForgeWebhookRequest($forge_job, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                
+            }
+
+            if ($this->responseWithinRangeCode('2XX', $statusCode)) {
+                return $this->handleResponseWithDataType(
+                    '\Hanzo\Cloud\Model\ForgeLaunched',
+                    $request,
+                    $response,
+                );
+            }
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\ForgeLaunched',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                
+            }
+        
+            if ($this->responseWithinRangeCode('2XX', $e->getCode())) {
+                $data = ObjectSerializer::deserialize(
+                    $e->getResponseBody(),
+                    '\Hanzo\Cloud\Model\ForgeLaunched',
+                    $e->getResponseHeaders()
+                );
+                $e->setResponseObject($data);
+                throw $e;
+            }
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postIntegrationForgeWebhookAsync
+     *
+     * Forge workflow_job webhook
+     *
+     * @param  \Hanzo\Cloud\Model\ForgeJob|null $forge_job (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationForgeWebhook'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIntegrationForgeWebhookAsync($forge_job = null, string $contentType = self::contentTypes['postIntegrationForgeWebhook'][0])
+    {
+        return $this->postIntegrationForgeWebhookAsyncWithHttpInfo($forge_job, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postIntegrationForgeWebhookAsyncWithHttpInfo
+     *
+     * Forge workflow_job webhook
+     *
+     * @param  \Hanzo\Cloud\Model\ForgeJob|null $forge_job (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationForgeWebhook'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postIntegrationForgeWebhookAsyncWithHttpInfo($forge_job = null, string $contentType = self::contentTypes['postIntegrationForgeWebhook'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\ForgeLaunched';
+        $request = $this->postIntegrationForgeWebhookRequest($forge_job, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postIntegrationForgeWebhook'
+     *
+     * @param  \Hanzo\Cloud\Model\ForgeJob|null $forge_job (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationForgeWebhook'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postIntegrationForgeWebhookRequest($forge_job = null, string $contentType = self::contentTypes['postIntegrationForgeWebhook'][0])
+    {
+
+
+
+        $resourcePath = '/v1/integration/forge/webhook';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($forge_job)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($forge_job));
+            } else {
+                $httpBody = $forge_job;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postIntegrationGithubClaim
      *
      * Binds installations the App ALREADY holds to the org the caller is acting in — the reconciliation for a grant that happened outside our connect flow.
      *
      * @param  \Hanzo\Cloud\Model\GithubClaimIn $github_claim_in github_claim_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubClaim'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubClaimOut
      */
-    public function postIntegrationsGithubClaim($github_claim_in, string $contentType = self::contentTypes['postIntegrationsGithubClaim'][0])
+    public function postIntegrationGithubClaim($github_claim_in, string $contentType = self::contentTypes['postIntegrationGithubClaim'][0])
     {
-        list($response) = $this->postIntegrationsGithubClaimWithHttpInfo($github_claim_in, $contentType);
+        list($response) = $this->postIntegrationGithubClaimWithHttpInfo($github_claim_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsGithubClaimWithHttpInfo
+     * Operation postIntegrationGithubClaimWithHttpInfo
      *
      * Binds installations the App ALREADY holds to the org the caller is acting in — the reconciliation for a grant that happened outside our connect flow.
      *
      * @param  \Hanzo\Cloud\Model\GithubClaimIn $github_claim_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubClaim'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubClaimOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsGithubClaimWithHttpInfo($github_claim_in, string $contentType = self::contentTypes['postIntegrationsGithubClaim'][0])
+    public function postIntegrationGithubClaimWithHttpInfo($github_claim_in, string $contentType = self::contentTypes['postIntegrationGithubClaim'][0])
     {
-        $request = $this->postIntegrationsGithubClaimRequest($github_claim_in, $contentType);
+        $request = $this->postIntegrationGithubClaimRequest($github_claim_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8496,19 +8767,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubClaimAsync
+     * Operation postIntegrationGithubClaimAsync
      *
      * Binds installations the App ALREADY holds to the org the caller is acting in — the reconciliation for a grant that happened outside our connect flow.
      *
      * @param  \Hanzo\Cloud\Model\GithubClaimIn $github_claim_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubClaimAsync($github_claim_in, string $contentType = self::contentTypes['postIntegrationsGithubClaim'][0])
+    public function postIntegrationGithubClaimAsync($github_claim_in, string $contentType = self::contentTypes['postIntegrationGithubClaim'][0])
     {
-        return $this->postIntegrationsGithubClaimAsyncWithHttpInfo($github_claim_in, $contentType)
+        return $this->postIntegrationGithubClaimAsyncWithHttpInfo($github_claim_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8517,20 +8788,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubClaimAsyncWithHttpInfo
+     * Operation postIntegrationGithubClaimAsyncWithHttpInfo
      *
      * Binds installations the App ALREADY holds to the org the caller is acting in — the reconciliation for a grant that happened outside our connect flow.
      *
      * @param  \Hanzo\Cloud\Model\GithubClaimIn $github_claim_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubClaimAsyncWithHttpInfo($github_claim_in, string $contentType = self::contentTypes['postIntegrationsGithubClaim'][0])
+    public function postIntegrationGithubClaimAsyncWithHttpInfo($github_claim_in, string $contentType = self::contentTypes['postIntegrationGithubClaim'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubClaimOut';
-        $request = $this->postIntegrationsGithubClaimRequest($github_claim_in, $contentType);
+        $request = $this->postIntegrationGithubClaimRequest($github_claim_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8569,26 +8840,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsGithubClaim'
+     * Create request for operation 'postIntegrationGithubClaim'
      *
      * @param  \Hanzo\Cloud\Model\GithubClaimIn $github_claim_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsGithubClaimRequest($github_claim_in, string $contentType = self::contentTypes['postIntegrationsGithubClaim'][0])
+    public function postIntegrationGithubClaimRequest($github_claim_in, string $contentType = self::contentTypes['postIntegrationGithubClaim'][0])
     {
 
         // verify the required parameter 'github_claim_in' is set
         if ($github_claim_in === null || (is_array($github_claim_in) && count($github_claim_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $github_claim_in when calling postIntegrationsGithubClaim'
+                'Missing the required parameter $github_claim_in when calling postIntegrationGithubClaim'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/github/claim';
+        $resourcePath = '/v1/integration/github/claim';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8664,38 +8935,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubFork
+     * Operation postIntegrationGithubFork
      *
      * Forks a granted repository.
      *
      * @param  \Hanzo\Cloud\Model\GithubForkReq $github_fork_req github_fork_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubFork'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubFork'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubForkOut
      */
-    public function postIntegrationsGithubFork($github_fork_req, string $contentType = self::contentTypes['postIntegrationsGithubFork'][0])
+    public function postIntegrationGithubFork($github_fork_req, string $contentType = self::contentTypes['postIntegrationGithubFork'][0])
     {
-        list($response) = $this->postIntegrationsGithubForkWithHttpInfo($github_fork_req, $contentType);
+        list($response) = $this->postIntegrationGithubForkWithHttpInfo($github_fork_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsGithubForkWithHttpInfo
+     * Operation postIntegrationGithubForkWithHttpInfo
      *
      * Forks a granted repository.
      *
      * @param  \Hanzo\Cloud\Model\GithubForkReq $github_fork_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubFork'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubFork'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubForkOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsGithubForkWithHttpInfo($github_fork_req, string $contentType = self::contentTypes['postIntegrationsGithubFork'][0])
+    public function postIntegrationGithubForkWithHttpInfo($github_fork_req, string $contentType = self::contentTypes['postIntegrationGithubFork'][0])
     {
-        $request = $this->postIntegrationsGithubForkRequest($github_fork_req, $contentType);
+        $request = $this->postIntegrationGithubForkRequest($github_fork_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8767,19 +9038,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubForkAsync
+     * Operation postIntegrationGithubForkAsync
      *
      * Forks a granted repository.
      *
      * @param  \Hanzo\Cloud\Model\GithubForkReq $github_fork_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubFork'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubFork'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubForkAsync($github_fork_req, string $contentType = self::contentTypes['postIntegrationsGithubFork'][0])
+    public function postIntegrationGithubForkAsync($github_fork_req, string $contentType = self::contentTypes['postIntegrationGithubFork'][0])
     {
-        return $this->postIntegrationsGithubForkAsyncWithHttpInfo($github_fork_req, $contentType)
+        return $this->postIntegrationGithubForkAsyncWithHttpInfo($github_fork_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8788,20 +9059,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubForkAsyncWithHttpInfo
+     * Operation postIntegrationGithubForkAsyncWithHttpInfo
      *
      * Forks a granted repository.
      *
      * @param  \Hanzo\Cloud\Model\GithubForkReq $github_fork_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubFork'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubFork'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubForkAsyncWithHttpInfo($github_fork_req, string $contentType = self::contentTypes['postIntegrationsGithubFork'][0])
+    public function postIntegrationGithubForkAsyncWithHttpInfo($github_fork_req, string $contentType = self::contentTypes['postIntegrationGithubFork'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubForkOut';
-        $request = $this->postIntegrationsGithubForkRequest($github_fork_req, $contentType);
+        $request = $this->postIntegrationGithubForkRequest($github_fork_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8840,26 +9111,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsGithubFork'
+     * Create request for operation 'postIntegrationGithubFork'
      *
      * @param  \Hanzo\Cloud\Model\GithubForkReq $github_fork_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubFork'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubFork'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsGithubForkRequest($github_fork_req, string $contentType = self::contentTypes['postIntegrationsGithubFork'][0])
+    public function postIntegrationGithubForkRequest($github_fork_req, string $contentType = self::contentTypes['postIntegrationGithubFork'][0])
     {
 
         // verify the required parameter 'github_fork_req' is set
         if ($github_fork_req === null || (is_array($github_fork_req) && count($github_fork_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $github_fork_req when calling postIntegrationsGithubFork'
+                'Missing the required parameter $github_fork_req when calling postIntegrationGithubFork'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/github/fork';
+        $resourcePath = '/v1/integration/github/fork';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8935,38 +9206,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubIssuesBackfill
+     * Operation postIntegrationGithubIssuesBackfill
      *
      * Seeds the native todo with the EXISTING issues across the org&#39;s granted repos (default state&#x3D;open); the webhook keeps them live thereafter.
      *
      * @param  \Hanzo\Cloud\Model\GithubBackfillIn $github_backfill_in github_backfill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubIssuesBackfill'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubIssuesBackfill'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubBackfillResult
      */
-    public function postIntegrationsGithubIssuesBackfill($github_backfill_in, string $contentType = self::contentTypes['postIntegrationsGithubIssuesBackfill'][0])
+    public function postIntegrationGithubIssuesBackfill($github_backfill_in, string $contentType = self::contentTypes['postIntegrationGithubIssuesBackfill'][0])
     {
-        list($response) = $this->postIntegrationsGithubIssuesBackfillWithHttpInfo($github_backfill_in, $contentType);
+        list($response) = $this->postIntegrationGithubIssuesBackfillWithHttpInfo($github_backfill_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsGithubIssuesBackfillWithHttpInfo
+     * Operation postIntegrationGithubIssuesBackfillWithHttpInfo
      *
      * Seeds the native todo with the EXISTING issues across the org&#39;s granted repos (default state&#x3D;open); the webhook keeps them live thereafter.
      *
      * @param  \Hanzo\Cloud\Model\GithubBackfillIn $github_backfill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubIssuesBackfill'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubIssuesBackfill'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubBackfillResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsGithubIssuesBackfillWithHttpInfo($github_backfill_in, string $contentType = self::contentTypes['postIntegrationsGithubIssuesBackfill'][0])
+    public function postIntegrationGithubIssuesBackfillWithHttpInfo($github_backfill_in, string $contentType = self::contentTypes['postIntegrationGithubIssuesBackfill'][0])
     {
-        $request = $this->postIntegrationsGithubIssuesBackfillRequest($github_backfill_in, $contentType);
+        $request = $this->postIntegrationGithubIssuesBackfillRequest($github_backfill_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9038,19 +9309,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubIssuesBackfillAsync
+     * Operation postIntegrationGithubIssuesBackfillAsync
      *
      * Seeds the native todo with the EXISTING issues across the org&#39;s granted repos (default state&#x3D;open); the webhook keeps them live thereafter.
      *
      * @param  \Hanzo\Cloud\Model\GithubBackfillIn $github_backfill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubIssuesBackfill'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubIssuesBackfill'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubIssuesBackfillAsync($github_backfill_in, string $contentType = self::contentTypes['postIntegrationsGithubIssuesBackfill'][0])
+    public function postIntegrationGithubIssuesBackfillAsync($github_backfill_in, string $contentType = self::contentTypes['postIntegrationGithubIssuesBackfill'][0])
     {
-        return $this->postIntegrationsGithubIssuesBackfillAsyncWithHttpInfo($github_backfill_in, $contentType)
+        return $this->postIntegrationGithubIssuesBackfillAsyncWithHttpInfo($github_backfill_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9059,20 +9330,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubIssuesBackfillAsyncWithHttpInfo
+     * Operation postIntegrationGithubIssuesBackfillAsyncWithHttpInfo
      *
      * Seeds the native todo with the EXISTING issues across the org&#39;s granted repos (default state&#x3D;open); the webhook keeps them live thereafter.
      *
      * @param  \Hanzo\Cloud\Model\GithubBackfillIn $github_backfill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubIssuesBackfill'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubIssuesBackfill'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubIssuesBackfillAsyncWithHttpInfo($github_backfill_in, string $contentType = self::contentTypes['postIntegrationsGithubIssuesBackfill'][0])
+    public function postIntegrationGithubIssuesBackfillAsyncWithHttpInfo($github_backfill_in, string $contentType = self::contentTypes['postIntegrationGithubIssuesBackfill'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubBackfillResult';
-        $request = $this->postIntegrationsGithubIssuesBackfillRequest($github_backfill_in, $contentType);
+        $request = $this->postIntegrationGithubIssuesBackfillRequest($github_backfill_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9111,26 +9382,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsGithubIssuesBackfill'
+     * Create request for operation 'postIntegrationGithubIssuesBackfill'
      *
      * @param  \Hanzo\Cloud\Model\GithubBackfillIn $github_backfill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubIssuesBackfill'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubIssuesBackfill'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsGithubIssuesBackfillRequest($github_backfill_in, string $contentType = self::contentTypes['postIntegrationsGithubIssuesBackfill'][0])
+    public function postIntegrationGithubIssuesBackfillRequest($github_backfill_in, string $contentType = self::contentTypes['postIntegrationGithubIssuesBackfill'][0])
     {
 
         // verify the required parameter 'github_backfill_in' is set
         if ($github_backfill_in === null || (is_array($github_backfill_in) && count($github_backfill_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $github_backfill_in when calling postIntegrationsGithubIssuesBackfill'
+                'Missing the required parameter $github_backfill_in when calling postIntegrationGithubIssuesBackfill'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/github/issues/backfill';
+        $resourcePath = '/v1/integration/github/issues/backfill';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -9206,40 +9477,40 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubReposByRepoPages
+     * Operation postIntegrationGithubReposByRepoPages
      *
      * Creates the repo&#39;s Pages site and answers 201 Created with it.
      *
      * @param  string $repo Repo is the repository, from the :repo path segment. (required)
      * @param  \Hanzo\Cloud\Model\GithubPagesEnableReq $github_pages_enable_req github_pages_enable_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubPagesView
      */
-    public function postIntegrationsGithubReposByRepoPages($repo, $github_pages_enable_req, string $contentType = self::contentTypes['postIntegrationsGithubReposByRepoPages'][0])
+    public function postIntegrationGithubReposByRepoPages($repo, $github_pages_enable_req, string $contentType = self::contentTypes['postIntegrationGithubReposByRepoPages'][0])
     {
-        list($response) = $this->postIntegrationsGithubReposByRepoPagesWithHttpInfo($repo, $github_pages_enable_req, $contentType);
+        list($response) = $this->postIntegrationGithubReposByRepoPagesWithHttpInfo($repo, $github_pages_enable_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsGithubReposByRepoPagesWithHttpInfo
+     * Operation postIntegrationGithubReposByRepoPagesWithHttpInfo
      *
      * Creates the repo&#39;s Pages site and answers 201 Created with it.
      *
      * @param  string $repo Repo is the repository, from the :repo path segment. (required)
      * @param  \Hanzo\Cloud\Model\GithubPagesEnableReq $github_pages_enable_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubPagesView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsGithubReposByRepoPagesWithHttpInfo($repo, $github_pages_enable_req, string $contentType = self::contentTypes['postIntegrationsGithubReposByRepoPages'][0])
+    public function postIntegrationGithubReposByRepoPagesWithHttpInfo($repo, $github_pages_enable_req, string $contentType = self::contentTypes['postIntegrationGithubReposByRepoPages'][0])
     {
-        $request = $this->postIntegrationsGithubReposByRepoPagesRequest($repo, $github_pages_enable_req, $contentType);
+        $request = $this->postIntegrationGithubReposByRepoPagesRequest($repo, $github_pages_enable_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9311,20 +9582,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubReposByRepoPagesAsync
+     * Operation postIntegrationGithubReposByRepoPagesAsync
      *
      * Creates the repo&#39;s Pages site and answers 201 Created with it.
      *
      * @param  string $repo Repo is the repository, from the :repo path segment. (required)
      * @param  \Hanzo\Cloud\Model\GithubPagesEnableReq $github_pages_enable_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubReposByRepoPagesAsync($repo, $github_pages_enable_req, string $contentType = self::contentTypes['postIntegrationsGithubReposByRepoPages'][0])
+    public function postIntegrationGithubReposByRepoPagesAsync($repo, $github_pages_enable_req, string $contentType = self::contentTypes['postIntegrationGithubReposByRepoPages'][0])
     {
-        return $this->postIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo($repo, $github_pages_enable_req, $contentType)
+        return $this->postIntegrationGithubReposByRepoPagesAsyncWithHttpInfo($repo, $github_pages_enable_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9333,21 +9604,21 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo
+     * Operation postIntegrationGithubReposByRepoPagesAsyncWithHttpInfo
      *
      * Creates the repo&#39;s Pages site and answers 201 Created with it.
      *
      * @param  string $repo Repo is the repository, from the :repo path segment. (required)
      * @param  \Hanzo\Cloud\Model\GithubPagesEnableReq $github_pages_enable_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo($repo, $github_pages_enable_req, string $contentType = self::contentTypes['postIntegrationsGithubReposByRepoPages'][0])
+    public function postIntegrationGithubReposByRepoPagesAsyncWithHttpInfo($repo, $github_pages_enable_req, string $contentType = self::contentTypes['postIntegrationGithubReposByRepoPages'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubPagesView';
-        $request = $this->postIntegrationsGithubReposByRepoPagesRequest($repo, $github_pages_enable_req, $contentType);
+        $request = $this->postIntegrationGithubReposByRepoPagesRequest($repo, $github_pages_enable_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9386,34 +9657,34 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsGithubReposByRepoPages'
+     * Create request for operation 'postIntegrationGithubReposByRepoPages'
      *
      * @param  string $repo Repo is the repository, from the :repo path segment. (required)
      * @param  \Hanzo\Cloud\Model\GithubPagesEnableReq $github_pages_enable_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsGithubReposByRepoPagesRequest($repo, $github_pages_enable_req, string $contentType = self::contentTypes['postIntegrationsGithubReposByRepoPages'][0])
+    public function postIntegrationGithubReposByRepoPagesRequest($repo, $github_pages_enable_req, string $contentType = self::contentTypes['postIntegrationGithubReposByRepoPages'][0])
     {
 
         // verify the required parameter 'repo' is set
         if ($repo === null || (is_array($repo) && count($repo) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $repo when calling postIntegrationsGithubReposByRepoPages'
+                'Missing the required parameter $repo when calling postIntegrationGithubReposByRepoPages'
             );
         }
 
         // verify the required parameter 'github_pages_enable_req' is set
         if ($github_pages_enable_req === null || (is_array($github_pages_enable_req) && count($github_pages_enable_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $github_pages_enable_req when calling postIntegrationsGithubReposByRepoPages'
+                'Missing the required parameter $github_pages_enable_req when calling postIntegrationGithubReposByRepoPages'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/github/repos/{repo}/pages';
+        $resourcePath = '/v1/integration/github/repos/{repo}/pages';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -9497,38 +9768,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubReposByRepoPagesBuilds
+     * Operation postIntegrationGithubReposByRepoPagesBuilds
      *
      * Requests a Pages rebuild and returns the queued build&#39;s status.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposByRepoPagesBuilds'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposByRepoPagesBuilds'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubPagesBuildOut
      */
-    public function postIntegrationsGithubReposByRepoPagesBuilds($repo, string $contentType = self::contentTypes['postIntegrationsGithubReposByRepoPagesBuilds'][0])
+    public function postIntegrationGithubReposByRepoPagesBuilds($repo, string $contentType = self::contentTypes['postIntegrationGithubReposByRepoPagesBuilds'][0])
     {
-        list($response) = $this->postIntegrationsGithubReposByRepoPagesBuildsWithHttpInfo($repo, $contentType);
+        list($response) = $this->postIntegrationGithubReposByRepoPagesBuildsWithHttpInfo($repo, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsGithubReposByRepoPagesBuildsWithHttpInfo
+     * Operation postIntegrationGithubReposByRepoPagesBuildsWithHttpInfo
      *
      * Requests a Pages rebuild and returns the queued build&#39;s status.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposByRepoPagesBuilds'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposByRepoPagesBuilds'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubPagesBuildOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsGithubReposByRepoPagesBuildsWithHttpInfo($repo, string $contentType = self::contentTypes['postIntegrationsGithubReposByRepoPagesBuilds'][0])
+    public function postIntegrationGithubReposByRepoPagesBuildsWithHttpInfo($repo, string $contentType = self::contentTypes['postIntegrationGithubReposByRepoPagesBuilds'][0])
     {
-        $request = $this->postIntegrationsGithubReposByRepoPagesBuildsRequest($repo, $contentType);
+        $request = $this->postIntegrationGithubReposByRepoPagesBuildsRequest($repo, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9600,19 +9871,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubReposByRepoPagesBuildsAsync
+     * Operation postIntegrationGithubReposByRepoPagesBuildsAsync
      *
      * Requests a Pages rebuild and returns the queued build&#39;s status.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposByRepoPagesBuilds'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposByRepoPagesBuilds'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubReposByRepoPagesBuildsAsync($repo, string $contentType = self::contentTypes['postIntegrationsGithubReposByRepoPagesBuilds'][0])
+    public function postIntegrationGithubReposByRepoPagesBuildsAsync($repo, string $contentType = self::contentTypes['postIntegrationGithubReposByRepoPagesBuilds'][0])
     {
-        return $this->postIntegrationsGithubReposByRepoPagesBuildsAsyncWithHttpInfo($repo, $contentType)
+        return $this->postIntegrationGithubReposByRepoPagesBuildsAsyncWithHttpInfo($repo, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9621,20 +9892,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubReposByRepoPagesBuildsAsyncWithHttpInfo
+     * Operation postIntegrationGithubReposByRepoPagesBuildsAsyncWithHttpInfo
      *
      * Requests a Pages rebuild and returns the queued build&#39;s status.
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposByRepoPagesBuilds'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposByRepoPagesBuilds'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubReposByRepoPagesBuildsAsyncWithHttpInfo($repo, string $contentType = self::contentTypes['postIntegrationsGithubReposByRepoPagesBuilds'][0])
+    public function postIntegrationGithubReposByRepoPagesBuildsAsyncWithHttpInfo($repo, string $contentType = self::contentTypes['postIntegrationGithubReposByRepoPagesBuilds'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubPagesBuildOut';
-        $request = $this->postIntegrationsGithubReposByRepoPagesBuildsRequest($repo, $contentType);
+        $request = $this->postIntegrationGithubReposByRepoPagesBuildsRequest($repo, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9673,26 +9944,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsGithubReposByRepoPagesBuilds'
+     * Create request for operation 'postIntegrationGithubReposByRepoPagesBuilds'
      *
      * @param  string $repo Repo is the repository&#39;s short name within the org&#39;s installation, with no owner prefix (the owner is server-derived from the grant). A trailing \&quot;.git\&quot; is stripped. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposByRepoPagesBuilds'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposByRepoPagesBuilds'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsGithubReposByRepoPagesBuildsRequest($repo, string $contentType = self::contentTypes['postIntegrationsGithubReposByRepoPagesBuilds'][0])
+    public function postIntegrationGithubReposByRepoPagesBuildsRequest($repo, string $contentType = self::contentTypes['postIntegrationGithubReposByRepoPagesBuilds'][0])
     {
 
         // verify the required parameter 'repo' is set
         if ($repo === null || (is_array($repo) && count($repo) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $repo when calling postIntegrationsGithubReposByRepoPagesBuilds'
+                'Missing the required parameter $repo when calling postIntegrationGithubReposByRepoPagesBuilds'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/github/repos/{repo}/pages/builds';
+        $resourcePath = '/v1/integration/github/repos/{repo}/pages/builds';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -9769,38 +10040,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubReposImport
+     * Operation postIntegrationGithubReposImport
      *
      * Imports the selected (or all) granted repos into git.hanzo.ai.
      *
      * @param  \Hanzo\Cloud\Model\GithubImportIn $github_import_in github_import_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposImport'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposImport'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubImportOut
      */
-    public function postIntegrationsGithubReposImport($github_import_in, string $contentType = self::contentTypes['postIntegrationsGithubReposImport'][0])
+    public function postIntegrationGithubReposImport($github_import_in, string $contentType = self::contentTypes['postIntegrationGithubReposImport'][0])
     {
-        list($response) = $this->postIntegrationsGithubReposImportWithHttpInfo($github_import_in, $contentType);
+        list($response) = $this->postIntegrationGithubReposImportWithHttpInfo($github_import_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsGithubReposImportWithHttpInfo
+     * Operation postIntegrationGithubReposImportWithHttpInfo
      *
      * Imports the selected (or all) granted repos into git.hanzo.ai.
      *
      * @param  \Hanzo\Cloud\Model\GithubImportIn $github_import_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposImport'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposImport'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubImportOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsGithubReposImportWithHttpInfo($github_import_in, string $contentType = self::contentTypes['postIntegrationsGithubReposImport'][0])
+    public function postIntegrationGithubReposImportWithHttpInfo($github_import_in, string $contentType = self::contentTypes['postIntegrationGithubReposImport'][0])
     {
-        $request = $this->postIntegrationsGithubReposImportRequest($github_import_in, $contentType);
+        $request = $this->postIntegrationGithubReposImportRequest($github_import_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9872,19 +10143,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubReposImportAsync
+     * Operation postIntegrationGithubReposImportAsync
      *
      * Imports the selected (or all) granted repos into git.hanzo.ai.
      *
      * @param  \Hanzo\Cloud\Model\GithubImportIn $github_import_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposImport'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposImport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubReposImportAsync($github_import_in, string $contentType = self::contentTypes['postIntegrationsGithubReposImport'][0])
+    public function postIntegrationGithubReposImportAsync($github_import_in, string $contentType = self::contentTypes['postIntegrationGithubReposImport'][0])
     {
-        return $this->postIntegrationsGithubReposImportAsyncWithHttpInfo($github_import_in, $contentType)
+        return $this->postIntegrationGithubReposImportAsyncWithHttpInfo($github_import_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9893,20 +10164,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubReposImportAsyncWithHttpInfo
+     * Operation postIntegrationGithubReposImportAsyncWithHttpInfo
      *
      * Imports the selected (or all) granted repos into git.hanzo.ai.
      *
      * @param  \Hanzo\Cloud\Model\GithubImportIn $github_import_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposImport'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposImport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubReposImportAsyncWithHttpInfo($github_import_in, string $contentType = self::contentTypes['postIntegrationsGithubReposImport'][0])
+    public function postIntegrationGithubReposImportAsyncWithHttpInfo($github_import_in, string $contentType = self::contentTypes['postIntegrationGithubReposImport'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubImportOut';
-        $request = $this->postIntegrationsGithubReposImportRequest($github_import_in, $contentType);
+        $request = $this->postIntegrationGithubReposImportRequest($github_import_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9945,26 +10216,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsGithubReposImport'
+     * Create request for operation 'postIntegrationGithubReposImport'
      *
      * @param  \Hanzo\Cloud\Model\GithubImportIn $github_import_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubReposImport'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubReposImport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsGithubReposImportRequest($github_import_in, string $contentType = self::contentTypes['postIntegrationsGithubReposImport'][0])
+    public function postIntegrationGithubReposImportRequest($github_import_in, string $contentType = self::contentTypes['postIntegrationGithubReposImport'][0])
     {
 
         // verify the required parameter 'github_import_in' is set
         if ($github_import_in === null || (is_array($github_import_in) && count($github_import_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $github_import_in when calling postIntegrationsGithubReposImport'
+                'Missing the required parameter $github_import_in when calling postIntegrationGithubReposImport'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/github/repos/import';
+        $resourcePath = '/v1/integration/github/repos/import';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -10040,38 +10311,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubSearch
+     * Operation postIntegrationGithubSearch
      *
      * Finds repositories on GitHub.
      *
      * @param  \Hanzo\Cloud\Model\GithubSearchReq $github_search_req github_search_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubSearch'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubSearchOut
      */
-    public function postIntegrationsGithubSearch($github_search_req, string $contentType = self::contentTypes['postIntegrationsGithubSearch'][0])
+    public function postIntegrationGithubSearch($github_search_req, string $contentType = self::contentTypes['postIntegrationGithubSearch'][0])
     {
-        list($response) = $this->postIntegrationsGithubSearchWithHttpInfo($github_search_req, $contentType);
+        list($response) = $this->postIntegrationGithubSearchWithHttpInfo($github_search_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsGithubSearchWithHttpInfo
+     * Operation postIntegrationGithubSearchWithHttpInfo
      *
      * Finds repositories on GitHub.
      *
      * @param  \Hanzo\Cloud\Model\GithubSearchReq $github_search_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubSearch'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubSearch'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubSearchOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsGithubSearchWithHttpInfo($github_search_req, string $contentType = self::contentTypes['postIntegrationsGithubSearch'][0])
+    public function postIntegrationGithubSearchWithHttpInfo($github_search_req, string $contentType = self::contentTypes['postIntegrationGithubSearch'][0])
     {
-        $request = $this->postIntegrationsGithubSearchRequest($github_search_req, $contentType);
+        $request = $this->postIntegrationGithubSearchRequest($github_search_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10143,19 +10414,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubSearchAsync
+     * Operation postIntegrationGithubSearchAsync
      *
      * Finds repositories on GitHub.
      *
      * @param  \Hanzo\Cloud\Model\GithubSearchReq $github_search_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubSearch'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubSearchAsync($github_search_req, string $contentType = self::contentTypes['postIntegrationsGithubSearch'][0])
+    public function postIntegrationGithubSearchAsync($github_search_req, string $contentType = self::contentTypes['postIntegrationGithubSearch'][0])
     {
-        return $this->postIntegrationsGithubSearchAsyncWithHttpInfo($github_search_req, $contentType)
+        return $this->postIntegrationGithubSearchAsyncWithHttpInfo($github_search_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -10164,20 +10435,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubSearchAsyncWithHttpInfo
+     * Operation postIntegrationGithubSearchAsyncWithHttpInfo
      *
      * Finds repositories on GitHub.
      *
      * @param  \Hanzo\Cloud\Model\GithubSearchReq $github_search_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubSearch'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubSearchAsyncWithHttpInfo($github_search_req, string $contentType = self::contentTypes['postIntegrationsGithubSearch'][0])
+    public function postIntegrationGithubSearchAsyncWithHttpInfo($github_search_req, string $contentType = self::contentTypes['postIntegrationGithubSearch'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubSearchOut';
-        $request = $this->postIntegrationsGithubSearchRequest($github_search_req, $contentType);
+        $request = $this->postIntegrationGithubSearchRequest($github_search_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -10216,26 +10487,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsGithubSearch'
+     * Create request for operation 'postIntegrationGithubSearch'
      *
      * @param  \Hanzo\Cloud\Model\GithubSearchReq $github_search_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubSearch'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubSearch'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsGithubSearchRequest($github_search_req, string $contentType = self::contentTypes['postIntegrationsGithubSearch'][0])
+    public function postIntegrationGithubSearchRequest($github_search_req, string $contentType = self::contentTypes['postIntegrationGithubSearch'][0])
     {
 
         // verify the required parameter 'github_search_req' is set
         if ($github_search_req === null || (is_array($github_search_req) && count($github_search_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $github_search_req when calling postIntegrationsGithubSearch'
+                'Missing the required parameter $github_search_req when calling postIntegrationGithubSearch'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/github/search';
+        $resourcePath = '/v1/integration/github/search';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -10311,35 +10582,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubWebhook
+     * Operation postIntegrationGithubWebhook
      *
      * GitHub App webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postIntegrationsGithubWebhook(string $contentType = self::contentTypes['postIntegrationsGithubWebhook'][0])
+    public function postIntegrationGithubWebhook(string $contentType = self::contentTypes['postIntegrationGithubWebhook'][0])
     {
-        $this->postIntegrationsGithubWebhookWithHttpInfo($contentType);
+        $this->postIntegrationGithubWebhookWithHttpInfo($contentType);
     }
 
     /**
-     * Operation postIntegrationsGithubWebhookWithHttpInfo
+     * Operation postIntegrationGithubWebhookWithHttpInfo
      *
      * GitHub App webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsGithubWebhookWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsGithubWebhook'][0])
+    public function postIntegrationGithubWebhookWithHttpInfo(string $contentType = self::contentTypes['postIntegrationGithubWebhook'][0])
     {
-        $request = $this->postIntegrationsGithubWebhookRequest($contentType);
+        $request = $this->postIntegrationGithubWebhookRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10375,18 +10646,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubWebhookAsync
+     * Operation postIntegrationGithubWebhookAsync
      *
      * GitHub App webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubWebhookAsync(string $contentType = self::contentTypes['postIntegrationsGithubWebhook'][0])
+    public function postIntegrationGithubWebhookAsync(string $contentType = self::contentTypes['postIntegrationGithubWebhook'][0])
     {
-        return $this->postIntegrationsGithubWebhookAsyncWithHttpInfo($contentType)
+        return $this->postIntegrationGithubWebhookAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -10395,19 +10666,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsGithubWebhookAsyncWithHttpInfo
+     * Operation postIntegrationGithubWebhookAsyncWithHttpInfo
      *
      * GitHub App webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsGithubWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsGithubWebhook'][0])
+    public function postIntegrationGithubWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationGithubWebhook'][0])
     {
         $returnType = '';
-        $request = $this->postIntegrationsGithubWebhookRequest($contentType);
+        $request = $this->postIntegrationGithubWebhookRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -10433,18 +10704,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsGithubWebhook'
+     * Create request for operation 'postIntegrationGithubWebhook'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsGithubWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationGithubWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsGithubWebhookRequest(string $contentType = self::contentTypes['postIntegrationsGithubWebhook'][0])
+    public function postIntegrationGithubWebhookRequest(string $contentType = self::contentTypes['postIntegrationGithubWebhook'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/github/webhook';
+        $resourcePath = '/v1/integration/github/webhook';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -10513,38 +10784,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearClaim
+     * Operation postIntegrationLinearClaim
      *
      * Binds the caller&#39;s Linear organization to the org and seals the webhook secret.
      *
      * @param  \Hanzo\Cloud\Model\LinearClaimIn $linear_claim_in linear_claim_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearClaim'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\LinearClaimOut
      */
-    public function postIntegrationsLinearClaim($linear_claim_in, string $contentType = self::contentTypes['postIntegrationsLinearClaim'][0])
+    public function postIntegrationLinearClaim($linear_claim_in, string $contentType = self::contentTypes['postIntegrationLinearClaim'][0])
     {
-        list($response) = $this->postIntegrationsLinearClaimWithHttpInfo($linear_claim_in, $contentType);
+        list($response) = $this->postIntegrationLinearClaimWithHttpInfo($linear_claim_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsLinearClaimWithHttpInfo
+     * Operation postIntegrationLinearClaimWithHttpInfo
      *
      * Binds the caller&#39;s Linear organization to the org and seals the webhook secret.
      *
      * @param  \Hanzo\Cloud\Model\LinearClaimIn $linear_claim_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearClaim'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\LinearClaimOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsLinearClaimWithHttpInfo($linear_claim_in, string $contentType = self::contentTypes['postIntegrationsLinearClaim'][0])
+    public function postIntegrationLinearClaimWithHttpInfo($linear_claim_in, string $contentType = self::contentTypes['postIntegrationLinearClaim'][0])
     {
-        $request = $this->postIntegrationsLinearClaimRequest($linear_claim_in, $contentType);
+        $request = $this->postIntegrationLinearClaimRequest($linear_claim_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10616,19 +10887,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearClaimAsync
+     * Operation postIntegrationLinearClaimAsync
      *
      * Binds the caller&#39;s Linear organization to the org and seals the webhook secret.
      *
      * @param  \Hanzo\Cloud\Model\LinearClaimIn $linear_claim_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsLinearClaimAsync($linear_claim_in, string $contentType = self::contentTypes['postIntegrationsLinearClaim'][0])
+    public function postIntegrationLinearClaimAsync($linear_claim_in, string $contentType = self::contentTypes['postIntegrationLinearClaim'][0])
     {
-        return $this->postIntegrationsLinearClaimAsyncWithHttpInfo($linear_claim_in, $contentType)
+        return $this->postIntegrationLinearClaimAsyncWithHttpInfo($linear_claim_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -10637,20 +10908,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearClaimAsyncWithHttpInfo
+     * Operation postIntegrationLinearClaimAsyncWithHttpInfo
      *
      * Binds the caller&#39;s Linear organization to the org and seals the webhook secret.
      *
      * @param  \Hanzo\Cloud\Model\LinearClaimIn $linear_claim_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsLinearClaimAsyncWithHttpInfo($linear_claim_in, string $contentType = self::contentTypes['postIntegrationsLinearClaim'][0])
+    public function postIntegrationLinearClaimAsyncWithHttpInfo($linear_claim_in, string $contentType = self::contentTypes['postIntegrationLinearClaim'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\LinearClaimOut';
-        $request = $this->postIntegrationsLinearClaimRequest($linear_claim_in, $contentType);
+        $request = $this->postIntegrationLinearClaimRequest($linear_claim_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -10689,26 +10960,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsLinearClaim'
+     * Create request for operation 'postIntegrationLinearClaim'
      *
      * @param  \Hanzo\Cloud\Model\LinearClaimIn $linear_claim_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsLinearClaimRequest($linear_claim_in, string $contentType = self::contentTypes['postIntegrationsLinearClaim'][0])
+    public function postIntegrationLinearClaimRequest($linear_claim_in, string $contentType = self::contentTypes['postIntegrationLinearClaim'][0])
     {
 
         // verify the required parameter 'linear_claim_in' is set
         if ($linear_claim_in === null || (is_array($linear_claim_in) && count($linear_claim_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $linear_claim_in when calling postIntegrationsLinearClaim'
+                'Missing the required parameter $linear_claim_in when calling postIntegrationLinearClaim'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/linear/claim';
+        $resourcePath = '/v1/integration/linear/claim';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -10784,38 +11055,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearComments
+     * Operation postIntegrationLinearComments
      *
      * Posts a comment on a Linear issue with the caller&#39;s own key, so it carries their name.
      *
      * @param  \Hanzo\Cloud\Model\LinearCommentIn $linear_comment_in linear_comment_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearComments'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearComments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\LinearCommentOut
      */
-    public function postIntegrationsLinearComments($linear_comment_in, string $contentType = self::contentTypes['postIntegrationsLinearComments'][0])
+    public function postIntegrationLinearComments($linear_comment_in, string $contentType = self::contentTypes['postIntegrationLinearComments'][0])
     {
-        list($response) = $this->postIntegrationsLinearCommentsWithHttpInfo($linear_comment_in, $contentType);
+        list($response) = $this->postIntegrationLinearCommentsWithHttpInfo($linear_comment_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsLinearCommentsWithHttpInfo
+     * Operation postIntegrationLinearCommentsWithHttpInfo
      *
      * Posts a comment on a Linear issue with the caller&#39;s own key, so it carries their name.
      *
      * @param  \Hanzo\Cloud\Model\LinearCommentIn $linear_comment_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearComments'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearComments'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\LinearCommentOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsLinearCommentsWithHttpInfo($linear_comment_in, string $contentType = self::contentTypes['postIntegrationsLinearComments'][0])
+    public function postIntegrationLinearCommentsWithHttpInfo($linear_comment_in, string $contentType = self::contentTypes['postIntegrationLinearComments'][0])
     {
-        $request = $this->postIntegrationsLinearCommentsRequest($linear_comment_in, $contentType);
+        $request = $this->postIntegrationLinearCommentsRequest($linear_comment_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10887,19 +11158,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearCommentsAsync
+     * Operation postIntegrationLinearCommentsAsync
      *
      * Posts a comment on a Linear issue with the caller&#39;s own key, so it carries their name.
      *
      * @param  \Hanzo\Cloud\Model\LinearCommentIn $linear_comment_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearComments'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearComments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsLinearCommentsAsync($linear_comment_in, string $contentType = self::contentTypes['postIntegrationsLinearComments'][0])
+    public function postIntegrationLinearCommentsAsync($linear_comment_in, string $contentType = self::contentTypes['postIntegrationLinearComments'][0])
     {
-        return $this->postIntegrationsLinearCommentsAsyncWithHttpInfo($linear_comment_in, $contentType)
+        return $this->postIntegrationLinearCommentsAsyncWithHttpInfo($linear_comment_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -10908,20 +11179,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearCommentsAsyncWithHttpInfo
+     * Operation postIntegrationLinearCommentsAsyncWithHttpInfo
      *
      * Posts a comment on a Linear issue with the caller&#39;s own key, so it carries their name.
      *
      * @param  \Hanzo\Cloud\Model\LinearCommentIn $linear_comment_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearComments'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearComments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsLinearCommentsAsyncWithHttpInfo($linear_comment_in, string $contentType = self::contentTypes['postIntegrationsLinearComments'][0])
+    public function postIntegrationLinearCommentsAsyncWithHttpInfo($linear_comment_in, string $contentType = self::contentTypes['postIntegrationLinearComments'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\LinearCommentOut';
-        $request = $this->postIntegrationsLinearCommentsRequest($linear_comment_in, $contentType);
+        $request = $this->postIntegrationLinearCommentsRequest($linear_comment_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -10960,26 +11231,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsLinearComments'
+     * Create request for operation 'postIntegrationLinearComments'
      *
      * @param  \Hanzo\Cloud\Model\LinearCommentIn $linear_comment_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearComments'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearComments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsLinearCommentsRequest($linear_comment_in, string $contentType = self::contentTypes['postIntegrationsLinearComments'][0])
+    public function postIntegrationLinearCommentsRequest($linear_comment_in, string $contentType = self::contentTypes['postIntegrationLinearComments'][0])
     {
 
         // verify the required parameter 'linear_comment_in' is set
         if ($linear_comment_in === null || (is_array($linear_comment_in) && count($linear_comment_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $linear_comment_in when calling postIntegrationsLinearComments'
+                'Missing the required parameter $linear_comment_in when calling postIntegrationLinearComments'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/linear/comments';
+        $resourcePath = '/v1/integration/linear/comments';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -11055,38 +11326,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearIssuesBackfill
+     * Operation postIntegrationLinearIssuesBackfill
      *
      * Seeds the native todo with the EXISTING Linear issues the caller&#39;s key can see (default state&#x3D;open); the webhook keeps them live thereafter.
      *
      * @param  \Hanzo\Cloud\Model\LinearBackfillIn $linear_backfill_in linear_backfill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearIssuesBackfill'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearIssuesBackfill'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\LinearBackfillResult
      */
-    public function postIntegrationsLinearIssuesBackfill($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationsLinearIssuesBackfill'][0])
+    public function postIntegrationLinearIssuesBackfill($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationLinearIssuesBackfill'][0])
     {
-        list($response) = $this->postIntegrationsLinearIssuesBackfillWithHttpInfo($linear_backfill_in, $contentType);
+        list($response) = $this->postIntegrationLinearIssuesBackfillWithHttpInfo($linear_backfill_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsLinearIssuesBackfillWithHttpInfo
+     * Operation postIntegrationLinearIssuesBackfillWithHttpInfo
      *
      * Seeds the native todo with the EXISTING Linear issues the caller&#39;s key can see (default state&#x3D;open); the webhook keeps them live thereafter.
      *
      * @param  \Hanzo\Cloud\Model\LinearBackfillIn $linear_backfill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearIssuesBackfill'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearIssuesBackfill'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\LinearBackfillResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsLinearIssuesBackfillWithHttpInfo($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationsLinearIssuesBackfill'][0])
+    public function postIntegrationLinearIssuesBackfillWithHttpInfo($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationLinearIssuesBackfill'][0])
     {
-        $request = $this->postIntegrationsLinearIssuesBackfillRequest($linear_backfill_in, $contentType);
+        $request = $this->postIntegrationLinearIssuesBackfillRequest($linear_backfill_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11158,19 +11429,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearIssuesBackfillAsync
+     * Operation postIntegrationLinearIssuesBackfillAsync
      *
      * Seeds the native todo with the EXISTING Linear issues the caller&#39;s key can see (default state&#x3D;open); the webhook keeps them live thereafter.
      *
      * @param  \Hanzo\Cloud\Model\LinearBackfillIn $linear_backfill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearIssuesBackfill'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearIssuesBackfill'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsLinearIssuesBackfillAsync($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationsLinearIssuesBackfill'][0])
+    public function postIntegrationLinearIssuesBackfillAsync($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationLinearIssuesBackfill'][0])
     {
-        return $this->postIntegrationsLinearIssuesBackfillAsyncWithHttpInfo($linear_backfill_in, $contentType)
+        return $this->postIntegrationLinearIssuesBackfillAsyncWithHttpInfo($linear_backfill_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -11179,20 +11450,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearIssuesBackfillAsyncWithHttpInfo
+     * Operation postIntegrationLinearIssuesBackfillAsyncWithHttpInfo
      *
      * Seeds the native todo with the EXISTING Linear issues the caller&#39;s key can see (default state&#x3D;open); the webhook keeps them live thereafter.
      *
      * @param  \Hanzo\Cloud\Model\LinearBackfillIn $linear_backfill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearIssuesBackfill'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearIssuesBackfill'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsLinearIssuesBackfillAsyncWithHttpInfo($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationsLinearIssuesBackfill'][0])
+    public function postIntegrationLinearIssuesBackfillAsyncWithHttpInfo($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationLinearIssuesBackfill'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\LinearBackfillResult';
-        $request = $this->postIntegrationsLinearIssuesBackfillRequest($linear_backfill_in, $contentType);
+        $request = $this->postIntegrationLinearIssuesBackfillRequest($linear_backfill_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -11231,26 +11502,26 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsLinearIssuesBackfill'
+     * Create request for operation 'postIntegrationLinearIssuesBackfill'
      *
      * @param  \Hanzo\Cloud\Model\LinearBackfillIn $linear_backfill_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearIssuesBackfill'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearIssuesBackfill'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsLinearIssuesBackfillRequest($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationsLinearIssuesBackfill'][0])
+    public function postIntegrationLinearIssuesBackfillRequest($linear_backfill_in, string $contentType = self::contentTypes['postIntegrationLinearIssuesBackfill'][0])
     {
 
         // verify the required parameter 'linear_backfill_in' is set
         if ($linear_backfill_in === null || (is_array($linear_backfill_in) && count($linear_backfill_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $linear_backfill_in when calling postIntegrationsLinearIssuesBackfill'
+                'Missing the required parameter $linear_backfill_in when calling postIntegrationLinearIssuesBackfill'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/linear/issues/backfill';
+        $resourcePath = '/v1/integration/linear/issues/backfill';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -11326,35 +11597,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearWebhook
+     * Operation postIntegrationLinearWebhook
      *
      * Linear webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postIntegrationsLinearWebhook(string $contentType = self::contentTypes['postIntegrationsLinearWebhook'][0])
+    public function postIntegrationLinearWebhook(string $contentType = self::contentTypes['postIntegrationLinearWebhook'][0])
     {
-        $this->postIntegrationsLinearWebhookWithHttpInfo($contentType);
+        $this->postIntegrationLinearWebhookWithHttpInfo($contentType);
     }
 
     /**
-     * Operation postIntegrationsLinearWebhookWithHttpInfo
+     * Operation postIntegrationLinearWebhookWithHttpInfo
      *
      * Linear webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsLinearWebhookWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsLinearWebhook'][0])
+    public function postIntegrationLinearWebhookWithHttpInfo(string $contentType = self::contentTypes['postIntegrationLinearWebhook'][0])
     {
-        $request = $this->postIntegrationsLinearWebhookRequest($contentType);
+        $request = $this->postIntegrationLinearWebhookRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11390,18 +11661,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearWebhookAsync
+     * Operation postIntegrationLinearWebhookAsync
      *
      * Linear webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsLinearWebhookAsync(string $contentType = self::contentTypes['postIntegrationsLinearWebhook'][0])
+    public function postIntegrationLinearWebhookAsync(string $contentType = self::contentTypes['postIntegrationLinearWebhook'][0])
     {
-        return $this->postIntegrationsLinearWebhookAsyncWithHttpInfo($contentType)
+        return $this->postIntegrationLinearWebhookAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -11410,19 +11681,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsLinearWebhookAsyncWithHttpInfo
+     * Operation postIntegrationLinearWebhookAsyncWithHttpInfo
      *
      * Linear webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsLinearWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsLinearWebhook'][0])
+    public function postIntegrationLinearWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationLinearWebhook'][0])
     {
         $returnType = '';
-        $request = $this->postIntegrationsLinearWebhookRequest($contentType);
+        $request = $this->postIntegrationLinearWebhookRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -11448,18 +11719,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsLinearWebhook'
+     * Create request for operation 'postIntegrationLinearWebhook'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsLinearWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationLinearWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsLinearWebhookRequest(string $contentType = self::contentTypes['postIntegrationsLinearWebhook'][0])
+    public function postIntegrationLinearWebhookRequest(string $contentType = self::contentTypes['postIntegrationLinearWebhook'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/linear/webhook';
+        $resourcePath = '/v1/integration/linear/webhook';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -11528,38 +11799,38 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsOpenrouterWebhook
+     * Operation postIntegrationOpenrouterWebhook
      *
      * Receive OpenRouter Broadcast traces as usage rows
      *
      * @param  array<string,mixed>|null $request_body request_body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsOpenrouterWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationOpenrouterWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array<string,mixed>
      */
-    public function postIntegrationsOpenrouterWebhook($request_body = null, string $contentType = self::contentTypes['postIntegrationsOpenrouterWebhook'][0])
+    public function postIntegrationOpenrouterWebhook($request_body = null, string $contentType = self::contentTypes['postIntegrationOpenrouterWebhook'][0])
     {
-        list($response) = $this->postIntegrationsOpenrouterWebhookWithHttpInfo($request_body, $contentType);
+        list($response) = $this->postIntegrationOpenrouterWebhookWithHttpInfo($request_body, $contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsOpenrouterWebhookWithHttpInfo
+     * Operation postIntegrationOpenrouterWebhookWithHttpInfo
      *
      * Receive OpenRouter Broadcast traces as usage rows
      *
      * @param  array<string,mixed>|null $request_body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsOpenrouterWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationOpenrouterWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of array<string,mixed>, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsOpenrouterWebhookWithHttpInfo($request_body = null, string $contentType = self::contentTypes['postIntegrationsOpenrouterWebhook'][0])
+    public function postIntegrationOpenrouterWebhookWithHttpInfo($request_body = null, string $contentType = self::contentTypes['postIntegrationOpenrouterWebhook'][0])
     {
-        $request = $this->postIntegrationsOpenrouterWebhookRequest($request_body, $contentType);
+        $request = $this->postIntegrationOpenrouterWebhookRequest($request_body, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11634,19 +11905,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsOpenrouterWebhookAsync
+     * Operation postIntegrationOpenrouterWebhookAsync
      *
      * Receive OpenRouter Broadcast traces as usage rows
      *
      * @param  array<string,mixed>|null $request_body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsOpenrouterWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationOpenrouterWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsOpenrouterWebhookAsync($request_body = null, string $contentType = self::contentTypes['postIntegrationsOpenrouterWebhook'][0])
+    public function postIntegrationOpenrouterWebhookAsync($request_body = null, string $contentType = self::contentTypes['postIntegrationOpenrouterWebhook'][0])
     {
-        return $this->postIntegrationsOpenrouterWebhookAsyncWithHttpInfo($request_body, $contentType)
+        return $this->postIntegrationOpenrouterWebhookAsyncWithHttpInfo($request_body, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -11655,20 +11926,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsOpenrouterWebhookAsyncWithHttpInfo
+     * Operation postIntegrationOpenrouterWebhookAsyncWithHttpInfo
      *
      * Receive OpenRouter Broadcast traces as usage rows
      *
      * @param  array<string,mixed>|null $request_body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsOpenrouterWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationOpenrouterWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsOpenrouterWebhookAsyncWithHttpInfo($request_body = null, string $contentType = self::contentTypes['postIntegrationsOpenrouterWebhook'][0])
+    public function postIntegrationOpenrouterWebhookAsyncWithHttpInfo($request_body = null, string $contentType = self::contentTypes['postIntegrationOpenrouterWebhook'][0])
     {
         $returnType = 'array<string,mixed>';
-        $request = $this->postIntegrationsOpenrouterWebhookRequest($request_body, $contentType);
+        $request = $this->postIntegrationOpenrouterWebhookRequest($request_body, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -11707,20 +11978,20 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsOpenrouterWebhook'
+     * Create request for operation 'postIntegrationOpenrouterWebhook'
      *
      * @param  array<string,mixed>|null $request_body (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsOpenrouterWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationOpenrouterWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsOpenrouterWebhookRequest($request_body = null, string $contentType = self::contentTypes['postIntegrationsOpenrouterWebhook'][0])
+    public function postIntegrationOpenrouterWebhookRequest($request_body = null, string $contentType = self::contentTypes['postIntegrationOpenrouterWebhook'][0])
     {
 
 
 
-        $resourcePath = '/v1/integrations/openrouter/webhook';
+        $resourcePath = '/v1/integration/openrouter/webhook';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -11796,35 +12067,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsSlackCommands
+     * Operation postIntegrationSlackCommands
      *
      * Slack slash command webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackCommands'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackCommands'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postIntegrationsSlackCommands(string $contentType = self::contentTypes['postIntegrationsSlackCommands'][0])
+    public function postIntegrationSlackCommands(string $contentType = self::contentTypes['postIntegrationSlackCommands'][0])
     {
-        $this->postIntegrationsSlackCommandsWithHttpInfo($contentType);
+        $this->postIntegrationSlackCommandsWithHttpInfo($contentType);
     }
 
     /**
-     * Operation postIntegrationsSlackCommandsWithHttpInfo
+     * Operation postIntegrationSlackCommandsWithHttpInfo
      *
      * Slack slash command webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackCommands'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackCommands'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsSlackCommandsWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsSlackCommands'][0])
+    public function postIntegrationSlackCommandsWithHttpInfo(string $contentType = self::contentTypes['postIntegrationSlackCommands'][0])
     {
-        $request = $this->postIntegrationsSlackCommandsRequest($contentType);
+        $request = $this->postIntegrationSlackCommandsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -11860,18 +12131,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsSlackCommandsAsync
+     * Operation postIntegrationSlackCommandsAsync
      *
      * Slack slash command webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackCommands'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackCommands'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsSlackCommandsAsync(string $contentType = self::contentTypes['postIntegrationsSlackCommands'][0])
+    public function postIntegrationSlackCommandsAsync(string $contentType = self::contentTypes['postIntegrationSlackCommands'][0])
     {
-        return $this->postIntegrationsSlackCommandsAsyncWithHttpInfo($contentType)
+        return $this->postIntegrationSlackCommandsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -11880,19 +12151,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsSlackCommandsAsyncWithHttpInfo
+     * Operation postIntegrationSlackCommandsAsyncWithHttpInfo
      *
      * Slack slash command webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackCommands'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackCommands'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsSlackCommandsAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsSlackCommands'][0])
+    public function postIntegrationSlackCommandsAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationSlackCommands'][0])
     {
         $returnType = '';
-        $request = $this->postIntegrationsSlackCommandsRequest($contentType);
+        $request = $this->postIntegrationSlackCommandsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -11918,18 +12189,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsSlackCommands'
+     * Create request for operation 'postIntegrationSlackCommands'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackCommands'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackCommands'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsSlackCommandsRequest(string $contentType = self::contentTypes['postIntegrationsSlackCommands'][0])
+    public function postIntegrationSlackCommandsRequest(string $contentType = self::contentTypes['postIntegrationSlackCommands'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/slack/commands';
+        $resourcePath = '/v1/integration/slack/commands';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -11998,35 +12269,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsSlackEvents
+     * Operation postIntegrationSlackEvents
      *
      * Slack Events API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackEvents'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postIntegrationsSlackEvents(string $contentType = self::contentTypes['postIntegrationsSlackEvents'][0])
+    public function postIntegrationSlackEvents(string $contentType = self::contentTypes['postIntegrationSlackEvents'][0])
     {
-        $this->postIntegrationsSlackEventsWithHttpInfo($contentType);
+        $this->postIntegrationSlackEventsWithHttpInfo($contentType);
     }
 
     /**
-     * Operation postIntegrationsSlackEventsWithHttpInfo
+     * Operation postIntegrationSlackEventsWithHttpInfo
      *
      * Slack Events API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackEvents'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsSlackEventsWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsSlackEvents'][0])
+    public function postIntegrationSlackEventsWithHttpInfo(string $contentType = self::contentTypes['postIntegrationSlackEvents'][0])
     {
-        $request = $this->postIntegrationsSlackEventsRequest($contentType);
+        $request = $this->postIntegrationSlackEventsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12062,18 +12333,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsSlackEventsAsync
+     * Operation postIntegrationSlackEventsAsync
      *
      * Slack Events API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsSlackEventsAsync(string $contentType = self::contentTypes['postIntegrationsSlackEvents'][0])
+    public function postIntegrationSlackEventsAsync(string $contentType = self::contentTypes['postIntegrationSlackEvents'][0])
     {
-        return $this->postIntegrationsSlackEventsAsyncWithHttpInfo($contentType)
+        return $this->postIntegrationSlackEventsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -12082,19 +12353,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsSlackEventsAsyncWithHttpInfo
+     * Operation postIntegrationSlackEventsAsyncWithHttpInfo
      *
      * Slack Events API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsSlackEventsAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsSlackEvents'][0])
+    public function postIntegrationSlackEventsAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationSlackEvents'][0])
     {
         $returnType = '';
-        $request = $this->postIntegrationsSlackEventsRequest($contentType);
+        $request = $this->postIntegrationSlackEventsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -12120,18 +12391,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsSlackEvents'
+     * Create request for operation 'postIntegrationSlackEvents'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsSlackEventsRequest(string $contentType = self::contentTypes['postIntegrationsSlackEvents'][0])
+    public function postIntegrationSlackEventsRequest(string $contentType = self::contentTypes['postIntegrationSlackEvents'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/slack/events';
+        $resourcePath = '/v1/integration/slack/events';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -12200,36 +12471,36 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsSlackJoin
+     * Operation postIntegrationSlackJoin
      *
      * Joins every public channel in the caller org&#39;s workspace.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackJoin'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackJoin'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\SlackJoinOut
      */
-    public function postIntegrationsSlackJoin(string $contentType = self::contentTypes['postIntegrationsSlackJoin'][0])
+    public function postIntegrationSlackJoin(string $contentType = self::contentTypes['postIntegrationSlackJoin'][0])
     {
-        list($response) = $this->postIntegrationsSlackJoinWithHttpInfo($contentType);
+        list($response) = $this->postIntegrationSlackJoinWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsSlackJoinWithHttpInfo
+     * Operation postIntegrationSlackJoinWithHttpInfo
      *
      * Joins every public channel in the caller org&#39;s workspace.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackJoin'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackJoin'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\SlackJoinOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsSlackJoinWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsSlackJoin'][0])
+    public function postIntegrationSlackJoinWithHttpInfo(string $contentType = self::contentTypes['postIntegrationSlackJoin'][0])
     {
-        $request = $this->postIntegrationsSlackJoinRequest($contentType);
+        $request = $this->postIntegrationSlackJoinRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12301,18 +12572,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsSlackJoinAsync
+     * Operation postIntegrationSlackJoinAsync
      *
      * Joins every public channel in the caller org&#39;s workspace.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackJoin'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackJoin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsSlackJoinAsync(string $contentType = self::contentTypes['postIntegrationsSlackJoin'][0])
+    public function postIntegrationSlackJoinAsync(string $contentType = self::contentTypes['postIntegrationSlackJoin'][0])
     {
-        return $this->postIntegrationsSlackJoinAsyncWithHttpInfo($contentType)
+        return $this->postIntegrationSlackJoinAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -12321,19 +12592,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsSlackJoinAsyncWithHttpInfo
+     * Operation postIntegrationSlackJoinAsyncWithHttpInfo
      *
      * Joins every public channel in the caller org&#39;s workspace.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackJoin'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackJoin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsSlackJoinAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsSlackJoin'][0])
+    public function postIntegrationSlackJoinAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationSlackJoin'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\SlackJoinOut';
-        $request = $this->postIntegrationsSlackJoinRequest($contentType);
+        $request = $this->postIntegrationSlackJoinRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -12372,18 +12643,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsSlackJoin'
+     * Create request for operation 'postIntegrationSlackJoin'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsSlackJoin'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationSlackJoin'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsSlackJoinRequest(string $contentType = self::contentTypes['postIntegrationsSlackJoin'][0])
+    public function postIntegrationSlackJoinRequest(string $contentType = self::contentTypes['postIntegrationSlackJoin'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/slack/join';
+        $resourcePath = '/v1/integration/slack/join';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -12452,35 +12723,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsTeamsEvents
+     * Operation postIntegrationTeamsEvents
      *
      * Microsoft Teams Bot Framework webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTeamsEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTeamsEvents'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postIntegrationsTeamsEvents(string $contentType = self::contentTypes['postIntegrationsTeamsEvents'][0])
+    public function postIntegrationTeamsEvents(string $contentType = self::contentTypes['postIntegrationTeamsEvents'][0])
     {
-        $this->postIntegrationsTeamsEventsWithHttpInfo($contentType);
+        $this->postIntegrationTeamsEventsWithHttpInfo($contentType);
     }
 
     /**
-     * Operation postIntegrationsTeamsEventsWithHttpInfo
+     * Operation postIntegrationTeamsEventsWithHttpInfo
      *
      * Microsoft Teams Bot Framework webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTeamsEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTeamsEvents'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsTeamsEventsWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsTeamsEvents'][0])
+    public function postIntegrationTeamsEventsWithHttpInfo(string $contentType = self::contentTypes['postIntegrationTeamsEvents'][0])
     {
-        $request = $this->postIntegrationsTeamsEventsRequest($contentType);
+        $request = $this->postIntegrationTeamsEventsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12516,18 +12787,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsTeamsEventsAsync
+     * Operation postIntegrationTeamsEventsAsync
      *
      * Microsoft Teams Bot Framework webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTeamsEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTeamsEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsTeamsEventsAsync(string $contentType = self::contentTypes['postIntegrationsTeamsEvents'][0])
+    public function postIntegrationTeamsEventsAsync(string $contentType = self::contentTypes['postIntegrationTeamsEvents'][0])
     {
-        return $this->postIntegrationsTeamsEventsAsyncWithHttpInfo($contentType)
+        return $this->postIntegrationTeamsEventsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -12536,19 +12807,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsTeamsEventsAsyncWithHttpInfo
+     * Operation postIntegrationTeamsEventsAsyncWithHttpInfo
      *
      * Microsoft Teams Bot Framework webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTeamsEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTeamsEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsTeamsEventsAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsTeamsEvents'][0])
+    public function postIntegrationTeamsEventsAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationTeamsEvents'][0])
     {
         $returnType = '';
-        $request = $this->postIntegrationsTeamsEventsRequest($contentType);
+        $request = $this->postIntegrationTeamsEventsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -12574,18 +12845,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsTeamsEvents'
+     * Create request for operation 'postIntegrationTeamsEvents'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTeamsEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTeamsEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsTeamsEventsRequest(string $contentType = self::contentTypes['postIntegrationsTeamsEvents'][0])
+    public function postIntegrationTeamsEventsRequest(string $contentType = self::contentTypes['postIntegrationTeamsEvents'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/teams/events';
+        $resourcePath = '/v1/integration/teams/events';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -12654,36 +12925,36 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsTelegramConnect
+     * Operation postIntegrationTelegramConnect
      *
      * Mints a short, single-use deep-link code bound to the caller&#39;s org and returns the t.me link the console navigates to.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTelegramConnect'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTelegramConnect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\AuthorizeOut
      */
-    public function postIntegrationsTelegramConnect(string $contentType = self::contentTypes['postIntegrationsTelegramConnect'][0])
+    public function postIntegrationTelegramConnect(string $contentType = self::contentTypes['postIntegrationTelegramConnect'][0])
     {
-        list($response) = $this->postIntegrationsTelegramConnectWithHttpInfo($contentType);
+        list($response) = $this->postIntegrationTelegramConnectWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation postIntegrationsTelegramConnectWithHttpInfo
+     * Operation postIntegrationTelegramConnectWithHttpInfo
      *
      * Mints a short, single-use deep-link code bound to the caller&#39;s org and returns the t.me link the console navigates to.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTelegramConnect'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTelegramConnect'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\AuthorizeOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsTelegramConnectWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsTelegramConnect'][0])
+    public function postIntegrationTelegramConnectWithHttpInfo(string $contentType = self::contentTypes['postIntegrationTelegramConnect'][0])
     {
-        $request = $this->postIntegrationsTelegramConnectRequest($contentType);
+        $request = $this->postIntegrationTelegramConnectRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12755,18 +13026,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsTelegramConnectAsync
+     * Operation postIntegrationTelegramConnectAsync
      *
      * Mints a short, single-use deep-link code bound to the caller&#39;s org and returns the t.me link the console navigates to.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTelegramConnect'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTelegramConnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsTelegramConnectAsync(string $contentType = self::contentTypes['postIntegrationsTelegramConnect'][0])
+    public function postIntegrationTelegramConnectAsync(string $contentType = self::contentTypes['postIntegrationTelegramConnect'][0])
     {
-        return $this->postIntegrationsTelegramConnectAsyncWithHttpInfo($contentType)
+        return $this->postIntegrationTelegramConnectAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -12775,19 +13046,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsTelegramConnectAsyncWithHttpInfo
+     * Operation postIntegrationTelegramConnectAsyncWithHttpInfo
      *
      * Mints a short, single-use deep-link code bound to the caller&#39;s org and returns the t.me link the console navigates to.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTelegramConnect'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTelegramConnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsTelegramConnectAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsTelegramConnect'][0])
+    public function postIntegrationTelegramConnectAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationTelegramConnect'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\AuthorizeOut';
-        $request = $this->postIntegrationsTelegramConnectRequest($contentType);
+        $request = $this->postIntegrationTelegramConnectRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -12826,18 +13097,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsTelegramConnect'
+     * Create request for operation 'postIntegrationTelegramConnect'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTelegramConnect'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTelegramConnect'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsTelegramConnectRequest(string $contentType = self::contentTypes['postIntegrationsTelegramConnect'][0])
+    public function postIntegrationTelegramConnectRequest(string $contentType = self::contentTypes['postIntegrationTelegramConnect'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/telegram/connect';
+        $resourcePath = '/v1/integration/telegram/connect';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -12906,35 +13177,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsTelegramWebhook
+     * Operation postIntegrationTelegramWebhook
      *
      * Telegram Bot API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTelegramWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTelegramWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postIntegrationsTelegramWebhook(string $contentType = self::contentTypes['postIntegrationsTelegramWebhook'][0])
+    public function postIntegrationTelegramWebhook(string $contentType = self::contentTypes['postIntegrationTelegramWebhook'][0])
     {
-        $this->postIntegrationsTelegramWebhookWithHttpInfo($contentType);
+        $this->postIntegrationTelegramWebhookWithHttpInfo($contentType);
     }
 
     /**
-     * Operation postIntegrationsTelegramWebhookWithHttpInfo
+     * Operation postIntegrationTelegramWebhookWithHttpInfo
      *
      * Telegram Bot API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTelegramWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTelegramWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsTelegramWebhookWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsTelegramWebhook'][0])
+    public function postIntegrationTelegramWebhookWithHttpInfo(string $contentType = self::contentTypes['postIntegrationTelegramWebhook'][0])
     {
-        $request = $this->postIntegrationsTelegramWebhookRequest($contentType);
+        $request = $this->postIntegrationTelegramWebhookRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -12970,18 +13241,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsTelegramWebhookAsync
+     * Operation postIntegrationTelegramWebhookAsync
      *
      * Telegram Bot API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTelegramWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTelegramWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsTelegramWebhookAsync(string $contentType = self::contentTypes['postIntegrationsTelegramWebhook'][0])
+    public function postIntegrationTelegramWebhookAsync(string $contentType = self::contentTypes['postIntegrationTelegramWebhook'][0])
     {
-        return $this->postIntegrationsTelegramWebhookAsyncWithHttpInfo($contentType)
+        return $this->postIntegrationTelegramWebhookAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -12990,19 +13261,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsTelegramWebhookAsyncWithHttpInfo
+     * Operation postIntegrationTelegramWebhookAsyncWithHttpInfo
      *
      * Telegram Bot API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTelegramWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTelegramWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsTelegramWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsTelegramWebhook'][0])
+    public function postIntegrationTelegramWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationTelegramWebhook'][0])
     {
         $returnType = '';
-        $request = $this->postIntegrationsTelegramWebhookRequest($contentType);
+        $request = $this->postIntegrationTelegramWebhookRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -13028,18 +13299,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsTelegramWebhook'
+     * Create request for operation 'postIntegrationTelegramWebhook'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsTelegramWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationTelegramWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsTelegramWebhookRequest(string $contentType = self::contentTypes['postIntegrationsTelegramWebhook'][0])
+    public function postIntegrationTelegramWebhookRequest(string $contentType = self::contentTypes['postIntegrationTelegramWebhook'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/telegram/webhook';
+        $resourcePath = '/v1/integration/telegram/webhook';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -13108,35 +13379,35 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsWhatsappWebhook
+     * Operation postIntegrationWhatsappWebhook
      *
      * WhatsApp Cloud API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsWhatsappWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationWhatsappWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postIntegrationsWhatsappWebhook(string $contentType = self::contentTypes['postIntegrationsWhatsappWebhook'][0])
+    public function postIntegrationWhatsappWebhook(string $contentType = self::contentTypes['postIntegrationWhatsappWebhook'][0])
     {
-        $this->postIntegrationsWhatsappWebhookWithHttpInfo($contentType);
+        $this->postIntegrationWhatsappWebhookWithHttpInfo($contentType);
     }
 
     /**
-     * Operation postIntegrationsWhatsappWebhookWithHttpInfo
+     * Operation postIntegrationWhatsappWebhookWithHttpInfo
      *
      * WhatsApp Cloud API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsWhatsappWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationWhatsappWebhook'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postIntegrationsWhatsappWebhookWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsWhatsappWebhook'][0])
+    public function postIntegrationWhatsappWebhookWithHttpInfo(string $contentType = self::contentTypes['postIntegrationWhatsappWebhook'][0])
     {
-        $request = $this->postIntegrationsWhatsappWebhookRequest($contentType);
+        $request = $this->postIntegrationWhatsappWebhookRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -13172,18 +13443,18 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsWhatsappWebhookAsync
+     * Operation postIntegrationWhatsappWebhookAsync
      *
      * WhatsApp Cloud API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsWhatsappWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationWhatsappWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsWhatsappWebhookAsync(string $contentType = self::contentTypes['postIntegrationsWhatsappWebhook'][0])
+    public function postIntegrationWhatsappWebhookAsync(string $contentType = self::contentTypes['postIntegrationWhatsappWebhook'][0])
     {
-        return $this->postIntegrationsWhatsappWebhookAsyncWithHttpInfo($contentType)
+        return $this->postIntegrationWhatsappWebhookAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -13192,19 +13463,19 @@ class IntegrationsApi
     }
 
     /**
-     * Operation postIntegrationsWhatsappWebhookAsyncWithHttpInfo
+     * Operation postIntegrationWhatsappWebhookAsyncWithHttpInfo
      *
      * WhatsApp Cloud API webhook
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsWhatsappWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationWhatsappWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postIntegrationsWhatsappWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationsWhatsappWebhook'][0])
+    public function postIntegrationWhatsappWebhookAsyncWithHttpInfo(string $contentType = self::contentTypes['postIntegrationWhatsappWebhook'][0])
     {
         $returnType = '';
-        $request = $this->postIntegrationsWhatsappWebhookRequest($contentType);
+        $request = $this->postIntegrationWhatsappWebhookRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -13230,18 +13501,18 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'postIntegrationsWhatsappWebhook'
+     * Create request for operation 'postIntegrationWhatsappWebhook'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationsWhatsappWebhook'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postIntegrationWhatsappWebhook'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postIntegrationsWhatsappWebhookRequest(string $contentType = self::contentTypes['postIntegrationsWhatsappWebhook'][0])
+    public function postIntegrationWhatsappWebhookRequest(string $contentType = self::contentTypes['postIntegrationWhatsappWebhook'][0])
     {
 
 
-        $resourcePath = '/v1/integrations/whatsapp/webhook';
+        $resourcePath = '/v1/integration/whatsapp/webhook';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -13310,40 +13581,40 @@ class IntegrationsApi
     }
 
     /**
-     * Operation putIntegrationsGithubReposByRepoPages
+     * Operation putIntegrationGithubReposByRepoPages
      *
      * Sets or clears the custom domain (cname) and updates HTTPS enforcement, build type, or source.
      *
      * @param  string $repo Repo is the repository, from the :repo path segment. (required)
      * @param  \Hanzo\Cloud\Model\GithubPagesUpdateReq $github_pages_update_req github_pages_update_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\GithubPagesUpdatedOut
      */
-    public function putIntegrationsGithubReposByRepoPages($repo, $github_pages_update_req, string $contentType = self::contentTypes['putIntegrationsGithubReposByRepoPages'][0])
+    public function putIntegrationGithubReposByRepoPages($repo, $github_pages_update_req, string $contentType = self::contentTypes['putIntegrationGithubReposByRepoPages'][0])
     {
-        list($response) = $this->putIntegrationsGithubReposByRepoPagesWithHttpInfo($repo, $github_pages_update_req, $contentType);
+        list($response) = $this->putIntegrationGithubReposByRepoPagesWithHttpInfo($repo, $github_pages_update_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation putIntegrationsGithubReposByRepoPagesWithHttpInfo
+     * Operation putIntegrationGithubReposByRepoPagesWithHttpInfo
      *
      * Sets or clears the custom domain (cname) and updates HTTPS enforcement, build type, or source.
      *
      * @param  string $repo Repo is the repository, from the :repo path segment. (required)
      * @param  \Hanzo\Cloud\Model\GithubPagesUpdateReq $github_pages_update_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\GithubPagesUpdatedOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putIntegrationsGithubReposByRepoPagesWithHttpInfo($repo, $github_pages_update_req, string $contentType = self::contentTypes['putIntegrationsGithubReposByRepoPages'][0])
+    public function putIntegrationGithubReposByRepoPagesWithHttpInfo($repo, $github_pages_update_req, string $contentType = self::contentTypes['putIntegrationGithubReposByRepoPages'][0])
     {
-        $request = $this->putIntegrationsGithubReposByRepoPagesRequest($repo, $github_pages_update_req, $contentType);
+        $request = $this->putIntegrationGithubReposByRepoPagesRequest($repo, $github_pages_update_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -13415,20 +13686,20 @@ class IntegrationsApi
     }
 
     /**
-     * Operation putIntegrationsGithubReposByRepoPagesAsync
+     * Operation putIntegrationGithubReposByRepoPagesAsync
      *
      * Sets or clears the custom domain (cname) and updates HTTPS enforcement, build type, or source.
      *
      * @param  string $repo Repo is the repository, from the :repo path segment. (required)
      * @param  \Hanzo\Cloud\Model\GithubPagesUpdateReq $github_pages_update_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIntegrationsGithubReposByRepoPagesAsync($repo, $github_pages_update_req, string $contentType = self::contentTypes['putIntegrationsGithubReposByRepoPages'][0])
+    public function putIntegrationGithubReposByRepoPagesAsync($repo, $github_pages_update_req, string $contentType = self::contentTypes['putIntegrationGithubReposByRepoPages'][0])
     {
-        return $this->putIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo($repo, $github_pages_update_req, $contentType)
+        return $this->putIntegrationGithubReposByRepoPagesAsyncWithHttpInfo($repo, $github_pages_update_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -13437,21 +13708,21 @@ class IntegrationsApi
     }
 
     /**
-     * Operation putIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo
+     * Operation putIntegrationGithubReposByRepoPagesAsyncWithHttpInfo
      *
      * Sets or clears the custom domain (cname) and updates HTTPS enforcement, build type, or source.
      *
      * @param  string $repo Repo is the repository, from the :repo path segment. (required)
      * @param  \Hanzo\Cloud\Model\GithubPagesUpdateReq $github_pages_update_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putIntegrationsGithubReposByRepoPagesAsyncWithHttpInfo($repo, $github_pages_update_req, string $contentType = self::contentTypes['putIntegrationsGithubReposByRepoPages'][0])
+    public function putIntegrationGithubReposByRepoPagesAsyncWithHttpInfo($repo, $github_pages_update_req, string $contentType = self::contentTypes['putIntegrationGithubReposByRepoPages'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\GithubPagesUpdatedOut';
-        $request = $this->putIntegrationsGithubReposByRepoPagesRequest($repo, $github_pages_update_req, $contentType);
+        $request = $this->putIntegrationGithubReposByRepoPagesRequest($repo, $github_pages_update_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -13490,34 +13761,34 @@ class IntegrationsApi
     }
 
     /**
-     * Create request for operation 'putIntegrationsGithubReposByRepoPages'
+     * Create request for operation 'putIntegrationGithubReposByRepoPages'
      *
      * @param  string $repo Repo is the repository, from the :repo path segment. (required)
      * @param  \Hanzo\Cloud\Model\GithubPagesUpdateReq $github_pages_update_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIntegrationsGithubReposByRepoPages'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putIntegrationGithubReposByRepoPages'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putIntegrationsGithubReposByRepoPagesRequest($repo, $github_pages_update_req, string $contentType = self::contentTypes['putIntegrationsGithubReposByRepoPages'][0])
+    public function putIntegrationGithubReposByRepoPagesRequest($repo, $github_pages_update_req, string $contentType = self::contentTypes['putIntegrationGithubReposByRepoPages'][0])
     {
 
         // verify the required parameter 'repo' is set
         if ($repo === null || (is_array($repo) && count($repo) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $repo when calling putIntegrationsGithubReposByRepoPages'
+                'Missing the required parameter $repo when calling putIntegrationGithubReposByRepoPages'
             );
         }
 
         // verify the required parameter 'github_pages_update_req' is set
         if ($github_pages_update_req === null || (is_array($github_pages_update_req) && count($github_pages_update_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $github_pages_update_req when calling putIntegrationsGithubReposByRepoPages'
+                'Missing the required parameter $github_pages_update_req when calling putIntegrationGithubReposByRepoPages'
             );
         }
 
 
-        $resourcePath = '/v1/integrations/github/repos/{repo}/pages';
+        $resourcePath = '/v1/integration/github/repos/{repo}/pages';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

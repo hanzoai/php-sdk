@@ -1,6 +1,6 @@
 <?php
 /**
- * AgentsApi
+ * AgentApi
  * PHP version 8.1
  *
  * @category Class
@@ -43,14 +43,14 @@ use Hanzo\Cloud\HeaderSelector;
 use Hanzo\Cloud\ObjectSerializer;
 
 /**
- * AgentsApi Class Doc Comment
+ * AgentApi Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class AgentsApi
+class AgentApi
 {
     /**
      * @var ClientInterface
@@ -74,121 +74,121 @@ class AgentsApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
-        'deleteAgentsByRef' => [
+        'deleteAgentByRef' => [
             'application/json',
         ],
-        'deleteAgentsTargetsById' => [
+        'deleteAgentTargetsById' => [
             'application/json',
         ],
-        'getAgents' => [
+        'getAgent' => [
             'application/json',
         ],
-        'getAgentsActivity' => [
+        'getAgentActivity' => [
             'application/json',
         ],
-        'getAgentsBuilds' => [
+        'getAgentBuilds' => [
             'application/json',
         ],
-        'getAgentsBuildsByOrgByProject' => [
+        'getAgentBuildsByOrgByProject' => [
             'application/json',
         ],
-        'getAgentsByRef' => [
+        'getAgentByRef' => [
             'application/json',
         ],
-        'getAgentsByRefRuns' => [
+        'getAgentByRefRuns' => [
             'application/json',
         ],
-        'getAgentsChatConversations' => [
+        'getAgentChatConversations' => [
             'application/json',
         ],
-        'getAgentsChatConversationsById' => [
+        'getAgentChatConversationsById' => [
             'application/json',
         ],
-        'getAgentsChatPresets' => [
+        'getAgentChatPresets' => [
             'application/json',
         ],
-        'getAgentsMetrics' => [
+        'getAgentMetrics' => [
             'application/json',
         ],
-        'getAgentsRuns' => [
+        'getAgentRuns' => [
             'application/json',
         ],
-        'getAgentsSessions' => [
+        'getAgentSessions' => [
             'application/json',
         ],
-        'getAgentsSessionsById' => [
+        'getAgentSessionsById' => [
             'application/json',
         ],
-        'getAgentsSessionsByIdControl' => [
+        'getAgentSessionsByIdControl' => [
             'application/json',
         ],
-        'getAgentsSessionsByIdProgress' => [
+        'getAgentSessionsByIdProgress' => [
             'application/json',
         ],
-        'getAgentsSessionsByIdTree' => [
+        'getAgentSessionsByIdTree' => [
             'application/json',
         ],
-        'getAgentsSessionsStream' => [
+        'getAgentSessionsStream' => [
             'application/json',
         ],
-        'getAgentsTargets' => [
+        'getAgentTargets' => [
             'application/json',
         ],
-        'getAgentsTargetsById' => [
+        'getAgentTargetsById' => [
             'application/json',
         ],
-        'patchAgentsByRef' => [
+        'patchAgentByRef' => [
             'application/json',
         ],
-        'patchAgentsSessionsById' => [
+        'patchAgentSessionsById' => [
             'application/json',
         ],
-        'patchAgentsTargetsById' => [
+        'patchAgentTargetsById' => [
             'application/json',
         ],
-        'postAgents' => [
+        'postAgent' => [
             'application/json',
         ],
-        'postAgentsByRefRun' => [
+        'postAgentByRefRun' => [
             'application/json',
         ],
-        'postAgentsChat' => [
+        'postAgentChat' => [
             'application/json',
         ],
-        'postAgentsChatConversations' => [
+        'postAgentChatConversations' => [
             'application/json',
         ],
-        'postAgentsCoding' => [
+        'postAgentCoding' => [
             'application/json',
         ],
-        'postAgentsSessions' => [
+        'postAgentSessions' => [
             'application/json',
         ],
-        'postAgentsSessionsByIdEvents' => [
+        'postAgentSessionsByIdEvents' => [
             'application/json',
         ],
-        'postAgentsSessionsByIdMessage' => [
+        'postAgentSessionsByIdMessage' => [
             'application/json',
         ],
-        'postAgentsSessionsByIdPause' => [
+        'postAgentSessionsByIdPause' => [
             'application/json',
         ],
-        'postAgentsSessionsByIdResume' => [
+        'postAgentSessionsByIdResume' => [
             'application/json',
         ],
-        'postAgentsSessionsByIdStop' => [
+        'postAgentSessionsByIdStop' => [
             'application/json',
         ],
-        'postAgentsTargets' => [
+        'postAgentTargets' => [
             'application/json',
         ],
-        'postAgentsTargetsByIdClaim' => [
+        'postAgentTargetsByIdClaim' => [
             'application/json',
         ],
-        'postAgentsTargetsByIdKey' => [
+        'postAgentTargetsByIdKey' => [
             'application/json',
         ],
-        'postAgentsTargetsByIdRunsByRunidReport' => [
+        'postAgentTargetsByIdRunsByRunidReport' => [
             'application/json',
         ],
     ];
@@ -240,37 +240,37 @@ class AgentsApi
     }
 
     /**
-     * Operation deleteAgentsByRef
+     * Operation deleteAgentByRef
      *
      * Removes an agent and every run recorded against it.
      *
      * @param  string $ref Ref is the agent&#39;s public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentByRef'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function deleteAgentsByRef($ref, string $contentType = self::contentTypes['deleteAgentsByRef'][0])
+    public function deleteAgentByRef($ref, string $contentType = self::contentTypes['deleteAgentByRef'][0])
     {
-        $this->deleteAgentsByRefWithHttpInfo($ref, $contentType);
+        $this->deleteAgentByRefWithHttpInfo($ref, $contentType);
     }
 
     /**
-     * Operation deleteAgentsByRefWithHttpInfo
+     * Operation deleteAgentByRefWithHttpInfo
      *
      * Removes an agent and every run recorded against it.
      *
      * @param  string $ref Ref is the agent&#39;s public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentByRef'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAgentsByRefWithHttpInfo($ref, string $contentType = self::contentTypes['deleteAgentsByRef'][0])
+    public function deleteAgentByRefWithHttpInfo($ref, string $contentType = self::contentTypes['deleteAgentByRef'][0])
     {
-        $request = $this->deleteAgentsByRefRequest($ref, $contentType);
+        $request = $this->deleteAgentByRefRequest($ref, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -306,19 +306,19 @@ class AgentsApi
     }
 
     /**
-     * Operation deleteAgentsByRefAsync
+     * Operation deleteAgentByRefAsync
      *
      * Removes an agent and every run recorded against it.
      *
      * @param  string $ref Ref is the agent&#39;s public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentByRef'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentsByRefAsync($ref, string $contentType = self::contentTypes['deleteAgentsByRef'][0])
+    public function deleteAgentByRefAsync($ref, string $contentType = self::contentTypes['deleteAgentByRef'][0])
     {
-        return $this->deleteAgentsByRefAsyncWithHttpInfo($ref, $contentType)
+        return $this->deleteAgentByRefAsyncWithHttpInfo($ref, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -327,20 +327,20 @@ class AgentsApi
     }
 
     /**
-     * Operation deleteAgentsByRefAsyncWithHttpInfo
+     * Operation deleteAgentByRefAsyncWithHttpInfo
      *
      * Removes an agent and every run recorded against it.
      *
      * @param  string $ref Ref is the agent&#39;s public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentByRef'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentsByRefAsyncWithHttpInfo($ref, string $contentType = self::contentTypes['deleteAgentsByRef'][0])
+    public function deleteAgentByRefAsyncWithHttpInfo($ref, string $contentType = self::contentTypes['deleteAgentByRef'][0])
     {
         $returnType = '';
-        $request = $this->deleteAgentsByRefRequest($ref, $contentType);
+        $request = $this->deleteAgentByRefRequest($ref, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -366,26 +366,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'deleteAgentsByRef'
+     * Create request for operation 'deleteAgentByRef'
      *
      * @param  string $ref Ref is the agent&#39;s public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentByRef'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteAgentsByRefRequest($ref, string $contentType = self::contentTypes['deleteAgentsByRef'][0])
+    public function deleteAgentByRefRequest($ref, string $contentType = self::contentTypes['deleteAgentByRef'][0])
     {
 
         // verify the required parameter 'ref' is set
         if ($ref === null || (is_array($ref) && count($ref) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $ref when calling deleteAgentsByRef'
+                'Missing the required parameter $ref when calling deleteAgentByRef'
             );
         }
 
 
-        $resourcePath = '/v1/agents/{ref}';
+        $resourcePath = '/v1/agent/{ref}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -462,38 +462,38 @@ class AgentsApi
     }
 
     /**
-     * Operation deleteAgentsTargetsById
+     * Operation deleteAgentTargetsById
      *
      * Deregisters one machine.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\TargetDeleted
      */
-    public function deleteAgentsTargetsById($id, string $contentType = self::contentTypes['deleteAgentsTargetsById'][0])
+    public function deleteAgentTargetsById($id, string $contentType = self::contentTypes['deleteAgentTargetsById'][0])
     {
-        list($response) = $this->deleteAgentsTargetsByIdWithHttpInfo($id, $contentType);
+        list($response) = $this->deleteAgentTargetsByIdWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation deleteAgentsTargetsByIdWithHttpInfo
+     * Operation deleteAgentTargetsByIdWithHttpInfo
      *
      * Deregisters one machine.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\TargetDeleted, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteAgentsTargetsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteAgentsTargetsById'][0])
+    public function deleteAgentTargetsByIdWithHttpInfo($id, string $contentType = self::contentTypes['deleteAgentTargetsById'][0])
     {
-        $request = $this->deleteAgentsTargetsByIdRequest($id, $contentType);
+        $request = $this->deleteAgentTargetsByIdRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -565,19 +565,19 @@ class AgentsApi
     }
 
     /**
-     * Operation deleteAgentsTargetsByIdAsync
+     * Operation deleteAgentTargetsByIdAsync
      *
      * Deregisters one machine.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentsTargetsByIdAsync($id, string $contentType = self::contentTypes['deleteAgentsTargetsById'][0])
+    public function deleteAgentTargetsByIdAsync($id, string $contentType = self::contentTypes['deleteAgentTargetsById'][0])
     {
-        return $this->deleteAgentsTargetsByIdAsyncWithHttpInfo($id, $contentType)
+        return $this->deleteAgentTargetsByIdAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -586,20 +586,20 @@ class AgentsApi
     }
 
     /**
-     * Operation deleteAgentsTargetsByIdAsyncWithHttpInfo
+     * Operation deleteAgentTargetsByIdAsyncWithHttpInfo
      *
      * Deregisters one machine.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAgentsTargetsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteAgentsTargetsById'][0])
+    public function deleteAgentTargetsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['deleteAgentTargetsById'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\TargetDeleted';
-        $request = $this->deleteAgentsTargetsByIdRequest($id, $contentType);
+        $request = $this->deleteAgentTargetsByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -638,26 +638,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'deleteAgentsTargetsById'
+     * Create request for operation 'deleteAgentTargetsById'
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteAgentsTargetsByIdRequest($id, string $contentType = self::contentTypes['deleteAgentsTargetsById'][0])
+    public function deleteAgentTargetsByIdRequest($id, string $contentType = self::contentTypes['deleteAgentTargetsById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling deleteAgentsTargetsById'
+                'Missing the required parameter $id when calling deleteAgentTargetsById'
             );
         }
 
 
-        $resourcePath = '/v1/agents/targets/{id}';
+        $resourcePath = '/v1/agent/targets/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -734,36 +734,36 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgents
+     * Operation getAgent
      *
      * Returns every agent defined in the caller&#39;s org, each with the number of runs recorded against it.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgent'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\AgentList
      */
-    public function getAgents(string $contentType = self::contentTypes['getAgents'][0])
+    public function getAgent(string $contentType = self::contentTypes['getAgent'][0])
     {
-        list($response) = $this->getAgentsWithHttpInfo($contentType);
+        list($response) = $this->getAgentWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsWithHttpInfo
+     * Operation getAgentWithHttpInfo
      *
      * Returns every agent defined in the caller&#39;s org, each with the number of runs recorded against it.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgent'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\AgentList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsWithHttpInfo(string $contentType = self::contentTypes['getAgents'][0])
+    public function getAgentWithHttpInfo(string $contentType = self::contentTypes['getAgent'][0])
     {
-        $request = $this->getAgentsRequest($contentType);
+        $request = $this->getAgentRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -835,18 +835,18 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsAsync
+     * Operation getAgentAsync
      *
      * Returns every agent defined in the caller&#39;s org, each with the number of runs recorded against it.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsAsync(string $contentType = self::contentTypes['getAgents'][0])
+    public function getAgentAsync(string $contentType = self::contentTypes['getAgent'][0])
     {
-        return $this->getAgentsAsyncWithHttpInfo($contentType)
+        return $this->getAgentAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -855,19 +855,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsAsyncWithHttpInfo
+     * Operation getAgentAsyncWithHttpInfo
      *
      * Returns every agent defined in the caller&#39;s org, each with the number of runs recorded against it.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgents'][0])
+    public function getAgentAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgent'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\AgentList';
-        $request = $this->getAgentsRequest($contentType);
+        $request = $this->getAgentRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -906,18 +906,18 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgents'
+     * Create request for operation 'getAgent'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsRequest(string $contentType = self::contentTypes['getAgents'][0])
+    public function getAgentRequest(string $contentType = self::contentTypes['getAgent'][0])
     {
 
 
-        $resourcePath = '/v1/agents';
+        $resourcePath = '/v1/agent';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -986,36 +986,36 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsActivity
+     * Operation getAgentActivity
      *
      * Serves the org-wide recent-activity feed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsActivity'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentActivity'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ActivityFeed
      */
-    public function getAgentsActivity(string $contentType = self::contentTypes['getAgentsActivity'][0])
+    public function getAgentActivity(string $contentType = self::contentTypes['getAgentActivity'][0])
     {
-        list($response) = $this->getAgentsActivityWithHttpInfo($contentType);
+        list($response) = $this->getAgentActivityWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsActivityWithHttpInfo
+     * Operation getAgentActivityWithHttpInfo
      *
      * Serves the org-wide recent-activity feed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsActivity'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentActivity'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ActivityFeed, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsActivityWithHttpInfo(string $contentType = self::contentTypes['getAgentsActivity'][0])
+    public function getAgentActivityWithHttpInfo(string $contentType = self::contentTypes['getAgentActivity'][0])
     {
-        $request = $this->getAgentsActivityRequest($contentType);
+        $request = $this->getAgentActivityRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1087,18 +1087,18 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsActivityAsync
+     * Operation getAgentActivityAsync
      *
      * Serves the org-wide recent-activity feed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsActivity'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentActivity'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsActivityAsync(string $contentType = self::contentTypes['getAgentsActivity'][0])
+    public function getAgentActivityAsync(string $contentType = self::contentTypes['getAgentActivity'][0])
     {
-        return $this->getAgentsActivityAsyncWithHttpInfo($contentType)
+        return $this->getAgentActivityAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1107,19 +1107,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsActivityAsyncWithHttpInfo
+     * Operation getAgentActivityAsyncWithHttpInfo
      *
      * Serves the org-wide recent-activity feed.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsActivity'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentActivity'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsActivityAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgentsActivity'][0])
+    public function getAgentActivityAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgentActivity'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ActivityFeed';
-        $request = $this->getAgentsActivityRequest($contentType);
+        $request = $this->getAgentActivityRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1158,18 +1158,18 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsActivity'
+     * Create request for operation 'getAgentActivity'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsActivity'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentActivity'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsActivityRequest(string $contentType = self::contentTypes['getAgentsActivity'][0])
+    public function getAgentActivityRequest(string $contentType = self::contentTypes['getAgentActivity'][0])
     {
 
 
-        $resourcePath = '/v1/agents/activity';
+        $resourcePath = '/v1/agent/activity';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1238,38 +1238,38 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsBuilds
+     * Operation getAgentBuilds
      *
      * Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
      *
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsBuilds'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentBuilds'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\BuildList
      */
-    public function getAgentsBuilds($limit = null, string $contentType = self::contentTypes['getAgentsBuilds'][0])
+    public function getAgentBuilds($limit = null, string $contentType = self::contentTypes['getAgentBuilds'][0])
     {
-        list($response) = $this->getAgentsBuildsWithHttpInfo($limit, $contentType);
+        list($response) = $this->getAgentBuildsWithHttpInfo($limit, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsBuildsWithHttpInfo
+     * Operation getAgentBuildsWithHttpInfo
      *
      * Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
      *
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsBuilds'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentBuilds'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\BuildList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsBuildsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getAgentsBuilds'][0])
+    public function getAgentBuildsWithHttpInfo($limit = null, string $contentType = self::contentTypes['getAgentBuilds'][0])
     {
-        $request = $this->getAgentsBuildsRequest($limit, $contentType);
+        $request = $this->getAgentBuildsRequest($limit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1341,19 +1341,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsBuildsAsync
+     * Operation getAgentBuildsAsync
      *
      * Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
      *
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsBuilds'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentBuilds'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsBuildsAsync($limit = null, string $contentType = self::contentTypes['getAgentsBuilds'][0])
+    public function getAgentBuildsAsync($limit = null, string $contentType = self::contentTypes['getAgentBuilds'][0])
     {
-        return $this->getAgentsBuildsAsyncWithHttpInfo($limit, $contentType)
+        return $this->getAgentBuildsAsyncWithHttpInfo($limit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1362,20 +1362,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsBuildsAsyncWithHttpInfo
+     * Operation getAgentBuildsAsyncWithHttpInfo
      *
      * Returns the public index of every published build, most recently updated first, so a gallery can link straight to the story behind each product.
      *
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsBuilds'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentBuilds'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsBuildsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getAgentsBuilds'][0])
+    public function getAgentBuildsAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getAgentBuilds'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\BuildList';
-        $request = $this->getAgentsBuildsRequest($limit, $contentType);
+        $request = $this->getAgentBuildsRequest($limit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1414,20 +1414,20 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsBuilds'
+     * Create request for operation 'getAgentBuilds'
      *
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsBuilds'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentBuilds'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsBuildsRequest($limit = null, string $contentType = self::contentTypes['getAgentsBuilds'][0])
+    public function getAgentBuildsRequest($limit = null, string $contentType = self::contentTypes['getAgentBuilds'][0])
     {
 
 
 
-        $resourcePath = '/v1/agents/builds';
+        $resourcePath = '/v1/agent/builds';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1505,40 +1505,40 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsBuildsByOrgByProject
+     * Operation getAgentBuildsByOrgByProject
      *
      * Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact &#x60;git log&#x60; that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
      *
      * @param  string $org Org is the org that published the build, from the path. (required)
      * @param  string $project Project is the product&#39;s slug, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsBuildsByOrgByProject'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentBuildsByOrgByProject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\BuildView
      */
-    public function getAgentsBuildsByOrgByProject($org, $project, string $contentType = self::contentTypes['getAgentsBuildsByOrgByProject'][0])
+    public function getAgentBuildsByOrgByProject($org, $project, string $contentType = self::contentTypes['getAgentBuildsByOrgByProject'][0])
     {
-        list($response) = $this->getAgentsBuildsByOrgByProjectWithHttpInfo($org, $project, $contentType);
+        list($response) = $this->getAgentBuildsByOrgByProjectWithHttpInfo($org, $project, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsBuildsByOrgByProjectWithHttpInfo
+     * Operation getAgentBuildsByOrgByProjectWithHttpInfo
      *
      * Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact &#x60;git log&#x60; that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
      *
      * @param  string $org Org is the org that published the build, from the path. (required)
      * @param  string $project Project is the product&#39;s slug, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsBuildsByOrgByProject'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentBuildsByOrgByProject'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\BuildView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsBuildsByOrgByProjectWithHttpInfo($org, $project, string $contentType = self::contentTypes['getAgentsBuildsByOrgByProject'][0])
+    public function getAgentBuildsByOrgByProjectWithHttpInfo($org, $project, string $contentType = self::contentTypes['getAgentBuildsByOrgByProject'][0])
     {
-        $request = $this->getAgentsBuildsByOrgByProjectRequest($org, $project, $contentType);
+        $request = $this->getAgentBuildsByOrgByProjectRequest($org, $project, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1610,20 +1610,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsBuildsByOrgByProjectAsync
+     * Operation getAgentBuildsByOrgByProjectAsync
      *
      * Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact &#x60;git log&#x60; that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
      *
      * @param  string $org Org is the org that published the build, from the path. (required)
      * @param  string $project Project is the product&#39;s slug, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsBuildsByOrgByProject'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentBuildsByOrgByProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsBuildsByOrgByProjectAsync($org, $project, string $contentType = self::contentTypes['getAgentsBuildsByOrgByProject'][0])
+    public function getAgentBuildsByOrgByProjectAsync($org, $project, string $contentType = self::contentTypes['getAgentBuildsByOrgByProject'][0])
     {
-        return $this->getAgentsBuildsByOrgByProjectAsyncWithHttpInfo($org, $project, $contentType)
+        return $this->getAgentBuildsByOrgByProjectAsyncWithHttpInfo($org, $project, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1632,21 +1632,21 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsBuildsByOrgByProjectAsyncWithHttpInfo
+     * Operation getAgentBuildsByOrgByProjectAsyncWithHttpInfo
      *
      * Returns the readable build of one product: the agent session that produced it, turn by turn — the prompts, the reasoning, the commits each turn produced — plus the exact &#x60;git log&#x60; that re-derives every commit binding from git itself, so nothing here has to be taken on trust.
      *
      * @param  string $org Org is the org that published the build, from the path. (required)
      * @param  string $project Project is the product&#39;s slug, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsBuildsByOrgByProject'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentBuildsByOrgByProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsBuildsByOrgByProjectAsyncWithHttpInfo($org, $project, string $contentType = self::contentTypes['getAgentsBuildsByOrgByProject'][0])
+    public function getAgentBuildsByOrgByProjectAsyncWithHttpInfo($org, $project, string $contentType = self::contentTypes['getAgentBuildsByOrgByProject'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\BuildView';
-        $request = $this->getAgentsBuildsByOrgByProjectRequest($org, $project, $contentType);
+        $request = $this->getAgentBuildsByOrgByProjectRequest($org, $project, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1685,34 +1685,34 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsBuildsByOrgByProject'
+     * Create request for operation 'getAgentBuildsByOrgByProject'
      *
      * @param  string $org Org is the org that published the build, from the path. (required)
      * @param  string $project Project is the product&#39;s slug, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsBuildsByOrgByProject'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentBuildsByOrgByProject'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsBuildsByOrgByProjectRequest($org, $project, string $contentType = self::contentTypes['getAgentsBuildsByOrgByProject'][0])
+    public function getAgentBuildsByOrgByProjectRequest($org, $project, string $contentType = self::contentTypes['getAgentBuildsByOrgByProject'][0])
     {
 
         // verify the required parameter 'org' is set
         if ($org === null || (is_array($org) && count($org) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $org when calling getAgentsBuildsByOrgByProject'
+                'Missing the required parameter $org when calling getAgentBuildsByOrgByProject'
             );
         }
 
         // verify the required parameter 'project' is set
         if ($project === null || (is_array($project) && count($project) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $project when calling getAgentsBuildsByOrgByProject'
+                'Missing the required parameter $project when calling getAgentBuildsByOrgByProject'
             );
         }
 
 
-        $resourcePath = '/v1/agents/builds/{org}/{project}';
+        $resourcePath = '/v1/agent/builds/{org}/{project}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1797,38 +1797,38 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsByRef
+     * Operation getAgentByRef
      *
      * Returns one agent with its system prompt and its 20 most recent runs.
      *
      * @param  string $ref Ref is the agent&#39;s public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentByRef'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\AgentDetail
      */
-    public function getAgentsByRef($ref, string $contentType = self::contentTypes['getAgentsByRef'][0])
+    public function getAgentByRef($ref, string $contentType = self::contentTypes['getAgentByRef'][0])
     {
-        list($response) = $this->getAgentsByRefWithHttpInfo($ref, $contentType);
+        list($response) = $this->getAgentByRefWithHttpInfo($ref, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsByRefWithHttpInfo
+     * Operation getAgentByRefWithHttpInfo
      *
      * Returns one agent with its system prompt and its 20 most recent runs.
      *
      * @param  string $ref Ref is the agent&#39;s public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentByRef'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\AgentDetail, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsByRefWithHttpInfo($ref, string $contentType = self::contentTypes['getAgentsByRef'][0])
+    public function getAgentByRefWithHttpInfo($ref, string $contentType = self::contentTypes['getAgentByRef'][0])
     {
-        $request = $this->getAgentsByRefRequest($ref, $contentType);
+        $request = $this->getAgentByRefRequest($ref, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1900,19 +1900,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsByRefAsync
+     * Operation getAgentByRefAsync
      *
      * Returns one agent with its system prompt and its 20 most recent runs.
      *
      * @param  string $ref Ref is the agent&#39;s public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentByRef'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsByRefAsync($ref, string $contentType = self::contentTypes['getAgentsByRef'][0])
+    public function getAgentByRefAsync($ref, string $contentType = self::contentTypes['getAgentByRef'][0])
     {
-        return $this->getAgentsByRefAsyncWithHttpInfo($ref, $contentType)
+        return $this->getAgentByRefAsyncWithHttpInfo($ref, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1921,20 +1921,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsByRefAsyncWithHttpInfo
+     * Operation getAgentByRefAsyncWithHttpInfo
      *
      * Returns one agent with its system prompt and its 20 most recent runs.
      *
      * @param  string $ref Ref is the agent&#39;s public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentByRef'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsByRefAsyncWithHttpInfo($ref, string $contentType = self::contentTypes['getAgentsByRef'][0])
+    public function getAgentByRefAsyncWithHttpInfo($ref, string $contentType = self::contentTypes['getAgentByRef'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\AgentDetail';
-        $request = $this->getAgentsByRefRequest($ref, $contentType);
+        $request = $this->getAgentByRefRequest($ref, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1973,26 +1973,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsByRef'
+     * Create request for operation 'getAgentByRef'
      *
      * @param  string $ref Ref is the agent&#39;s public id (the agent_… handle create and list return) or its org-unique name, from the path. Either resolves the same agent. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentByRef'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsByRefRequest($ref, string $contentType = self::contentTypes['getAgentsByRef'][0])
+    public function getAgentByRefRequest($ref, string $contentType = self::contentTypes['getAgentByRef'][0])
     {
 
         // verify the required parameter 'ref' is set
         if ($ref === null || (is_array($ref) && count($ref) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $ref when calling getAgentsByRef'
+                'Missing the required parameter $ref when calling getAgentByRef'
             );
         }
 
 
-        $resourcePath = '/v1/agents/{ref}';
+        $resourcePath = '/v1/agent/{ref}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2069,40 +2069,40 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsByRefRuns
+     * Operation getAgentByRefRuns
      *
      * Returns one agent&#39;s execution history, newest first — each run&#39;s input, its output or its error, and how long it took.
      *
      * @param  string $ref Ref is the agent&#39;s public id or its org-unique name, from the path. (required)
      * @param  int|null $limit Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsByRefRuns'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentByRefRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\RunList
      */
-    public function getAgentsByRefRuns($ref, $limit = null, string $contentType = self::contentTypes['getAgentsByRefRuns'][0])
+    public function getAgentByRefRuns($ref, $limit = null, string $contentType = self::contentTypes['getAgentByRefRuns'][0])
     {
-        list($response) = $this->getAgentsByRefRunsWithHttpInfo($ref, $limit, $contentType);
+        list($response) = $this->getAgentByRefRunsWithHttpInfo($ref, $limit, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsByRefRunsWithHttpInfo
+     * Operation getAgentByRefRunsWithHttpInfo
      *
      * Returns one agent&#39;s execution history, newest first — each run&#39;s input, its output or its error, and how long it took.
      *
      * @param  string $ref Ref is the agent&#39;s public id or its org-unique name, from the path. (required)
      * @param  int|null $limit Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsByRefRuns'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentByRefRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\RunList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsByRefRunsWithHttpInfo($ref, $limit = null, string $contentType = self::contentTypes['getAgentsByRefRuns'][0])
+    public function getAgentByRefRunsWithHttpInfo($ref, $limit = null, string $contentType = self::contentTypes['getAgentByRefRuns'][0])
     {
-        $request = $this->getAgentsByRefRunsRequest($ref, $limit, $contentType);
+        $request = $this->getAgentByRefRunsRequest($ref, $limit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2174,20 +2174,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsByRefRunsAsync
+     * Operation getAgentByRefRunsAsync
      *
      * Returns one agent&#39;s execution history, newest first — each run&#39;s input, its output or its error, and how long it took.
      *
      * @param  string $ref Ref is the agent&#39;s public id or its org-unique name, from the path. (required)
      * @param  int|null $limit Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsByRefRuns'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentByRefRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsByRefRunsAsync($ref, $limit = null, string $contentType = self::contentTypes['getAgentsByRefRuns'][0])
+    public function getAgentByRefRunsAsync($ref, $limit = null, string $contentType = self::contentTypes['getAgentByRefRuns'][0])
     {
-        return $this->getAgentsByRefRunsAsyncWithHttpInfo($ref, $limit, $contentType)
+        return $this->getAgentByRefRunsAsyncWithHttpInfo($ref, $limit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2196,21 +2196,21 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsByRefRunsAsyncWithHttpInfo
+     * Operation getAgentByRefRunsAsyncWithHttpInfo
      *
      * Returns one agent&#39;s execution history, newest first — each run&#39;s input, its output or its error, and how long it took.
      *
      * @param  string $ref Ref is the agent&#39;s public id or its org-unique name, from the path. (required)
      * @param  int|null $limit Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsByRefRuns'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentByRefRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsByRefRunsAsyncWithHttpInfo($ref, $limit = null, string $contentType = self::contentTypes['getAgentsByRefRuns'][0])
+    public function getAgentByRefRunsAsyncWithHttpInfo($ref, $limit = null, string $contentType = self::contentTypes['getAgentByRefRuns'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\RunList';
-        $request = $this->getAgentsByRefRunsRequest($ref, $limit, $contentType);
+        $request = $this->getAgentByRefRunsRequest($ref, $limit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2249,28 +2249,28 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsByRefRuns'
+     * Create request for operation 'getAgentByRefRuns'
      *
      * @param  string $ref Ref is the agent&#39;s public id or its org-unique name, from the path. (required)
      * @param  int|null $limit Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsByRefRuns'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentByRefRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsByRefRunsRequest($ref, $limit = null, string $contentType = self::contentTypes['getAgentsByRefRuns'][0])
+    public function getAgentByRefRunsRequest($ref, $limit = null, string $contentType = self::contentTypes['getAgentByRefRuns'][0])
     {
 
         // verify the required parameter 'ref' is set
         if ($ref === null || (is_array($ref) && count($ref) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $ref when calling getAgentsByRefRuns'
+                'Missing the required parameter $ref when calling getAgentByRefRuns'
             );
         }
 
 
 
-        $resourcePath = '/v1/agents/{ref}/runs';
+        $resourcePath = '/v1/agent/{ref}/runs';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2356,35 +2356,35 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsChatConversations
+     * Operation getAgentChatConversations
      *
      * List the agent threads in your org
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatConversations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatConversations'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getAgentsChatConversations(string $contentType = self::contentTypes['getAgentsChatConversations'][0])
+    public function getAgentChatConversations(string $contentType = self::contentTypes['getAgentChatConversations'][0])
     {
-        $this->getAgentsChatConversationsWithHttpInfo($contentType);
+        $this->getAgentChatConversationsWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getAgentsChatConversationsWithHttpInfo
+     * Operation getAgentChatConversationsWithHttpInfo
      *
      * List the agent threads in your org
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatConversations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatConversations'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsChatConversationsWithHttpInfo(string $contentType = self::contentTypes['getAgentsChatConversations'][0])
+    public function getAgentChatConversationsWithHttpInfo(string $contentType = self::contentTypes['getAgentChatConversations'][0])
     {
-        $request = $this->getAgentsChatConversationsRequest($contentType);
+        $request = $this->getAgentChatConversationsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2420,18 +2420,18 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsChatConversationsAsync
+     * Operation getAgentChatConversationsAsync
      *
      * List the agent threads in your org
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatConversations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatConversations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsChatConversationsAsync(string $contentType = self::contentTypes['getAgentsChatConversations'][0])
+    public function getAgentChatConversationsAsync(string $contentType = self::contentTypes['getAgentChatConversations'][0])
     {
-        return $this->getAgentsChatConversationsAsyncWithHttpInfo($contentType)
+        return $this->getAgentChatConversationsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2440,19 +2440,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsChatConversationsAsyncWithHttpInfo
+     * Operation getAgentChatConversationsAsyncWithHttpInfo
      *
      * List the agent threads in your org
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatConversations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatConversations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsChatConversationsAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgentsChatConversations'][0])
+    public function getAgentChatConversationsAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgentChatConversations'][0])
     {
         $returnType = '';
-        $request = $this->getAgentsChatConversationsRequest($contentType);
+        $request = $this->getAgentChatConversationsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2478,18 +2478,18 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsChatConversations'
+     * Create request for operation 'getAgentChatConversations'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatConversations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatConversations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsChatConversationsRequest(string $contentType = self::contentTypes['getAgentsChatConversations'][0])
+    public function getAgentChatConversationsRequest(string $contentType = self::contentTypes['getAgentChatConversations'][0])
     {
 
 
-        $resourcePath = '/v1/agents/chat/conversations';
+        $resourcePath = '/v1/agent/chat/conversations';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2558,37 +2558,37 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsChatConversationsById
+     * Operation getAgentChatConversationsById
      *
      * Read one agent thread in full
      *
      * @param  string $id id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatConversationsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatConversationsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getAgentsChatConversationsById($id, string $contentType = self::contentTypes['getAgentsChatConversationsById'][0])
+    public function getAgentChatConversationsById($id, string $contentType = self::contentTypes['getAgentChatConversationsById'][0])
     {
-        $this->getAgentsChatConversationsByIdWithHttpInfo($id, $contentType);
+        $this->getAgentChatConversationsByIdWithHttpInfo($id, $contentType);
     }
 
     /**
-     * Operation getAgentsChatConversationsByIdWithHttpInfo
+     * Operation getAgentChatConversationsByIdWithHttpInfo
      *
      * Read one agent thread in full
      *
      * @param  string $id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatConversationsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatConversationsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsChatConversationsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getAgentsChatConversationsById'][0])
+    public function getAgentChatConversationsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getAgentChatConversationsById'][0])
     {
-        $request = $this->getAgentsChatConversationsByIdRequest($id, $contentType);
+        $request = $this->getAgentChatConversationsByIdRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2624,19 +2624,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsChatConversationsByIdAsync
+     * Operation getAgentChatConversationsByIdAsync
      *
      * Read one agent thread in full
      *
      * @param  string $id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatConversationsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatConversationsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsChatConversationsByIdAsync($id, string $contentType = self::contentTypes['getAgentsChatConversationsById'][0])
+    public function getAgentChatConversationsByIdAsync($id, string $contentType = self::contentTypes['getAgentChatConversationsById'][0])
     {
-        return $this->getAgentsChatConversationsByIdAsyncWithHttpInfo($id, $contentType)
+        return $this->getAgentChatConversationsByIdAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2645,20 +2645,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsChatConversationsByIdAsyncWithHttpInfo
+     * Operation getAgentChatConversationsByIdAsyncWithHttpInfo
      *
      * Read one agent thread in full
      *
      * @param  string $id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatConversationsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatConversationsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsChatConversationsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAgentsChatConversationsById'][0])
+    public function getAgentChatConversationsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAgentChatConversationsById'][0])
     {
         $returnType = '';
-        $request = $this->getAgentsChatConversationsByIdRequest($id, $contentType);
+        $request = $this->getAgentChatConversationsByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2684,26 +2684,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsChatConversationsById'
+     * Create request for operation 'getAgentChatConversationsById'
      *
      * @param  string $id (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatConversationsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatConversationsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsChatConversationsByIdRequest($id, string $contentType = self::contentTypes['getAgentsChatConversationsById'][0])
+    public function getAgentChatConversationsByIdRequest($id, string $contentType = self::contentTypes['getAgentChatConversationsById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling getAgentsChatConversationsById'
+                'Missing the required parameter $id when calling getAgentChatConversationsById'
             );
         }
 
 
-        $resourcePath = '/v1/agents/chat/conversations/{id}';
+        $resourcePath = '/v1/agent/chat/conversations/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2780,35 +2780,35 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsChatPresets
+     * Operation getAgentChatPresets
      *
      * List the agent presets available to a caller
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatPresets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatPresets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getAgentsChatPresets(string $contentType = self::contentTypes['getAgentsChatPresets'][0])
+    public function getAgentChatPresets(string $contentType = self::contentTypes['getAgentChatPresets'][0])
     {
-        $this->getAgentsChatPresetsWithHttpInfo($contentType);
+        $this->getAgentChatPresetsWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getAgentsChatPresetsWithHttpInfo
+     * Operation getAgentChatPresetsWithHttpInfo
      *
      * List the agent presets available to a caller
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatPresets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatPresets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsChatPresetsWithHttpInfo(string $contentType = self::contentTypes['getAgentsChatPresets'][0])
+    public function getAgentChatPresetsWithHttpInfo(string $contentType = self::contentTypes['getAgentChatPresets'][0])
     {
-        $request = $this->getAgentsChatPresetsRequest($contentType);
+        $request = $this->getAgentChatPresetsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2844,18 +2844,18 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsChatPresetsAsync
+     * Operation getAgentChatPresetsAsync
      *
      * List the agent presets available to a caller
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatPresets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatPresets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsChatPresetsAsync(string $contentType = self::contentTypes['getAgentsChatPresets'][0])
+    public function getAgentChatPresetsAsync(string $contentType = self::contentTypes['getAgentChatPresets'][0])
     {
-        return $this->getAgentsChatPresetsAsyncWithHttpInfo($contentType)
+        return $this->getAgentChatPresetsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2864,19 +2864,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsChatPresetsAsyncWithHttpInfo
+     * Operation getAgentChatPresetsAsyncWithHttpInfo
      *
      * List the agent presets available to a caller
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatPresets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatPresets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsChatPresetsAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgentsChatPresets'][0])
+    public function getAgentChatPresetsAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgentChatPresets'][0])
     {
         $returnType = '';
-        $request = $this->getAgentsChatPresetsRequest($contentType);
+        $request = $this->getAgentChatPresetsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2902,18 +2902,18 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsChatPresets'
+     * Create request for operation 'getAgentChatPresets'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsChatPresets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentChatPresets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsChatPresetsRequest(string $contentType = self::contentTypes['getAgentsChatPresets'][0])
+    public function getAgentChatPresetsRequest(string $contentType = self::contentTypes['getAgentChatPresets'][0])
     {
 
 
-        $resourcePath = '/v1/agents/chat/presets';
+        $resourcePath = '/v1/agent/chat/presets';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2982,38 +2982,38 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsMetrics
+     * Operation getAgentMetrics
      *
      * Serves the invocations-over-time histogram for the org&#39;s Agents dashboard.
      *
      * @param  string|null $range Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsMetrics'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentMetrics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\MetricsView
      */
-    public function getAgentsMetrics($range = null, string $contentType = self::contentTypes['getAgentsMetrics'][0])
+    public function getAgentMetrics($range = null, string $contentType = self::contentTypes['getAgentMetrics'][0])
     {
-        list($response) = $this->getAgentsMetricsWithHttpInfo($range, $contentType);
+        list($response) = $this->getAgentMetricsWithHttpInfo($range, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsMetricsWithHttpInfo
+     * Operation getAgentMetricsWithHttpInfo
      *
      * Serves the invocations-over-time histogram for the org&#39;s Agents dashboard.
      *
      * @param  string|null $range Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsMetrics'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentMetrics'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\MetricsView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsMetricsWithHttpInfo($range = null, string $contentType = self::contentTypes['getAgentsMetrics'][0])
+    public function getAgentMetricsWithHttpInfo($range = null, string $contentType = self::contentTypes['getAgentMetrics'][0])
     {
-        $request = $this->getAgentsMetricsRequest($range, $contentType);
+        $request = $this->getAgentMetricsRequest($range, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3085,19 +3085,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsMetricsAsync
+     * Operation getAgentMetricsAsync
      *
      * Serves the invocations-over-time histogram for the org&#39;s Agents dashboard.
      *
      * @param  string|null $range Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsMetrics'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentMetrics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsMetricsAsync($range = null, string $contentType = self::contentTypes['getAgentsMetrics'][0])
+    public function getAgentMetricsAsync($range = null, string $contentType = self::contentTypes['getAgentMetrics'][0])
     {
-        return $this->getAgentsMetricsAsyncWithHttpInfo($range, $contentType)
+        return $this->getAgentMetricsAsyncWithHttpInfo($range, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3106,20 +3106,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsMetricsAsyncWithHttpInfo
+     * Operation getAgentMetricsAsyncWithHttpInfo
      *
      * Serves the invocations-over-time histogram for the org&#39;s Agents dashboard.
      *
      * @param  string|null $range Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsMetrics'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentMetrics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsMetricsAsyncWithHttpInfo($range = null, string $contentType = self::contentTypes['getAgentsMetrics'][0])
+    public function getAgentMetricsAsyncWithHttpInfo($range = null, string $contentType = self::contentTypes['getAgentMetrics'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\MetricsView';
-        $request = $this->getAgentsMetricsRequest($range, $contentType);
+        $request = $this->getAgentMetricsRequest($range, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3158,20 +3158,20 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsMetrics'
+     * Create request for operation 'getAgentMetrics'
      *
      * @param  string|null $range Range is the window to bucket: 24H, 7D or 30D. Anything else reads as 30D. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsMetrics'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentMetrics'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsMetricsRequest($range = null, string $contentType = self::contentTypes['getAgentsMetrics'][0])
+    public function getAgentMetricsRequest($range = null, string $contentType = self::contentTypes['getAgentMetrics'][0])
     {
 
 
 
-        $resourcePath = '/v1/agents/metrics';
+        $resourcePath = '/v1/agent/metrics';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3249,40 +3249,40 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsRuns
+     * Operation getAgentRuns
      *
      * Returns the org&#39;s agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
      *
      * @param  int|null $limit Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
      * @param  string|null $status Status keeps only runs with this outcome (\&quot;ok\&quot; or \&quot;error\&quot;). Empty keeps both. It is the filter an operator reaches for first — \&quot;show me what broke\&quot; — and answering it here rather than by paging the whole history client-side is the difference between a usable feed and a download. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsRuns'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\RunList
      */
-    public function getAgentsRuns($limit = null, $status = null, string $contentType = self::contentTypes['getAgentsRuns'][0])
+    public function getAgentRuns($limit = null, $status = null, string $contentType = self::contentTypes['getAgentRuns'][0])
     {
-        list($response) = $this->getAgentsRunsWithHttpInfo($limit, $status, $contentType);
+        list($response) = $this->getAgentRunsWithHttpInfo($limit, $status, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsRunsWithHttpInfo
+     * Operation getAgentRunsWithHttpInfo
      *
      * Returns the org&#39;s agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
      *
      * @param  int|null $limit Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
      * @param  string|null $status Status keeps only runs with this outcome (\&quot;ok\&quot; or \&quot;error\&quot;). Empty keeps both. It is the filter an operator reaches for first — \&quot;show me what broke\&quot; — and answering it here rather than by paging the whole history client-side is the difference between a usable feed and a download. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsRuns'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentRuns'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\RunList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsRunsWithHttpInfo($limit = null, $status = null, string $contentType = self::contentTypes['getAgentsRuns'][0])
+    public function getAgentRunsWithHttpInfo($limit = null, $status = null, string $contentType = self::contentTypes['getAgentRuns'][0])
     {
-        $request = $this->getAgentsRunsRequest($limit, $status, $contentType);
+        $request = $this->getAgentRunsRequest($limit, $status, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3354,20 +3354,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsRunsAsync
+     * Operation getAgentRunsAsync
      *
      * Returns the org&#39;s agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
      *
      * @param  int|null $limit Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
      * @param  string|null $status Status keeps only runs with this outcome (\&quot;ok\&quot; or \&quot;error\&quot;). Empty keeps both. It is the filter an operator reaches for first — \&quot;show me what broke\&quot; — and answering it here rather than by paging the whole history client-side is the difference between a usable feed and a download. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsRuns'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsRunsAsync($limit = null, $status = null, string $contentType = self::contentTypes['getAgentsRuns'][0])
+    public function getAgentRunsAsync($limit = null, $status = null, string $contentType = self::contentTypes['getAgentRuns'][0])
     {
-        return $this->getAgentsRunsAsyncWithHttpInfo($limit, $status, $contentType)
+        return $this->getAgentRunsAsyncWithHttpInfo($limit, $status, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3376,21 +3376,21 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsRunsAsyncWithHttpInfo
+     * Operation getAgentRunsAsyncWithHttpInfo
      *
      * Returns the org&#39;s agent runs across EVERY agent, newest first — what ran here, for whom, on which model, how long it took, and why it failed.
      *
      * @param  int|null $limit Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
      * @param  string|null $status Status keeps only runs with this outcome (\&quot;ok\&quot; or \&quot;error\&quot;). Empty keeps both. It is the filter an operator reaches for first — \&quot;show me what broke\&quot; — and answering it here rather than by paging the whole history client-side is the difference between a usable feed and a download. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsRuns'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsRunsAsyncWithHttpInfo($limit = null, $status = null, string $contentType = self::contentTypes['getAgentsRuns'][0])
+    public function getAgentRunsAsyncWithHttpInfo($limit = null, $status = null, string $contentType = self::contentTypes['getAgentRuns'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\RunList';
-        $request = $this->getAgentsRunsRequest($limit, $status, $contentType);
+        $request = $this->getAgentRunsRequest($limit, $status, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3429,22 +3429,22 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsRuns'
+     * Create request for operation 'getAgentRuns'
      *
      * @param  int|null $limit Limit caps how many runs come back, newest first. Absent, zero or out of range (1..200) reads as 50. (optional)
      * @param  string|null $status Status keeps only runs with this outcome (\&quot;ok\&quot; or \&quot;error\&quot;). Empty keeps both. It is the filter an operator reaches for first — \&quot;show me what broke\&quot; — and answering it here rather than by paging the whole history client-side is the difference between a usable feed and a download. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsRuns'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentRuns'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsRunsRequest($limit = null, $status = null, string $contentType = self::contentTypes['getAgentsRuns'][0])
+    public function getAgentRunsRequest($limit = null, $status = null, string $contentType = self::contentTypes['getAgentRuns'][0])
     {
 
 
 
 
-        $resourcePath = '/v1/agents/runs';
+        $resourcePath = '/v1/agent/runs';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3531,7 +3531,7 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessions
+     * Operation getAgentSessions
      *
      * Returns the caller org&#39;s live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
      *
@@ -3541,20 +3541,20 @@ class AgentsApi
      * @param  string|null $project Project filters to the sessions tagged with one product slug. (optional)
      * @param  string|null $room Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it. (optional)
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\SessionList
      */
-    public function getAgentsSessions($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
+    public function getAgentSessions($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentSessions'][0])
     {
-        list($response) = $this->getAgentsSessionsWithHttpInfo($root, $parent, $status, $project, $room, $limit, $contentType);
+        list($response) = $this->getAgentSessionsWithHttpInfo($root, $parent, $status, $project, $room, $limit, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsSessionsWithHttpInfo
+     * Operation getAgentSessionsWithHttpInfo
      *
      * Returns the caller org&#39;s live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
      *
@@ -3564,15 +3564,15 @@ class AgentsApi
      * @param  string|null $project Project filters to the sessions tagged with one product slug. (optional)
      * @param  string|null $room Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it. (optional)
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\SessionList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsSessionsWithHttpInfo($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
+    public function getAgentSessionsWithHttpInfo($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentSessions'][0])
     {
-        $request = $this->getAgentsSessionsRequest($root, $parent, $status, $project, $room, $limit, $contentType);
+        $request = $this->getAgentSessionsRequest($root, $parent, $status, $project, $room, $limit, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3644,7 +3644,7 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsAsync
+     * Operation getAgentSessionsAsync
      *
      * Returns the caller org&#39;s live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
      *
@@ -3654,14 +3654,14 @@ class AgentsApi
      * @param  string|null $project Project filters to the sessions tagged with one product slug. (optional)
      * @param  string|null $room Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it. (optional)
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsAsync($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
+    public function getAgentSessionsAsync($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentSessions'][0])
     {
-        return $this->getAgentsSessionsAsyncWithHttpInfo($root, $parent, $status, $project, $room, $limit, $contentType)
+        return $this->getAgentSessionsAsyncWithHttpInfo($root, $parent, $status, $project, $room, $limit, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3670,7 +3670,7 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsAsyncWithHttpInfo
+     * Operation getAgentSessionsAsyncWithHttpInfo
      *
      * Returns the caller org&#39;s live sessions, newest first — each with its event count, its direct-child count and a one-line preview of its latest event.
      *
@@ -3680,15 +3680,15 @@ class AgentsApi
      * @param  string|null $project Project filters to the sessions tagged with one product slug. (optional)
      * @param  string|null $room Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it. (optional)
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsAsyncWithHttpInfo($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
+    public function getAgentSessionsAsyncWithHttpInfo($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentSessions'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\SessionList';
-        $request = $this->getAgentsSessionsRequest($root, $parent, $status, $project, $room, $limit, $contentType);
+        $request = $this->getAgentSessionsRequest($root, $parent, $status, $project, $room, $limit, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3727,7 +3727,7 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsSessions'
+     * Create request for operation 'getAgentSessions'
      *
      * @param  string|null $root Root scopes the page to one subagent tree (its root session id). (optional)
      * @param  string|null $parent Parent scopes the page to the direct children of one session. Ignored when root is set; with neither, only ROOT sessions come back. (optional)
@@ -3735,12 +3735,12 @@ class AgentsApi
      * @param  string|null $project Project filters to the sessions tagged with one product slug. (optional)
      * @param  string|null $room Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it. (optional)
      * @param  int|null $limit Limit caps the page. Absent, zero or over 500 reads as 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsSessionsRequest($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentsSessions'][0])
+    public function getAgentSessionsRequest($root = null, $parent = null, $status = null, $project = null, $room = null, $limit = null, string $contentType = self::contentTypes['getAgentSessions'][0])
     {
 
 
@@ -3750,7 +3750,7 @@ class AgentsApi
 
 
 
-        $resourcePath = '/v1/agents/sessions';
+        $resourcePath = '/v1/agent/sessions';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -3873,38 +3873,38 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsById
+     * Operation getAgentSessionsById
      *
      * Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\SessionDetail
      */
-    public function getAgentsSessionsById($id, string $contentType = self::contentTypes['getAgentsSessionsById'][0])
+    public function getAgentSessionsById($id, string $contentType = self::contentTypes['getAgentSessionsById'][0])
     {
-        list($response) = $this->getAgentsSessionsByIdWithHttpInfo($id, $contentType);
+        list($response) = $this->getAgentSessionsByIdWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsSessionsByIdWithHttpInfo
+     * Operation getAgentSessionsByIdWithHttpInfo
      *
      * Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\SessionDetail, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsSessionsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getAgentsSessionsById'][0])
+    public function getAgentSessionsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getAgentSessionsById'][0])
     {
-        $request = $this->getAgentsSessionsByIdRequest($id, $contentType);
+        $request = $this->getAgentSessionsByIdRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3976,19 +3976,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsByIdAsync
+     * Operation getAgentSessionsByIdAsync
      *
      * Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsByIdAsync($id, string $contentType = self::contentTypes['getAgentsSessionsById'][0])
+    public function getAgentSessionsByIdAsync($id, string $contentType = self::contentTypes['getAgentSessionsById'][0])
     {
-        return $this->getAgentsSessionsByIdAsyncWithHttpInfo($id, $contentType)
+        return $this->getAgentSessionsByIdAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3997,20 +3997,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsByIdAsyncWithHttpInfo
+     * Operation getAgentSessionsByIdAsyncWithHttpInfo
      *
      * Returns one session with its direct child sessions and its 50 most recent events, oldest of those first.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAgentsSessionsById'][0])
+    public function getAgentSessionsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAgentSessionsById'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\SessionDetail';
-        $request = $this->getAgentsSessionsByIdRequest($id, $contentType);
+        $request = $this->getAgentSessionsByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4049,26 +4049,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsSessionsById'
+     * Create request for operation 'getAgentSessionsById'
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsSessionsByIdRequest($id, string $contentType = self::contentTypes['getAgentsSessionsById'][0])
+    public function getAgentSessionsByIdRequest($id, string $contentType = self::contentTypes['getAgentSessionsById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling getAgentsSessionsById'
+                'Missing the required parameter $id when calling getAgentSessionsById'
             );
         }
 
 
-        $resourcePath = '/v1/agents/sessions/{id}';
+        $resourcePath = '/v1/agent/sessions/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4145,40 +4145,40 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsByIdControl
+     * Operation getAgentSessionsByIdControl
      *
      * Returns the steering commands (pause/resume/stop/message) recorded against the caller&#39;s own session that are newer than the cursor, oldest first, with the cursor to poll from next.
      *
      * @param  string $id ID is the session whose commands are being drained, from the path. (required)
      * @param  int|null $after After is the last seq this poller applied; only commands newer than it come back. Absent or negative reads as 0, which drains from the beginning. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdControl'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdControl'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ControlDrain
      */
-    public function getAgentsSessionsByIdControl($id, $after = null, string $contentType = self::contentTypes['getAgentsSessionsByIdControl'][0])
+    public function getAgentSessionsByIdControl($id, $after = null, string $contentType = self::contentTypes['getAgentSessionsByIdControl'][0])
     {
-        list($response) = $this->getAgentsSessionsByIdControlWithHttpInfo($id, $after, $contentType);
+        list($response) = $this->getAgentSessionsByIdControlWithHttpInfo($id, $after, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsSessionsByIdControlWithHttpInfo
+     * Operation getAgentSessionsByIdControlWithHttpInfo
      *
      * Returns the steering commands (pause/resume/stop/message) recorded against the caller&#39;s own session that are newer than the cursor, oldest first, with the cursor to poll from next.
      *
      * @param  string $id ID is the session whose commands are being drained, from the path. (required)
      * @param  int|null $after After is the last seq this poller applied; only commands newer than it come back. Absent or negative reads as 0, which drains from the beginning. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdControl'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdControl'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ControlDrain, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsSessionsByIdControlWithHttpInfo($id, $after = null, string $contentType = self::contentTypes['getAgentsSessionsByIdControl'][0])
+    public function getAgentSessionsByIdControlWithHttpInfo($id, $after = null, string $contentType = self::contentTypes['getAgentSessionsByIdControl'][0])
     {
-        $request = $this->getAgentsSessionsByIdControlRequest($id, $after, $contentType);
+        $request = $this->getAgentSessionsByIdControlRequest($id, $after, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4250,20 +4250,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsByIdControlAsync
+     * Operation getAgentSessionsByIdControlAsync
      *
      * Returns the steering commands (pause/resume/stop/message) recorded against the caller&#39;s own session that are newer than the cursor, oldest first, with the cursor to poll from next.
      *
      * @param  string $id ID is the session whose commands are being drained, from the path. (required)
      * @param  int|null $after After is the last seq this poller applied; only commands newer than it come back. Absent or negative reads as 0, which drains from the beginning. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdControl'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdControl'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsByIdControlAsync($id, $after = null, string $contentType = self::contentTypes['getAgentsSessionsByIdControl'][0])
+    public function getAgentSessionsByIdControlAsync($id, $after = null, string $contentType = self::contentTypes['getAgentSessionsByIdControl'][0])
     {
-        return $this->getAgentsSessionsByIdControlAsyncWithHttpInfo($id, $after, $contentType)
+        return $this->getAgentSessionsByIdControlAsyncWithHttpInfo($id, $after, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4272,21 +4272,21 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsByIdControlAsyncWithHttpInfo
+     * Operation getAgentSessionsByIdControlAsyncWithHttpInfo
      *
      * Returns the steering commands (pause/resume/stop/message) recorded against the caller&#39;s own session that are newer than the cursor, oldest first, with the cursor to poll from next.
      *
      * @param  string $id ID is the session whose commands are being drained, from the path. (required)
      * @param  int|null $after After is the last seq this poller applied; only commands newer than it come back. Absent or negative reads as 0, which drains from the beginning. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdControl'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdControl'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsByIdControlAsyncWithHttpInfo($id, $after = null, string $contentType = self::contentTypes['getAgentsSessionsByIdControl'][0])
+    public function getAgentSessionsByIdControlAsyncWithHttpInfo($id, $after = null, string $contentType = self::contentTypes['getAgentSessionsByIdControl'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ControlDrain';
-        $request = $this->getAgentsSessionsByIdControlRequest($id, $after, $contentType);
+        $request = $this->getAgentSessionsByIdControlRequest($id, $after, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4325,28 +4325,28 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsSessionsByIdControl'
+     * Create request for operation 'getAgentSessionsByIdControl'
      *
      * @param  string $id ID is the session whose commands are being drained, from the path. (required)
      * @param  int|null $after After is the last seq this poller applied; only commands newer than it come back. Absent or negative reads as 0, which drains from the beginning. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdControl'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdControl'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsSessionsByIdControlRequest($id, $after = null, string $contentType = self::contentTypes['getAgentsSessionsByIdControl'][0])
+    public function getAgentSessionsByIdControlRequest($id, $after = null, string $contentType = self::contentTypes['getAgentSessionsByIdControl'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling getAgentsSessionsByIdControl'
+                'Missing the required parameter $id when calling getAgentSessionsByIdControl'
             );
         }
 
 
 
-        $resourcePath = '/v1/agents/sessions/{id}/control';
+        $resourcePath = '/v1/agent/sessions/{id}/control';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4432,38 +4432,38 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsByIdProgress
+     * Operation getAgentSessionsByIdProgress
      *
      * Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdProgress'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdProgress'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\SessionProgress
      */
-    public function getAgentsSessionsByIdProgress($id, string $contentType = self::contentTypes['getAgentsSessionsByIdProgress'][0])
+    public function getAgentSessionsByIdProgress($id, string $contentType = self::contentTypes['getAgentSessionsByIdProgress'][0])
     {
-        list($response) = $this->getAgentsSessionsByIdProgressWithHttpInfo($id, $contentType);
+        list($response) = $this->getAgentSessionsByIdProgressWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsSessionsByIdProgressWithHttpInfo
+     * Operation getAgentSessionsByIdProgressWithHttpInfo
      *
      * Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdProgress'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdProgress'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\SessionProgress, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsSessionsByIdProgressWithHttpInfo($id, string $contentType = self::contentTypes['getAgentsSessionsByIdProgress'][0])
+    public function getAgentSessionsByIdProgressWithHttpInfo($id, string $contentType = self::contentTypes['getAgentSessionsByIdProgress'][0])
     {
-        $request = $this->getAgentsSessionsByIdProgressRequest($id, $contentType);
+        $request = $this->getAgentSessionsByIdProgressRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4535,19 +4535,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsByIdProgressAsync
+     * Operation getAgentSessionsByIdProgressAsync
      *
      * Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdProgress'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdProgress'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsByIdProgressAsync($id, string $contentType = self::contentTypes['getAgentsSessionsByIdProgress'][0])
+    public function getAgentSessionsByIdProgressAsync($id, string $contentType = self::contentTypes['getAgentSessionsByIdProgress'][0])
     {
-        return $this->getAgentsSessionsByIdProgressAsyncWithHttpInfo($id, $contentType)
+        return $this->getAgentSessionsByIdProgressAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4556,20 +4556,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsByIdProgressAsyncWithHttpInfo
+     * Operation getAgentSessionsByIdProgressAsyncWithHttpInfo
      *
      * Returns how far along one run is: the share of its goal that is done, whether it is running, blocked or finished, and a line saying what it is doing right now.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdProgress'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdProgress'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsByIdProgressAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAgentsSessionsByIdProgress'][0])
+    public function getAgentSessionsByIdProgressAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAgentSessionsByIdProgress'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\SessionProgress';
-        $request = $this->getAgentsSessionsByIdProgressRequest($id, $contentType);
+        $request = $this->getAgentSessionsByIdProgressRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4608,26 +4608,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsSessionsByIdProgress'
+     * Create request for operation 'getAgentSessionsByIdProgress'
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdProgress'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdProgress'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsSessionsByIdProgressRequest($id, string $contentType = self::contentTypes['getAgentsSessionsByIdProgress'][0])
+    public function getAgentSessionsByIdProgressRequest($id, string $contentType = self::contentTypes['getAgentSessionsByIdProgress'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling getAgentsSessionsByIdProgress'
+                'Missing the required parameter $id when calling getAgentSessionsByIdProgress'
             );
         }
 
 
-        $resourcePath = '/v1/agents/sessions/{id}/progress';
+        $resourcePath = '/v1/agent/sessions/{id}/progress';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4704,38 +4704,38 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsByIdTree
+     * Operation getAgentSessionsByIdTree
      *
      * Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdTree'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdTree'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\TreeNode
      */
-    public function getAgentsSessionsByIdTree($id, string $contentType = self::contentTypes['getAgentsSessionsByIdTree'][0])
+    public function getAgentSessionsByIdTree($id, string $contentType = self::contentTypes['getAgentSessionsByIdTree'][0])
     {
-        list($response) = $this->getAgentsSessionsByIdTreeWithHttpInfo($id, $contentType);
+        list($response) = $this->getAgentSessionsByIdTreeWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsSessionsByIdTreeWithHttpInfo
+     * Operation getAgentSessionsByIdTreeWithHttpInfo
      *
      * Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdTree'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdTree'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\TreeNode, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsSessionsByIdTreeWithHttpInfo($id, string $contentType = self::contentTypes['getAgentsSessionsByIdTree'][0])
+    public function getAgentSessionsByIdTreeWithHttpInfo($id, string $contentType = self::contentTypes['getAgentSessionsByIdTree'][0])
     {
-        $request = $this->getAgentsSessionsByIdTreeRequest($id, $contentType);
+        $request = $this->getAgentSessionsByIdTreeRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -4807,19 +4807,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsByIdTreeAsync
+     * Operation getAgentSessionsByIdTreeAsync
      *
      * Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdTree'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdTree'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsByIdTreeAsync($id, string $contentType = self::contentTypes['getAgentsSessionsByIdTree'][0])
+    public function getAgentSessionsByIdTreeAsync($id, string $contentType = self::contentTypes['getAgentSessionsByIdTree'][0])
     {
-        return $this->getAgentsSessionsByIdTreeAsyncWithHttpInfo($id, $contentType)
+        return $this->getAgentSessionsByIdTreeAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -4828,20 +4828,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsByIdTreeAsyncWithHttpInfo
+     * Operation getAgentSessionsByIdTreeAsyncWithHttpInfo
      *
      * Returns the subagent-flow graph rooted at this session: the session, its children, their children, each node carrying its own event count.
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdTree'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdTree'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsByIdTreeAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAgentsSessionsByIdTree'][0])
+    public function getAgentSessionsByIdTreeAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAgentSessionsByIdTree'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\TreeNode';
-        $request = $this->getAgentsSessionsByIdTreeRequest($id, $contentType);
+        $request = $this->getAgentSessionsByIdTreeRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -4880,26 +4880,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsSessionsByIdTree'
+     * Create request for operation 'getAgentSessionsByIdTree'
      *
      * @param  string $id ID is the session to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsByIdTree'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsByIdTree'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsSessionsByIdTreeRequest($id, string $contentType = self::contentTypes['getAgentsSessionsByIdTree'][0])
+    public function getAgentSessionsByIdTreeRequest($id, string $contentType = self::contentTypes['getAgentSessionsByIdTree'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling getAgentsSessionsByIdTree'
+                'Missing the required parameter $id when calling getAgentSessionsByIdTree'
             );
         }
 
 
-        $resourcePath = '/v1/agents/sessions/{id}/tree';
+        $resourcePath = '/v1/agent/sessions/{id}/tree';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4976,35 +4976,35 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsStream
+     * Operation getAgentSessionsStream
      *
      * Live session and event updates for the caller&#39;s org, as Server-Sent Events.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsStream'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsStream'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function getAgentsSessionsStream(string $contentType = self::contentTypes['getAgentsSessionsStream'][0])
+    public function getAgentSessionsStream(string $contentType = self::contentTypes['getAgentSessionsStream'][0])
     {
-        $this->getAgentsSessionsStreamWithHttpInfo($contentType);
+        $this->getAgentSessionsStreamWithHttpInfo($contentType);
     }
 
     /**
-     * Operation getAgentsSessionsStreamWithHttpInfo
+     * Operation getAgentSessionsStreamWithHttpInfo
      *
      * Live session and event updates for the caller&#39;s org, as Server-Sent Events.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsStream'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsStream'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsSessionsStreamWithHttpInfo(string $contentType = self::contentTypes['getAgentsSessionsStream'][0])
+    public function getAgentSessionsStreamWithHttpInfo(string $contentType = self::contentTypes['getAgentSessionsStream'][0])
     {
-        $request = $this->getAgentsSessionsStreamRequest($contentType);
+        $request = $this->getAgentSessionsStreamRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5040,18 +5040,18 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsStreamAsync
+     * Operation getAgentSessionsStreamAsync
      *
      * Live session and event updates for the caller&#39;s org, as Server-Sent Events.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsStream'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsStream'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsStreamAsync(string $contentType = self::contentTypes['getAgentsSessionsStream'][0])
+    public function getAgentSessionsStreamAsync(string $contentType = self::contentTypes['getAgentSessionsStream'][0])
     {
-        return $this->getAgentsSessionsStreamAsyncWithHttpInfo($contentType)
+        return $this->getAgentSessionsStreamAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5060,19 +5060,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsSessionsStreamAsyncWithHttpInfo
+     * Operation getAgentSessionsStreamAsyncWithHttpInfo
      *
      * Live session and event updates for the caller&#39;s org, as Server-Sent Events.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsStream'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsStream'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsSessionsStreamAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgentsSessionsStream'][0])
+    public function getAgentSessionsStreamAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgentSessionsStream'][0])
     {
         $returnType = '';
-        $request = $this->getAgentsSessionsStreamRequest($contentType);
+        $request = $this->getAgentSessionsStreamRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5098,18 +5098,18 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsSessionsStream'
+     * Create request for operation 'getAgentSessionsStream'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsSessionsStream'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentSessionsStream'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsSessionsStreamRequest(string $contentType = self::contentTypes['getAgentsSessionsStream'][0])
+    public function getAgentSessionsStreamRequest(string $contentType = self::contentTypes['getAgentSessionsStream'][0])
     {
 
 
-        $resourcePath = '/v1/agents/sessions/stream';
+        $resourcePath = '/v1/agent/sessions/stream';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5178,36 +5178,36 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsTargets
+     * Operation getAgentTargets
      *
      * Returns every machine registered to the caller&#39;s org, newest first, each with its live session load.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsTargets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentTargets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\TargetList
      */
-    public function getAgentsTargets(string $contentType = self::contentTypes['getAgentsTargets'][0])
+    public function getAgentTargets(string $contentType = self::contentTypes['getAgentTargets'][0])
     {
-        list($response) = $this->getAgentsTargetsWithHttpInfo($contentType);
+        list($response) = $this->getAgentTargetsWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsTargetsWithHttpInfo
+     * Operation getAgentTargetsWithHttpInfo
      *
      * Returns every machine registered to the caller&#39;s org, newest first, each with its live session load.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsTargets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentTargets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\TargetList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsTargetsWithHttpInfo(string $contentType = self::contentTypes['getAgentsTargets'][0])
+    public function getAgentTargetsWithHttpInfo(string $contentType = self::contentTypes['getAgentTargets'][0])
     {
-        $request = $this->getAgentsTargetsRequest($contentType);
+        $request = $this->getAgentTargetsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5279,18 +5279,18 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsTargetsAsync
+     * Operation getAgentTargetsAsync
      *
      * Returns every machine registered to the caller&#39;s org, newest first, each with its live session load.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsTargets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentTargets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsTargetsAsync(string $contentType = self::contentTypes['getAgentsTargets'][0])
+    public function getAgentTargetsAsync(string $contentType = self::contentTypes['getAgentTargets'][0])
     {
-        return $this->getAgentsTargetsAsyncWithHttpInfo($contentType)
+        return $this->getAgentTargetsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5299,19 +5299,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsTargetsAsyncWithHttpInfo
+     * Operation getAgentTargetsAsyncWithHttpInfo
      *
      * Returns every machine registered to the caller&#39;s org, newest first, each with its live session load.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsTargets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentTargets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsTargetsAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgentsTargets'][0])
+    public function getAgentTargetsAsyncWithHttpInfo(string $contentType = self::contentTypes['getAgentTargets'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\TargetList';
-        $request = $this->getAgentsTargetsRequest($contentType);
+        $request = $this->getAgentTargetsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5350,18 +5350,18 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsTargets'
+     * Create request for operation 'getAgentTargets'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsTargets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentTargets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsTargetsRequest(string $contentType = self::contentTypes['getAgentsTargets'][0])
+    public function getAgentTargetsRequest(string $contentType = self::contentTypes['getAgentTargets'][0])
     {
 
 
-        $resourcePath = '/v1/agents/targets';
+        $resourcePath = '/v1/agent/targets';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5430,38 +5430,38 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsTargetsById
+     * Operation getAgentTargetsById
      *
      * Returns one registered machine, with its live session load.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\TargetView
      */
-    public function getAgentsTargetsById($id, string $contentType = self::contentTypes['getAgentsTargetsById'][0])
+    public function getAgentTargetsById($id, string $contentType = self::contentTypes['getAgentTargetsById'][0])
     {
-        list($response) = $this->getAgentsTargetsByIdWithHttpInfo($id, $contentType);
+        list($response) = $this->getAgentTargetsByIdWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation getAgentsTargetsByIdWithHttpInfo
+     * Operation getAgentTargetsByIdWithHttpInfo
      *
      * Returns one registered machine, with its live session load.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\TargetView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAgentsTargetsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getAgentsTargetsById'][0])
+    public function getAgentTargetsByIdWithHttpInfo($id, string $contentType = self::contentTypes['getAgentTargetsById'][0])
     {
-        $request = $this->getAgentsTargetsByIdRequest($id, $contentType);
+        $request = $this->getAgentTargetsByIdRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5533,19 +5533,19 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsTargetsByIdAsync
+     * Operation getAgentTargetsByIdAsync
      *
      * Returns one registered machine, with its live session load.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsTargetsByIdAsync($id, string $contentType = self::contentTypes['getAgentsTargetsById'][0])
+    public function getAgentTargetsByIdAsync($id, string $contentType = self::contentTypes['getAgentTargetsById'][0])
     {
-        return $this->getAgentsTargetsByIdAsyncWithHttpInfo($id, $contentType)
+        return $this->getAgentTargetsByIdAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5554,20 +5554,20 @@ class AgentsApi
     }
 
     /**
-     * Operation getAgentsTargetsByIdAsyncWithHttpInfo
+     * Operation getAgentTargetsByIdAsyncWithHttpInfo
      *
      * Returns one registered machine, with its live session load.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAgentsTargetsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAgentsTargetsById'][0])
+    public function getAgentTargetsByIdAsyncWithHttpInfo($id, string $contentType = self::contentTypes['getAgentTargetsById'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\TargetView';
-        $request = $this->getAgentsTargetsByIdRequest($id, $contentType);
+        $request = $this->getAgentTargetsByIdRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5606,26 +5606,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'getAgentsTargetsById'
+     * Create request for operation 'getAgentTargetsById'
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getAgentsTargetsByIdRequest($id, string $contentType = self::contentTypes['getAgentsTargetsById'][0])
+    public function getAgentTargetsByIdRequest($id, string $contentType = self::contentTypes['getAgentTargetsById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling getAgentsTargetsById'
+                'Missing the required parameter $id when calling getAgentTargetsById'
             );
         }
 
 
-        $resourcePath = '/v1/agents/targets/{id}';
+        $resourcePath = '/v1/agent/targets/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5702,40 +5702,40 @@ class AgentsApi
     }
 
     /**
-     * Operation patchAgentsByRef
+     * Operation patchAgentByRef
      *
      * Changes an agent in place.
      *
      * @param  string $ref Ref is the agent to update — its public id or org-unique name, from the path. (required)
      * @param  \Hanzo\Cloud\Model\UpdateAgentIn $update_agent_in update_agent_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentByRef'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\AgentView
      */
-    public function patchAgentsByRef($ref, $update_agent_in, string $contentType = self::contentTypes['patchAgentsByRef'][0])
+    public function patchAgentByRef($ref, $update_agent_in, string $contentType = self::contentTypes['patchAgentByRef'][0])
     {
-        list($response) = $this->patchAgentsByRefWithHttpInfo($ref, $update_agent_in, $contentType);
+        list($response) = $this->patchAgentByRefWithHttpInfo($ref, $update_agent_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation patchAgentsByRefWithHttpInfo
+     * Operation patchAgentByRefWithHttpInfo
      *
      * Changes an agent in place.
      *
      * @param  string $ref Ref is the agent to update — its public id or org-unique name, from the path. (required)
      * @param  \Hanzo\Cloud\Model\UpdateAgentIn $update_agent_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentByRef'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\AgentView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAgentsByRefWithHttpInfo($ref, $update_agent_in, string $contentType = self::contentTypes['patchAgentsByRef'][0])
+    public function patchAgentByRefWithHttpInfo($ref, $update_agent_in, string $contentType = self::contentTypes['patchAgentByRef'][0])
     {
-        $request = $this->patchAgentsByRefRequest($ref, $update_agent_in, $contentType);
+        $request = $this->patchAgentByRefRequest($ref, $update_agent_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -5807,20 +5807,20 @@ class AgentsApi
     }
 
     /**
-     * Operation patchAgentsByRefAsync
+     * Operation patchAgentByRefAsync
      *
      * Changes an agent in place.
      *
      * @param  string $ref Ref is the agent to update — its public id or org-unique name, from the path. (required)
      * @param  \Hanzo\Cloud\Model\UpdateAgentIn $update_agent_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentByRef'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAgentsByRefAsync($ref, $update_agent_in, string $contentType = self::contentTypes['patchAgentsByRef'][0])
+    public function patchAgentByRefAsync($ref, $update_agent_in, string $contentType = self::contentTypes['patchAgentByRef'][0])
     {
-        return $this->patchAgentsByRefAsyncWithHttpInfo($ref, $update_agent_in, $contentType)
+        return $this->patchAgentByRefAsyncWithHttpInfo($ref, $update_agent_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -5829,21 +5829,21 @@ class AgentsApi
     }
 
     /**
-     * Operation patchAgentsByRefAsyncWithHttpInfo
+     * Operation patchAgentByRefAsyncWithHttpInfo
      *
      * Changes an agent in place.
      *
      * @param  string $ref Ref is the agent to update — its public id or org-unique name, from the path. (required)
      * @param  \Hanzo\Cloud\Model\UpdateAgentIn $update_agent_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentByRef'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAgentsByRefAsyncWithHttpInfo($ref, $update_agent_in, string $contentType = self::contentTypes['patchAgentsByRef'][0])
+    public function patchAgentByRefAsyncWithHttpInfo($ref, $update_agent_in, string $contentType = self::contentTypes['patchAgentByRef'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\AgentView';
-        $request = $this->patchAgentsByRefRequest($ref, $update_agent_in, $contentType);
+        $request = $this->patchAgentByRefRequest($ref, $update_agent_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -5882,34 +5882,34 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'patchAgentsByRef'
+     * Create request for operation 'patchAgentByRef'
      *
      * @param  string $ref Ref is the agent to update — its public id or org-unique name, from the path. (required)
      * @param  \Hanzo\Cloud\Model\UpdateAgentIn $update_agent_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsByRef'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentByRef'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAgentsByRefRequest($ref, $update_agent_in, string $contentType = self::contentTypes['patchAgentsByRef'][0])
+    public function patchAgentByRefRequest($ref, $update_agent_in, string $contentType = self::contentTypes['patchAgentByRef'][0])
     {
 
         // verify the required parameter 'ref' is set
         if ($ref === null || (is_array($ref) && count($ref) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $ref when calling patchAgentsByRef'
+                'Missing the required parameter $ref when calling patchAgentByRef'
             );
         }
 
         // verify the required parameter 'update_agent_in' is set
         if ($update_agent_in === null || (is_array($update_agent_in) && count($update_agent_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $update_agent_in when calling patchAgentsByRef'
+                'Missing the required parameter $update_agent_in when calling patchAgentByRef'
             );
         }
 
 
-        $resourcePath = '/v1/agents/{ref}';
+        $resourcePath = '/v1/agent/{ref}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -5993,40 +5993,40 @@ class AgentsApi
     }
 
     /**
-     * Operation patchAgentsSessionsById
+     * Operation patchAgentSessionsById
      *
      * Updates a session&#39;s surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build&#39;s story is public.
      *
      * @param  string $id ID is the session to update, from the path. (required)
      * @param  \Hanzo\Cloud\Model\PatchSessionIn $patch_session_in patch_session_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsSessionsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentSessionsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\SessionView
      */
-    public function patchAgentsSessionsById($id, $patch_session_in, string $contentType = self::contentTypes['patchAgentsSessionsById'][0])
+    public function patchAgentSessionsById($id, $patch_session_in, string $contentType = self::contentTypes['patchAgentSessionsById'][0])
     {
-        list($response) = $this->patchAgentsSessionsByIdWithHttpInfo($id, $patch_session_in, $contentType);
+        list($response) = $this->patchAgentSessionsByIdWithHttpInfo($id, $patch_session_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation patchAgentsSessionsByIdWithHttpInfo
+     * Operation patchAgentSessionsByIdWithHttpInfo
      *
      * Updates a session&#39;s surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build&#39;s story is public.
      *
      * @param  string $id ID is the session to update, from the path. (required)
      * @param  \Hanzo\Cloud\Model\PatchSessionIn $patch_session_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsSessionsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentSessionsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\SessionView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAgentsSessionsByIdWithHttpInfo($id, $patch_session_in, string $contentType = self::contentTypes['patchAgentsSessionsById'][0])
+    public function patchAgentSessionsByIdWithHttpInfo($id, $patch_session_in, string $contentType = self::contentTypes['patchAgentSessionsById'][0])
     {
-        $request = $this->patchAgentsSessionsByIdRequest($id, $patch_session_in, $contentType);
+        $request = $this->patchAgentSessionsByIdRequest($id, $patch_session_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6098,20 +6098,20 @@ class AgentsApi
     }
 
     /**
-     * Operation patchAgentsSessionsByIdAsync
+     * Operation patchAgentSessionsByIdAsync
      *
      * Updates a session&#39;s surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build&#39;s story is public.
      *
      * @param  string $id ID is the session to update, from the path. (required)
      * @param  \Hanzo\Cloud\Model\PatchSessionIn $patch_session_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsSessionsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentSessionsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAgentsSessionsByIdAsync($id, $patch_session_in, string $contentType = self::contentTypes['patchAgentsSessionsById'][0])
+    public function patchAgentSessionsByIdAsync($id, $patch_session_in, string $contentType = self::contentTypes['patchAgentSessionsById'][0])
     {
-        return $this->patchAgentsSessionsByIdAsyncWithHttpInfo($id, $patch_session_in, $contentType)
+        return $this->patchAgentSessionsByIdAsyncWithHttpInfo($id, $patch_session_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6120,21 +6120,21 @@ class AgentsApi
     }
 
     /**
-     * Operation patchAgentsSessionsByIdAsyncWithHttpInfo
+     * Operation patchAgentSessionsByIdAsyncWithHttpInfo
      *
      * Updates a session&#39;s surface-owned truth: its status, its title, the run-target it is dispatched to, and the product it built plus whether that build&#39;s story is public.
      *
      * @param  string $id ID is the session to update, from the path. (required)
      * @param  \Hanzo\Cloud\Model\PatchSessionIn $patch_session_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsSessionsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentSessionsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAgentsSessionsByIdAsyncWithHttpInfo($id, $patch_session_in, string $contentType = self::contentTypes['patchAgentsSessionsById'][0])
+    public function patchAgentSessionsByIdAsyncWithHttpInfo($id, $patch_session_in, string $contentType = self::contentTypes['patchAgentSessionsById'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\SessionView';
-        $request = $this->patchAgentsSessionsByIdRequest($id, $patch_session_in, $contentType);
+        $request = $this->patchAgentSessionsByIdRequest($id, $patch_session_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6173,34 +6173,34 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'patchAgentsSessionsById'
+     * Create request for operation 'patchAgentSessionsById'
      *
      * @param  string $id ID is the session to update, from the path. (required)
      * @param  \Hanzo\Cloud\Model\PatchSessionIn $patch_session_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsSessionsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentSessionsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAgentsSessionsByIdRequest($id, $patch_session_in, string $contentType = self::contentTypes['patchAgentsSessionsById'][0])
+    public function patchAgentSessionsByIdRequest($id, $patch_session_in, string $contentType = self::contentTypes['patchAgentSessionsById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling patchAgentsSessionsById'
+                'Missing the required parameter $id when calling patchAgentSessionsById'
             );
         }
 
         // verify the required parameter 'patch_session_in' is set
         if ($patch_session_in === null || (is_array($patch_session_in) && count($patch_session_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $patch_session_in when calling patchAgentsSessionsById'
+                'Missing the required parameter $patch_session_in when calling patchAgentSessionsById'
             );
         }
 
 
-        $resourcePath = '/v1/agents/sessions/{id}';
+        $resourcePath = '/v1/agent/sessions/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6284,40 +6284,40 @@ class AgentsApi
     }
 
     /**
-     * Operation patchAgentsTargetsById
+     * Operation patchAgentTargetsById
      *
      * Updates one machine in place.
      *
      * @param  string $id ID is the target to update, from the path. (required)
      * @param  \Hanzo\Cloud\Model\PatchTargetIn $patch_target_in patch_target_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\TargetView
      */
-    public function patchAgentsTargetsById($id, $patch_target_in, string $contentType = self::contentTypes['patchAgentsTargetsById'][0])
+    public function patchAgentTargetsById($id, $patch_target_in, string $contentType = self::contentTypes['patchAgentTargetsById'][0])
     {
-        list($response) = $this->patchAgentsTargetsByIdWithHttpInfo($id, $patch_target_in, $contentType);
+        list($response) = $this->patchAgentTargetsByIdWithHttpInfo($id, $patch_target_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation patchAgentsTargetsByIdWithHttpInfo
+     * Operation patchAgentTargetsByIdWithHttpInfo
      *
      * Updates one machine in place.
      *
      * @param  string $id ID is the target to update, from the path. (required)
      * @param  \Hanzo\Cloud\Model\PatchTargetIn $patch_target_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\TargetView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function patchAgentsTargetsByIdWithHttpInfo($id, $patch_target_in, string $contentType = self::contentTypes['patchAgentsTargetsById'][0])
+    public function patchAgentTargetsByIdWithHttpInfo($id, $patch_target_in, string $contentType = self::contentTypes['patchAgentTargetsById'][0])
     {
-        $request = $this->patchAgentsTargetsByIdRequest($id, $patch_target_in, $contentType);
+        $request = $this->patchAgentTargetsByIdRequest($id, $patch_target_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6389,20 +6389,20 @@ class AgentsApi
     }
 
     /**
-     * Operation patchAgentsTargetsByIdAsync
+     * Operation patchAgentTargetsByIdAsync
      *
      * Updates one machine in place.
      *
      * @param  string $id ID is the target to update, from the path. (required)
      * @param  \Hanzo\Cloud\Model\PatchTargetIn $patch_target_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAgentsTargetsByIdAsync($id, $patch_target_in, string $contentType = self::contentTypes['patchAgentsTargetsById'][0])
+    public function patchAgentTargetsByIdAsync($id, $patch_target_in, string $contentType = self::contentTypes['patchAgentTargetsById'][0])
     {
-        return $this->patchAgentsTargetsByIdAsyncWithHttpInfo($id, $patch_target_in, $contentType)
+        return $this->patchAgentTargetsByIdAsyncWithHttpInfo($id, $patch_target_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6411,21 +6411,21 @@ class AgentsApi
     }
 
     /**
-     * Operation patchAgentsTargetsByIdAsyncWithHttpInfo
+     * Operation patchAgentTargetsByIdAsyncWithHttpInfo
      *
      * Updates one machine in place.
      *
      * @param  string $id ID is the target to update, from the path. (required)
      * @param  \Hanzo\Cloud\Model\PatchTargetIn $patch_target_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAgentsTargetsByIdAsyncWithHttpInfo($id, $patch_target_in, string $contentType = self::contentTypes['patchAgentsTargetsById'][0])
+    public function patchAgentTargetsByIdAsyncWithHttpInfo($id, $patch_target_in, string $contentType = self::contentTypes['patchAgentTargetsById'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\TargetView';
-        $request = $this->patchAgentsTargetsByIdRequest($id, $patch_target_in, $contentType);
+        $request = $this->patchAgentTargetsByIdRequest($id, $patch_target_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6464,34 +6464,34 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'patchAgentsTargetsById'
+     * Create request for operation 'patchAgentTargetsById'
      *
      * @param  string $id ID is the target to update, from the path. (required)
      * @param  \Hanzo\Cloud\Model\PatchTargetIn $patch_target_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentsTargetsById'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['patchAgentTargetsById'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function patchAgentsTargetsByIdRequest($id, $patch_target_in, string $contentType = self::contentTypes['patchAgentsTargetsById'][0])
+    public function patchAgentTargetsByIdRequest($id, $patch_target_in, string $contentType = self::contentTypes['patchAgentTargetsById'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling patchAgentsTargetsById'
+                'Missing the required parameter $id when calling patchAgentTargetsById'
             );
         }
 
         // verify the required parameter 'patch_target_in' is set
         if ($patch_target_in === null || (is_array($patch_target_in) && count($patch_target_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $patch_target_in when calling patchAgentsTargetsById'
+                'Missing the required parameter $patch_target_in when calling patchAgentTargetsById'
             );
         }
 
 
-        $resourcePath = '/v1/agents/targets/{id}';
+        $resourcePath = '/v1/agent/targets/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6575,38 +6575,38 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgents
+     * Operation postAgent
      *
      * Defines an agent in the caller&#39;s org: a model, a system prompt (instructions) and a set of tool names.
      *
      * @param  \Hanzo\Cloud\Model\CreateAgentIn $create_agent_in create_agent_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgent'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\AgentView
      */
-    public function postAgents($create_agent_in, string $contentType = self::contentTypes['postAgents'][0])
+    public function postAgent($create_agent_in, string $contentType = self::contentTypes['postAgent'][0])
     {
-        list($response) = $this->postAgentsWithHttpInfo($create_agent_in, $contentType);
+        list($response) = $this->postAgentWithHttpInfo($create_agent_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsWithHttpInfo
+     * Operation postAgentWithHttpInfo
      *
      * Defines an agent in the caller&#39;s org: a model, a system prompt (instructions) and a set of tool names.
      *
      * @param  \Hanzo\Cloud\Model\CreateAgentIn $create_agent_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgent'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\AgentView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsWithHttpInfo($create_agent_in, string $contentType = self::contentTypes['postAgents'][0])
+    public function postAgentWithHttpInfo($create_agent_in, string $contentType = self::contentTypes['postAgent'][0])
     {
-        $request = $this->postAgentsRequest($create_agent_in, $contentType);
+        $request = $this->postAgentRequest($create_agent_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6678,19 +6678,19 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsAsync
+     * Operation postAgentAsync
      *
      * Defines an agent in the caller&#39;s org: a model, a system prompt (instructions) and a set of tool names.
      *
      * @param  \Hanzo\Cloud\Model\CreateAgentIn $create_agent_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsAsync($create_agent_in, string $contentType = self::contentTypes['postAgents'][0])
+    public function postAgentAsync($create_agent_in, string $contentType = self::contentTypes['postAgent'][0])
     {
-        return $this->postAgentsAsyncWithHttpInfo($create_agent_in, $contentType)
+        return $this->postAgentAsyncWithHttpInfo($create_agent_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6699,20 +6699,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsAsyncWithHttpInfo
+     * Operation postAgentAsyncWithHttpInfo
      *
      * Defines an agent in the caller&#39;s org: a model, a system prompt (instructions) and a set of tool names.
      *
      * @param  \Hanzo\Cloud\Model\CreateAgentIn $create_agent_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsAsyncWithHttpInfo($create_agent_in, string $contentType = self::contentTypes['postAgents'][0])
+    public function postAgentAsyncWithHttpInfo($create_agent_in, string $contentType = self::contentTypes['postAgent'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\AgentView';
-        $request = $this->postAgentsRequest($create_agent_in, $contentType);
+        $request = $this->postAgentRequest($create_agent_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6751,26 +6751,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgents'
+     * Create request for operation 'postAgent'
      *
      * @param  \Hanzo\Cloud\Model\CreateAgentIn $create_agent_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsRequest($create_agent_in, string $contentType = self::contentTypes['postAgents'][0])
+    public function postAgentRequest($create_agent_in, string $contentType = self::contentTypes['postAgent'][0])
     {
 
         // verify the required parameter 'create_agent_in' is set
         if ($create_agent_in === null || (is_array($create_agent_in) && count($create_agent_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $create_agent_in when calling postAgents'
+                'Missing the required parameter $create_agent_in when calling postAgent'
             );
         }
 
 
-        $resourcePath = '/v1/agents';
+        $resourcePath = '/v1/agent';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -6846,37 +6846,37 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsByRefRun
+     * Operation postAgentByRefRun
      *
      * Run one of your org&#39;s agents and get the recorded run back.
      *
      * @param  string $ref ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsByRefRun'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentByRefRun'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postAgentsByRefRun($ref, string $contentType = self::contentTypes['postAgentsByRefRun'][0])
+    public function postAgentByRefRun($ref, string $contentType = self::contentTypes['postAgentByRefRun'][0])
     {
-        $this->postAgentsByRefRunWithHttpInfo($ref, $contentType);
+        $this->postAgentByRefRunWithHttpInfo($ref, $contentType);
     }
 
     /**
-     * Operation postAgentsByRefRunWithHttpInfo
+     * Operation postAgentByRefRunWithHttpInfo
      *
      * Run one of your org&#39;s agents and get the recorded run back.
      *
      * @param  string $ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsByRefRun'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentByRefRun'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsByRefRunWithHttpInfo($ref, string $contentType = self::contentTypes['postAgentsByRefRun'][0])
+    public function postAgentByRefRunWithHttpInfo($ref, string $contentType = self::contentTypes['postAgentByRefRun'][0])
     {
-        $request = $this->postAgentsByRefRunRequest($ref, $contentType);
+        $request = $this->postAgentByRefRunRequest($ref, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -6912,19 +6912,19 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsByRefRunAsync
+     * Operation postAgentByRefRunAsync
      *
      * Run one of your org&#39;s agents and get the recorded run back.
      *
      * @param  string $ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsByRefRun'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentByRefRun'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsByRefRunAsync($ref, string $contentType = self::contentTypes['postAgentsByRefRun'][0])
+    public function postAgentByRefRunAsync($ref, string $contentType = self::contentTypes['postAgentByRefRun'][0])
     {
-        return $this->postAgentsByRefRunAsyncWithHttpInfo($ref, $contentType)
+        return $this->postAgentByRefRunAsyncWithHttpInfo($ref, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -6933,20 +6933,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsByRefRunAsyncWithHttpInfo
+     * Operation postAgentByRefRunAsyncWithHttpInfo
      *
      * Run one of your org&#39;s agents and get the recorded run back.
      *
      * @param  string $ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsByRefRun'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentByRefRun'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsByRefRunAsyncWithHttpInfo($ref, string $contentType = self::contentTypes['postAgentsByRefRun'][0])
+    public function postAgentByRefRunAsyncWithHttpInfo($ref, string $contentType = self::contentTypes['postAgentByRefRun'][0])
     {
         $returnType = '';
-        $request = $this->postAgentsByRefRunRequest($ref, $contentType);
+        $request = $this->postAgentByRefRunRequest($ref, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -6972,26 +6972,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsByRefRun'
+     * Create request for operation 'postAgentByRefRun'
      *
      * @param  string $ref (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsByRefRun'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentByRefRun'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsByRefRunRequest($ref, string $contentType = self::contentTypes['postAgentsByRefRun'][0])
+    public function postAgentByRefRunRequest($ref, string $contentType = self::contentTypes['postAgentByRefRun'][0])
     {
 
         // verify the required parameter 'ref' is set
         if ($ref === null || (is_array($ref) && count($ref) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $ref when calling postAgentsByRefRun'
+                'Missing the required parameter $ref when calling postAgentByRefRun'
             );
         }
 
 
-        $resourcePath = '/v1/agents/{ref}/run';
+        $resourcePath = '/v1/agent/{ref}/run';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7068,35 +7068,35 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsChat
+     * Operation postAgentChat
      *
      * Run one tool-calling round against your org&#39;s own tools
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsChat'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentChat'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postAgentsChat(string $contentType = self::contentTypes['postAgentsChat'][0])
+    public function postAgentChat(string $contentType = self::contentTypes['postAgentChat'][0])
     {
-        $this->postAgentsChatWithHttpInfo($contentType);
+        $this->postAgentChatWithHttpInfo($contentType);
     }
 
     /**
-     * Operation postAgentsChatWithHttpInfo
+     * Operation postAgentChatWithHttpInfo
      *
      * Run one tool-calling round against your org&#39;s own tools
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsChat'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentChat'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsChatWithHttpInfo(string $contentType = self::contentTypes['postAgentsChat'][0])
+    public function postAgentChatWithHttpInfo(string $contentType = self::contentTypes['postAgentChat'][0])
     {
-        $request = $this->postAgentsChatRequest($contentType);
+        $request = $this->postAgentChatRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7132,18 +7132,18 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsChatAsync
+     * Operation postAgentChatAsync
      *
      * Run one tool-calling round against your org&#39;s own tools
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsChat'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentChat'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsChatAsync(string $contentType = self::contentTypes['postAgentsChat'][0])
+    public function postAgentChatAsync(string $contentType = self::contentTypes['postAgentChat'][0])
     {
-        return $this->postAgentsChatAsyncWithHttpInfo($contentType)
+        return $this->postAgentChatAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7152,19 +7152,19 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsChatAsyncWithHttpInfo
+     * Operation postAgentChatAsyncWithHttpInfo
      *
      * Run one tool-calling round against your org&#39;s own tools
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsChat'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentChat'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsChatAsyncWithHttpInfo(string $contentType = self::contentTypes['postAgentsChat'][0])
+    public function postAgentChatAsyncWithHttpInfo(string $contentType = self::contentTypes['postAgentChat'][0])
     {
         $returnType = '';
-        $request = $this->postAgentsChatRequest($contentType);
+        $request = $this->postAgentChatRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7190,18 +7190,18 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsChat'
+     * Create request for operation 'postAgentChat'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsChat'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentChat'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsChatRequest(string $contentType = self::contentTypes['postAgentsChat'][0])
+    public function postAgentChatRequest(string $contentType = self::contentTypes['postAgentChat'][0])
     {
 
 
-        $resourcePath = '/v1/agents/chat';
+        $resourcePath = '/v1/agent/chat';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7270,35 +7270,35 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsChatConversations
+     * Operation postAgentChatConversations
      *
      * Record turns in a conversation
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsChatConversations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentChatConversations'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postAgentsChatConversations(string $contentType = self::contentTypes['postAgentsChatConversations'][0])
+    public function postAgentChatConversations(string $contentType = self::contentTypes['postAgentChatConversations'][0])
     {
-        $this->postAgentsChatConversationsWithHttpInfo($contentType);
+        $this->postAgentChatConversationsWithHttpInfo($contentType);
     }
 
     /**
-     * Operation postAgentsChatConversationsWithHttpInfo
+     * Operation postAgentChatConversationsWithHttpInfo
      *
      * Record turns in a conversation
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsChatConversations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentChatConversations'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsChatConversationsWithHttpInfo(string $contentType = self::contentTypes['postAgentsChatConversations'][0])
+    public function postAgentChatConversationsWithHttpInfo(string $contentType = self::contentTypes['postAgentChatConversations'][0])
     {
-        $request = $this->postAgentsChatConversationsRequest($contentType);
+        $request = $this->postAgentChatConversationsRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7334,18 +7334,18 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsChatConversationsAsync
+     * Operation postAgentChatConversationsAsync
      *
      * Record turns in a conversation
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsChatConversations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentChatConversations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsChatConversationsAsync(string $contentType = self::contentTypes['postAgentsChatConversations'][0])
+    public function postAgentChatConversationsAsync(string $contentType = self::contentTypes['postAgentChatConversations'][0])
     {
-        return $this->postAgentsChatConversationsAsyncWithHttpInfo($contentType)
+        return $this->postAgentChatConversationsAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7354,19 +7354,19 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsChatConversationsAsyncWithHttpInfo
+     * Operation postAgentChatConversationsAsyncWithHttpInfo
      *
      * Record turns in a conversation
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsChatConversations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentChatConversations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsChatConversationsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAgentsChatConversations'][0])
+    public function postAgentChatConversationsAsyncWithHttpInfo(string $contentType = self::contentTypes['postAgentChatConversations'][0])
     {
         $returnType = '';
-        $request = $this->postAgentsChatConversationsRequest($contentType);
+        $request = $this->postAgentChatConversationsRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7392,18 +7392,18 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsChatConversations'
+     * Create request for operation 'postAgentChatConversations'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsChatConversations'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentChatConversations'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsChatConversationsRequest(string $contentType = self::contentTypes['postAgentsChatConversations'][0])
+    public function postAgentChatConversationsRequest(string $contentType = self::contentTypes['postAgentChatConversations'][0])
     {
 
 
-        $resourcePath = '/v1/agents/chat/conversations';
+        $resourcePath = '/v1/agent/chat/conversations';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7472,38 +7472,38 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsCoding
+     * Operation postAgentCoding
      *
      * Start one autonomous coding run against a repo in the caller&#39;s org
      *
      * @param  \Hanzo\Cloud\Model\CodingStartIn $coding_start_in coding_start_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsCoding'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentCoding'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\CodingStarted
      */
-    public function postAgentsCoding($coding_start_in, string $contentType = self::contentTypes['postAgentsCoding'][0])
+    public function postAgentCoding($coding_start_in, string $contentType = self::contentTypes['postAgentCoding'][0])
     {
-        list($response) = $this->postAgentsCodingWithHttpInfo($coding_start_in, $contentType);
+        list($response) = $this->postAgentCodingWithHttpInfo($coding_start_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsCodingWithHttpInfo
+     * Operation postAgentCodingWithHttpInfo
      *
      * Start one autonomous coding run against a repo in the caller&#39;s org
      *
      * @param  \Hanzo\Cloud\Model\CodingStartIn $coding_start_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsCoding'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentCoding'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\CodingStarted, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsCodingWithHttpInfo($coding_start_in, string $contentType = self::contentTypes['postAgentsCoding'][0])
+    public function postAgentCodingWithHttpInfo($coding_start_in, string $contentType = self::contentTypes['postAgentCoding'][0])
     {
-        $request = $this->postAgentsCodingRequest($coding_start_in, $contentType);
+        $request = $this->postAgentCodingRequest($coding_start_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7575,19 +7575,19 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsCodingAsync
+     * Operation postAgentCodingAsync
      *
      * Start one autonomous coding run against a repo in the caller&#39;s org
      *
      * @param  \Hanzo\Cloud\Model\CodingStartIn $coding_start_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsCoding'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentCoding'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsCodingAsync($coding_start_in, string $contentType = self::contentTypes['postAgentsCoding'][0])
+    public function postAgentCodingAsync($coding_start_in, string $contentType = self::contentTypes['postAgentCoding'][0])
     {
-        return $this->postAgentsCodingAsyncWithHttpInfo($coding_start_in, $contentType)
+        return $this->postAgentCodingAsyncWithHttpInfo($coding_start_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7596,20 +7596,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsCodingAsyncWithHttpInfo
+     * Operation postAgentCodingAsyncWithHttpInfo
      *
      * Start one autonomous coding run against a repo in the caller&#39;s org
      *
      * @param  \Hanzo\Cloud\Model\CodingStartIn $coding_start_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsCoding'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentCoding'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsCodingAsyncWithHttpInfo($coding_start_in, string $contentType = self::contentTypes['postAgentsCoding'][0])
+    public function postAgentCodingAsyncWithHttpInfo($coding_start_in, string $contentType = self::contentTypes['postAgentCoding'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\CodingStarted';
-        $request = $this->postAgentsCodingRequest($coding_start_in, $contentType);
+        $request = $this->postAgentCodingRequest($coding_start_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7648,26 +7648,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsCoding'
+     * Create request for operation 'postAgentCoding'
      *
      * @param  \Hanzo\Cloud\Model\CodingStartIn $coding_start_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsCoding'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentCoding'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsCodingRequest($coding_start_in, string $contentType = self::contentTypes['postAgentsCoding'][0])
+    public function postAgentCodingRequest($coding_start_in, string $contentType = self::contentTypes['postAgentCoding'][0])
     {
 
         // verify the required parameter 'coding_start_in' is set
         if ($coding_start_in === null || (is_array($coding_start_in) && count($coding_start_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $coding_start_in when calling postAgentsCoding'
+                'Missing the required parameter $coding_start_in when calling postAgentCoding'
             );
         }
 
 
-        $resourcePath = '/v1/agents/coding';
+        $resourcePath = '/v1/agent/coding';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -7743,38 +7743,38 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessions
+     * Operation postAgentSessions
      *
      * Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
      *
      * @param  \Hanzo\Cloud\Model\RegisterReq $register_req register_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\SessionView
      */
-    public function postAgentsSessions($register_req, string $contentType = self::contentTypes['postAgentsSessions'][0])
+    public function postAgentSessions($register_req, string $contentType = self::contentTypes['postAgentSessions'][0])
     {
-        list($response) = $this->postAgentsSessionsWithHttpInfo($register_req, $contentType);
+        list($response) = $this->postAgentSessionsWithHttpInfo($register_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsSessionsWithHttpInfo
+     * Operation postAgentSessionsWithHttpInfo
      *
      * Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
      *
      * @param  \Hanzo\Cloud\Model\RegisterReq $register_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessions'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\SessionView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsSessionsWithHttpInfo($register_req, string $contentType = self::contentTypes['postAgentsSessions'][0])
+    public function postAgentSessionsWithHttpInfo($register_req, string $contentType = self::contentTypes['postAgentSessions'][0])
     {
-        $request = $this->postAgentsSessionsRequest($register_req, $contentType);
+        $request = $this->postAgentSessionsRequest($register_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -7846,19 +7846,19 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsAsync
+     * Operation postAgentSessionsAsync
      *
      * Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
      *
      * @param  \Hanzo\Cloud\Model\RegisterReq $register_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsAsync($register_req, string $contentType = self::contentTypes['postAgentsSessions'][0])
+    public function postAgentSessionsAsync($register_req, string $contentType = self::contentTypes['postAgentSessions'][0])
     {
-        return $this->postAgentsSessionsAsyncWithHttpInfo($register_req, $contentType)
+        return $this->postAgentSessionsAsyncWithHttpInfo($register_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -7867,20 +7867,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsAsyncWithHttpInfo
+     * Operation postAgentSessionsAsyncWithHttpInfo
      *
      * Opens a live agent session in the caller&#39;s org — the row every surface (the CLI&#39;s outer agent, hanzo.bot, the console, chat) hangs its activity off.
      *
      * @param  \Hanzo\Cloud\Model\RegisterReq $register_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsAsyncWithHttpInfo($register_req, string $contentType = self::contentTypes['postAgentsSessions'][0])
+    public function postAgentSessionsAsyncWithHttpInfo($register_req, string $contentType = self::contentTypes['postAgentSessions'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\SessionView';
-        $request = $this->postAgentsSessionsRequest($register_req, $contentType);
+        $request = $this->postAgentSessionsRequest($register_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -7919,26 +7919,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsSessions'
+     * Create request for operation 'postAgentSessions'
      *
      * @param  \Hanzo\Cloud\Model\RegisterReq $register_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessions'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessions'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsSessionsRequest($register_req, string $contentType = self::contentTypes['postAgentsSessions'][0])
+    public function postAgentSessionsRequest($register_req, string $contentType = self::contentTypes['postAgentSessions'][0])
     {
 
         // verify the required parameter 'register_req' is set
         if ($register_req === null || (is_array($register_req) && count($register_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $register_req when calling postAgentsSessions'
+                'Missing the required parameter $register_req when calling postAgentSessions'
             );
         }
 
 
-        $resourcePath = '/v1/agents/sessions';
+        $resourcePath = '/v1/agent/sessions';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8014,40 +8014,40 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdEvents
+     * Operation postAgentSessionsByIdEvents
      *
      * Records one turn of a session&#39;s transcript and answers 201 with it.
      *
      * @param  string $id ID is the session to append to, from the path. (required)
      * @param  \Hanzo\Cloud\Model\EventIn $event_in event_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdEvents'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\EventView
      */
-    public function postAgentsSessionsByIdEvents($id, $event_in, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
+    public function postAgentSessionsByIdEvents($id, $event_in, string $contentType = self::contentTypes['postAgentSessionsByIdEvents'][0])
     {
-        list($response) = $this->postAgentsSessionsByIdEventsWithHttpInfo($id, $event_in, $contentType);
+        list($response) = $this->postAgentSessionsByIdEventsWithHttpInfo($id, $event_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsSessionsByIdEventsWithHttpInfo
+     * Operation postAgentSessionsByIdEventsWithHttpInfo
      *
      * Records one turn of a session&#39;s transcript and answers 201 with it.
      *
      * @param  string $id ID is the session to append to, from the path. (required)
      * @param  \Hanzo\Cloud\Model\EventIn $event_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdEvents'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\EventView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsSessionsByIdEventsWithHttpInfo($id, $event_in, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
+    public function postAgentSessionsByIdEventsWithHttpInfo($id, $event_in, string $contentType = self::contentTypes['postAgentSessionsByIdEvents'][0])
     {
-        $request = $this->postAgentsSessionsByIdEventsRequest($id, $event_in, $contentType);
+        $request = $this->postAgentSessionsByIdEventsRequest($id, $event_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8119,20 +8119,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdEventsAsync
+     * Operation postAgentSessionsByIdEventsAsync
      *
      * Records one turn of a session&#39;s transcript and answers 201 with it.
      *
      * @param  string $id ID is the session to append to, from the path. (required)
      * @param  \Hanzo\Cloud\Model\EventIn $event_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdEventsAsync($id, $event_in, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
+    public function postAgentSessionsByIdEventsAsync($id, $event_in, string $contentType = self::contentTypes['postAgentSessionsByIdEvents'][0])
     {
-        return $this->postAgentsSessionsByIdEventsAsyncWithHttpInfo($id, $event_in, $contentType)
+        return $this->postAgentSessionsByIdEventsAsyncWithHttpInfo($id, $event_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8141,21 +8141,21 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdEventsAsyncWithHttpInfo
+     * Operation postAgentSessionsByIdEventsAsyncWithHttpInfo
      *
      * Records one turn of a session&#39;s transcript and answers 201 with it.
      *
      * @param  string $id ID is the session to append to, from the path. (required)
      * @param  \Hanzo\Cloud\Model\EventIn $event_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdEventsAsyncWithHttpInfo($id, $event_in, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
+    public function postAgentSessionsByIdEventsAsyncWithHttpInfo($id, $event_in, string $contentType = self::contentTypes['postAgentSessionsByIdEvents'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\EventView';
-        $request = $this->postAgentsSessionsByIdEventsRequest($id, $event_in, $contentType);
+        $request = $this->postAgentSessionsByIdEventsRequest($id, $event_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8194,34 +8194,34 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsSessionsByIdEvents'
+     * Create request for operation 'postAgentSessionsByIdEvents'
      *
      * @param  string $id ID is the session to append to, from the path. (required)
      * @param  \Hanzo\Cloud\Model\EventIn $event_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdEvents'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdEvents'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsSessionsByIdEventsRequest($id, $event_in, string $contentType = self::contentTypes['postAgentsSessionsByIdEvents'][0])
+    public function postAgentSessionsByIdEventsRequest($id, $event_in, string $contentType = self::contentTypes['postAgentSessionsByIdEvents'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postAgentsSessionsByIdEvents'
+                'Missing the required parameter $id when calling postAgentSessionsByIdEvents'
             );
         }
 
         // verify the required parameter 'event_in' is set
         if ($event_in === null || (is_array($event_in) && count($event_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $event_in when calling postAgentsSessionsByIdEvents'
+                'Missing the required parameter $event_in when calling postAgentSessionsByIdEvents'
             );
         }
 
 
-        $resourcePath = '/v1/agents/sessions/{id}/events';
+        $resourcePath = '/v1/agent/sessions/{id}/events';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8305,40 +8305,40 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdMessage
+     * Operation postAgentSessionsByIdMessage
      *
      * Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdMessage'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdMessage'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ControlResult
      */
-    public function postAgentsSessionsByIdMessage($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
+    public function postAgentSessionsByIdMessage($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdMessage'][0])
     {
-        list($response) = $this->postAgentsSessionsByIdMessageWithHttpInfo($id, $control_in, $contentType);
+        list($response) = $this->postAgentSessionsByIdMessageWithHttpInfo($id, $control_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsSessionsByIdMessageWithHttpInfo
+     * Operation postAgentSessionsByIdMessageWithHttpInfo
      *
      * Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdMessage'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdMessage'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ControlResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsSessionsByIdMessageWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
+    public function postAgentSessionsByIdMessageWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdMessage'][0])
     {
-        $request = $this->postAgentsSessionsByIdMessageRequest($id, $control_in, $contentType);
+        $request = $this->postAgentSessionsByIdMessageRequest($id, $control_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8410,20 +8410,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdMessageAsync
+     * Operation postAgentSessionsByIdMessageAsync
      *
      * Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdMessage'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdMessage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdMessageAsync($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
+    public function postAgentSessionsByIdMessageAsync($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdMessage'][0])
     {
-        return $this->postAgentsSessionsByIdMessageAsyncWithHttpInfo($id, $control_in, $contentType)
+        return $this->postAgentSessionsByIdMessageAsyncWithHttpInfo($id, $control_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8432,21 +8432,21 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdMessageAsyncWithHttpInfo
+     * Operation postAgentSessionsByIdMessageAsyncWithHttpInfo
      *
      * Sends a steering message to a running session — the endpoint a human or another agent interrupts through.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdMessage'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdMessage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdMessageAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
+    public function postAgentSessionsByIdMessageAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdMessage'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ControlResult';
-        $request = $this->postAgentsSessionsByIdMessageRequest($id, $control_in, $contentType);
+        $request = $this->postAgentSessionsByIdMessageRequest($id, $control_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8485,34 +8485,34 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsSessionsByIdMessage'
+     * Create request for operation 'postAgentSessionsByIdMessage'
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdMessage'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdMessage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsSessionsByIdMessageRequest($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdMessage'][0])
+    public function postAgentSessionsByIdMessageRequest($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdMessage'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postAgentsSessionsByIdMessage'
+                'Missing the required parameter $id when calling postAgentSessionsByIdMessage'
             );
         }
 
         // verify the required parameter 'control_in' is set
         if ($control_in === null || (is_array($control_in) && count($control_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $control_in when calling postAgentsSessionsByIdMessage'
+                'Missing the required parameter $control_in when calling postAgentSessionsByIdMessage'
             );
         }
 
 
-        $resourcePath = '/v1/agents/sessions/{id}/message';
+        $resourcePath = '/v1/agent/sessions/{id}/message';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8596,40 +8596,40 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdPause
+     * Operation postAgentSessionsByIdPause
      *
      * Asks a running session to pause.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdPause'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdPause'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ControlResult
      */
-    public function postAgentsSessionsByIdPause($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
+    public function postAgentSessionsByIdPause($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdPause'][0])
     {
-        list($response) = $this->postAgentsSessionsByIdPauseWithHttpInfo($id, $control_in, $contentType);
+        list($response) = $this->postAgentSessionsByIdPauseWithHttpInfo($id, $control_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsSessionsByIdPauseWithHttpInfo
+     * Operation postAgentSessionsByIdPauseWithHttpInfo
      *
      * Asks a running session to pause.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdPause'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdPause'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ControlResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsSessionsByIdPauseWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
+    public function postAgentSessionsByIdPauseWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdPause'][0])
     {
-        $request = $this->postAgentsSessionsByIdPauseRequest($id, $control_in, $contentType);
+        $request = $this->postAgentSessionsByIdPauseRequest($id, $control_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8701,20 +8701,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdPauseAsync
+     * Operation postAgentSessionsByIdPauseAsync
      *
      * Asks a running session to pause.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdPause'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdPause'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdPauseAsync($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
+    public function postAgentSessionsByIdPauseAsync($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdPause'][0])
     {
-        return $this->postAgentsSessionsByIdPauseAsyncWithHttpInfo($id, $control_in, $contentType)
+        return $this->postAgentSessionsByIdPauseAsyncWithHttpInfo($id, $control_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -8723,21 +8723,21 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdPauseAsyncWithHttpInfo
+     * Operation postAgentSessionsByIdPauseAsyncWithHttpInfo
      *
      * Asks a running session to pause.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdPause'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdPause'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdPauseAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
+    public function postAgentSessionsByIdPauseAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdPause'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ControlResult';
-        $request = $this->postAgentsSessionsByIdPauseRequest($id, $control_in, $contentType);
+        $request = $this->postAgentSessionsByIdPauseRequest($id, $control_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -8776,34 +8776,34 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsSessionsByIdPause'
+     * Create request for operation 'postAgentSessionsByIdPause'
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdPause'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdPause'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsSessionsByIdPauseRequest($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdPause'][0])
+    public function postAgentSessionsByIdPauseRequest($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdPause'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postAgentsSessionsByIdPause'
+                'Missing the required parameter $id when calling postAgentSessionsByIdPause'
             );
         }
 
         // verify the required parameter 'control_in' is set
         if ($control_in === null || (is_array($control_in) && count($control_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $control_in when calling postAgentsSessionsByIdPause'
+                'Missing the required parameter $control_in when calling postAgentSessionsByIdPause'
             );
         }
 
 
-        $resourcePath = '/v1/agents/sessions/{id}/pause';
+        $resourcePath = '/v1/agent/sessions/{id}/pause';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -8887,40 +8887,40 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdResume
+     * Operation postAgentSessionsByIdResume
      *
      * Asks a paused session to continue, on the same terms as a pause.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdResume'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdResume'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ControlResult
      */
-    public function postAgentsSessionsByIdResume($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
+    public function postAgentSessionsByIdResume($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdResume'][0])
     {
-        list($response) = $this->postAgentsSessionsByIdResumeWithHttpInfo($id, $control_in, $contentType);
+        list($response) = $this->postAgentSessionsByIdResumeWithHttpInfo($id, $control_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsSessionsByIdResumeWithHttpInfo
+     * Operation postAgentSessionsByIdResumeWithHttpInfo
      *
      * Asks a paused session to continue, on the same terms as a pause.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdResume'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdResume'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ControlResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsSessionsByIdResumeWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
+    public function postAgentSessionsByIdResumeWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdResume'][0])
     {
-        $request = $this->postAgentsSessionsByIdResumeRequest($id, $control_in, $contentType);
+        $request = $this->postAgentSessionsByIdResumeRequest($id, $control_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -8992,20 +8992,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdResumeAsync
+     * Operation postAgentSessionsByIdResumeAsync
      *
      * Asks a paused session to continue, on the same terms as a pause.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdResume'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdResume'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdResumeAsync($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
+    public function postAgentSessionsByIdResumeAsync($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdResume'][0])
     {
-        return $this->postAgentsSessionsByIdResumeAsyncWithHttpInfo($id, $control_in, $contentType)
+        return $this->postAgentSessionsByIdResumeAsyncWithHttpInfo($id, $control_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9014,21 +9014,21 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdResumeAsyncWithHttpInfo
+     * Operation postAgentSessionsByIdResumeAsyncWithHttpInfo
      *
      * Asks a paused session to continue, on the same terms as a pause.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdResume'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdResume'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdResumeAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
+    public function postAgentSessionsByIdResumeAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdResume'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ControlResult';
-        $request = $this->postAgentsSessionsByIdResumeRequest($id, $control_in, $contentType);
+        $request = $this->postAgentSessionsByIdResumeRequest($id, $control_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9067,34 +9067,34 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsSessionsByIdResume'
+     * Create request for operation 'postAgentSessionsByIdResume'
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdResume'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdResume'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsSessionsByIdResumeRequest($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdResume'][0])
+    public function postAgentSessionsByIdResumeRequest($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdResume'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postAgentsSessionsByIdResume'
+                'Missing the required parameter $id when calling postAgentSessionsByIdResume'
             );
         }
 
         // verify the required parameter 'control_in' is set
         if ($control_in === null || (is_array($control_in) && count($control_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $control_in when calling postAgentsSessionsByIdResume'
+                'Missing the required parameter $control_in when calling postAgentSessionsByIdResume'
             );
         }
 
 
-        $resourcePath = '/v1/agents/sessions/{id}/resume';
+        $resourcePath = '/v1/agent/sessions/{id}/resume';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -9178,40 +9178,40 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdStop
+     * Operation postAgentSessionsByIdStop
      *
      * Ends a running session.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdStop'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdStop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ControlResult
      */
-    public function postAgentsSessionsByIdStop($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
+    public function postAgentSessionsByIdStop($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdStop'][0])
     {
-        list($response) = $this->postAgentsSessionsByIdStopWithHttpInfo($id, $control_in, $contentType);
+        list($response) = $this->postAgentSessionsByIdStopWithHttpInfo($id, $control_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsSessionsByIdStopWithHttpInfo
+     * Operation postAgentSessionsByIdStopWithHttpInfo
      *
      * Ends a running session.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdStop'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdStop'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ControlResult, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsSessionsByIdStopWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
+    public function postAgentSessionsByIdStopWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdStop'][0])
     {
-        $request = $this->postAgentsSessionsByIdStopRequest($id, $control_in, $contentType);
+        $request = $this->postAgentSessionsByIdStopRequest($id, $control_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9283,20 +9283,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdStopAsync
+     * Operation postAgentSessionsByIdStopAsync
      *
      * Ends a running session.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdStop'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdStopAsync($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
+    public function postAgentSessionsByIdStopAsync($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdStop'][0])
     {
-        return $this->postAgentsSessionsByIdStopAsyncWithHttpInfo($id, $control_in, $contentType)
+        return $this->postAgentSessionsByIdStopAsyncWithHttpInfo($id, $control_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9305,21 +9305,21 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsSessionsByIdStopAsyncWithHttpInfo
+     * Operation postAgentSessionsByIdStopAsyncWithHttpInfo
      *
      * Ends a running session.
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdStop'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsSessionsByIdStopAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
+    public function postAgentSessionsByIdStopAsyncWithHttpInfo($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdStop'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ControlResult';
-        $request = $this->postAgentsSessionsByIdStopRequest($id, $control_in, $contentType);
+        $request = $this->postAgentSessionsByIdStopRequest($id, $control_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9358,34 +9358,34 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsSessionsByIdStop'
+     * Create request for operation 'postAgentSessionsByIdStop'
      *
      * @param  string $id ID is the session to steer, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ControlIn $control_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsSessionsByIdStop'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentSessionsByIdStop'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsSessionsByIdStopRequest($id, $control_in, string $contentType = self::contentTypes['postAgentsSessionsByIdStop'][0])
+    public function postAgentSessionsByIdStopRequest($id, $control_in, string $contentType = self::contentTypes['postAgentSessionsByIdStop'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postAgentsSessionsByIdStop'
+                'Missing the required parameter $id when calling postAgentSessionsByIdStop'
             );
         }
 
         // verify the required parameter 'control_in' is set
         if ($control_in === null || (is_array($control_in) && count($control_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $control_in when calling postAgentsSessionsByIdStop'
+                'Missing the required parameter $control_in when calling postAgentSessionsByIdStop'
             );
         }
 
 
-        $resourcePath = '/v1/agents/sessions/{id}/stop';
+        $resourcePath = '/v1/agent/sessions/{id}/stop';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -9469,38 +9469,38 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargets
+     * Operation postAgentTargets
      *
      * Registers a machine as an agent target, or re-links one that is already registered.
      *
      * @param  \Hanzo\Cloud\Model\TargetReq $target_req target_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\TargetView
      */
-    public function postAgentsTargets($target_req, string $contentType = self::contentTypes['postAgentsTargets'][0])
+    public function postAgentTargets($target_req, string $contentType = self::contentTypes['postAgentTargets'][0])
     {
-        list($response) = $this->postAgentsTargetsWithHttpInfo($target_req, $contentType);
+        list($response) = $this->postAgentTargetsWithHttpInfo($target_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsTargetsWithHttpInfo
+     * Operation postAgentTargetsWithHttpInfo
      *
      * Registers a machine as an agent target, or re-links one that is already registered.
      *
      * @param  \Hanzo\Cloud\Model\TargetReq $target_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargets'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\TargetView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsTargetsWithHttpInfo($target_req, string $contentType = self::contentTypes['postAgentsTargets'][0])
+    public function postAgentTargetsWithHttpInfo($target_req, string $contentType = self::contentTypes['postAgentTargets'][0])
     {
-        $request = $this->postAgentsTargetsRequest($target_req, $contentType);
+        $request = $this->postAgentTargetsRequest($target_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9572,19 +9572,19 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargetsAsync
+     * Operation postAgentTargetsAsync
      *
      * Registers a machine as an agent target, or re-links one that is already registered.
      *
      * @param  \Hanzo\Cloud\Model\TargetReq $target_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsTargetsAsync($target_req, string $contentType = self::contentTypes['postAgentsTargets'][0])
+    public function postAgentTargetsAsync($target_req, string $contentType = self::contentTypes['postAgentTargets'][0])
     {
-        return $this->postAgentsTargetsAsyncWithHttpInfo($target_req, $contentType)
+        return $this->postAgentTargetsAsyncWithHttpInfo($target_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9593,20 +9593,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargetsAsyncWithHttpInfo
+     * Operation postAgentTargetsAsyncWithHttpInfo
      *
      * Registers a machine as an agent target, or re-links one that is already registered.
      *
      * @param  \Hanzo\Cloud\Model\TargetReq $target_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsTargetsAsyncWithHttpInfo($target_req, string $contentType = self::contentTypes['postAgentsTargets'][0])
+    public function postAgentTargetsAsyncWithHttpInfo($target_req, string $contentType = self::contentTypes['postAgentTargets'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\TargetView';
-        $request = $this->postAgentsTargetsRequest($target_req, $contentType);
+        $request = $this->postAgentTargetsRequest($target_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9645,26 +9645,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsTargets'
+     * Create request for operation 'postAgentTargets'
      *
      * @param  \Hanzo\Cloud\Model\TargetReq $target_req (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargets'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargets'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsTargetsRequest($target_req, string $contentType = self::contentTypes['postAgentsTargets'][0])
+    public function postAgentTargetsRequest($target_req, string $contentType = self::contentTypes['postAgentTargets'][0])
     {
 
         // verify the required parameter 'target_req' is set
         if ($target_req === null || (is_array($target_req) && count($target_req) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $target_req when calling postAgentsTargets'
+                'Missing the required parameter $target_req when calling postAgentTargets'
             );
         }
 
 
-        $resourcePath = '/v1/agents/targets';
+        $resourcePath = '/v1/agent/targets';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -9740,38 +9740,38 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargetsByIdClaim
+     * Operation postAgentTargetsByIdClaim
      *
      * ClaimRoutedRun is the machine&#39;s long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdClaim'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\RoutedRunOut
      */
-    public function postAgentsTargetsByIdClaim($id, string $contentType = self::contentTypes['postAgentsTargetsByIdClaim'][0])
+    public function postAgentTargetsByIdClaim($id, string $contentType = self::contentTypes['postAgentTargetsByIdClaim'][0])
     {
-        list($response) = $this->postAgentsTargetsByIdClaimWithHttpInfo($id, $contentType);
+        list($response) = $this->postAgentTargetsByIdClaimWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsTargetsByIdClaimWithHttpInfo
+     * Operation postAgentTargetsByIdClaimWithHttpInfo
      *
      * ClaimRoutedRun is the machine&#39;s long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdClaim'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\RoutedRunOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsTargetsByIdClaimWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsTargetsByIdClaim'][0])
+    public function postAgentTargetsByIdClaimWithHttpInfo($id, string $contentType = self::contentTypes['postAgentTargetsByIdClaim'][0])
     {
-        $request = $this->postAgentsTargetsByIdClaimRequest($id, $contentType);
+        $request = $this->postAgentTargetsByIdClaimRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -9843,19 +9843,19 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargetsByIdClaimAsync
+     * Operation postAgentTargetsByIdClaimAsync
      *
      * ClaimRoutedRun is the machine&#39;s long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsTargetsByIdClaimAsync($id, string $contentType = self::contentTypes['postAgentsTargetsByIdClaim'][0])
+    public function postAgentTargetsByIdClaimAsync($id, string $contentType = self::contentTypes['postAgentTargetsByIdClaim'][0])
     {
-        return $this->postAgentsTargetsByIdClaimAsyncWithHttpInfo($id, $contentType)
+        return $this->postAgentTargetsByIdClaimAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -9864,20 +9864,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargetsByIdClaimAsyncWithHttpInfo
+     * Operation postAgentTargetsByIdClaimAsyncWithHttpInfo
      *
      * ClaimRoutedRun is the machine&#39;s long poll for work: it authenticates the daemon, stamps the liveness the dispatch gate reads (the poll IS the proof a runner is listening), and waits up to 25 seconds for the next run addressed to THIS machine.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsTargetsByIdClaimAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsTargetsByIdClaim'][0])
+    public function postAgentTargetsByIdClaimAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAgentTargetsByIdClaim'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\RoutedRunOut';
-        $request = $this->postAgentsTargetsByIdClaimRequest($id, $contentType);
+        $request = $this->postAgentTargetsByIdClaimRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -9916,26 +9916,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsTargetsByIdClaim'
+     * Create request for operation 'postAgentTargetsByIdClaim'
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdClaim'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdClaim'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsTargetsByIdClaimRequest($id, string $contentType = self::contentTypes['postAgentsTargetsByIdClaim'][0])
+    public function postAgentTargetsByIdClaimRequest($id, string $contentType = self::contentTypes['postAgentTargetsByIdClaim'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postAgentsTargetsByIdClaim'
+                'Missing the required parameter $id when calling postAgentTargetsByIdClaim'
             );
         }
 
 
-        $resourcePath = '/v1/agents/targets/{id}/claim';
+        $resourcePath = '/v1/agent/targets/{id}/claim';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -10012,38 +10012,38 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargetsByIdKey
+     * Operation postAgentTargetsByIdKey
      *
      * Mints (or rotates) the claim key a &#x60;hanzo code --serve&#x60; daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdKey'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdKey'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ClaimKeyOut
      */
-    public function postAgentsTargetsByIdKey($id, string $contentType = self::contentTypes['postAgentsTargetsByIdKey'][0])
+    public function postAgentTargetsByIdKey($id, string $contentType = self::contentTypes['postAgentTargetsByIdKey'][0])
     {
-        list($response) = $this->postAgentsTargetsByIdKeyWithHttpInfo($id, $contentType);
+        list($response) = $this->postAgentTargetsByIdKeyWithHttpInfo($id, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsTargetsByIdKeyWithHttpInfo
+     * Operation postAgentTargetsByIdKeyWithHttpInfo
      *
      * Mints (or rotates) the claim key a &#x60;hanzo code --serve&#x60; daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdKey'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdKey'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ClaimKeyOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsTargetsByIdKeyWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsTargetsByIdKey'][0])
+    public function postAgentTargetsByIdKeyWithHttpInfo($id, string $contentType = self::contentTypes['postAgentTargetsByIdKey'][0])
     {
-        $request = $this->postAgentsTargetsByIdKeyRequest($id, $contentType);
+        $request = $this->postAgentTargetsByIdKeyRequest($id, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10115,19 +10115,19 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargetsByIdKeyAsync
+     * Operation postAgentTargetsByIdKeyAsync
      *
      * Mints (or rotates) the claim key a &#x60;hanzo code --serve&#x60; daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdKey'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdKey'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsTargetsByIdKeyAsync($id, string $contentType = self::contentTypes['postAgentsTargetsByIdKey'][0])
+    public function postAgentTargetsByIdKeyAsync($id, string $contentType = self::contentTypes['postAgentTargetsByIdKey'][0])
     {
-        return $this->postAgentsTargetsByIdKeyAsyncWithHttpInfo($id, $contentType)
+        return $this->postAgentTargetsByIdKeyAsyncWithHttpInfo($id, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -10136,20 +10136,20 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargetsByIdKeyAsyncWithHttpInfo
+     * Operation postAgentTargetsByIdKeyAsyncWithHttpInfo
      *
      * Mints (or rotates) the claim key a &#x60;hanzo code --serve&#x60; daemon presents to claim work for this machine, and returns it ONCE: only its SHA-256 hash is stored.
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdKey'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdKey'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsTargetsByIdKeyAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAgentsTargetsByIdKey'][0])
+    public function postAgentTargetsByIdKeyAsyncWithHttpInfo($id, string $contentType = self::contentTypes['postAgentTargetsByIdKey'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ClaimKeyOut';
-        $request = $this->postAgentsTargetsByIdKeyRequest($id, $contentType);
+        $request = $this->postAgentTargetsByIdKeyRequest($id, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -10188,26 +10188,26 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsTargetsByIdKey'
+     * Create request for operation 'postAgentTargetsByIdKey'
      *
      * @param  string $id ID is the target to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdKey'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdKey'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsTargetsByIdKeyRequest($id, string $contentType = self::contentTypes['postAgentsTargetsByIdKey'][0])
+    public function postAgentTargetsByIdKeyRequest($id, string $contentType = self::contentTypes['postAgentTargetsByIdKey'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postAgentsTargetsByIdKey'
+                'Missing the required parameter $id when calling postAgentTargetsByIdKey'
             );
         }
 
 
-        $resourcePath = '/v1/agents/targets/{id}/key';
+        $resourcePath = '/v1/agent/targets/{id}/key';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -10284,42 +10284,42 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargetsByIdRunsByRunidReport
+     * Operation postAgentTargetsByIdRunsByRunidReport
      *
      * Completes a claimed run: it delivers the terminal result to the run&#39;s durable owner, which is what lets that workflow finish.
      *
      * @param  string $id ID is the machine reporting, from the path. (required)
      * @param  string $run_id RunID is the routed run being completed, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ReportRunIn $report_run_in report_run_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdRunsByRunidReport'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdRunsByRunidReport'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \Hanzo\Cloud\Model\ReportOut
      */
-    public function postAgentsTargetsByIdRunsByRunidReport($id, $run_id, $report_run_in, string $contentType = self::contentTypes['postAgentsTargetsByIdRunsByRunidReport'][0])
+    public function postAgentTargetsByIdRunsByRunidReport($id, $run_id, $report_run_in, string $contentType = self::contentTypes['postAgentTargetsByIdRunsByRunidReport'][0])
     {
-        list($response) = $this->postAgentsTargetsByIdRunsByRunidReportWithHttpInfo($id, $run_id, $report_run_in, $contentType);
+        list($response) = $this->postAgentTargetsByIdRunsByRunidReportWithHttpInfo($id, $run_id, $report_run_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation postAgentsTargetsByIdRunsByRunidReportWithHttpInfo
+     * Operation postAgentTargetsByIdRunsByRunidReportWithHttpInfo
      *
      * Completes a claimed run: it delivers the terminal result to the run&#39;s durable owner, which is what lets that workflow finish.
      *
      * @param  string $id ID is the machine reporting, from the path. (required)
      * @param  string $run_id RunID is the routed run being completed, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ReportRunIn $report_run_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdRunsByRunidReport'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdRunsByRunidReport'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \Hanzo\Cloud\Model\ReportOut, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postAgentsTargetsByIdRunsByRunidReportWithHttpInfo($id, $run_id, $report_run_in, string $contentType = self::contentTypes['postAgentsTargetsByIdRunsByRunidReport'][0])
+    public function postAgentTargetsByIdRunsByRunidReportWithHttpInfo($id, $run_id, $report_run_in, string $contentType = self::contentTypes['postAgentTargetsByIdRunsByRunidReport'][0])
     {
-        $request = $this->postAgentsTargetsByIdRunsByRunidReportRequest($id, $run_id, $report_run_in, $contentType);
+        $request = $this->postAgentTargetsByIdRunsByRunidReportRequest($id, $run_id, $report_run_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -10391,21 +10391,21 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargetsByIdRunsByRunidReportAsync
+     * Operation postAgentTargetsByIdRunsByRunidReportAsync
      *
      * Completes a claimed run: it delivers the terminal result to the run&#39;s durable owner, which is what lets that workflow finish.
      *
      * @param  string $id ID is the machine reporting, from the path. (required)
      * @param  string $run_id RunID is the routed run being completed, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ReportRunIn $report_run_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdRunsByRunidReport'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdRunsByRunidReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsTargetsByIdRunsByRunidReportAsync($id, $run_id, $report_run_in, string $contentType = self::contentTypes['postAgentsTargetsByIdRunsByRunidReport'][0])
+    public function postAgentTargetsByIdRunsByRunidReportAsync($id, $run_id, $report_run_in, string $contentType = self::contentTypes['postAgentTargetsByIdRunsByRunidReport'][0])
     {
-        return $this->postAgentsTargetsByIdRunsByRunidReportAsyncWithHttpInfo($id, $run_id, $report_run_in, $contentType)
+        return $this->postAgentTargetsByIdRunsByRunidReportAsyncWithHttpInfo($id, $run_id, $report_run_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -10414,22 +10414,22 @@ class AgentsApi
     }
 
     /**
-     * Operation postAgentsTargetsByIdRunsByRunidReportAsyncWithHttpInfo
+     * Operation postAgentTargetsByIdRunsByRunidReportAsyncWithHttpInfo
      *
      * Completes a claimed run: it delivers the terminal result to the run&#39;s durable owner, which is what lets that workflow finish.
      *
      * @param  string $id ID is the machine reporting, from the path. (required)
      * @param  string $run_id RunID is the routed run being completed, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ReportRunIn $report_run_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdRunsByRunidReport'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdRunsByRunidReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAgentsTargetsByIdRunsByRunidReportAsyncWithHttpInfo($id, $run_id, $report_run_in, string $contentType = self::contentTypes['postAgentsTargetsByIdRunsByRunidReport'][0])
+    public function postAgentTargetsByIdRunsByRunidReportAsyncWithHttpInfo($id, $run_id, $report_run_in, string $contentType = self::contentTypes['postAgentTargetsByIdRunsByRunidReport'][0])
     {
         $returnType = '\Hanzo\Cloud\Model\ReportOut';
-        $request = $this->postAgentsTargetsByIdRunsByRunidReportRequest($id, $run_id, $report_run_in, $contentType);
+        $request = $this->postAgentTargetsByIdRunsByRunidReportRequest($id, $run_id, $report_run_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -10468,42 +10468,42 @@ class AgentsApi
     }
 
     /**
-     * Create request for operation 'postAgentsTargetsByIdRunsByRunidReport'
+     * Create request for operation 'postAgentTargetsByIdRunsByRunidReport'
      *
      * @param  string $id ID is the machine reporting, from the path. (required)
      * @param  string $run_id RunID is the routed run being completed, from the path. (required)
      * @param  \Hanzo\Cloud\Model\ReportRunIn $report_run_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentsTargetsByIdRunsByRunidReport'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postAgentTargetsByIdRunsByRunidReport'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postAgentsTargetsByIdRunsByRunidReportRequest($id, $run_id, $report_run_in, string $contentType = self::contentTypes['postAgentsTargetsByIdRunsByRunidReport'][0])
+    public function postAgentTargetsByIdRunsByRunidReportRequest($id, $run_id, $report_run_in, string $contentType = self::contentTypes['postAgentTargetsByIdRunsByRunidReport'][0])
     {
 
         // verify the required parameter 'id' is set
         if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $id when calling postAgentsTargetsByIdRunsByRunidReport'
+                'Missing the required parameter $id when calling postAgentTargetsByIdRunsByRunidReport'
             );
         }
 
         // verify the required parameter 'run_id' is set
         if ($run_id === null || (is_array($run_id) && count($run_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $run_id when calling postAgentsTargetsByIdRunsByRunidReport'
+                'Missing the required parameter $run_id when calling postAgentTargetsByIdRunsByRunidReport'
             );
         }
 
         // verify the required parameter 'report_run_in' is set
         if ($report_run_in === null || (is_array($report_run_in) && count($report_run_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $report_run_in when calling postAgentsTargetsByIdRunsByRunidReport'
+                'Missing the required parameter $report_run_in when calling postAgentTargetsByIdRunsByRunidReport'
             );
         }
 
 
-        $resourcePath = '/v1/agents/targets/{id}/runs/{runId}/report';
+        $resourcePath = '/v1/agent/targets/{id}/runs/{runId}/report';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];

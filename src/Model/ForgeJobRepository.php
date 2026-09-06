@@ -1,6 +1,6 @@
 <?php
 /**
- * PushRepository
+ * ForgeJobRepository
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * PushRepository Class Doc Comment
+ * ForgeJobRepository Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class PushRepository implements ModelInterface, ArrayAccess, \JsonSerializable
+class ForgeJobRepository implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PushRepository implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'push_repository';
+    protected static $openAPIModelName = 'forgeJob_repository';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,7 +58,7 @@ class PushRepository implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'name' => 'string',
-        'owner' => '\Hanzo\Cloud\Model\PushPusher'
+        'owner' => '\Hanzo\Cloud\Model\ForgeJobRepositoryOwner'
     ];
 
     /**
@@ -326,7 +326,7 @@ class PushRepository implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets owner
      *
-     * @return \Hanzo\Cloud\Model\PushPusher|null
+     * @return \Hanzo\Cloud\Model\ForgeJobRepositoryOwner|null
      */
     public function getOwner()
     {
@@ -336,7 +336,7 @@ class PushRepository implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets owner
      *
-     * @param \Hanzo\Cloud\Model\PushPusher|null $owner owner
+     * @param \Hanzo\Cloud\Model\ForgeJobRepositoryOwner|null $owner owner
      *
      * @return self
      */

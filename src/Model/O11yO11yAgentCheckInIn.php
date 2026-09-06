@@ -58,8 +58,8 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static $openAPITypes = [
         'account_id' => 'string',
-        'cloud_account_id' => 'string',
         'cloud_integration_id' => 'mixed',
+        'cloud_account_id' => 'string',
         'data' => 'array<string,object>',
         'provider_account_id' => 'string'
     ];
@@ -73,8 +73,8 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static $openAPIFormats = [
         'account_id' => null,
-        'cloud_account_id' => null,
         'cloud_integration_id' => null,
+        'cloud_account_id' => null,
         'data' => null,
         'provider_account_id' => null
     ];
@@ -86,8 +86,8 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static array $openAPINullables = [
         'account_id' => false,
-        'cloud_account_id' => false,
         'cloud_integration_id' => true,
+        'cloud_account_id' => false,
         'data' => false,
         'provider_account_id' => false
     ];
@@ -179,8 +179,8 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
      */
     protected static $attributeMap = [
         'account_id' => 'account_id',
-        'cloud_account_id' => 'cloud_account_id',
         'cloud_integration_id' => 'cloudIntegrationId',
+        'cloud_account_id' => 'cloud_account_id',
         'data' => 'data',
         'provider_account_id' => 'providerAccountId'
     ];
@@ -192,8 +192,8 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
      */
     protected static $setters = [
         'account_id' => 'setAccountId',
-        'cloud_account_id' => 'setCloudAccountId',
         'cloud_integration_id' => 'setCloudIntegrationId',
+        'cloud_account_id' => 'setCloudAccountId',
         'data' => 'setData',
         'provider_account_id' => 'setProviderAccountId'
     ];
@@ -205,8 +205,8 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
      */
     protected static $getters = [
         'account_id' => 'getAccountId',
-        'cloud_account_id' => 'getCloudAccountId',
         'cloud_integration_id' => 'getCloudIntegrationId',
+        'cloud_account_id' => 'getCloudAccountId',
         'data' => 'getData',
         'provider_account_id' => 'getProviderAccountId'
     ];
@@ -269,8 +269,8 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
     public function __construct(?array $data = null)
     {
         $this->setIfExists('account_id', $data ?? [], null);
-        $this->setIfExists('cloud_account_id', $data ?? [], null);
         $this->setIfExists('cloud_integration_id', $data ?? [], null);
+        $this->setIfExists('cloud_account_id', $data ?? [], null);
         $this->setIfExists('data', $data ?? [], null);
         $this->setIfExists('provider_account_id', $data ?? [], null);
     }
@@ -345,33 +345,6 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
     }
 
     /**
-     * Gets cloud_account_id
-     *
-     * @return string|null
-     */
-    public function getCloudAccountId()
-    {
-        return $this->container['cloud_account_id'];
-    }
-
-    /**
-     * Sets cloud_account_id
-     *
-     * @param string|null $cloud_account_id cloud_account_id
-     *
-     * @return self
-     */
-    public function setCloudAccountId($cloud_account_id)
-    {
-        if (is_null($cloud_account_id)) {
-            throw new \InvalidArgumentException('non-nullable cloud_account_id cannot be null');
-        }
-        $this->container['cloud_account_id'] = $cloud_account_id;
-
-        return $this;
-    }
-
-    /**
      * Gets cloud_integration_id
      *
      * @return mixed|null
@@ -401,6 +374,33 @@ class O11yO11yAgentCheckInIn implements ModelInterface, ArrayAccess, \JsonSerial
             }
         }
         $this->container['cloud_integration_id'] = $cloud_integration_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets cloud_account_id
+     *
+     * @return string|null
+     */
+    public function getCloudAccountId()
+    {
+        return $this->container['cloud_account_id'];
+    }
+
+    /**
+     * Sets cloud_account_id
+     *
+     * @param string|null $cloud_account_id cloud_account_id
+     *
+     * @return self
+     */
+    public function setCloudAccountId($cloud_account_id)
+    {
+        if (is_null($cloud_account_id)) {
+            throw new \InvalidArgumentException('non-nullable cloud_account_id cannot be null');
+        }
+        $this->container['cloud_account_id'] = $cloud_account_id;
 
         return $this;
     }

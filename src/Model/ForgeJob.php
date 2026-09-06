@@ -1,6 +1,6 @@
 <?php
 /**
- * PairingView
+ * ForgeJob
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * PairingView Class Doc Comment
+ * ForgeJob Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class PairingView implements ModelInterface, ArrayAccess, \JsonSerializable
+class ForgeJob implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PairingView implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'pairingView';
+    protected static $openAPIModelName = 'forgeJob';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,11 +57,9 @@ class PairingView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'channel' => 'string',
-        'code' => 'string',
-        'created_at' => 'int',
-        'last_seen' => 'int',
-        'sender' => 'string'
+        'action' => 'string',
+        'repository' => '\Hanzo\Cloud\Model\ForgeJobRepository',
+        'workflow_job' => '\Hanzo\Cloud\Model\ForgeJobWorkflowJob'
     ];
 
     /**
@@ -72,11 +70,9 @@ class PairingView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'channel' => null,
-        'code' => null,
-        'created_at' => 'int64',
-        'last_seen' => 'int64',
-        'sender' => null
+        'action' => null,
+        'repository' => null,
+        'workflow_job' => null
     ];
 
     /**
@@ -85,11 +81,9 @@ class PairingView implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'channel' => false,
-        'code' => false,
-        'created_at' => false,
-        'last_seen' => false,
-        'sender' => false
+        'action' => false,
+        'repository' => false,
+        'workflow_job' => false
     ];
 
     /**
@@ -178,11 +172,9 @@ class PairingView implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'channel' => 'channel',
-        'code' => 'code',
-        'created_at' => 'createdAt',
-        'last_seen' => 'lastSeen',
-        'sender' => 'sender'
+        'action' => 'action',
+        'repository' => 'repository',
+        'workflow_job' => 'workflow_job'
     ];
 
     /**
@@ -191,11 +183,9 @@ class PairingView implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'channel' => 'setChannel',
-        'code' => 'setCode',
-        'created_at' => 'setCreatedAt',
-        'last_seen' => 'setLastSeen',
-        'sender' => 'setSender'
+        'action' => 'setAction',
+        'repository' => 'setRepository',
+        'workflow_job' => 'setWorkflowJob'
     ];
 
     /**
@@ -204,11 +194,9 @@ class PairingView implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'channel' => 'getChannel',
-        'code' => 'getCode',
-        'created_at' => 'getCreatedAt',
-        'last_seen' => 'getLastSeen',
-        'sender' => 'getSender'
+        'action' => 'getAction',
+        'repository' => 'getRepository',
+        'workflow_job' => 'getWorkflowJob'
     ];
 
     /**
@@ -268,11 +256,9 @@ class PairingView implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('channel', $data ?? [], null);
-        $this->setIfExists('code', $data ?? [], null);
-        $this->setIfExists('created_at', $data ?? [], null);
-        $this->setIfExists('last_seen', $data ?? [], null);
-        $this->setIfExists('sender', $data ?? [], null);
+        $this->setIfExists('action', $data ?? [], null);
+        $this->setIfExists('repository', $data ?? [], null);
+        $this->setIfExists('workflow_job', $data ?? [], null);
     }
 
     /**
@@ -318,136 +304,82 @@ class PairingView implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets channel
+     * Gets action
      *
      * @return string|null
      */
-    public function getChannel()
+    public function getAction()
     {
-        return $this->container['channel'];
+        return $this->container['action'];
     }
 
     /**
-     * Sets channel
+     * Sets action
      *
-     * @param string|null $channel Channel is the transport the request arrived on — discord, slack, teams or telegram — and half of what approval names. The cap of three unapproved requests applies per (org, channel); while it is full no further code is minted until one is approved or expires.
+     * @param string|null $action action
      *
      * @return self
      */
-    public function setChannel($channel)
+    public function setAction($action)
     {
-        if (is_null($channel)) {
-            throw new \InvalidArgumentException('non-nullable channel cannot be null');
+        if (is_null($action)) {
+            throw new \InvalidArgumentException('non-nullable action cannot be null');
         }
-        $this->container['channel'] = $channel;
+        $this->container['action'] = $action;
 
         return $this;
     }
 
     /**
-     * Gets code
+     * Gets repository
      *
-     * @return string|null
+     * @return \Hanzo\Cloud\Model\ForgeJobRepository|null
      */
-    public function getCode()
+    public function getRepository()
     {
-        return $this->container['code'];
+        return $this->container['repository'];
     }
 
     /**
-     * Sets code
+     * Sets repository
      *
-     * @param string|null $code Code is the CAPABILITY that authorises the approval: eight characters from a 32-symbol uppercase alphabet (A-Z0-9 minus the confusables 0, O, 1 and I), minted with crypto/rand and also sent to the requester in chat. An org admin passes it with the channel to POST /v1/channel/pairing/approve, which CONSUMES it — the request row is deleted, so a code approves once — and which takes org admin as well as the code. It lives ONE HOUR from CreatedAt; expired requests are not listed here, and approving one is a 404. It is shown on this admin surface and NEVER logged.
+     * @param \Hanzo\Cloud\Model\ForgeJobRepository|null $repository repository
      *
      * @return self
      */
-    public function setCode($code)
+    public function setRepository($repository)
     {
-        if (is_null($code)) {
-            throw new \InvalidArgumentException('non-nullable code cannot be null');
+        if (is_null($repository)) {
+            throw new \InvalidArgumentException('non-nullable repository cannot be null');
         }
-        $this->container['code'] = $code;
+        $this->container['repository'] = $repository;
 
         return $this;
     }
 
     /**
-     * Gets created_at
+     * Gets workflow_job
      *
-     * @return int|null
+     * @return \Hanzo\Cloud\Model\ForgeJobWorkflowJob|null
      */
-    public function getCreatedAt()
+    public function getWorkflowJob()
     {
-        return $this->container['created_at'];
+        return $this->container['workflow_job'];
     }
 
     /**
-     * Sets created_at
+     * Sets workflow_job
      *
-     * @param int|null $created_at CreatedAt is Unix SECONDS of FIRST contact: when the request was minted and the code sent. Expiry is measured from here and from nowhere else.
+     * @param \Hanzo\Cloud\Model\ForgeJobWorkflowJob|null $workflow_job workflow_job
      *
      * @return self
      */
-    public function setCreatedAt($created_at)
+    public function setWorkflowJob($workflow_job)
     {
-        if (is_null($created_at)) {
-            throw new \InvalidArgumentException('non-nullable created_at cannot be null');
+        if (is_null($workflow_job)) {
+            throw new \InvalidArgumentException('non-nullable workflow_job cannot be null');
         }
-        $this->container['created_at'] = $created_at;
-
-        return $this;
-    }
-
-    /**
-     * Gets last_seen
-     *
-     * @return int|null
-     */
-    public function getLastSeen()
-    {
-        return $this->container['last_seen'];
-    }
-
-    /**
-     * Sets last_seen
-     *
-     * @param int|null $last_seen LastSeen is Unix SECONDS of the MOST RECENT message from this sender while the request has been pending. It moves as they keep writing, which is how an admin tells a live request from an abandoned one — but it does not extend the hour and does not re-send the code, since one request sends exactly one chat reply.
-     *
-     * @return self
-     */
-    public function setLastSeen($last_seen)
-    {
-        if (is_null($last_seen)) {
-            throw new \InvalidArgumentException('non-nullable last_seen cannot be null');
-        }
-        $this->container['last_seen'] = $last_seen;
-
-        return $this;
-    }
-
-    /**
-     * Gets sender
-     *
-     * @return string|null
-     */
-    public function getSender()
-    {
-        return $this->container['sender'];
-    }
-
-    /**
-     * Sets sender
-     *
-     * @param string|null $sender Sender is the transport-native user id waiting for access — the same identity inbox messages carry. Approving mints a DM allow entry for exactly this value and nothing wider: pairing never grants group access.
-     *
-     * @return self
-     */
-    public function setSender($sender)
-    {
-        if (is_null($sender)) {
-            throw new \InvalidArgumentException('non-nullable sender cannot be null');
-        }
-        $this->container['sender'] = $sender;
+        $this->container['workflow_job'] = $workflow_job;
 
         return $this;
     }

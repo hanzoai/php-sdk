@@ -379,7 +379,7 @@ class AgentBinding implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets agent_name
      *
-     * @param string|null $agent_name AgentName is the cloud Agent (/v1/agents) this machine runs — the agent a message to the bot is actually run against. It is the one field that decides what the bot DOES.
+     * @param string|null $agent_name AgentName is the cloud Agent (/v1/agent) this machine runs — the agent a message to the bot is actually run against. It is the one field that decides what the bot DOES.
      *
      * @return self
      */

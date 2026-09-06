@@ -49,7 +49,7 @@ class BotRoster implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'botRoster';
+    protected static $openAPIModelName = 'BotRoster';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -302,7 +302,7 @@ class BotRoster implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets bots
      *
-     * @param \Hanzo\Cloud\Model\BotMember[]|null $bots Bots is every agent of the caller's org, projected as a space member.
+     * @param \Hanzo\Cloud\Model\BotMember[]|null $bots Bots is one entry per bot, each carrying the member account uuid and the Person reference the space roster addresses it by. Empty means the org has no bots — not that the roster could not be read, which is an error.
      *
      * @return self
      */

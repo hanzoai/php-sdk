@@ -1,6 +1,6 @@
 <?php
 /**
- * FlagsApi
+ * ChannelApi
  * PHP version 8.1
  *
  * @category Class
@@ -43,14 +43,14 @@ use Hanzo\Cloud\HeaderSelector;
 use Hanzo\Cloud\ObjectSerializer;
 
 /**
- * FlagsApi Class Doc Comment
+ * ChannelApi Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class FlagsApi
+class ChannelApi
 {
     /**
      * @var ClientInterface
@@ -74,28 +74,31 @@ class FlagsApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
-        'deleteFlagsDefsByKey' => [
+        'getChannel' => [
             'application/json',
         ],
-        'getFlagsActivity' => [
+        'getChannelAgent' => [
             'application/json',
         ],
-        'getFlagsDefs' => [
+        'getChannelAllowlist' => [
             'application/json',
         ],
-        'getFlagsDefsByKey' => [
+        'getChannelInbox' => [
             'application/json',
         ],
-        'getFlagsHealth' => [
+        'getChannelPairing' => [
             'application/json',
         ],
-        'postFlags' => [
+        'postChannelByChannelSend' => [
             'application/json',
         ],
-        'postFlagsDecide' => [
+        'postChannelPairingApprove' => [
             'application/json',
         ],
-        'putFlagsDefsByKey' => [
+        'putChannelAgent' => [
+            'application/json',
+        ],
+        'putChannelAllowlist' => [
             'application/json',
         ],
     ];
@@ -147,38 +150,36 @@ class FlagsApi
     }
 
     /**
-     * Operation deleteFlagsDefsByKey
+     * Operation getChannel
      *
-     * Removes one flag definition by key and records the deletion in the change log.
+     * Reports every chat channel this org can send through, and whether it can send through it right now.
      *
-     * @param  string $key Key is the flag key to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFlagsDefsByKey'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannel'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DeletedOut
+     * @return \Hanzo\Cloud\Model\ChatChannels
      */
-    public function deleteFlagsDefsByKey($key, string $contentType = self::contentTypes['deleteFlagsDefsByKey'][0])
+    public function getChannel(string $contentType = self::contentTypes['getChannel'][0])
     {
-        list($response) = $this->deleteFlagsDefsByKeyWithHttpInfo($key, $contentType);
+        list($response) = $this->getChannelWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation deleteFlagsDefsByKeyWithHttpInfo
+     * Operation getChannelWithHttpInfo
      *
-     * Removes one flag definition by key and records the deletion in the change log.
+     * Reports every chat channel this org can send through, and whether it can send through it right now.
      *
-     * @param  string $key Key is the flag key to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFlagsDefsByKey'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannel'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DeletedOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ChatChannels, HTTP status code, HTTP response headers (array of strings)
      */
-    public function deleteFlagsDefsByKeyWithHttpInfo($key, string $contentType = self::contentTypes['deleteFlagsDefsByKey'][0])
+    public function getChannelWithHttpInfo(string $contentType = self::contentTypes['getChannel'][0])
     {
-        $request = $this->deleteFlagsDefsByKeyRequest($key, $contentType);
+        $request = $this->getChannelRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -206,7 +207,7 @@ class FlagsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DeletedOut',
+                        '\Hanzo\Cloud\Model\ChatChannels',
                         $request,
                         $response,
                     );
@@ -228,7 +229,7 @@ class FlagsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DeletedOut',
+                '\Hanzo\Cloud\Model\ChatChannels',
                 $request,
                 $response,
             );
@@ -237,7 +238,7 @@ class FlagsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DeletedOut',
+                        '\Hanzo\Cloud\Model\ChatChannels',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -250,19 +251,18 @@ class FlagsApi
     }
 
     /**
-     * Operation deleteFlagsDefsByKeyAsync
+     * Operation getChannelAsync
      *
-     * Removes one flag definition by key and records the deletion in the change log.
+     * Reports every chat channel this org can send through, and whether it can send through it right now.
      *
-     * @param  string $key Key is the flag key to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFlagsDefsByKey'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteFlagsDefsByKeyAsync($key, string $contentType = self::contentTypes['deleteFlagsDefsByKey'][0])
+    public function getChannelAsync(string $contentType = self::contentTypes['getChannel'][0])
     {
-        return $this->deleteFlagsDefsByKeyAsyncWithHttpInfo($key, $contentType)
+        return $this->getChannelAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -271,20 +271,19 @@ class FlagsApi
     }
 
     /**
-     * Operation deleteFlagsDefsByKeyAsyncWithHttpInfo
+     * Operation getChannelAsyncWithHttpInfo
      *
-     * Removes one flag definition by key and records the deletion in the change log.
+     * Reports every chat channel this org can send through, and whether it can send through it right now.
      *
-     * @param  string $key Key is the flag key to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFlagsDefsByKey'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteFlagsDefsByKeyAsyncWithHttpInfo($key, string $contentType = self::contentTypes['deleteFlagsDefsByKey'][0])
+    public function getChannelAsyncWithHttpInfo(string $contentType = self::contentTypes['getChannel'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DeletedOut';
-        $request = $this->deleteFlagsDefsByKeyRequest($key, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ChatChannels';
+        $request = $this->getChannelRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -323,26 +322,18 @@ class FlagsApi
     }
 
     /**
-     * Create request for operation 'deleteFlagsDefsByKey'
+     * Create request for operation 'getChannel'
      *
-     * @param  string $key Key is the flag key to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFlagsDefsByKey'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function deleteFlagsDefsByKeyRequest($key, string $contentType = self::contentTypes['deleteFlagsDefsByKey'][0])
+    public function getChannelRequest(string $contentType = self::contentTypes['getChannel'][0])
     {
 
-        // verify the required parameter 'key' is set
-        if ($key === null || (is_array($key) && count($key) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $key when calling deleteFlagsDefsByKey'
-            );
-        }
 
-
-        $resourcePath = '/v1/flags/defs/{key}';
+        $resourcePath = '/v1/channel';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -351,14 +342,6 @@ class FlagsApi
 
 
 
-        // path params
-        if ($key !== null) {
-            $resourcePath = str_replace(
-                '{' . 'key' . '}',
-                ObjectSerializer::toPathValue($key),
-                $resourcePath
-            );
-        }
 
 
         $headers = $this->headerSelector->selectHeaders(
@@ -411,7 +394,7 @@ class FlagsApi
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
-            'DELETE',
+            'GET',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -419,38 +402,38 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsActivity
+     * Operation getChannelAgent
      *
-     * Returns the caller&#39;s flag change log newest-first: every create, update and delete, with the actor and the time.
+     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
      *
-     * @param  int|null $limit Limit caps the rows returned. 1–500; anything else takes the default 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsActivity'] to see the possible values for this operation
+     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelAgent'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ActivityOut
+     * @return \Hanzo\Cloud\Model\ChannelAgents
      */
-    public function getFlagsActivity($limit = null, string $contentType = self::contentTypes['getFlagsActivity'][0])
+    public function getChannelAgent($channel = null, string $contentType = self::contentTypes['getChannelAgent'][0])
     {
-        list($response) = $this->getFlagsActivityWithHttpInfo($limit, $contentType);
+        list($response) = $this->getChannelAgentWithHttpInfo($channel, $contentType);
         return $response;
     }
 
     /**
-     * Operation getFlagsActivityWithHttpInfo
+     * Operation getChannelAgentWithHttpInfo
      *
-     * Returns the caller&#39;s flag change log newest-first: every create, update and delete, with the actor and the time.
+     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
      *
-     * @param  int|null $limit Limit caps the rows returned. 1–500; anything else takes the default 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsActivity'] to see the possible values for this operation
+     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelAgent'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ActivityOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ChannelAgents, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFlagsActivityWithHttpInfo($limit = null, string $contentType = self::contentTypes['getFlagsActivity'][0])
+    public function getChannelAgentWithHttpInfo($channel = null, string $contentType = self::contentTypes['getChannelAgent'][0])
     {
-        $request = $this->getFlagsActivityRequest($limit, $contentType);
+        $request = $this->getChannelAgentRequest($channel, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -478,7 +461,7 @@ class FlagsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ActivityOut',
+                        '\Hanzo\Cloud\Model\ChannelAgents',
                         $request,
                         $response,
                     );
@@ -500,7 +483,7 @@ class FlagsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ActivityOut',
+                '\Hanzo\Cloud\Model\ChannelAgents',
                 $request,
                 $response,
             );
@@ -509,7 +492,7 @@ class FlagsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ActivityOut',
+                        '\Hanzo\Cloud\Model\ChannelAgents',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -522,19 +505,19 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsActivityAsync
+     * Operation getChannelAgentAsync
      *
-     * Returns the caller&#39;s flag change log newest-first: every create, update and delete, with the actor and the time.
+     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
      *
-     * @param  int|null $limit Limit caps the rows returned. 1–500; anything else takes the default 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsActivity'] to see the possible values for this operation
+     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFlagsActivityAsync($limit = null, string $contentType = self::contentTypes['getFlagsActivity'][0])
+    public function getChannelAgentAsync($channel = null, string $contentType = self::contentTypes['getChannelAgent'][0])
     {
-        return $this->getFlagsActivityAsyncWithHttpInfo($limit, $contentType)
+        return $this->getChannelAgentAsyncWithHttpInfo($channel, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -543,20 +526,20 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsActivityAsyncWithHttpInfo
+     * Operation getChannelAgentAsyncWithHttpInfo
      *
-     * Returns the caller&#39;s flag change log newest-first: every create, update and delete, with the actor and the time.
+     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
      *
-     * @param  int|null $limit Limit caps the rows returned. 1–500; anything else takes the default 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsActivity'] to see the possible values for this operation
+     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFlagsActivityAsyncWithHttpInfo($limit = null, string $contentType = self::contentTypes['getFlagsActivity'][0])
+    public function getChannelAgentAsyncWithHttpInfo($channel = null, string $contentType = self::contentTypes['getChannelAgent'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ActivityOut';
-        $request = $this->getFlagsActivityRequest($limit, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ChannelAgents';
+        $request = $this->getChannelAgentRequest($channel, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -595,20 +578,20 @@ class FlagsApi
     }
 
     /**
-     * Create request for operation 'getFlagsActivity'
+     * Create request for operation 'getChannelAgent'
      *
-     * @param  int|null $limit Limit caps the rows returned. 1–500; anything else takes the default 100. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsActivity'] to see the possible values for this operation
+     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getFlagsActivityRequest($limit = null, string $contentType = self::contentTypes['getFlagsActivity'][0])
+    public function getChannelAgentRequest($channel = null, string $contentType = self::contentTypes['getChannelAgent'][0])
     {
 
 
 
-        $resourcePath = '/v1/flags/activity';
+        $resourcePath = '/v1/channel/agent';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -617,9 +600,9 @@ class FlagsApi
 
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $limit,
-            'limit', // param base name
-            'integer', // openApiType
+            $channel,
+            'channel', // param base name
+            'string', // openApiType
             'form', // style
             true, // explode
             false // required
@@ -686,36 +669,38 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsDefs
+     * Operation getChannelAllowlist
      *
-     * Returns every flag definition in the caller&#39;s (org, project) store, by key, with its version and who last changed it.
+     * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsDefs'] to see the possible values for this operation
+     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelAllowlist'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DefsOut
+     * @return \Hanzo\Cloud\Model\AllowlistView
      */
-    public function getFlagsDefs(string $contentType = self::contentTypes['getFlagsDefs'][0])
+    public function getChannelAllowlist($channel = null, string $contentType = self::contentTypes['getChannelAllowlist'][0])
     {
-        list($response) = $this->getFlagsDefsWithHttpInfo($contentType);
+        list($response) = $this->getChannelAllowlistWithHttpInfo($channel, $contentType);
         return $response;
     }
 
     /**
-     * Operation getFlagsDefsWithHttpInfo
+     * Operation getChannelAllowlistWithHttpInfo
      *
-     * Returns every flag definition in the caller&#39;s (org, project) store, by key, with its version and who last changed it.
+     * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsDefs'] to see the possible values for this operation
+     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelAllowlist'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DefsOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AllowlistView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFlagsDefsWithHttpInfo(string $contentType = self::contentTypes['getFlagsDefs'][0])
+    public function getChannelAllowlistWithHttpInfo($channel = null, string $contentType = self::contentTypes['getChannelAllowlist'][0])
     {
-        $request = $this->getFlagsDefsRequest($contentType);
+        $request = $this->getChannelAllowlistRequest($channel, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -743,7 +728,7 @@ class FlagsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DefsOut',
+                        '\Hanzo\Cloud\Model\AllowlistView',
                         $request,
                         $response,
                     );
@@ -765,7 +750,7 @@ class FlagsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DefsOut',
+                '\Hanzo\Cloud\Model\AllowlistView',
                 $request,
                 $response,
             );
@@ -774,7 +759,7 @@ class FlagsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DefsOut',
+                        '\Hanzo\Cloud\Model\AllowlistView',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -787,18 +772,19 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsDefsAsync
+     * Operation getChannelAllowlistAsync
      *
-     * Returns every flag definition in the caller&#39;s (org, project) store, by key, with its version and who last changed it.
+     * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsDefs'] to see the possible values for this operation
+     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFlagsDefsAsync(string $contentType = self::contentTypes['getFlagsDefs'][0])
+    public function getChannelAllowlistAsync($channel = null, string $contentType = self::contentTypes['getChannelAllowlist'][0])
     {
-        return $this->getFlagsDefsAsyncWithHttpInfo($contentType)
+        return $this->getChannelAllowlistAsyncWithHttpInfo($channel, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -807,19 +793,20 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsDefsAsyncWithHttpInfo
+     * Operation getChannelAllowlistAsyncWithHttpInfo
      *
-     * Returns every flag definition in the caller&#39;s (org, project) store, by key, with its version and who last changed it.
+     * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsDefs'] to see the possible values for this operation
+     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFlagsDefsAsyncWithHttpInfo(string $contentType = self::contentTypes['getFlagsDefs'][0])
+    public function getChannelAllowlistAsyncWithHttpInfo($channel = null, string $contentType = self::contentTypes['getChannelAllowlist'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DefsOut';
-        $request = $this->getFlagsDefsRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\AllowlistView';
+        $request = $this->getChannelAllowlistRequest($channel, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -858,18 +845,563 @@ class FlagsApi
     }
 
     /**
-     * Create request for operation 'getFlagsDefs'
+     * Create request for operation 'getChannelAllowlist'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsDefs'] to see the possible values for this operation
+     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getFlagsDefsRequest(string $contentType = self::contentTypes['getFlagsDefs'][0])
+    public function getChannelAllowlistRequest($channel = null, string $contentType = self::contentTypes['getChannelAllowlist'][0])
     {
 
 
-        $resourcePath = '/v1/flags/defs';
+
+        $resourcePath = '/v1/channel/allowlist';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $channel,
+            'channel', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getChannelInbox
+     *
+     * Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
+     *
+     * @param  string|null $since Since is the exclusive cursor: only messages with a higher row id come back. Empty starts at the beginning. Must parse as an integer. (optional)
+     * @param  string|null $limit Limit caps how many messages come back. Empty or 0 uses the store&#39;s default page size. Must parse as an integer. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelInbox'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\InboxPage
+     */
+    public function getChannelInbox($since = null, $limit = null, string $contentType = self::contentTypes['getChannelInbox'][0])
+    {
+        list($response) = $this->getChannelInboxWithHttpInfo($since, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getChannelInboxWithHttpInfo
+     *
+     * Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
+     *
+     * @param  string|null $since Since is the exclusive cursor: only messages with a higher row id come back. Empty starts at the beginning. Must parse as an integer. (optional)
+     * @param  string|null $limit Limit caps how many messages come back. Empty or 0 uses the store&#39;s default page size. Must parse as an integer. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelInbox'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\InboxPage, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getChannelInboxWithHttpInfo($since = null, $limit = null, string $contentType = self::contentTypes['getChannelInbox'][0])
+    {
+        $request = $this->getChannelInboxRequest($since, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\InboxPage',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\InboxPage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\InboxPage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getChannelInboxAsync
+     *
+     * Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
+     *
+     * @param  string|null $since Since is the exclusive cursor: only messages with a higher row id come back. Empty starts at the beginning. Must parse as an integer. (optional)
+     * @param  string|null $limit Limit caps how many messages come back. Empty or 0 uses the store&#39;s default page size. Must parse as an integer. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelInbox'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelInboxAsync($since = null, $limit = null, string $contentType = self::contentTypes['getChannelInbox'][0])
+    {
+        return $this->getChannelInboxAsyncWithHttpInfo($since, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getChannelInboxAsyncWithHttpInfo
+     *
+     * Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
+     *
+     * @param  string|null $since Since is the exclusive cursor: only messages with a higher row id come back. Empty starts at the beginning. Must parse as an integer. (optional)
+     * @param  string|null $limit Limit caps how many messages come back. Empty or 0 uses the store&#39;s default page size. Must parse as an integer. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelInbox'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelInboxAsyncWithHttpInfo($since = null, $limit = null, string $contentType = self::contentTypes['getChannelInbox'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\InboxPage';
+        $request = $this->getChannelInboxRequest($since, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getChannelInbox'
+     *
+     * @param  string|null $since Since is the exclusive cursor: only messages with a higher row id come back. Empty starts at the beginning. Must parse as an integer. (optional)
+     * @param  string|null $limit Limit caps how many messages come back. Empty or 0 uses the store&#39;s default page size. Must parse as an integer. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelInbox'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getChannelInboxRequest($since = null, $limit = null, string $contentType = self::contentTypes['getChannelInbox'][0])
+    {
+
+
+
+
+        $resourcePath = '/v1/channel/inbox';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $since,
+            'since', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getChannelPairing
+     *
+     * Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelPairing'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\PairingQueue
+     */
+    public function getChannelPairing(string $contentType = self::contentTypes['getChannelPairing'][0])
+    {
+        list($response) = $this->getChannelPairingWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getChannelPairingWithHttpInfo
+     *
+     * Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelPairing'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\PairingQueue, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getChannelPairingWithHttpInfo(string $contentType = self::contentTypes['getChannelPairing'][0])
+    {
+        $request = $this->getChannelPairingRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\PairingQueue',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\PairingQueue',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\PairingQueue',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getChannelPairingAsync
+     *
+     * Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelPairing'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelPairingAsync(string $contentType = self::contentTypes['getChannelPairing'][0])
+    {
+        return $this->getChannelPairingAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getChannelPairingAsyncWithHttpInfo
+     *
+     * Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelPairing'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getChannelPairingAsyncWithHttpInfo(string $contentType = self::contentTypes['getChannelPairing'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\PairingQueue';
+        $request = $this->getChannelPairingRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getChannelPairing'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelPairing'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getChannelPairingRequest(string $contentType = self::contentTypes['getChannelPairing'][0])
+    {
+
+
+        $resourcePath = '/v1/channel/pairing';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -938,38 +1470,37 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsDefsByKey
+     * Operation postChannelByChannelSend
      *
-     * Returns one flag definition by key, or 404 when the caller&#39;s store has none under that key.
+     * Send a message from your org&#39;s bot to one chat room
      *
-     * @param  string $key Key is the flag key to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsDefsByKey'] to see the possible values for this operation
+     * @param  string $channel channel (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelByChannelSend'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DefRow
+     * @return void
      */
-    public function getFlagsDefsByKey($key, string $contentType = self::contentTypes['getFlagsDefsByKey'][0])
+    public function postChannelByChannelSend($channel, string $contentType = self::contentTypes['postChannelByChannelSend'][0])
     {
-        list($response) = $this->getFlagsDefsByKeyWithHttpInfo($key, $contentType);
-        return $response;
+        $this->postChannelByChannelSendWithHttpInfo($channel, $contentType);
     }
 
     /**
-     * Operation getFlagsDefsByKeyWithHttpInfo
+     * Operation postChannelByChannelSendWithHttpInfo
      *
-     * Returns one flag definition by key, or 404 when the caller&#39;s store has none under that key.
+     * Send a message from your org&#39;s bot to one chat room
      *
-     * @param  string $key Key is the flag key to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsDefsByKey'] to see the possible values for this operation
+     * @param  string $channel (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelByChannelSend'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DefRow, HTTP status code, HTTP response headers (array of strings)
+     * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFlagsDefsByKeyWithHttpInfo($key, string $contentType = self::contentTypes['getFlagsDefsByKey'][0])
+    public function postChannelByChannelSendWithHttpInfo($channel, string $contentType = self::contentTypes['postChannelByChannelSend'][0])
     {
-        $request = $this->getFlagsDefsByKeyRequest($key, $contentType);
+        $request = $this->postChannelByChannelSendRequest($channel, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -994,45 +1525,9 @@ class FlagsApi
             $statusCode = $response->getStatusCode();
 
 
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DefRow',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DefRow',
-                $request,
-                $response,
-            );
+            return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DefRow',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
             }
         
 
@@ -1041,19 +1536,19 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsDefsByKeyAsync
+     * Operation postChannelByChannelSendAsync
      *
-     * Returns one flag definition by key, or 404 when the caller&#39;s store has none under that key.
+     * Send a message from your org&#39;s bot to one chat room
      *
-     * @param  string $key Key is the flag key to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsDefsByKey'] to see the possible values for this operation
+     * @param  string $channel (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelByChannelSend'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFlagsDefsByKeyAsync($key, string $contentType = self::contentTypes['getFlagsDefsByKey'][0])
+    public function postChannelByChannelSendAsync($channel, string $contentType = self::contentTypes['postChannelByChannelSend'][0])
     {
-        return $this->getFlagsDefsByKeyAsyncWithHttpInfo($key, $contentType)
+        return $this->postChannelByChannelSendAsyncWithHttpInfo($channel, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1062,39 +1557,26 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsDefsByKeyAsyncWithHttpInfo
+     * Operation postChannelByChannelSendAsyncWithHttpInfo
      *
-     * Returns one flag definition by key, or 404 when the caller&#39;s store has none under that key.
+     * Send a message from your org&#39;s bot to one chat room
      *
-     * @param  string $key Key is the flag key to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsDefsByKey'] to see the possible values for this operation
+     * @param  string $channel (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelByChannelSend'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFlagsDefsByKeyAsyncWithHttpInfo($key, string $contentType = self::contentTypes['getFlagsDefsByKey'][0])
+    public function postChannelByChannelSendAsyncWithHttpInfo($channel, string $contentType = self::contentTypes['postChannelByChannelSend'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DefRow';
-        $request = $this->getFlagsDefsByKeyRequest($key, $contentType);
+        $returnType = '';
+        $request = $this->postChannelByChannelSendRequest($channel, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
+                    return [null, $response->getStatusCode(), $response->getHeaders()];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -1114,26 +1596,26 @@ class FlagsApi
     }
 
     /**
-     * Create request for operation 'getFlagsDefsByKey'
+     * Create request for operation 'postChannelByChannelSend'
      *
-     * @param  string $key Key is the flag key to act on, from the path. (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsDefsByKey'] to see the possible values for this operation
+     * @param  string $channel (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelByChannelSend'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getFlagsDefsByKeyRequest($key, string $contentType = self::contentTypes['getFlagsDefsByKey'][0])
+    public function postChannelByChannelSendRequest($channel, string $contentType = self::contentTypes['postChannelByChannelSend'][0])
     {
 
-        // verify the required parameter 'key' is set
-        if ($key === null || (is_array($key) && count($key) === 0)) {
+        // verify the required parameter 'channel' is set
+        if ($channel === null || (is_array($channel) && count($channel) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $key when calling getFlagsDefsByKey'
+                'Missing the required parameter $channel when calling postChannelByChannelSend'
             );
         }
 
 
-        $resourcePath = '/v1/flags/defs/{key}';
+        $resourcePath = '/v1/channel/{channel}/send';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1143,17 +1625,17 @@ class FlagsApi
 
 
         // path params
-        if ($key !== null) {
+        if ($channel !== null) {
             $resourcePath = str_replace(
-                '{' . 'key' . '}',
-                ObjectSerializer::toPathValue($key),
+                '{' . 'channel' . '}',
+                ObjectSerializer::toPathValue($channel),
                 $resourcePath
             );
         }
 
 
         $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
+            [],
             $contentType,
             $multipart
         );
@@ -1202,7 +1684,7 @@ class FlagsApi
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
-            'GET',
+            'POST',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -1210,36 +1692,38 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsHealth
+     * Operation postChannelPairingApprove
      *
-     * Health reports that the flag engine is serving.
+     * Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsHealth'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ApprovePairingIn $approve_pairing_in approve_pairing_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelPairingApprove'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\HealthOut
+     * @return \Hanzo\Cloud\Model\PairingApproved
      */
-    public function getFlagsHealth(string $contentType = self::contentTypes['getFlagsHealth'][0])
+    public function postChannelPairingApprove($approve_pairing_in, string $contentType = self::contentTypes['postChannelPairingApprove'][0])
     {
-        list($response) = $this->getFlagsHealthWithHttpInfo($contentType);
+        list($response) = $this->postChannelPairingApproveWithHttpInfo($approve_pairing_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation getFlagsHealthWithHttpInfo
+     * Operation postChannelPairingApproveWithHttpInfo
      *
-     * Health reports that the flag engine is serving.
+     * Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsHealth'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ApprovePairingIn $approve_pairing_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelPairingApprove'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\HealthOut, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\PairingApproved, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFlagsHealthWithHttpInfo(string $contentType = self::contentTypes['getFlagsHealth'][0])
+    public function postChannelPairingApproveWithHttpInfo($approve_pairing_in, string $contentType = self::contentTypes['postChannelPairingApprove'][0])
     {
-        $request = $this->getFlagsHealthRequest($contentType);
+        $request = $this->postChannelPairingApproveRequest($approve_pairing_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1267,7 +1751,7 @@ class FlagsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\HealthOut',
+                        '\Hanzo\Cloud\Model\PairingApproved',
                         $request,
                         $response,
                     );
@@ -1289,7 +1773,7 @@ class FlagsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\HealthOut',
+                '\Hanzo\Cloud\Model\PairingApproved',
                 $request,
                 $response,
             );
@@ -1298,7 +1782,7 @@ class FlagsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\HealthOut',
+                        '\Hanzo\Cloud\Model\PairingApproved',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1311,18 +1795,19 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsHealthAsync
+     * Operation postChannelPairingApproveAsync
      *
-     * Health reports that the flag engine is serving.
+     * Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsHealth'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ApprovePairingIn $approve_pairing_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelPairingApprove'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFlagsHealthAsync(string $contentType = self::contentTypes['getFlagsHealth'][0])
+    public function postChannelPairingApproveAsync($approve_pairing_in, string $contentType = self::contentTypes['postChannelPairingApprove'][0])
     {
-        return $this->getFlagsHealthAsyncWithHttpInfo($contentType)
+        return $this->postChannelPairingApproveAsyncWithHttpInfo($approve_pairing_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1331,19 +1816,20 @@ class FlagsApi
     }
 
     /**
-     * Operation getFlagsHealthAsyncWithHttpInfo
+     * Operation postChannelPairingApproveAsyncWithHttpInfo
      *
-     * Health reports that the flag engine is serving.
+     * Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsHealth'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ApprovePairingIn $approve_pairing_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelPairingApprove'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFlagsHealthAsyncWithHttpInfo(string $contentType = self::contentTypes['getFlagsHealth'][0])
+    public function postChannelPairingApproveAsyncWithHttpInfo($approve_pairing_in, string $contentType = self::contentTypes['postChannelPairingApprove'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\HealthOut';
-        $request = $this->getFlagsHealthRequest($contentType);
+        $returnType = '\Hanzo\Cloud\Model\PairingApproved';
+        $request = $this->postChannelPairingApproveRequest($approve_pairing_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1382,282 +1868,26 @@ class FlagsApi
     }
 
     /**
-     * Create request for operation 'getFlagsHealth'
+     * Create request for operation 'postChannelPairingApprove'
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFlagsHealth'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getFlagsHealthRequest(string $contentType = self::contentTypes['getFlagsHealth'][0])
-    {
-
-
-        $resourcePath = '/v1/flags/health';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postFlags
-     *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
-     *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in evaluate_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlags'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return mixed
-     */
-    public function postFlags($evaluate_in, string $contentType = self::contentTypes['postFlags'][0])
-    {
-        list($response) = $this->postFlagsWithHttpInfo($evaluate_in, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation postFlagsWithHttpInfo
-     *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
-     *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlags'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function postFlagsWithHttpInfo($evaluate_in, string $contentType = self::contentTypes['postFlags'][0])
-    {
-        $request = $this->postFlagsRequest($evaluate_in, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        'mixed',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                'mixed',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        'mixed',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation postFlagsAsync
-     *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
-     *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlags'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postFlagsAsync($evaluate_in, string $contentType = self::contentTypes['postFlags'][0])
-    {
-        return $this->postFlagsAsyncWithHttpInfo($evaluate_in, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation postFlagsAsyncWithHttpInfo
-     *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
-     *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlags'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function postFlagsAsyncWithHttpInfo($evaluate_in, string $contentType = self::contentTypes['postFlags'][0])
-    {
-        $returnType = 'mixed';
-        $request = $this->postFlagsRequest($evaluate_in, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'postFlags'
-     *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlags'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ApprovePairingIn $approve_pairing_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelPairingApprove'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postFlagsRequest($evaluate_in, string $contentType = self::contentTypes['postFlags'][0])
+    public function postChannelPairingApproveRequest($approve_pairing_in, string $contentType = self::contentTypes['postChannelPairingApprove'][0])
     {
 
-        // verify the required parameter 'evaluate_in' is set
-        if ($evaluate_in === null || (is_array($evaluate_in) && count($evaluate_in) === 0)) {
+        // verify the required parameter 'approve_pairing_in' is set
+        if ($approve_pairing_in === null || (is_array($approve_pairing_in) && count($approve_pairing_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $evaluate_in when calling postFlags'
+                'Missing the required parameter $approve_pairing_in when calling postChannelPairingApprove'
             );
         }
 
 
-        $resourcePath = '/v1/flags';
+        $resourcePath = '/v1/channel/pairing/approve';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1675,12 +1905,12 @@ class FlagsApi
         );
 
         // for model (json/xml)
-        if (isset($evaluate_in)) {
+        if (isset($approve_pairing_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($evaluate_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($approve_pairing_in));
             } else {
-                $httpBody = $evaluate_in;
+                $httpBody = $approve_pairing_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1733,38 +1963,38 @@ class FlagsApi
     }
 
     /**
-     * Operation postFlagsDecide
+     * Operation putChannelAgent
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in evaluate_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlagsDecide'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put channel_agents_put (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelAgent'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return \Hanzo\Cloud\Model\ChannelAgents
      */
-    public function postFlagsDecide($evaluate_in, string $contentType = self::contentTypes['postFlagsDecide'][0])
+    public function putChannelAgent($channel_agents_put, string $contentType = self::contentTypes['putChannelAgent'][0])
     {
-        list($response) = $this->postFlagsDecideWithHttpInfo($evaluate_in, $contentType);
+        list($response) = $this->putChannelAgentWithHttpInfo($channel_agents_put, $contentType);
         return $response;
     }
 
     /**
-     * Operation postFlagsDecideWithHttpInfo
+     * Operation putChannelAgentWithHttpInfo
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlagsDecide'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelAgent'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of mixed, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\ChannelAgents, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postFlagsDecideWithHttpInfo($evaluate_in, string $contentType = self::contentTypes['postFlagsDecide'][0])
+    public function putChannelAgentWithHttpInfo($channel_agents_put, string $contentType = self::contentTypes['putChannelAgent'][0])
     {
-        $request = $this->postFlagsDecideRequest($evaluate_in, $contentType);
+        $request = $this->putChannelAgentRequest($channel_agents_put, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1792,7 +2022,7 @@ class FlagsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'mixed',
+                        '\Hanzo\Cloud\Model\ChannelAgents',
                         $request,
                         $response,
                     );
@@ -1814,7 +2044,7 @@ class FlagsApi
             }
 
             return $this->handleResponseWithDataType(
-                'mixed',
+                '\Hanzo\Cloud\Model\ChannelAgents',
                 $request,
                 $response,
             );
@@ -1823,7 +2053,7 @@ class FlagsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'mixed',
+                        '\Hanzo\Cloud\Model\ChannelAgents',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1836,19 +2066,19 @@ class FlagsApi
     }
 
     /**
-     * Operation postFlagsDecideAsync
+     * Operation putChannelAgentAsync
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlagsDecide'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFlagsDecideAsync($evaluate_in, string $contentType = self::contentTypes['postFlagsDecide'][0])
+    public function putChannelAgentAsync($channel_agents_put, string $contentType = self::contentTypes['putChannelAgent'][0])
     {
-        return $this->postFlagsDecideAsyncWithHttpInfo($evaluate_in, $contentType)
+        return $this->putChannelAgentAsyncWithHttpInfo($channel_agents_put, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1857,20 +2087,20 @@ class FlagsApi
     }
 
     /**
-     * Operation postFlagsDecideAsyncWithHttpInfo
+     * Operation putChannelAgentAsyncWithHttpInfo
      *
-     * Evaluate runs the caller&#39;s flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
+     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlagsDecide'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postFlagsDecideAsyncWithHttpInfo($evaluate_in, string $contentType = self::contentTypes['postFlagsDecide'][0])
+    public function putChannelAgentAsyncWithHttpInfo($channel_agents_put, string $contentType = self::contentTypes['putChannelAgent'][0])
     {
-        $returnType = 'mixed';
-        $request = $this->postFlagsDecideRequest($evaluate_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\ChannelAgents';
+        $request = $this->putChannelAgentRequest($channel_agents_put, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1909,26 +2139,26 @@ class FlagsApi
     }
 
     /**
-     * Create request for operation 'postFlagsDecide'
+     * Create request for operation 'putChannelAgent'
      *
-     * @param  \Hanzo\Cloud\Model\EvaluateIn $evaluate_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFlagsDecide'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelAgent'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postFlagsDecideRequest($evaluate_in, string $contentType = self::contentTypes['postFlagsDecide'][0])
+    public function putChannelAgentRequest($channel_agents_put, string $contentType = self::contentTypes['putChannelAgent'][0])
     {
 
-        // verify the required parameter 'evaluate_in' is set
-        if ($evaluate_in === null || (is_array($evaluate_in) && count($evaluate_in) === 0)) {
+        // verify the required parameter 'channel_agents_put' is set
+        if ($channel_agents_put === null || (is_array($channel_agents_put) && count($channel_agents_put) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $evaluate_in when calling postFlagsDecide'
+                'Missing the required parameter $channel_agents_put when calling putChannelAgent'
             );
         }
 
 
-        $resourcePath = '/v1/flags/decide';
+        $resourcePath = '/v1/channel/agent';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1946,12 +2176,12 @@ class FlagsApi
         );
 
         // for model (json/xml)
-        if (isset($evaluate_in)) {
+        if (isset($channel_agents_put)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($evaluate_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($channel_agents_put));
             } else {
-                $httpBody = $evaluate_in;
+                $httpBody = $channel_agents_put;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1996,7 +2226,7 @@ class FlagsApi
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
-            'POST',
+            'PUT',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -2004,40 +2234,38 @@ class FlagsApi
     }
 
     /**
-     * Operation putFlagsDefsByKey
+     * Operation putChannelAllowlist
      *
-     * Creates or replaces the flag definition at the path&#39;s key and returns the stored row.
+     * Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
      *
-     * @param  string $key Key is the flag key to write, from the path. (required)
-     * @param  mixed $body body (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagsDefsByKey'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\AllowlistPutIn $allowlist_put_in allowlist_put_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelAllowlist'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\DefRow
+     * @return \Hanzo\Cloud\Model\AllowlistView
      */
-    public function putFlagsDefsByKey($key, $body, string $contentType = self::contentTypes['putFlagsDefsByKey'][0])
+    public function putChannelAllowlist($allowlist_put_in, string $contentType = self::contentTypes['putChannelAllowlist'][0])
     {
-        list($response) = $this->putFlagsDefsByKeyWithHttpInfo($key, $body, $contentType);
+        list($response) = $this->putChannelAllowlistWithHttpInfo($allowlist_put_in, $contentType);
         return $response;
     }
 
     /**
-     * Operation putFlagsDefsByKeyWithHttpInfo
+     * Operation putChannelAllowlistWithHttpInfo
      *
-     * Creates or replaces the flag definition at the path&#39;s key and returns the stored row.
+     * Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
      *
-     * @param  string $key Key is the flag key to write, from the path. (required)
-     * @param  mixed $body (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagsDefsByKey'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\AllowlistPutIn $allowlist_put_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelAllowlist'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\DefRow, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\AllowlistView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putFlagsDefsByKeyWithHttpInfo($key, $body, string $contentType = self::contentTypes['putFlagsDefsByKey'][0])
+    public function putChannelAllowlistWithHttpInfo($allowlist_put_in, string $contentType = self::contentTypes['putChannelAllowlist'][0])
     {
-        $request = $this->putFlagsDefsByKeyRequest($key, $body, $contentType);
+        $request = $this->putChannelAllowlistRequest($allowlist_put_in, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2065,7 +2293,7 @@ class FlagsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\DefRow',
+                        '\Hanzo\Cloud\Model\AllowlistView',
                         $request,
                         $response,
                     );
@@ -2087,7 +2315,7 @@ class FlagsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\DefRow',
+                '\Hanzo\Cloud\Model\AllowlistView',
                 $request,
                 $response,
             );
@@ -2096,7 +2324,7 @@ class FlagsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\DefRow',
+                        '\Hanzo\Cloud\Model\AllowlistView',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2109,20 +2337,19 @@ class FlagsApi
     }
 
     /**
-     * Operation putFlagsDefsByKeyAsync
+     * Operation putChannelAllowlistAsync
      *
-     * Creates or replaces the flag definition at the path&#39;s key and returns the stored row.
+     * Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
      *
-     * @param  string $key Key is the flag key to write, from the path. (required)
-     * @param  mixed $body (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagsDefsByKey'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\AllowlistPutIn $allowlist_put_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putFlagsDefsByKeyAsync($key, $body, string $contentType = self::contentTypes['putFlagsDefsByKey'][0])
+    public function putChannelAllowlistAsync($allowlist_put_in, string $contentType = self::contentTypes['putChannelAllowlist'][0])
     {
-        return $this->putFlagsDefsByKeyAsyncWithHttpInfo($key, $body, $contentType)
+        return $this->putChannelAllowlistAsyncWithHttpInfo($allowlist_put_in, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2131,21 +2358,20 @@ class FlagsApi
     }
 
     /**
-     * Operation putFlagsDefsByKeyAsyncWithHttpInfo
+     * Operation putChannelAllowlistAsyncWithHttpInfo
      *
-     * Creates or replaces the flag definition at the path&#39;s key and returns the stored row.
+     * Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
      *
-     * @param  string $key Key is the flag key to write, from the path. (required)
-     * @param  mixed $body (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagsDefsByKey'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\AllowlistPutIn $allowlist_put_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putFlagsDefsByKeyAsyncWithHttpInfo($key, $body, string $contentType = self::contentTypes['putFlagsDefsByKey'][0])
+    public function putChannelAllowlistAsyncWithHttpInfo($allowlist_put_in, string $contentType = self::contentTypes['putChannelAllowlist'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\DefRow';
-        $request = $this->putFlagsDefsByKeyRequest($key, $body, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\AllowlistView';
+        $request = $this->putChannelAllowlistRequest($allowlist_put_in, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2184,34 +2410,26 @@ class FlagsApi
     }
 
     /**
-     * Create request for operation 'putFlagsDefsByKey'
+     * Create request for operation 'putChannelAllowlist'
      *
-     * @param  string $key Key is the flag key to write, from the path. (required)
-     * @param  mixed $body (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putFlagsDefsByKey'] to see the possible values for this operation
+     * @param  \Hanzo\Cloud\Model\AllowlistPutIn $allowlist_put_in (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelAllowlist'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putFlagsDefsByKeyRequest($key, $body, string $contentType = self::contentTypes['putFlagsDefsByKey'][0])
+    public function putChannelAllowlistRequest($allowlist_put_in, string $contentType = self::contentTypes['putChannelAllowlist'][0])
     {
 
-        // verify the required parameter 'key' is set
-        if ($key === null || (is_array($key) && count($key) === 0)) {
+        // verify the required parameter 'allowlist_put_in' is set
+        if ($allowlist_put_in === null || (is_array($allowlist_put_in) && count($allowlist_put_in) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $key when calling putFlagsDefsByKey'
-            );
-        }
-
-        // verify the required parameter 'body' is set
-        if ($body === null || (is_array($body) && count($body) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $body when calling putFlagsDefsByKey'
+                'Missing the required parameter $allowlist_put_in when calling putChannelAllowlist'
             );
         }
 
 
-        $resourcePath = '/v1/flags/defs/{key}';
+        $resourcePath = '/v1/channel/allowlist';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2220,14 +2438,6 @@ class FlagsApi
 
 
 
-        // path params
-        if ($key !== null) {
-            $resourcePath = str_replace(
-                '{' . 'key' . '}',
-                ObjectSerializer::toPathValue($key),
-                $resourcePath
-            );
-        }
 
 
         $headers = $this->headerSelector->selectHeaders(
@@ -2237,12 +2447,12 @@ class FlagsApi
         );
 
         // for model (json/xml)
-        if (isset($body)) {
+        if (isset($allowlist_put_in)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($body));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($allowlist_put_in));
             } else {
-                $httpBody = $body;
+                $httpBody = $allowlist_put_in;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {

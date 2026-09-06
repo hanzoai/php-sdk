@@ -1,6 +1,6 @@
 <?php
 /**
- * BotList
+ * ForgeLaunched
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * BotList Class Doc Comment
+ * ForgeLaunched Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class BotList implements ModelInterface, ArrayAccess, \JsonSerializable
+class ForgeLaunched implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class BotList implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'botList';
+    protected static $openAPIModelName = 'forgeLaunched';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,7 +57,10 @@ class BotList implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'bots' => '\Hanzo\Cloud\Model\BotView[]'
+        'job' => 'int',
+        'org' => 'string',
+        'repo' => 'string',
+        'runner' => 'string'
     ];
 
     /**
@@ -68,7 +71,10 @@ class BotList implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'bots' => null
+        'job' => null,
+        'org' => null,
+        'repo' => null,
+        'runner' => null
     ];
 
     /**
@@ -77,7 +83,10 @@ class BotList implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'bots' => false
+        'job' => false,
+        'org' => false,
+        'repo' => false,
+        'runner' => false
     ];
 
     /**
@@ -166,7 +175,10 @@ class BotList implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'bots' => 'bots'
+        'job' => 'job',
+        'org' => 'org',
+        'repo' => 'repo',
+        'runner' => 'runner'
     ];
 
     /**
@@ -175,7 +187,10 @@ class BotList implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'bots' => 'setBots'
+        'job' => 'setJob',
+        'org' => 'setOrg',
+        'repo' => 'setRepo',
+        'runner' => 'setRunner'
     ];
 
     /**
@@ -184,7 +199,10 @@ class BotList implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'bots' => 'getBots'
+        'job' => 'getJob',
+        'org' => 'getOrg',
+        'repo' => 'getRepo',
+        'runner' => 'getRunner'
     ];
 
     /**
@@ -244,7 +262,10 @@ class BotList implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('bots', $data ?? [], null);
+        $this->setIfExists('job', $data ?? [], null);
+        $this->setIfExists('org', $data ?? [], null);
+        $this->setIfExists('repo', $data ?? [], null);
+        $this->setIfExists('runner', $data ?? [], null);
     }
 
     /**
@@ -290,28 +311,109 @@ class BotList implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets bots
+     * Gets job
      *
-     * @return \Hanzo\Cloud\Model\BotView[]|null
+     * @return int|null
      */
-    public function getBots()
+    public function getJob()
     {
-        return $this->container['bots'];
+        return $this->container['job'];
     }
 
     /**
-     * Sets bots
+     * Sets job
      *
-     * @param \Hanzo\Cloud\Model\BotView[]|null $bots Bots is one row per kind=bot machine, each joined with its agent binding when it has one.
+     * @param int|null $job job
      *
      * @return self
      */
-    public function setBots($bots)
+    public function setJob($job)
     {
-        if (is_null($bots)) {
-            throw new \InvalidArgumentException('non-nullable bots cannot be null');
+        if (is_null($job)) {
+            throw new \InvalidArgumentException('non-nullable job cannot be null');
         }
-        $this->container['bots'] = $bots;
+        $this->container['job'] = $job;
+
+        return $this;
+    }
+
+    /**
+     * Gets org
+     *
+     * @return string|null
+     */
+    public function getOrg()
+    {
+        return $this->container['org'];
+    }
+
+    /**
+     * Sets org
+     *
+     * @param string|null $org org
+     *
+     * @return self
+     */
+    public function setOrg($org)
+    {
+        if (is_null($org)) {
+            throw new \InvalidArgumentException('non-nullable org cannot be null');
+        }
+        $this->container['org'] = $org;
+
+        return $this;
+    }
+
+    /**
+     * Gets repo
+     *
+     * @return string|null
+     */
+    public function getRepo()
+    {
+        return $this->container['repo'];
+    }
+
+    /**
+     * Sets repo
+     *
+     * @param string|null $repo repo
+     *
+     * @return self
+     */
+    public function setRepo($repo)
+    {
+        if (is_null($repo)) {
+            throw new \InvalidArgumentException('non-nullable repo cannot be null');
+        }
+        $this->container['repo'] = $repo;
+
+        return $this;
+    }
+
+    /**
+     * Gets runner
+     *
+     * @return string|null
+     */
+    public function getRunner()
+    {
+        return $this->container['runner'];
+    }
+
+    /**
+     * Sets runner
+     *
+     * @param string|null $runner runner
+     *
+     * @return self
+     */
+    public function setRunner($runner)
+    {
+        if (is_null($runner)) {
+            throw new \InvalidArgumentException('non-nullable runner cannot be null');
+        }
+        $this->container['runner'] = $runner;
 
         return $this;
     }

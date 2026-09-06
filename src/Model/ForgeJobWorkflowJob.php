@@ -1,6 +1,6 @@
 <?php
 /**
- * PushPusher
+ * ForgeJobWorkflowJob
  *
  * PHP version 8.1
  *
@@ -32,7 +32,7 @@ use \ArrayAccess;
 use \Hanzo\Cloud\ObjectSerializer;
 
 /**
- * PushPusher Class Doc Comment
+ * ForgeJobWorkflowJob Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
@@ -40,7 +40,7 @@ use \Hanzo\Cloud\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class PushPusher implements ModelInterface, ArrayAccess, \JsonSerializable
+class ForgeJobWorkflowJob implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class PushPusher implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'push_pusher';
+    protected static $openAPIModelName = 'forgeJob_workflow_job';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,8 +57,10 @@ class PushPusher implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'login' => 'string',
-        'username' => 'string'
+        'id' => 'int',
+        'labels' => 'string[]',
+        'name' => 'string',
+        'run_id' => 'int'
     ];
 
     /**
@@ -69,8 +71,10 @@ class PushPusher implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'login' => null,
-        'username' => null
+        'id' => null,
+        'labels' => null,
+        'name' => null,
+        'run_id' => null
     ];
 
     /**
@@ -79,8 +83,10 @@ class PushPusher implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'login' => false,
-        'username' => false
+        'id' => false,
+        'labels' => false,
+        'name' => false,
+        'run_id' => false
     ];
 
     /**
@@ -169,8 +175,10 @@ class PushPusher implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'login' => 'login',
-        'username' => 'username'
+        'id' => 'id',
+        'labels' => 'labels',
+        'name' => 'name',
+        'run_id' => 'run_id'
     ];
 
     /**
@@ -179,8 +187,10 @@ class PushPusher implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'login' => 'setLogin',
-        'username' => 'setUsername'
+        'id' => 'setId',
+        'labels' => 'setLabels',
+        'name' => 'setName',
+        'run_id' => 'setRunId'
     ];
 
     /**
@@ -189,8 +199,10 @@ class PushPusher implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'login' => 'getLogin',
-        'username' => 'getUsername'
+        'id' => 'getId',
+        'labels' => 'getLabels',
+        'name' => 'getName',
+        'run_id' => 'getRunId'
     ];
 
     /**
@@ -250,8 +262,10 @@ class PushPusher implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('login', $data ?? [], null);
-        $this->setIfExists('username', $data ?? [], null);
+        $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('labels', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
+        $this->setIfExists('run_id', $data ?? [], null);
     }
 
     /**
@@ -297,55 +311,109 @@ class PushPusher implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets login
+     * Gets id
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getLogin()
+    public function getId()
     {
-        return $this->container['login'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets login
+     * Sets id
      *
-     * @param string|null $login login
+     * @param int|null $id id
      *
      * @return self
      */
-    public function setLogin($login)
+    public function setId($id)
     {
-        if (is_null($login)) {
-            throw new \InvalidArgumentException('non-nullable login cannot be null');
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
-        $this->container['login'] = $login;
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets username
+     * Gets labels
      *
-     * @return string|null
+     * @return string[]|null
      */
-    public function getUsername()
+    public function getLabels()
     {
-        return $this->container['username'];
+        return $this->container['labels'];
     }
 
     /**
-     * Sets username
+     * Sets labels
      *
-     * @param string|null $username username
+     * @param string[]|null $labels labels
      *
      * @return self
      */
-    public function setUsername($username)
+    public function setLabels($labels)
     {
-        if (is_null($username)) {
-            throw new \InvalidArgumentException('non-nullable username cannot be null');
+        if (is_null($labels)) {
+            throw new \InvalidArgumentException('non-nullable labels cannot be null');
         }
-        $this->container['username'] = $username;
+        $this->container['labels'] = $labels;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return string|null
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param string|null $name name
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
+        }
+        $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets run_id
+     *
+     * @return int|null
+     */
+    public function getRunId()
+    {
+        return $this->container['run_id'];
+    }
+
+    /**
+     * Sets run_id
+     *
+     * @param int|null $run_id run_id
+     *
+     * @return self
+     */
+    public function setRunId($run_id)
+    {
+        if (is_null($run_id)) {
+            throw new \InvalidArgumentException('non-nullable run_id cannot be null');
+        }
+        $this->container['run_id'] = $run_id;
 
         return $this;
     }

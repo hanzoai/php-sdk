@@ -49,7 +49,7 @@ class Verdict implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'verdict';
+    protected static $openAPIModelName = 'Verdict';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,13 +57,8 @@ class Verdict implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'builds' => 'int',
-        'commit' => 'string',
-        'fired' => 'bool',
-        'org' => 'string',
-        'reason' => 'string',
-        'ref' => 'string',
-        'repo' => 'string'
+        'flags' => '\Hanzo\Cloud\Model\DriftFlag[]',
+        'severity' => 'string'
     ];
 
     /**
@@ -74,13 +69,8 @@ class Verdict implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'builds' => null,
-        'commit' => null,
-        'fired' => null,
-        'org' => null,
-        'reason' => null,
-        'ref' => null,
-        'repo' => null
+        'flags' => null,
+        'severity' => null
     ];
 
     /**
@@ -89,13 +79,8 @@ class Verdict implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'builds' => false,
-        'commit' => false,
-        'fired' => false,
-        'org' => false,
-        'reason' => false,
-        'ref' => false,
-        'repo' => false
+        'flags' => false,
+        'severity' => false
     ];
 
     /**
@@ -184,13 +169,8 @@ class Verdict implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'builds' => 'builds',
-        'commit' => 'commit',
-        'fired' => 'fired',
-        'org' => 'org',
-        'reason' => 'reason',
-        'ref' => 'ref',
-        'repo' => 'repo'
+        'flags' => 'flags',
+        'severity' => 'severity'
     ];
 
     /**
@@ -199,13 +179,8 @@ class Verdict implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'builds' => 'setBuilds',
-        'commit' => 'setCommit',
-        'fired' => 'setFired',
-        'org' => 'setOrg',
-        'reason' => 'setReason',
-        'ref' => 'setRef',
-        'repo' => 'setRepo'
+        'flags' => 'setFlags',
+        'severity' => 'setSeverity'
     ];
 
     /**
@@ -214,13 +189,8 @@ class Verdict implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'builds' => 'getBuilds',
-        'commit' => 'getCommit',
-        'fired' => 'getFired',
-        'org' => 'getOrg',
-        'reason' => 'getReason',
-        'ref' => 'getRef',
-        'repo' => 'getRepo'
+        'flags' => 'getFlags',
+        'severity' => 'getSeverity'
     ];
 
     /**
@@ -280,13 +250,8 @@ class Verdict implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('builds', $data ?? [], null);
-        $this->setIfExists('commit', $data ?? [], null);
-        $this->setIfExists('fired', $data ?? [], null);
-        $this->setIfExists('org', $data ?? [], null);
-        $this->setIfExists('reason', $data ?? [], null);
-        $this->setIfExists('ref', $data ?? [], null);
-        $this->setIfExists('repo', $data ?? [], null);
+        $this->setIfExists('flags', $data ?? [], null);
+        $this->setIfExists('severity', $data ?? [], null);
     }
 
     /**
@@ -332,190 +297,55 @@ class Verdict implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets builds
+     * Gets flags
      *
-     * @return int|null
+     * @return \Hanzo\Cloud\Model\DriftFlag[]|null
      */
-    public function getBuilds()
+    public function getFlags()
     {
-        return $this->container['builds'];
+        return $this->container['flags'];
     }
 
     /**
-     * Sets builds
+     * Sets flags
      *
-     * @param int|null $builds builds
+     * @param \Hanzo\Cloud\Model\DriftFlag[]|null $flags Flags are the findings behind the severity, in detection order: floating-declared, floating-running, stale, un-rolled, then the release-artifact ones. Always present — `[]` for a row that runs what it declares, never null.
      *
      * @return self
      */
-    public function setBuilds($builds)
+    public function setFlags($flags)
     {
-        if (is_null($builds)) {
-            throw new \InvalidArgumentException('non-nullable builds cannot be null');
+        if (is_null($flags)) {
+            throw new \InvalidArgumentException('non-nullable flags cannot be null');
         }
-        $this->container['builds'] = $builds;
+        $this->container['flags'] = $flags;
 
         return $this;
     }
 
     /**
-     * Gets commit
+     * Gets severity
      *
      * @return string|null
      */
-    public function getCommit()
+    public function getSeverity()
     {
-        return $this->container['commit'];
+        return $this->container['severity'];
     }
 
     /**
-     * Sets commit
+     * Sets severity
      *
-     * @param string|null $commit commit
+     * @param string|null $severity Severity is the roll-up over Flags — red if any flag is red, else yellow if any is yellow, else ok. It is the column a board sorts and filters on, and \"ok\" is exactly what no flags means.
      *
      * @return self
      */
-    public function setCommit($commit)
+    public function setSeverity($severity)
     {
-        if (is_null($commit)) {
-            throw new \InvalidArgumentException('non-nullable commit cannot be null');
+        if (is_null($severity)) {
+            throw new \InvalidArgumentException('non-nullable severity cannot be null');
         }
-        $this->container['commit'] = $commit;
-
-        return $this;
-    }
-
-    /**
-     * Gets fired
-     *
-     * @return bool|null
-     */
-    public function getFired()
-    {
-        return $this->container['fired'];
-    }
-
-    /**
-     * Sets fired
-     *
-     * @param bool|null $fired fired
-     *
-     * @return self
-     */
-    public function setFired($fired)
-    {
-        if (is_null($fired)) {
-            throw new \InvalidArgumentException('non-nullable fired cannot be null');
-        }
-        $this->container['fired'] = $fired;
-
-        return $this;
-    }
-
-    /**
-     * Gets org
-     *
-     * @return string|null
-     */
-    public function getOrg()
-    {
-        return $this->container['org'];
-    }
-
-    /**
-     * Sets org
-     *
-     * @param string|null $org org
-     *
-     * @return self
-     */
-    public function setOrg($org)
-    {
-        if (is_null($org)) {
-            throw new \InvalidArgumentException('non-nullable org cannot be null');
-        }
-        $this->container['org'] = $org;
-
-        return $this;
-    }
-
-    /**
-     * Gets reason
-     *
-     * @return string|null
-     */
-    public function getReason()
-    {
-        return $this->container['reason'];
-    }
-
-    /**
-     * Sets reason
-     *
-     * @param string|null $reason reason
-     *
-     * @return self
-     */
-    public function setReason($reason)
-    {
-        if (is_null($reason)) {
-            throw new \InvalidArgumentException('non-nullable reason cannot be null');
-        }
-        $this->container['reason'] = $reason;
-
-        return $this;
-    }
-
-    /**
-     * Gets ref
-     *
-     * @return string|null
-     */
-    public function getRef()
-    {
-        return $this->container['ref'];
-    }
-
-    /**
-     * Sets ref
-     *
-     * @param string|null $ref ref
-     *
-     * @return self
-     */
-    public function setRef($ref)
-    {
-        if (is_null($ref)) {
-            throw new \InvalidArgumentException('non-nullable ref cannot be null');
-        }
-        $this->container['ref'] = $ref;
-
-        return $this;
-    }
-
-    /**
-     * Gets repo
-     *
-     * @return string|null
-     */
-    public function getRepo()
-    {
-        return $this->container['repo'];
-    }
-
-    /**
-     * Sets repo
-     *
-     * @param string|null $repo repo
-     *
-     * @return self
-     */
-    public function setRepo($repo)
-    {
-        if (is_null($repo)) {
-            throw new \InvalidArgumentException('non-nullable repo cannot be null');
-        }
-        $this->container['repo'] = $repo;
+        $this->container['severity'] = $severity;
 
         return $this;
     }

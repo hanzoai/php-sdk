@@ -58,13 +58,13 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
       */
     protected static $openAPITypes = [
         'account_id' => 'string',
-        'cloud_account_id' => 'string',
         'cloud_integration_id' => 'string',
-        'integration_config_legacy' => '\Hanzo\Cloud\Model\O11yIntegrationConfig',
+        'cloud_account_id' => 'string',
         'integration_config' => '\Hanzo\Cloud\Model\O11yProviderIntegrationConfig',
+        'integration_config_legacy' => '\Hanzo\Cloud\Model\O11yIntegrationConfig',
         'provider_account_id' => 'string',
-        'removed_at_legacy' => '\DateTime',
-        'removed_at' => '\DateTime'
+        'removed_at' => '\DateTime',
+        'removed_at_legacy' => '\DateTime'
     ];
 
     /**
@@ -76,13 +76,13 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
       */
     protected static $openAPIFormats = [
         'account_id' => null,
-        'cloud_account_id' => null,
         'cloud_integration_id' => null,
-        'integration_config_legacy' => null,
+        'cloud_account_id' => null,
         'integration_config' => null,
+        'integration_config_legacy' => null,
         'provider_account_id' => null,
-        'removed_at_legacy' => 'date-time',
-        'removed_at' => 'date-time'
+        'removed_at' => 'date-time',
+        'removed_at_legacy' => 'date-time'
     ];
 
     /**
@@ -92,13 +92,13 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
       */
     protected static array $openAPINullables = [
         'account_id' => false,
-        'cloud_account_id' => false,
         'cloud_integration_id' => false,
-        'integration_config_legacy' => false,
+        'cloud_account_id' => false,
         'integration_config' => false,
+        'integration_config_legacy' => false,
         'provider_account_id' => false,
-        'removed_at_legacy' => false,
-        'removed_at' => false
+        'removed_at' => false,
+        'removed_at_legacy' => false
     ];
 
     /**
@@ -188,13 +188,13 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static $attributeMap = [
         'account_id' => 'account_id',
-        'cloud_account_id' => 'cloud_account_id',
         'cloud_integration_id' => 'cloudIntegrationId',
-        'integration_config_legacy' => 'integration_config',
+        'cloud_account_id' => 'cloud_account_id',
         'integration_config' => 'integrationConfig',
+        'integration_config_legacy' => 'integration_config',
         'provider_account_id' => 'providerAccountId',
-        'removed_at_legacy' => 'removed_at',
-        'removed_at' => 'removedAt'
+        'removed_at' => 'removedAt',
+        'removed_at_legacy' => 'removed_at'
     ];
 
     /**
@@ -204,13 +204,13 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static $setters = [
         'account_id' => 'setAccountId',
-        'cloud_account_id' => 'setCloudAccountId',
         'cloud_integration_id' => 'setCloudIntegrationId',
-        'integration_config_legacy' => 'setIntegrationConfigLegacy',
+        'cloud_account_id' => 'setCloudAccountId',
         'integration_config' => 'setIntegrationConfig',
+        'integration_config_legacy' => 'setIntegrationConfigLegacy',
         'provider_account_id' => 'setProviderAccountId',
-        'removed_at_legacy' => 'setRemovedAtLegacy',
-        'removed_at' => 'setRemovedAt'
+        'removed_at' => 'setRemovedAt',
+        'removed_at_legacy' => 'setRemovedAtLegacy'
     ];
 
     /**
@@ -220,13 +220,13 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static $getters = [
         'account_id' => 'getAccountId',
-        'cloud_account_id' => 'getCloudAccountId',
         'cloud_integration_id' => 'getCloudIntegrationId',
-        'integration_config_legacy' => 'getIntegrationConfigLegacy',
+        'cloud_account_id' => 'getCloudAccountId',
         'integration_config' => 'getIntegrationConfig',
+        'integration_config_legacy' => 'getIntegrationConfigLegacy',
         'provider_account_id' => 'getProviderAccountId',
-        'removed_at_legacy' => 'getRemovedAtLegacy',
-        'removed_at' => 'getRemovedAt'
+        'removed_at' => 'getRemovedAt',
+        'removed_at_legacy' => 'getRemovedAtLegacy'
     ];
 
     /**
@@ -287,13 +287,13 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
     public function __construct(?array $data = null)
     {
         $this->setIfExists('account_id', $data ?? [], null);
-        $this->setIfExists('cloud_account_id', $data ?? [], null);
         $this->setIfExists('cloud_integration_id', $data ?? [], null);
-        $this->setIfExists('integration_config_legacy', $data ?? [], null);
+        $this->setIfExists('cloud_account_id', $data ?? [], null);
         $this->setIfExists('integration_config', $data ?? [], null);
+        $this->setIfExists('integration_config_legacy', $data ?? [], null);
         $this->setIfExists('provider_account_id', $data ?? [], null);
-        $this->setIfExists('removed_at_legacy', $data ?? [], null);
         $this->setIfExists('removed_at', $data ?? [], null);
+        $this->setIfExists('removed_at_legacy', $data ?? [], null);
     }
 
     /**
@@ -366,33 +366,6 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
     }
 
     /**
-     * Gets cloud_account_id
-     *
-     * @return string|null
-     */
-    public function getCloudAccountId()
-    {
-        return $this->container['cloud_account_id'];
-    }
-
-    /**
-     * Sets cloud_account_id
-     *
-     * @param string|null $cloud_account_id cloud_account_id
-     *
-     * @return self
-     */
-    public function setCloudAccountId($cloud_account_id)
-    {
-        if (is_null($cloud_account_id)) {
-            throw new \InvalidArgumentException('non-nullable cloud_account_id cannot be null');
-        }
-        $this->container['cloud_account_id'] = $cloud_account_id;
-
-        return $this;
-    }
-
-    /**
      * Gets cloud_integration_id
      *
      * @return string|null
@@ -420,28 +393,28 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
     }
 
     /**
-     * Gets integration_config_legacy
+     * Gets cloud_account_id
      *
-     * @return \Hanzo\Cloud\Model\O11yIntegrationConfig|null
+     * @return string|null
      */
-    public function getIntegrationConfigLegacy()
+    public function getCloudAccountId()
     {
-        return $this->container['integration_config_legacy'];
+        return $this->container['cloud_account_id'];
     }
 
     /**
-     * Sets integration_config_legacy
+     * Sets cloud_account_id
      *
-     * @param \Hanzo\Cloud\Model\O11yIntegrationConfig|null $integration_config_legacy integration_config_legacy
+     * @param string|null $cloud_account_id cloud_account_id
      *
      * @return self
      */
-    public function setIntegrationConfigLegacy($integration_config_legacy)
+    public function setCloudAccountId($cloud_account_id)
     {
-        if (is_null($integration_config_legacy)) {
-            throw new \InvalidArgumentException('non-nullable integration_config_legacy cannot be null');
+        if (is_null($cloud_account_id)) {
+            throw new \InvalidArgumentException('non-nullable cloud_account_id cannot be null');
         }
-        $this->container['integration_config_legacy'] = $integration_config_legacy;
+        $this->container['cloud_account_id'] = $cloud_account_id;
 
         return $this;
     }
@@ -474,6 +447,33 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
     }
 
     /**
+     * Gets integration_config_legacy
+     *
+     * @return \Hanzo\Cloud\Model\O11yIntegrationConfig|null
+     */
+    public function getIntegrationConfigLegacy()
+    {
+        return $this->container['integration_config_legacy'];
+    }
+
+    /**
+     * Sets integration_config_legacy
+     *
+     * @param \Hanzo\Cloud\Model\O11yIntegrationConfig|null $integration_config_legacy integration_config_legacy
+     *
+     * @return self
+     */
+    public function setIntegrationConfigLegacy($integration_config_legacy)
+    {
+        if (is_null($integration_config_legacy)) {
+            throw new \InvalidArgumentException('non-nullable integration_config_legacy cannot be null');
+        }
+        $this->container['integration_config_legacy'] = $integration_config_legacy;
+
+        return $this;
+    }
+
+    /**
      * Gets provider_account_id
      *
      * @return string|null
@@ -501,33 +501,6 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
     }
 
     /**
-     * Gets removed_at_legacy
-     *
-     * @return \DateTime|null
-     */
-    public function getRemovedAtLegacy()
-    {
-        return $this->container['removed_at_legacy'];
-    }
-
-    /**
-     * Sets removed_at_legacy
-     *
-     * @param \DateTime|null $removed_at_legacy removed_at_legacy
-     *
-     * @return self
-     */
-    public function setRemovedAtLegacy($removed_at_legacy)
-    {
-        if (is_null($removed_at_legacy)) {
-            throw new \InvalidArgumentException('non-nullable removed_at_legacy cannot be null');
-        }
-        $this->container['removed_at_legacy'] = $removed_at_legacy;
-
-        return $this;
-    }
-
-    /**
      * Gets removed_at
      *
      * @return \DateTime|null
@@ -550,6 +523,33 @@ class O11yGettableAgentCheckIn implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable removed_at cannot be null');
         }
         $this->container['removed_at'] = $removed_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets removed_at_legacy
+     *
+     * @return \DateTime|null
+     */
+    public function getRemovedAtLegacy()
+    {
+        return $this->container['removed_at_legacy'];
+    }
+
+    /**
+     * Sets removed_at_legacy
+     *
+     * @param \DateTime|null $removed_at_legacy removed_at_legacy
+     *
+     * @return self
+     */
+    public function setRemovedAtLegacy($removed_at_legacy)
+    {
+        if (is_null($removed_at_legacy)) {
+            throw new \InvalidArgumentException('non-nullable removed_at_legacy cannot be null');
+        }
+        $this->container['removed_at_legacy'] = $removed_at_legacy;
 
         return $this;
     }

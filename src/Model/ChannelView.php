@@ -486,7 +486,7 @@ class ChannelView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets group_policy
      *
-     * @param string|null $group_policy GroupPolicy is how this org admits group and thread rooms here: \"open\", \"allowlist\" or \"disabled\", defaulting to \"open\". Both policy fields come back EMPTY — rather than the listing failing — when the policy cannot be read; GET /v1/channels/allowlist carries the same two with the entries they consult.
+     * @param string|null $group_policy GroupPolicy is how this org admits group and thread rooms here: \"open\", \"allowlist\" or \"disabled\", defaulting to \"open\". Both policy fields come back EMPTY — rather than the listing failing — when the policy cannot be read; GET /v1/channel/allowlist carries the same two with the entries they consult.
      *
      * @return self
      */
@@ -540,7 +540,7 @@ class ChannelView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets pending_pairing
      *
-     * @param int|null $pending_pairing PendingPairing counts the org's UNEXPIRED pairing requests on this channel: exactly the rows GET /v1/channels/pairing returns for it, one per person waiting on an admin. It never exceeds three — the pending cap per (org, channel) — and expired requests are not counted.
+     * @param int|null $pending_pairing PendingPairing counts the org's UNEXPIRED pairing requests on this channel: exactly the rows GET /v1/channel/pairing returns for it, one per person waiting on an admin. It never exceeds three — the pending cap per (org, channel) — and expired requests are not counted.
      *
      * @return self
      */

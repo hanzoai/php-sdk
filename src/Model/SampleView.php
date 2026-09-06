@@ -66,8 +66,8 @@ class SampleView implements ModelInterface, ArrayAccess, \JsonSerializable
         'host' => 'string',
         'kind' => 'string',
         'load1' => 'float',
-        'load5' => 'float',
         'load15' => 'float',
+        'load5' => 'float',
         'mem_free' => 'int',
         'mem_used' => 'int',
         'memory' => 'int',
@@ -92,8 +92,8 @@ class SampleView implements ModelInterface, ArrayAccess, \JsonSerializable
         'host' => null,
         'kind' => null,
         'load1' => 'double',
-        'load5' => 'double',
         'load15' => 'double',
+        'load5' => 'double',
         'mem_free' => 'int64',
         'mem_used' => 'int64',
         'memory' => 'int64',
@@ -116,8 +116,8 @@ class SampleView implements ModelInterface, ArrayAccess, \JsonSerializable
         'host' => false,
         'kind' => false,
         'load1' => false,
-        'load5' => false,
         'load15' => false,
+        'load5' => false,
         'mem_free' => false,
         'mem_used' => false,
         'memory' => false,
@@ -220,8 +220,8 @@ class SampleView implements ModelInterface, ArrayAccess, \JsonSerializable
         'host' => 'host',
         'kind' => 'kind',
         'load1' => 'load1',
-        'load5' => 'load5',
         'load15' => 'load15',
+        'load5' => 'load5',
         'mem_free' => 'memFree',
         'mem_used' => 'memUsed',
         'memory' => 'memory',
@@ -244,8 +244,8 @@ class SampleView implements ModelInterface, ArrayAccess, \JsonSerializable
         'host' => 'setHost',
         'kind' => 'setKind',
         'load1' => 'setLoad1',
-        'load5' => 'setLoad5',
         'load15' => 'setLoad15',
+        'load5' => 'setLoad5',
         'mem_free' => 'setMemFree',
         'mem_used' => 'setMemUsed',
         'memory' => 'setMemory',
@@ -268,8 +268,8 @@ class SampleView implements ModelInterface, ArrayAccess, \JsonSerializable
         'host' => 'getHost',
         'kind' => 'getKind',
         'load1' => 'getLoad1',
-        'load5' => 'getLoad5',
         'load15' => 'getLoad15',
+        'load5' => 'getLoad5',
         'mem_free' => 'getMemFree',
         'mem_used' => 'getMemUsed',
         'memory' => 'getMemory',
@@ -343,8 +343,8 @@ class SampleView implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('host', $data ?? [], null);
         $this->setIfExists('kind', $data ?? [], null);
         $this->setIfExists('load1', $data ?? [], null);
-        $this->setIfExists('load5', $data ?? [], null);
         $this->setIfExists('load15', $data ?? [], null);
+        $this->setIfExists('load5', $data ?? [], null);
         $this->setIfExists('mem_free', $data ?? [], null);
         $this->setIfExists('mem_used', $data ?? [], null);
         $this->setIfExists('memory', $data ?? [], null);
@@ -638,33 +638,6 @@ class SampleView implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets load5
-     *
-     * @return float|null
-     */
-    public function getLoad5()
-    {
-        return $this->container['load5'];
-    }
-
-    /**
-     * Sets load5
-     *
-     * @param float|null $load5 Load5 is the 5-minute load average, the same units as Load1.
-     *
-     * @return self
-     */
-    public function setLoad5($load5)
-    {
-        if (is_null($load5)) {
-            throw new \InvalidArgumentException('non-nullable load5 cannot be null');
-        }
-        $this->container['load5'] = $load5;
-
-        return $this;
-    }
-
-    /**
      * Gets load15
      *
      * @return float|null
@@ -687,6 +660,33 @@ class SampleView implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable load15 cannot be null');
         }
         $this->container['load15'] = $load15;
+
+        return $this;
+    }
+
+    /**
+     * Gets load5
+     *
+     * @return float|null
+     */
+    public function getLoad5()
+    {
+        return $this->container['load5'];
+    }
+
+    /**
+     * Sets load5
+     *
+     * @param float|null $load5 Load5 is the 5-minute load average, the same units as Load1.
+     *
+     * @return self
+     */
+    public function setLoad5($load5)
+    {
+        if (is_null($load5)) {
+            throw new \InvalidArgumentException('non-nullable load5 cannot be null');
+        }
+        $this->container['load5'] = $load5;
 
         return $this;
     }

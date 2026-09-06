@@ -1,6 +1,6 @@
 <?php
 /**
- * ChannelsApi
+ * FunctionApi
  * PHP version 8.1
  *
  * @category Class
@@ -43,14 +43,14 @@ use Hanzo\Cloud\HeaderSelector;
 use Hanzo\Cloud\ObjectSerializer;
 
 /**
- * ChannelsApi Class Doc Comment
+ * FunctionApi Class Doc Comment
  *
  * @category Class
  * @package  Hanzo\Cloud
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class ChannelsApi
+class FunctionApi
 {
     /**
      * @var ClientInterface
@@ -74,31 +74,37 @@ class ChannelsApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
-        'getChannels' => [
+        'deleteFunctionByName' => [
             'application/json',
         ],
-        'getChannelsAgent' => [
+        'getFunction' => [
             'application/json',
         ],
-        'getChannelsAllowlist' => [
+        'getFunctionByName' => [
             'application/json',
         ],
-        'getChannelsInbox' => [
+        'getFunctionByNameInvocations' => [
             'application/json',
         ],
-        'getChannelsPairing' => [
+        'getFunctionByNameLogs' => [
             'application/json',
         ],
-        'postChannelsByChannelSend' => [
+        'getFunctionDeployments' => [
             'application/json',
         ],
-        'postChannelsPairingApprove' => [
+        'getFunctionMetrics' => [
             'application/json',
         ],
-        'putChannelsAgent' => [
+        'getFunctionSecrets' => [
             'application/json',
         ],
-        'putChannelsAllowlist' => [
+        'getFunctionTriggers' => [
+            'application/json',
+        ],
+        'postFunction' => [
+            'application/json',
+        ],
+        'postFunctionByNameInvoke' => [
             'application/json',
         ],
     ];
@@ -150,1357 +156,37 @@ class ChannelsApi
     }
 
     /**
-     * Operation getChannels
+     * Operation deleteFunctionByName
      *
-     * Reports every chat channel this org can send through, and whether it can send through it right now.
+     * Removes one of the caller org&#39;s functions and answers 204.
      *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannels'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ChatChannels
-     */
-    public function getChannels(string $contentType = self::contentTypes['getChannels'][0])
-    {
-        list($response) = $this->getChannelsWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getChannelsWithHttpInfo
-     *
-     * Reports every chat channel this org can send through, and whether it can send through it right now.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannels'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ChatChannels, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getChannelsWithHttpInfo(string $contentType = self::contentTypes['getChannels'][0])
-    {
-        $request = $this->getChannelsRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ChatChannels',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ChatChannels',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ChatChannels',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getChannelsAsync
-     *
-     * Reports every chat channel this org can send through, and whether it can send through it right now.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannels'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getChannelsAsync(string $contentType = self::contentTypes['getChannels'][0])
-    {
-        return $this->getChannelsAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getChannelsAsyncWithHttpInfo
-     *
-     * Reports every chat channel this org can send through, and whether it can send through it right now.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannels'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getChannelsAsyncWithHttpInfo(string $contentType = self::contentTypes['getChannels'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\ChatChannels';
-        $request = $this->getChannelsRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getChannels'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannels'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getChannelsRequest(string $contentType = self::contentTypes['getChannels'][0])
-    {
-
-
-        $resourcePath = '/v1/channels';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getChannelsAgent
-     *
-     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
-     *
-     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAgent'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ChannelAgents
-     */
-    public function getChannelsAgent($channel = null, string $contentType = self::contentTypes['getChannelsAgent'][0])
-    {
-        list($response) = $this->getChannelsAgentWithHttpInfo($channel, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getChannelsAgentWithHttpInfo
-     *
-     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
-     *
-     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAgent'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ChannelAgents, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getChannelsAgentWithHttpInfo($channel = null, string $contentType = self::contentTypes['getChannelsAgent'][0])
-    {
-        $request = $this->getChannelsAgentRequest($channel, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ChannelAgents',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ChannelAgents',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ChannelAgents',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getChannelsAgentAsync
-     *
-     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
-     *
-     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAgent'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getChannelsAgentAsync($channel = null, string $contentType = self::contentTypes['getChannelsAgent'][0])
-    {
-        return $this->getChannelsAgentAsyncWithHttpInfo($channel, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getChannelsAgentAsyncWithHttpInfo
-     *
-     * Returns which agent answers the caller org&#39;s channel: the default and every room bound to another agent.
-     *
-     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAgent'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getChannelsAgentAsyncWithHttpInfo($channel = null, string $contentType = self::contentTypes['getChannelsAgent'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\ChannelAgents';
-        $request = $this->getChannelsAgentRequest($channel, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getChannelsAgent'
-     *
-     * @param  string|null $channel Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAgent'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getChannelsAgentRequest($channel = null, string $contentType = self::contentTypes['getChannelsAgent'][0])
-    {
-
-
-
-        $resourcePath = '/v1/channels/agent';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $channel,
-            'channel', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getChannelsAllowlist
-     *
-     * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
-     *
-     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AllowlistView
-     */
-    public function getChannelsAllowlist($channel = null, string $contentType = self::contentTypes['getChannelsAllowlist'][0])
-    {
-        list($response) = $this->getChannelsAllowlistWithHttpInfo($channel, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getChannelsAllowlistWithHttpInfo
-     *
-     * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
-     *
-     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AllowlistView, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getChannelsAllowlistWithHttpInfo($channel = null, string $contentType = self::contentTypes['getChannelsAllowlist'][0])
-    {
-        $request = $this->getChannelsAllowlistRequest($channel, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AllowlistView',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AllowlistView',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AllowlistView',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getChannelsAllowlistAsync
-     *
-     * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
-     *
-     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getChannelsAllowlistAsync($channel = null, string $contentType = self::contentTypes['getChannelsAllowlist'][0])
-    {
-        return $this->getChannelsAllowlistAsyncWithHttpInfo($channel, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getChannelsAllowlistAsyncWithHttpInfo
-     *
-     * Returns the caller org&#39;s access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org&#39;s named access groups.
-     *
-     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getChannelsAllowlistAsyncWithHttpInfo($channel = null, string $contentType = self::contentTypes['getChannelsAllowlist'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\AllowlistView';
-        $request = $this->getChannelsAllowlistRequest($channel, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getChannelsAllowlist'
-     *
-     * @param  string|null $channel Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsAllowlist'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getChannelsAllowlistRequest($channel = null, string $contentType = self::contentTypes['getChannelsAllowlist'][0])
-    {
-
-
-
-        $resourcePath = '/v1/channels/allowlist';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $channel,
-            'channel', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getChannelsInbox
-     *
-     * Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
-     *
-     * @param  string|null $since Since is the exclusive cursor: only messages with a higher row id come back. Empty starts at the beginning. Must parse as an integer. (optional)
-     * @param  string|null $limit Limit caps how many messages come back. Empty or 0 uses the store&#39;s default page size. Must parse as an integer. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsInbox'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\InboxPage
-     */
-    public function getChannelsInbox($since = null, $limit = null, string $contentType = self::contentTypes['getChannelsInbox'][0])
-    {
-        list($response) = $this->getChannelsInboxWithHttpInfo($since, $limit, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getChannelsInboxWithHttpInfo
-     *
-     * Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
-     *
-     * @param  string|null $since Since is the exclusive cursor: only messages with a higher row id come back. Empty starts at the beginning. Must parse as an integer. (optional)
-     * @param  string|null $limit Limit caps how many messages come back. Empty or 0 uses the store&#39;s default page size. Must parse as an integer. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsInbox'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\InboxPage, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getChannelsInboxWithHttpInfo($since = null, $limit = null, string $contentType = self::contentTypes['getChannelsInbox'][0])
-    {
-        $request = $this->getChannelsInboxRequest($since, $limit, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\InboxPage',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\InboxPage',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\InboxPage',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getChannelsInboxAsync
-     *
-     * Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
-     *
-     * @param  string|null $since Since is the exclusive cursor: only messages with a higher row id come back. Empty starts at the beginning. Must parse as an integer. (optional)
-     * @param  string|null $limit Limit caps how many messages come back. Empty or 0 uses the store&#39;s default page size. Must parse as an integer. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsInbox'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getChannelsInboxAsync($since = null, $limit = null, string $contentType = self::contentTypes['getChannelsInbox'][0])
-    {
-        return $this->getChannelsInboxAsyncWithHttpInfo($since, $limit, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getChannelsInboxAsyncWithHttpInfo
-     *
-     * Returns the messages people have sent to the caller org&#39;s connected chat bots, oldest first, in the portable envelope shape every transport normalises into.
-     *
-     * @param  string|null $since Since is the exclusive cursor: only messages with a higher row id come back. Empty starts at the beginning. Must parse as an integer. (optional)
-     * @param  string|null $limit Limit caps how many messages come back. Empty or 0 uses the store&#39;s default page size. Must parse as an integer. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsInbox'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getChannelsInboxAsyncWithHttpInfo($since = null, $limit = null, string $contentType = self::contentTypes['getChannelsInbox'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\InboxPage';
-        $request = $this->getChannelsInboxRequest($since, $limit, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getChannelsInbox'
-     *
-     * @param  string|null $since Since is the exclusive cursor: only messages with a higher row id come back. Empty starts at the beginning. Must parse as an integer. (optional)
-     * @param  string|null $limit Limit caps how many messages come back. Empty or 0 uses the store&#39;s default page size. Must parse as an integer. (optional)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsInbox'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getChannelsInboxRequest($since = null, $limit = null, string $contentType = self::contentTypes['getChannelsInbox'][0])
-    {
-
-
-
-
-        $resourcePath = '/v1/channels/inbox';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $since,
-            'since', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-        // query params
-        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $limit,
-            'limit', // param base name
-            'string', // openApiType
-            'form', // style
-            true, // explode
-            false // required
-        ) ?? []);
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation getChannelsPairing
-     *
-     * Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsPairing'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PairingQueue
-     */
-    public function getChannelsPairing(string $contentType = self::contentTypes['getChannelsPairing'][0])
-    {
-        list($response) = $this->getChannelsPairingWithHttpInfo($contentType);
-        return $response;
-    }
-
-    /**
-     * Operation getChannelsPairingWithHttpInfo
-     *
-     * Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsPairing'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PairingQueue, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function getChannelsPairingWithHttpInfo(string $contentType = self::contentTypes['getChannelsPairing'][0])
-    {
-        $request = $this->getChannelsPairingRequest($contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PairingQueue',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PairingQueue',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PairingQueue',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation getChannelsPairingAsync
-     *
-     * Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsPairing'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getChannelsPairingAsync(string $contentType = self::contentTypes['getChannelsPairing'][0])
-    {
-        return $this->getChannelsPairingAsyncWithHttpInfo($contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation getChannelsPairingAsyncWithHttpInfo
-     *
-     * Returns the pairing requests waiting for the caller org to approve — one per person who messaged a connected bot on a channel whose DM policy is \&quot;pairing\&quot; and who is not allowed yet.
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsPairing'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function getChannelsPairingAsyncWithHttpInfo(string $contentType = self::contentTypes['getChannelsPairing'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\PairingQueue';
-        $request = $this->getChannelsPairingRequest($contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'getChannelsPairing'
-     *
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getChannelsPairing'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function getChannelsPairingRequest(string $contentType = self::contentTypes['getChannelsPairing'][0])
-    {
-
-
-        $resourcePath = '/v1/channels/pairing';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'GET',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation postChannelsByChannelSend
-     *
-     * Send a message from your org&#39;s bot to one chat room
-     *
-     * @param  string $channel channel (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelsByChannelSend'] to see the possible values for this operation
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFunctionByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function postChannelsByChannelSend($channel, string $contentType = self::contentTypes['postChannelsByChannelSend'][0])
+    public function deleteFunctionByName($name, string $contentType = self::contentTypes['deleteFunctionByName'][0])
     {
-        $this->postChannelsByChannelSendWithHttpInfo($channel, $contentType);
+        $this->deleteFunctionByNameWithHttpInfo($name, $contentType);
     }
 
     /**
-     * Operation postChannelsByChannelSendWithHttpInfo
+     * Operation deleteFunctionByNameWithHttpInfo
      *
-     * Send a message from your org&#39;s bot to one chat room
+     * Removes one of the caller org&#39;s functions and answers 204.
      *
-     * @param  string $channel (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelsByChannelSend'] to see the possible values for this operation
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFunctionByName'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postChannelsByChannelSendWithHttpInfo($channel, string $contentType = self::contentTypes['postChannelsByChannelSend'][0])
+    public function deleteFunctionByNameWithHttpInfo($name, string $contentType = self::contentTypes['deleteFunctionByName'][0])
     {
-        $request = $this->postChannelsByChannelSendRequest($channel, $contentType);
+        $request = $this->deleteFunctionByNameRequest($name, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1536,19 +222,19 @@ class ChannelsApi
     }
 
     /**
-     * Operation postChannelsByChannelSendAsync
+     * Operation deleteFunctionByNameAsync
      *
-     * Send a message from your org&#39;s bot to one chat room
+     * Removes one of the caller org&#39;s functions and answers 204.
      *
-     * @param  string $channel (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelsByChannelSend'] to see the possible values for this operation
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFunctionByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postChannelsByChannelSendAsync($channel, string $contentType = self::contentTypes['postChannelsByChannelSend'][0])
+    public function deleteFunctionByNameAsync($name, string $contentType = self::contentTypes['deleteFunctionByName'][0])
     {
-        return $this->postChannelsByChannelSendAsyncWithHttpInfo($channel, $contentType)
+        return $this->deleteFunctionByNameAsyncWithHttpInfo($name, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1557,20 +243,20 @@ class ChannelsApi
     }
 
     /**
-     * Operation postChannelsByChannelSendAsyncWithHttpInfo
+     * Operation deleteFunctionByNameAsyncWithHttpInfo
      *
-     * Send a message from your org&#39;s bot to one chat room
+     * Removes one of the caller org&#39;s functions and answers 204.
      *
-     * @param  string $channel (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelsByChannelSend'] to see the possible values for this operation
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFunctionByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postChannelsByChannelSendAsyncWithHttpInfo($channel, string $contentType = self::contentTypes['postChannelsByChannelSend'][0])
+    public function deleteFunctionByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['deleteFunctionByName'][0])
     {
         $returnType = '';
-        $request = $this->postChannelsByChannelSendRequest($channel, $contentType);
+        $request = $this->deleteFunctionByNameRequest($name, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1596,26 +282,26 @@ class ChannelsApi
     }
 
     /**
-     * Create request for operation 'postChannelsByChannelSend'
+     * Create request for operation 'deleteFunctionByName'
      *
-     * @param  string $channel (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelsByChannelSend'] to see the possible values for this operation
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteFunctionByName'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postChannelsByChannelSendRequest($channel, string $contentType = self::contentTypes['postChannelsByChannelSend'][0])
+    public function deleteFunctionByNameRequest($name, string $contentType = self::contentTypes['deleteFunctionByName'][0])
     {
 
-        // verify the required parameter 'channel' is set
-        if ($channel === null || (is_array($channel) && count($channel) === 0)) {
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $channel when calling postChannelsByChannelSend'
+                'Missing the required parameter $name when calling deleteFunctionByName'
             );
         }
 
 
-        $resourcePath = '/v1/channels/{channel}/send';
+        $resourcePath = '/v1/function/{name}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1625,10 +311,10 @@ class ChannelsApi
 
 
         // path params
-        if ($channel !== null) {
+        if ($name !== null) {
             $resourcePath = str_replace(
-                '{' . 'channel' . '}',
-                ObjectSerializer::toPathValue($channel),
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
                 $resourcePath
             );
         }
@@ -1684,7 +370,7 @@ class ChannelsApi
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
-            'POST',
+            'DELETE',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -1692,38 +378,36 @@ class ChannelsApi
     }
 
     /**
-     * Operation postChannelsPairingApprove
+     * Operation getFunction
      *
-     * Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
+     * Is every serverless function the caller&#39;s org has published, each with its real 7-day rollup.
      *
-     * @param  \Hanzo\Cloud\Model\ApprovePairingIn $approve_pairing_in approve_pairing_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelsPairingApprove'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunction'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\PairingApproved
+     * @return \Hanzo\Cloud\Model\FnList
      */
-    public function postChannelsPairingApprove($approve_pairing_in, string $contentType = self::contentTypes['postChannelsPairingApprove'][0])
+    public function getFunction(string $contentType = self::contentTypes['getFunction'][0])
     {
-        list($response) = $this->postChannelsPairingApproveWithHttpInfo($approve_pairing_in, $contentType);
+        list($response) = $this->getFunctionWithHttpInfo($contentType);
         return $response;
     }
 
     /**
-     * Operation postChannelsPairingApproveWithHttpInfo
+     * Operation getFunctionWithHttpInfo
      *
-     * Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
+     * Is every serverless function the caller&#39;s org has published, each with its real 7-day rollup.
      *
-     * @param  \Hanzo\Cloud\Model\ApprovePairingIn $approve_pairing_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelsPairingApprove'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunction'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\PairingApproved, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\FnList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function postChannelsPairingApproveWithHttpInfo($approve_pairing_in, string $contentType = self::contentTypes['postChannelsPairingApprove'][0])
+    public function getFunctionWithHttpInfo(string $contentType = self::contentTypes['getFunction'][0])
     {
-        $request = $this->postChannelsPairingApproveRequest($approve_pairing_in, $contentType);
+        $request = $this->getFunctionRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1751,7 +435,7 @@ class ChannelsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\PairingApproved',
+                        '\Hanzo\Cloud\Model\FnList',
                         $request,
                         $response,
                     );
@@ -1773,7 +457,7 @@ class ChannelsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\PairingApproved',
+                '\Hanzo\Cloud\Model\FnList',
                 $request,
                 $response,
             );
@@ -1782,7 +466,7 @@ class ChannelsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\PairingApproved',
+                        '\Hanzo\Cloud\Model\FnList',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1795,19 +479,18 @@ class ChannelsApi
     }
 
     /**
-     * Operation postChannelsPairingApproveAsync
+     * Operation getFunctionAsync
      *
-     * Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
+     * Is every serverless function the caller&#39;s org has published, each with its real 7-day rollup.
      *
-     * @param  \Hanzo\Cloud\Model\ApprovePairingIn $approve_pairing_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelsPairingApprove'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunction'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postChannelsPairingApproveAsync($approve_pairing_in, string $contentType = self::contentTypes['postChannelsPairingApprove'][0])
+    public function getFunctionAsync(string $contentType = self::contentTypes['getFunction'][0])
     {
-        return $this->postChannelsPairingApproveAsyncWithHttpInfo($approve_pairing_in, $contentType)
+        return $this->getFunctionAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1816,20 +499,19 @@ class ChannelsApi
     }
 
     /**
-     * Operation postChannelsPairingApproveAsyncWithHttpInfo
+     * Operation getFunctionAsyncWithHttpInfo
      *
-     * Turns one pending pairing code into a standing allow entry, so that person can DM the org&#39;s bot on that channel from now on.
+     * Is every serverless function the caller&#39;s org has published, each with its real 7-day rollup.
      *
-     * @param  \Hanzo\Cloud\Model\ApprovePairingIn $approve_pairing_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelsPairingApprove'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunction'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function postChannelsPairingApproveAsyncWithHttpInfo($approve_pairing_in, string $contentType = self::contentTypes['postChannelsPairingApprove'][0])
+    public function getFunctionAsyncWithHttpInfo(string $contentType = self::contentTypes['getFunction'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\PairingApproved';
-        $request = $this->postChannelsPairingApproveRequest($approve_pairing_in, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\FnList';
+        $request = $this->getFunctionRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1868,26 +550,18 @@ class ChannelsApi
     }
 
     /**
-     * Create request for operation 'postChannelsPairingApprove'
+     * Create request for operation 'getFunction'
      *
-     * @param  \Hanzo\Cloud\Model\ApprovePairingIn $approve_pairing_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postChannelsPairingApprove'] to see the possible values for this operation
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunction'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function postChannelsPairingApproveRequest($approve_pairing_in, string $contentType = self::contentTypes['postChannelsPairingApprove'][0])
+    public function getFunctionRequest(string $contentType = self::contentTypes['getFunction'][0])
     {
 
-        // verify the required parameter 'approve_pairing_in' is set
-        if ($approve_pairing_in === null || (is_array($approve_pairing_in) && count($approve_pairing_in) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $approve_pairing_in when calling postChannelsPairingApprove'
-            );
-        }
 
-
-        $resourcePath = '/v1/channels/pairing/approve';
+        $resourcePath = '/v1/function';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1905,12 +579,2130 @@ class ChannelsApi
         );
 
         // for model (json/xml)
-        if (isset($approve_pairing_in)) {
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getFunctionByName
+     *
+     * Is one function with everything a detail page needs in one round-trip: its definition, its 7-day rollup, its trigger, its twenty most recent invocations and the NAMES of the secrets it mounts.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByName'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\FunctionDetail
+     */
+    public function getFunctionByName($name, string $contentType = self::contentTypes['getFunctionByName'][0])
+    {
+        list($response) = $this->getFunctionByNameWithHttpInfo($name, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getFunctionByNameWithHttpInfo
+     *
+     * Is one function with everything a detail page needs in one round-trip: its definition, its 7-day rollup, its trigger, its twenty most recent invocations and the NAMES of the secrets it mounts.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByName'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\FunctionDetail, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getFunctionByNameWithHttpInfo($name, string $contentType = self::contentTypes['getFunctionByName'][0])
+    {
+        $request = $this->getFunctionByNameRequest($name, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\FunctionDetail',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\FunctionDetail',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\FunctionDetail',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getFunctionByNameAsync
+     *
+     * Is one function with everything a detail page needs in one round-trip: its definition, its 7-day rollup, its trigger, its twenty most recent invocations and the NAMES of the secrets it mounts.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionByNameAsync($name, string $contentType = self::contentTypes['getFunctionByName'][0])
+    {
+        return $this->getFunctionByNameAsyncWithHttpInfo($name, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getFunctionByNameAsyncWithHttpInfo
+     *
+     * Is one function with everything a detail page needs in one round-trip: its definition, its 7-day rollup, its trigger, its twenty most recent invocations and the NAMES of the secrets it mounts.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionByNameAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getFunctionByName'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\FunctionDetail';
+        $request = $this->getFunctionByNameRequest($name, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getFunctionByName'
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByName'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getFunctionByNameRequest($name, string $contentType = self::contentTypes['getFunctionByName'][0])
+    {
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling getFunctionByName'
+            );
+        }
+
+
+        $resourcePath = '/v1/function/{name}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getFunctionByNameInvocations
+     *
+     * Is one function&#39;s past runs, newest first — each with its status, HTTP code, method, time and duration.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  int|null $limit Limit caps the page, defaulting to 100. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByNameInvocations'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\InvocationList
+     */
+    public function getFunctionByNameInvocations($name, $limit = null, string $contentType = self::contentTypes['getFunctionByNameInvocations'][0])
+    {
+        list($response) = $this->getFunctionByNameInvocationsWithHttpInfo($name, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getFunctionByNameInvocationsWithHttpInfo
+     *
+     * Is one function&#39;s past runs, newest first — each with its status, HTTP code, method, time and duration.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  int|null $limit Limit caps the page, defaulting to 100. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByNameInvocations'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\InvocationList, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getFunctionByNameInvocationsWithHttpInfo($name, $limit = null, string $contentType = self::contentTypes['getFunctionByNameInvocations'][0])
+    {
+        $request = $this->getFunctionByNameInvocationsRequest($name, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\InvocationList',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\InvocationList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\InvocationList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getFunctionByNameInvocationsAsync
+     *
+     * Is one function&#39;s past runs, newest first — each with its status, HTTP code, method, time and duration.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  int|null $limit Limit caps the page, defaulting to 100. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByNameInvocations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionByNameInvocationsAsync($name, $limit = null, string $contentType = self::contentTypes['getFunctionByNameInvocations'][0])
+    {
+        return $this->getFunctionByNameInvocationsAsyncWithHttpInfo($name, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getFunctionByNameInvocationsAsyncWithHttpInfo
+     *
+     * Is one function&#39;s past runs, newest first — each with its status, HTTP code, method, time and duration.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  int|null $limit Limit caps the page, defaulting to 100. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByNameInvocations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionByNameInvocationsAsyncWithHttpInfo($name, $limit = null, string $contentType = self::contentTypes['getFunctionByNameInvocations'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\InvocationList';
+        $request = $this->getFunctionByNameInvocationsRequest($name, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getFunctionByNameInvocations'
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  int|null $limit Limit caps the page, defaulting to 100. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByNameInvocations'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getFunctionByNameInvocationsRequest($name, $limit = null, string $contentType = self::contentTypes['getFunctionByNameInvocations'][0])
+    {
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling getFunctionByNameInvocations'
+            );
+        }
+
+
+
+        $resourcePath = '/v1/function/{name}/invocations';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getFunctionByNameLogs
+     *
+     * Is the output of a function&#39;s most recent run — its error text when that run failed, else what it printed.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByNameLogs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\LogLines
+     */
+    public function getFunctionByNameLogs($name, string $contentType = self::contentTypes['getFunctionByNameLogs'][0])
+    {
+        list($response) = $this->getFunctionByNameLogsWithHttpInfo($name, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getFunctionByNameLogsWithHttpInfo
+     *
+     * Is the output of a function&#39;s most recent run — its error text when that run failed, else what it printed.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByNameLogs'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\LogLines, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getFunctionByNameLogsWithHttpInfo($name, string $contentType = self::contentTypes['getFunctionByNameLogs'][0])
+    {
+        $request = $this->getFunctionByNameLogsRequest($name, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\LogLines',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\LogLines',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\LogLines',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getFunctionByNameLogsAsync
+     *
+     * Is the output of a function&#39;s most recent run — its error text when that run failed, else what it printed.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByNameLogs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionByNameLogsAsync($name, string $contentType = self::contentTypes['getFunctionByNameLogs'][0])
+    {
+        return $this->getFunctionByNameLogsAsyncWithHttpInfo($name, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getFunctionByNameLogsAsyncWithHttpInfo
+     *
+     * Is the output of a function&#39;s most recent run — its error text when that run failed, else what it printed.
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByNameLogs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionByNameLogsAsyncWithHttpInfo($name, string $contentType = self::contentTypes['getFunctionByNameLogs'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\LogLines';
+        $request = $this->getFunctionByNameLogsRequest($name, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getFunctionByNameLogs'
+     *
+     * @param  string $name Name is the function the URL names. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionByNameLogs'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getFunctionByNameLogsRequest($name, string $contentType = self::contentTypes['getFunctionByNameLogs'][0])
+    {
+
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $name when calling getFunctionByNameLogs'
+            );
+        }
+
+
+        $resourcePath = '/v1/function/{name}/logs';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getFunctionDeployments
+     *
+     * Is what is live right now — each function&#39;s current record IS its live deployment, so this is the deployment inventory.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionDeployments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\FnList
+     */
+    public function getFunctionDeployments(string $contentType = self::contentTypes['getFunctionDeployments'][0])
+    {
+        list($response) = $this->getFunctionDeploymentsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getFunctionDeploymentsWithHttpInfo
+     *
+     * Is what is live right now — each function&#39;s current record IS its live deployment, so this is the deployment inventory.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionDeployments'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\FnList, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getFunctionDeploymentsWithHttpInfo(string $contentType = self::contentTypes['getFunctionDeployments'][0])
+    {
+        $request = $this->getFunctionDeploymentsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\FnList',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\FnList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\FnList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getFunctionDeploymentsAsync
+     *
+     * Is what is live right now — each function&#39;s current record IS its live deployment, so this is the deployment inventory.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionDeployments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionDeploymentsAsync(string $contentType = self::contentTypes['getFunctionDeployments'][0])
+    {
+        return $this->getFunctionDeploymentsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getFunctionDeploymentsAsyncWithHttpInfo
+     *
+     * Is what is live right now — each function&#39;s current record IS its live deployment, so this is the deployment inventory.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionDeployments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionDeploymentsAsyncWithHttpInfo(string $contentType = self::contentTypes['getFunctionDeployments'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\FnList';
+        $request = $this->getFunctionDeploymentsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getFunctionDeployments'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionDeployments'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getFunctionDeploymentsRequest(string $contentType = self::contentTypes['getFunctionDeployments'][0])
+    {
+
+
+        $resourcePath = '/v1/function/deployments';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getFunctionMetrics
+     *
+     * Is the org&#39;s serverless dashboard over a window: a per-function invocation costLine and how those invocations ended.
+     *
+     * @param  string|null $range Range is 1H, 6H, 24H (the default), 7D or 30D. Anything else falls back to 24H rather than failing. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionMetrics'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\Usage
+     */
+    public function getFunctionMetrics($range = null, string $contentType = self::contentTypes['getFunctionMetrics'][0])
+    {
+        list($response) = $this->getFunctionMetricsWithHttpInfo($range, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getFunctionMetricsWithHttpInfo
+     *
+     * Is the org&#39;s serverless dashboard over a window: a per-function invocation costLine and how those invocations ended.
+     *
+     * @param  string|null $range Range is 1H, 6H, 24H (the default), 7D or 30D. Anything else falls back to 24H rather than failing. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionMetrics'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\Usage, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getFunctionMetricsWithHttpInfo($range = null, string $contentType = self::contentTypes['getFunctionMetrics'][0])
+    {
+        $request = $this->getFunctionMetricsRequest($range, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\Usage',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\Usage',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\Usage',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getFunctionMetricsAsync
+     *
+     * Is the org&#39;s serverless dashboard over a window: a per-function invocation costLine and how those invocations ended.
+     *
+     * @param  string|null $range Range is 1H, 6H, 24H (the default), 7D or 30D. Anything else falls back to 24H rather than failing. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionMetricsAsync($range = null, string $contentType = self::contentTypes['getFunctionMetrics'][0])
+    {
+        return $this->getFunctionMetricsAsyncWithHttpInfo($range, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getFunctionMetricsAsyncWithHttpInfo
+     *
+     * Is the org&#39;s serverless dashboard over a window: a per-function invocation costLine and how those invocations ended.
+     *
+     * @param  string|null $range Range is 1H, 6H, 24H (the default), 7D or 30D. Anything else falls back to 24H rather than failing. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionMetricsAsyncWithHttpInfo($range = null, string $contentType = self::contentTypes['getFunctionMetrics'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\Usage';
+        $request = $this->getFunctionMetricsRequest($range, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getFunctionMetrics'
+     *
+     * @param  string|null $range Range is 1H, 6H, 24H (the default), 7D or 30D. Anything else falls back to 24H rather than failing. (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionMetrics'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getFunctionMetricsRequest($range = null, string $contentType = self::contentTypes['getFunctionMetrics'][0])
+    {
+
+
+
+        $resourcePath = '/v1/function/metrics';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $range,
+            'range', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getFunctionSecrets
+     *
+     * Is the NAMES of the secrets the caller org&#39;s functions mount.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionSecrets'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\SecretList
+     */
+    public function getFunctionSecrets(string $contentType = self::contentTypes['getFunctionSecrets'][0])
+    {
+        list($response) = $this->getFunctionSecretsWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getFunctionSecretsWithHttpInfo
+     *
+     * Is the NAMES of the secrets the caller org&#39;s functions mount.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionSecrets'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\SecretList, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getFunctionSecretsWithHttpInfo(string $contentType = self::contentTypes['getFunctionSecrets'][0])
+    {
+        $request = $this->getFunctionSecretsRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\SecretList',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\SecretList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\SecretList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getFunctionSecretsAsync
+     *
+     * Is the NAMES of the secrets the caller org&#39;s functions mount.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionSecrets'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionSecretsAsync(string $contentType = self::contentTypes['getFunctionSecrets'][0])
+    {
+        return $this->getFunctionSecretsAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getFunctionSecretsAsyncWithHttpInfo
+     *
+     * Is the NAMES of the secrets the caller org&#39;s functions mount.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionSecrets'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionSecretsAsyncWithHttpInfo(string $contentType = self::contentTypes['getFunctionSecrets'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\SecretList';
+        $request = $this->getFunctionSecretsRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getFunctionSecrets'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionSecrets'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getFunctionSecretsRequest(string $contentType = self::contentTypes['getFunctionSecrets'][0])
+    {
+
+
+        $resourcePath = '/v1/function/secrets';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getFunctionTriggers
+     *
+     * Is what calls the caller org&#39;s functions — one row per function.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionTriggers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\TriggerList
+     */
+    public function getFunctionTriggers(string $contentType = self::contentTypes['getFunctionTriggers'][0])
+    {
+        list($response) = $this->getFunctionTriggersWithHttpInfo($contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getFunctionTriggersWithHttpInfo
+     *
+     * Is what calls the caller org&#39;s functions — one row per function.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionTriggers'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\TriggerList, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getFunctionTriggersWithHttpInfo(string $contentType = self::contentTypes['getFunctionTriggers'][0])
+    {
+        $request = $this->getFunctionTriggersRequest($contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\TriggerList',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\TriggerList',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\TriggerList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getFunctionTriggersAsync
+     *
+     * Is what calls the caller org&#39;s functions — one row per function.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionTriggers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionTriggersAsync(string $contentType = self::contentTypes['getFunctionTriggers'][0])
+    {
+        return $this->getFunctionTriggersAsyncWithHttpInfo($contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getFunctionTriggersAsyncWithHttpInfo
+     *
+     * Is what calls the caller org&#39;s functions — one row per function.
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionTriggers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getFunctionTriggersAsyncWithHttpInfo(string $contentType = self::contentTypes['getFunctionTriggers'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\TriggerList';
+        $request = $this->getFunctionTriggersRequest($contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getFunctionTriggers'
+     *
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getFunctionTriggers'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getFunctionTriggersRequest(string $contentType = self::contentTypes['getFunctionTriggers'][0])
+    {
+
+
+        $resourcePath = '/v1/function/triggers';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation postFunction
+     *
+     * Publishes a serverless function under the caller&#39;s org and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\Definition $definition definition (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunction'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Hanzo\Cloud\Model\FunctionView
+     */
+    public function postFunction($definition, string $contentType = self::contentTypes['postFunction'][0])
+    {
+        list($response) = $this->postFunctionWithHttpInfo($definition, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation postFunctionWithHttpInfo
+     *
+     * Publishes a serverless function under the caller&#39;s org and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\Definition $definition (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunction'] to see the possible values for this operation
+     *
+     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Hanzo\Cloud\Model\FunctionView, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function postFunctionWithHttpInfo($definition, string $contentType = self::contentTypes['postFunction'][0])
+    {
+        $request = $this->postFunctionRequest($definition, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\FunctionView',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Hanzo\Cloud\Model\FunctionView',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\FunctionView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation postFunctionAsync
+     *
+     * Publishes a serverless function under the caller&#39;s org and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\Definition $definition (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postFunctionAsync($definition, string $contentType = self::contentTypes['postFunction'][0])
+    {
+        return $this->postFunctionAsyncWithHttpInfo($definition, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation postFunctionAsyncWithHttpInfo
+     *
+     * Publishes a serverless function under the caller&#39;s org and answers 201 with it.
+     *
+     * @param  \Hanzo\Cloud\Model\Definition $definition (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function postFunctionAsyncWithHttpInfo($definition, string $contentType = self::contentTypes['postFunction'][0])
+    {
+        $returnType = '\Hanzo\Cloud\Model\FunctionView';
+        $request = $this->postFunctionRequest($definition, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'postFunction'
+     *
+     * @param  \Hanzo\Cloud\Model\Definition $definition (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunction'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function postFunctionRequest($definition, string $contentType = self::contentTypes['postFunction'][0])
+    {
+
+        // verify the required parameter 'definition' is set
+        if ($definition === null || (is_array($definition) && count($definition) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $definition when calling postFunction'
+            );
+        }
+
+
+        $resourcePath = '/v1/function';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($definition)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($approve_pairing_in));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($definition));
             } else {
-                $httpBody = $approve_pairing_in;
+                $httpBody = $definition;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -1963,38 +2755,40 @@ class ChannelsApi
     }
 
     /**
-     * Operation putChannelsAgent
+     * Operation postFunctionByNameInvoke
      *
-     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
+     * Runs a function and records a REAL invocation.
      *
-     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put channel_agents_put (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAgent'] to see the possible values for this operation
+     * @param  string $name name (required)
+     * @param  \Hanzo\Cloud\Model\InvokeReq $invoke_req invoke_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunctionByNameInvoke'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\ChannelAgents
+     * @return \Hanzo\Cloud\Model\InvocationView|\Hanzo\Cloud\Model\InvocationView|\Hanzo\Cloud\Model\InvocationView
      */
-    public function putChannelsAgent($channel_agents_put, string $contentType = self::contentTypes['putChannelsAgent'][0])
+    public function postFunctionByNameInvoke($name, $invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
     {
-        list($response) = $this->putChannelsAgentWithHttpInfo($channel_agents_put, $contentType);
+        list($response) = $this->postFunctionByNameInvokeWithHttpInfo($name, $invoke_req, $contentType);
         return $response;
     }
 
     /**
-     * Operation putChannelsAgentWithHttpInfo
+     * Operation postFunctionByNameInvokeWithHttpInfo
      *
-     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
+     * Runs a function and records a REAL invocation.
      *
-     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAgent'] to see the possible values for this operation
+     * @param  string $name (required)
+     * @param  \Hanzo\Cloud\Model\InvokeReq $invoke_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunctionByNameInvoke'] to see the possible values for this operation
      *
      * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\ChannelAgents, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Hanzo\Cloud\Model\InvocationView|\Hanzo\Cloud\Model\InvocationView|\Hanzo\Cloud\Model\InvocationView, HTTP status code, HTTP response headers (array of strings)
      */
-    public function putChannelsAgentWithHttpInfo($channel_agents_put, string $contentType = self::contentTypes['putChannelsAgent'][0])
+    public function postFunctionByNameInvokeWithHttpInfo($name, $invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
     {
-        $request = $this->putChannelsAgentRequest($channel_agents_put, $contentType);
+        $request = $this->postFunctionByNameInvokeRequest($name, $invoke_req, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2022,7 +2816,19 @@ class ChannelsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\ChannelAgents',
+                        '\Hanzo\Cloud\Model\InvocationView',
+                        $request,
+                        $response,
+                    );
+                case 502:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\InvocationView',
+                        $request,
+                        $response,
+                    );
+                case 503:
+                    return $this->handleResponseWithDataType(
+                        '\Hanzo\Cloud\Model\InvocationView',
                         $request,
                         $response,
                     );
@@ -2044,7 +2850,7 @@ class ChannelsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\ChannelAgents',
+                '\Hanzo\Cloud\Model\InvocationView',
                 $request,
                 $response,
             );
@@ -2053,7 +2859,23 @@ class ChannelsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\ChannelAgents',
+                        '\Hanzo\Cloud\Model\InvocationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 502:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\InvocationView',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 503:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Hanzo\Cloud\Model\InvocationView',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2066,19 +2888,20 @@ class ChannelsApi
     }
 
     /**
-     * Operation putChannelsAgentAsync
+     * Operation postFunctionByNameInvokeAsync
      *
-     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
+     * Runs a function and records a REAL invocation.
      *
-     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAgent'] to see the possible values for this operation
+     * @param  string $name (required)
+     * @param  \Hanzo\Cloud\Model\InvokeReq $invoke_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunctionByNameInvoke'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putChannelsAgentAsync($channel_agents_put, string $contentType = self::contentTypes['putChannelsAgent'][0])
+    public function postFunctionByNameInvokeAsync($name, $invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
     {
-        return $this->putChannelsAgentAsyncWithHttpInfo($channel_agents_put, $contentType)
+        return $this->postFunctionByNameInvokeAsyncWithHttpInfo($name, $invoke_req, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2087,20 +2910,21 @@ class ChannelsApi
     }
 
     /**
-     * Operation putChannelsAgentAsyncWithHttpInfo
+     * Operation postFunctionByNameInvokeAsyncWithHttpInfo
      *
-     * Binds agents to the caller org&#39;s channel and answers the bindings as GET would.
+     * Runs a function and records a REAL invocation.
      *
-     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAgent'] to see the possible values for this operation
+     * @param  string $name (required)
+     * @param  \Hanzo\Cloud\Model\InvokeReq $invoke_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunctionByNameInvoke'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function putChannelsAgentAsyncWithHttpInfo($channel_agents_put, string $contentType = self::contentTypes['putChannelsAgent'][0])
+    public function postFunctionByNameInvokeAsyncWithHttpInfo($name, $invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
     {
-        $returnType = '\Hanzo\Cloud\Model\ChannelAgents';
-        $request = $this->putChannelsAgentRequest($channel_agents_put, $contentType);
+        $returnType = '\Hanzo\Cloud\Model\InvocationView';
+        $request = $this->postFunctionByNameInvokeRequest($name, $invoke_req, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2139,26 +2963,34 @@ class ChannelsApi
     }
 
     /**
-     * Create request for operation 'putChannelsAgent'
+     * Create request for operation 'postFunctionByNameInvoke'
      *
-     * @param  \Hanzo\Cloud\Model\ChannelAgentsPut $channel_agents_put (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAgent'] to see the possible values for this operation
+     * @param  string $name (required)
+     * @param  \Hanzo\Cloud\Model\InvokeReq $invoke_req (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['postFunctionByNameInvoke'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function putChannelsAgentRequest($channel_agents_put, string $contentType = self::contentTypes['putChannelsAgent'][0])
+    public function postFunctionByNameInvokeRequest($name, $invoke_req, string $contentType = self::contentTypes['postFunctionByNameInvoke'][0])
     {
 
-        // verify the required parameter 'channel_agents_put' is set
-        if ($channel_agents_put === null || (is_array($channel_agents_put) && count($channel_agents_put) === 0)) {
+        // verify the required parameter 'name' is set
+        if ($name === null || (is_array($name) && count($name) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $channel_agents_put when calling putChannelsAgent'
+                'Missing the required parameter $name when calling postFunctionByNameInvoke'
+            );
+        }
+
+        // verify the required parameter 'invoke_req' is set
+        if ($invoke_req === null || (is_array($invoke_req) && count($invoke_req) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $invoke_req when calling postFunctionByNameInvoke'
             );
         }
 
 
-        $resourcePath = '/v1/channels/agent';
+        $resourcePath = '/v1/function/{name}/invoke';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2167,6 +2999,14 @@ class ChannelsApi
 
 
 
+        // path params
+        if ($name !== null) {
+            $resourcePath = str_replace(
+                '{' . 'name' . '}',
+                ObjectSerializer::toPathValue($name),
+                $resourcePath
+            );
+        }
 
 
         $headers = $this->headerSelector->selectHeaders(
@@ -2176,12 +3016,12 @@ class ChannelsApi
         );
 
         // for model (json/xml)
-        if (isset($channel_agents_put)) {
+        if (isset($invoke_req)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($channel_agents_put));
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($invoke_req));
             } else {
-                $httpBody = $channel_agents_put;
+                $httpBody = $invoke_req;
             }
         } elseif (count($formParams) > 0) {
             if ($multipart) {
@@ -2226,278 +3066,7 @@ class ChannelsApi
         $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
-            'PUT',
-            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation putChannelsAllowlist
-     *
-     * Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
-     *
-     * @param  \Hanzo\Cloud\Model\AllowlistPutIn $allowlist_put_in allowlist_put_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAllowlist'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return \Hanzo\Cloud\Model\AllowlistView
-     */
-    public function putChannelsAllowlist($allowlist_put_in, string $contentType = self::contentTypes['putChannelsAllowlist'][0])
-    {
-        list($response) = $this->putChannelsAllowlistWithHttpInfo($allowlist_put_in, $contentType);
-        return $response;
-    }
-
-    /**
-     * Operation putChannelsAllowlistWithHttpInfo
-     *
-     * Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
-     *
-     * @param  \Hanzo\Cloud\Model\AllowlistPutIn $allowlist_put_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAllowlist'] to see the possible values for this operation
-     *
-     * @throws \Hanzo\Cloud\ApiException on non-2xx response or if the response body is not in the expected format
-     * @throws \InvalidArgumentException
-     * @return array of \Hanzo\Cloud\Model\AllowlistView, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function putChannelsAllowlistWithHttpInfo($allowlist_put_in, string $contentType = self::contentTypes['putChannelsAllowlist'][0])
-    {
-        $request = $this->putChannelsAllowlistRequest($allowlist_put_in, $contentType);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
-                );
-            } catch (ConnectException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    (int) $e->getCode(),
-                    null,
-                    null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-
-            switch($statusCode) {
-                case 200:
-                    return $this->handleResponseWithDataType(
-                        '\Hanzo\Cloud\Model\AllowlistView',
-                        $request,
-                        $response,
-                    );
-            }
-
-            
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        (string) $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    (string) $response->getBody()
-                );
-            }
-
-            return $this->handleResponseWithDataType(
-                '\Hanzo\Cloud\Model\AllowlistView',
-                $request,
-                $response,
-            );
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Hanzo\Cloud\Model\AllowlistView',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-            }
-        
-
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation putChannelsAllowlistAsync
-     *
-     * Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
-     *
-     * @param  \Hanzo\Cloud\Model\AllowlistPutIn $allowlist_put_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAllowlist'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function putChannelsAllowlistAsync($allowlist_put_in, string $contentType = self::contentTypes['putChannelsAllowlist'][0])
-    {
-        return $this->putChannelsAllowlistAsyncWithHttpInfo($allowlist_put_in, $contentType)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation putChannelsAllowlistAsyncWithHttpInfo
-     *
-     * Edits the caller org&#39;s access policy for one channel and answers the policy as GET would, so both verbs return ONE shape.
-     *
-     * @param  \Hanzo\Cloud\Model\AllowlistPutIn $allowlist_put_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAllowlist'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function putChannelsAllowlistAsyncWithHttpInfo($allowlist_put_in, string $contentType = self::contentTypes['putChannelsAllowlist'][0])
-    {
-        $returnType = '\Hanzo\Cloud\Model\AllowlistView';
-        $request = $this->putChannelsAllowlistRequest($allowlist_put_in, $contentType);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    if ($returnType === '\SplFileObject') {
-                        $content = $response->getBody(); //stream goes to serializer
-                    } else {
-                        $content = (string) $response->getBody();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'putChannelsAllowlist'
-     *
-     * @param  \Hanzo\Cloud\Model\AllowlistPutIn $allowlist_put_in (required)
-     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['putChannelsAllowlist'] to see the possible values for this operation
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    public function putChannelsAllowlistRequest($allowlist_put_in, string $contentType = self::contentTypes['putChannelsAllowlist'][0])
-    {
-
-        // verify the required parameter 'allowlist_put_in' is set
-        if ($allowlist_put_in === null || (is_array($allowlist_put_in) && count($allowlist_put_in) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $allowlist_put_in when calling putChannelsAllowlist'
-            );
-        }
-
-
-        $resourcePath = '/v1/channels/allowlist';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-
-
-
-        $headers = $this->headerSelector->selectHeaders(
-            ['application/json', ],
-            $contentType,
-            $multipart
-        );
-
-        // for model (json/xml)
-        if (isset($allowlist_put_in)) {
-            if (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($allowlist_put_in));
-            } else {
-                $httpBody = $allowlist_put_in;
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
-                    foreach ($formParamValueItems as $formParamValueItem) {
-                        $multipartContents[] = [
-                            'name' => $formParamName,
-                            'contents' => $formParamValueItem
-                        ];
-                    }
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
-                # if Content-Type contains "application/json", json_encode the form parameters
-                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
-            } else {
-                // for HTTP post (form)
-                $httpBody = ObjectSerializer::buildQuery($formParams);
-            }
-        }
-
-        // this endpoint requires Bearer authentication (access token)
-        if (!empty($this->config->getAccessToken())) {
-            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $operationHost = $this->config->getHost();
-        $query = ObjectSerializer::buildQuery($queryParams);
-        return new Request(
-            'PUT',
+            'POST',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

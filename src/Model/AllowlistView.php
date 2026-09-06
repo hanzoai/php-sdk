@@ -364,7 +364,7 @@ class AllowlistView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets dm
      *
-     * @param string[]|null $dm DM is the CONFIG-managed DM allow entries — the list PUT /v1/channels/allowlist owns and replaces wholesale. An entry matches a sender either EXACTLY, as the transport-native id inbox messages carry, or as `accessGroup:<name>` resolved through AccessGroups. A bare `*` admits everyone, but only while DMPolicy is \"open\": it is gate syntax, not an identity, so under \"allowlist\" it matches nobody.
+     * @param string[]|null $dm DM is the CONFIG-managed DM allow entries — the list PUT /v1/channel/allowlist owns and replaces wholesale. An entry matches a sender either EXACTLY, as the transport-native id inbox messages carry, or as `accessGroup:<name>` resolved through AccessGroups. A bare `*` admits everyone, but only while DMPolicy is \"open\": it is gate syntax, not an identity, so under \"allowlist\" it matches nobody.
      *
      * @return self
      */
@@ -472,7 +472,7 @@ class AllowlistView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets paired
      *
-     * @param string[]|null $paired Paired is the senders admitted by PAIRING — the entries POST /v1/channels/pairing/approve minted, DM scope only. READ-ONLY on this endpoint: the PUT writes config entries and can never revoke one of these (listing a paired sender under DM instead promotes that entry to config, which the admin then owns). They admit only while DMPolicy is \"pairing\".
+     * @param string[]|null $paired Paired is the senders admitted by PAIRING — the entries POST /v1/channel/pairing/approve minted, DM scope only. READ-ONLY on this endpoint: the PUT writes config entries and can never revoke one of these (listing a paired sender under DM instead promotes that entry to config, which the admin then owns). They admit only while DMPolicy is \"pairing\".
      *
      * @return self
      */

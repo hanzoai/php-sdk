@@ -316,7 +316,7 @@ class BindAgentReq implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets agent_name
      *
-     * @param string|null $agent_name AgentName is the cloud Agent (/v1/agents) the machine will run. Required.
+     * @param string|null $agent_name AgentName is the cloud Agent (/v1/agent) the machine will run. Required.
      *
      * @return self
      */

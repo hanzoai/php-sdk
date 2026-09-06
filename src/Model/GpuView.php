@@ -412,7 +412,7 @@ class GpuView implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets machine
      *
-     * @param string|null $machine Machine is the id of the machine holding this card, addressable as-is on /v1/visor/machines/:id.
+     * @param string|null $machine Machine is the id of the machine holding this card, addressable as-is on /v1/compute/machines/:id.
      *
      * @return self
      */

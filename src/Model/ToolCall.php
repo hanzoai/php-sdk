@@ -336,7 +336,7 @@ class ToolCall implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name Name is the tool to run, exactly as GET /v1/tools reports it.
+     * @param string|null $name Name is the tool to run, exactly as GET /v1/tool reports it.
      *
      * @return self
      */
