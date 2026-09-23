@@ -1,0 +1,13 @@
+#!/bin/sh
+# Every API class README.md names is one the generator emitted into src/Api.
+# The quickstart called KeysApi and ModelsApi, which neither this tree nor any
+# Packagist tag has had, so the first program a reader pasted died with
+# "Class Hanzo\Cloud\Api\KeysApi not found".
+set -eu
+cd "$(dirname "$0")/.."
+
+missing=$(grep -oE '\b[A-Z][A-Za-z0-9]*Api\b' README.md | sort -u | while read -r class; do
+  [ -f "src/Api/$class.php" ] || printf ' %s' "$class"
+done)
+[ -z "$missing" ] || { echo "README.md names$missing; src/Api has no such class" >&2; exit 1; }
+echo "README.md names only generated API classes"

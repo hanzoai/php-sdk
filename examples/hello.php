@@ -3,7 +3,7 @@
 /**
  * hello — prove the key works, and print what it can reach.
  *
- * GET /v1/keys declares a response schema, so this one comes back as a model:
+ * GET /v1/account/keys declares a response schema, so this one comes back as a model:
  * `ApiKeyList` of `ApiKey`, typed, with the prefix and type of every key the
  * caller holds. It is the flow that fails on a bad credential — that is the
  * point of it — where models.php succeeds with none.

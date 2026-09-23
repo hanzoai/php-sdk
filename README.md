@@ -26,14 +26,14 @@ PHP 8.1 or newer, with `curl`, `json` and `mbstring`. Composer brings Guzzle 7.
 <?php
 require 'vendor/autoload.php';
 
-use Hanzo\Cloud\Api\KeysApi;
+use Hanzo\Cloud\Api\AccountApi;
 use Hanzo\Cloud\Configuration;
 
 $config = (new Configuration())
     ->setHost('https://api.hanzo.ai')
     ->setAccessToken(getenv('HANZO_API_KEY'));
 
-$keys = (new KeysApi(null, $config))->getKeys();
+$keys = (new AccountApi(null, $config))->getAccountKeys();
 
 printf("%d keys on this account\n", count($keys->getKeys() ?? []));
 ```
@@ -52,13 +52,10 @@ operation that does not opt out, so the credential goes in one place:
 $config->setAccessToken($token);
 ```
 
-Every API class but `DefaultApi` reads that field and writes
-`Authorization: Bearer <token>`. The token is an IAM access token or an API key —
-`pk-` publishable, `sk-` secret. The one class that never sends it is
-`CommandsApi`, whose single operation is open.
-
-Four operations answer without a credential: `get_models`,
-`get_models_providers`, `get_commands`, `get_openapi.json`.
+Every operation the document secures reads that field and writes
+`Authorization: Bearer <token>`; with no token set it sends none, which is how
+`examples/models.php` reads the model catalog without a credential. The token is
+an IAM access token or an API key — `pk-` publishable, `sk-` secret.
 
 ## Untyped responses
 
@@ -69,7 +66,7 @@ yours to read:
 
 ```php
 $http = new GuzzleHttp\Client();
-$api  = new Hanzo\Cloud\Api\ModelsApi($http, $config);
+$api  = new Hanzo\Cloud\Api\AiApi($http, $config);
 
 $body = (string) $http->send($api->getModelsRequest())->getBody();
 ```

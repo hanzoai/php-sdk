@@ -18,6 +18,10 @@ test:
       find src examples -name '*.php' -print0 | xargs -0 -n1 -P4 php -l > /dev/null
       composer dump-autoload --optimize --strict-psr
 
+  - name: readme
+    # The API classes the README names are ones src/Api has.
+    run: ./scripts/readme
+
   - name: examples
     # The one flow that needs no credential, run for real against the API. It
     # proves the whole path a consumer takes — autoload, Configuration, the
