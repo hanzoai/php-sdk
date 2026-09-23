@@ -5,17 +5,12 @@ generated from the API's own OpenAPI document.
 
 ## Install
 
-Not on Packagist yet, so `composer require` has nothing to resolve. Take it from
-the repository instead:
-
-```json
-{
-    "repositories": [{ "type": "vcs", "url": "https://github.com/hanzoai/php-sdk" }],
-    "require": { "hanzoai/hanzoai": "dev-main" }
-}
+```bash
+composer require hanzoai/hanzoai
 ```
 
-Or build it in place:
+Packagist serves every `v*` tag of this repository. To work on the client itself,
+build it in place:
 
 ```bash
 git clone https://github.com/hanzoai/php-sdk.git
