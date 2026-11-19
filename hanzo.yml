@@ -31,12 +31,18 @@ test:
           phpbin=$(ls "$root/usr/bin"/php[0-9]* 2>/dev/null | head -1 || true)
           [ -n "$phpbin" ] && ln -sf "$phpbin" "$root/usr/bin/php"
           extdir=$(find "$root/usr/lib/php" -maxdepth 1 -type d -name '20*' 2>/dev/null | head -1 || true)
-          inidir=$(find "$root/etc/php" -path '*/mods-available' -type d 2>/dev/null | head -1 || true)
+          conf="$tmp/conf.d"; mkdir -p "$conf"
+          find "$root/usr/share" "$root/etc/php" -name '*.ini' -type f 2>/dev/null | while read -r f; do
+            b=$(basename "$f")
+            [ "$b" = "php.ini" ] && continue
+            prio=$(awk -F= '/^;[[:space:]]*priority=/{gsub(/[[:space:]]/,"",$2); print $2; exit}' "$f")
+            cp "$f" "$conf/${prio:-20}-$b"
+          done
           mkdir -p "$HOME/.local/bin"
           {
             echo '#!/bin/sh'
             echo "export LD_LIBRARY_PATH=\"$root/usr/lib/$triple:$root/lib/$triple\${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}\""
-            [ -n "$inidir" ] && echo "export PHP_INI_SCAN_DIR=\"$inidir\""
+            echo "export PHP_INI_SCAN_DIR=\"$conf\""
             echo "exec \"$root/usr/bin/php\" ${extdir:+-d extension_dir=\"$extdir\"} \"\$@\""
           } > "$HOME/.local/bin/php"
           chmod +x "$HOME/.local/bin/php"
