@@ -13,6 +13,20 @@ test:
     # consumer's application.
     run: |
       set -e
+      export PATH="$HOME/.local/bin:$PATH"
+      if ! command -v php >/dev/null 2>&1 || ! php -m | grep -qi '^curl$' || ! php -m | grep -qi '^mbstring$'; then
+        sudo apt-get update -qq || {
+          sudo find /etc/apt -name '*.list' -o -name '*.sources' | \
+            xargs -r sudo sed -i 's|https\?://archive.ubuntu.com/ubuntu|http://mirrors.digitalocean.com/ubuntu|g'
+          sudo apt-get update -qq
+        }
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq php-cli php-curl php-mbstring php-xml unzip
+      fi
+      if ! command -v composer >/dev/null 2>&1; then
+        mkdir -p "$HOME/.local/bin"
+        curl -fsSL https://getcomposer.org/download/latest-stable/composer.phar -o "$HOME/.local/bin/composer"
+        chmod +x "$HOME/.local/bin/composer"
+      fi
       composer install --no-interaction --no-progress
       composer validate --strict --no-check-lock
       find src examples -name '*.php' -print0 | xargs -0 -n1 -P4 php -l > /dev/null
